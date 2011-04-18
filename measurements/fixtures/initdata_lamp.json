@@ -1,0 +1,37 @@
+[
+    {
+        "pk": 0,
+        "model": "measurements.eventtypes",
+        "fields": {
+            "event_type": "http://ggf.org/ns/nmwg/characteristic/utilization/2.0"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "measurements.eventtypes",
+        "fields": {
+            "event_type": "http://ggf.org/ns/nmwg/tools/ciscossh/2.0/"
+        }
+    },
+    {
+        "pk": 0,
+        "model": "measurements.units",
+        "fields": {
+            "unit": "bps"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "measurements.units",
+        "fields": {
+            "unit": "bytes"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "measurements.units",
+        "fields": {
+            "unit": "psed"
+        }
+    }
+]

@@ -1,0 +1,47 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<style type="text/css">
+  @import "/static_media/js/dojox/grid/resources/Grid.css";
+  @import "/static_media/js/dojox/grid/resources/{{ theme }}Grid.css";
+  @import "/static_media/js/dojox/layout/resources/FloatingPane.css";
+  @import "/static_media/js/dojox/layout/resources/ResizeHandle.css";
+  @import "/static_media/css/periscope.css";
+  @import "/static_media/js/dojo/resources/dojo.css";
+  @import "/static_media/js/dijit/themes/tundra/tundra.css";
+</style>
+
+</head>
+
+<body class="tundra">
+
+<div style="width: 100%">
+        <br>
+  <div id="top-text">Peri<font color="red">Scope</font> Monitoring v0.1alpha</div>
+</div>
+
+<div><p> </div>
+
+<div id="mtable">
+  <div id="row">
+    <div id="col" style="width: 150; height: 400; vertical-align: top; padding: 10px;">
+      <div id="side-text">Available Topologies</div>
+      <hr >
+      <br>
+      <ul>
+	{% for topo in topologies %}
+	<li><a href="{% url topology.views.topology_generic %}{{topo.id}}/">{{topo.unis_id}}</a></li>
+	{% endfor %}
+      </ul>
+      <br>
+    </div>
+    <div id="col" style="width: 1080; text-align: center;">
+      <div id="topo"></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

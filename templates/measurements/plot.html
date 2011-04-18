@@ -1,0 +1,48 @@
+<script src="http://api.simile-widgets.org/timeplot/1.1/timeplot-api.js" 
+   type="text/javascript"></script>
+
+<script type="text/javascript">
+var timeplot;
+
+function onLoad() {
+  var eventSource = new Timeplot.DefaultEventSource();
+  var plotInfo = [
+    Timeplot.createPlotInfo({
+      id: "plot1",
+      dataSource: new Timeplot.ColumnSource(eventSource,1),
+      valueGeometry: new Timeplot.DefaultValueGeometry({
+        gridColor: "#000000",
+        min: 0,
+        max: 100
+      }),
+      timeGeometry: new Timeplot.DefaultTimeGeometry({
+        gridColor: new Timeplot.Color("#000000"),
+        axisLabelsPlacement: "top"
+      }),
+      lineColor: "#ff0000",
+      fillColor: "#cc8080",
+      showValues: true
+    })
+  ];
+  
+  timeplot = Timeplot.create(document.getElementById("my-timeplot"), plotInfo);
+  timeplot.loadText("data?urn=urn1&event=http://ggf.org/ns/nmwg/characteristic/utilization/2.0", ",", eventSource);
+}
+
+
+var resizeTimerID = null;
+function onResize() {
+    if (resizeTimerID == null) {
+        resizeTimerID = window.setTimeout(function() {
+            resizeTimerID = null;
+            timeplot.repaint();
+        }, 100);
+    }
+}   
+  </script> 
+<body onload="onLoad();" onresize="onResize();">
+
+
+<div id="my-timeplot" style="height: 150px;"></div>
+
+  </body>

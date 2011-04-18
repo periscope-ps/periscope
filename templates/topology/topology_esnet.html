@@ -1,0 +1,104 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<style type="text/css">
+  @import "/static_media/js/dojox/grid/resources/Grid.css";
+  @import "/static_media/js/dojox/grid/resources/{{ theme }}Grid.css";
+  @import "/static_media/js/dojox/layout/resources/FloatingPane.css";
+  @import "/static_media/js/dojox/layout/resources/ResizeHandle.css";
+  @import "/static_media/css/periscope.css";
+  @import "/static_media/js/dojo/resources/dojo.css";
+  @import "/static_media/js/dijit/themes/tundra/tundra.css";
+  @import "/static_media/js/dijit/themes/claro/claro.css";
+  />
+</style>
+
+<script type="text/javascript" src="/static_media/js/dojo/dojo.js" djConfig="parseOnLoad:true, isDebug: true"></script>
+<script type="text/javascript" src="/static_media/js/dojox/gfx.js"></script>
+<script type="text/javascript" src="/static_media/js/periscope/main.js"></script>
+<script type="text/javascript" src="/static_media/js/periscope/gridftp.js"></script>
+
+{% include "topology/js_template.html" %}
+
+<script type="text/javascript">
+  
+createUNISTopoStore({{json_topology|safe}});
+
+var gfxOpts = {
+               width: 1200,
+               height: 600,
+               level: "node",
+               spring: "false",
+               movePorts: "true",
+               background: "/static_media/images/us_map.png"
+              };
+
+dojo.addOnLoad(function() { initGfx(gfxOpts) });
+dojo.addOnLoad(initUserSelect);
+dojo.addOnLoad(initTransferGrid);
+dojo.addOnLoad(initXFERPerfometer);
+  	
+updateGRIDPerfometers;
+var perf_t = new dojox.timing.Timer();
+perf_t.setInterval(15000);
+perf_t.onTick = updateGRIDPerfometers;
+perf_t.start();
+
+</script>
+</head>
+
+<body class="tundra">
+
+<div style="width: 100%">
+	<br>
+  <div id="top-text">Peri<font color="red">scope</font> Grid Monitoring Demo
+  <img src="/static_media/images/periscope-logo.png" align="right" style="width: 165px; height: auto; align:right;"></img>
+  </div>
+  
+</div>
+
+<div><p> </div>
+
+<div id="mtable" style="width: 100%">
+  <div id="row">
+    <div id="col" style="width: 150; vertical-align: top; padding: 10px;">
+      <div id="side-text">Transfer Rate (Mb/s)</div>
+	<hr>
+	<br />
+       	 <div dojoType="dojox.widget.AnalogGauge" id='XFERPerfometer' width="150" height="120"
+         	cx="70" cy="70" radius="60" startAngle="-135" endAngle="135" useRangeStyles="0"
+         	hideValues="true" color: "white" majorTicks="{length: 5, offset: 25, interval: 2500, color: 'gray'}"
+         	minorTicks="{length: 1, offset: 30, interval: 1000, color: 'gray'}" background="{'color': 'white'}">
+            <div dojoType="dojox.widget.gauge.Range" low="0" high="5000" color="{'color': 'black'}">
+            </div>
+            <div dojoType="dojox.widget.gauge.Range" low="5000" high="10000" color="{'color': 'black'}">
+            </div>
+        </div>
+        <br />
+      <div id="side-text">Active Users</div>
+      <hr >
+	<select id="usersel">
+        </select>
+      <br>
+    </div>
+    <div id="col" style="width: 1200px; height: 500px; text-align: center;  horizontal-align: left; padding: 0px;">
+      <div id="topo"></div> 
+    </div>
+  </div>
+</div>
+
+<div><p></div>
+<span style="vertical-align: middle">
+  <a href="javascript:delete_GRID_transfers()">
+    <img style="vertical-align:middle" width="30px" src="/static_media/images/del_x.png"></a>
+  Remove selected transfers&nbsp;</span>
+<span style="vertical-align: middle">
+  <a href="javascript:update_topology_locations()">
+    <img style="vertical-align:middle" width="25px" src="/static_media/images/save.jpg"></a>
+  Save topology locations</span>
+<div style="height: 300px; padding: 0px">
+	<div id="gridTransferContainer" style="width: 100%; height: 100%;"></div>
+</div>
+</body>
+</html>

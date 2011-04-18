@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='utf-8'?>
+<unis:topology id="dcn.internet2.edu-1225652886" 
+  xmlns:unis="http://ogf.org/schema/network/topology/unis/20100528/"
+  xmlns:ctrlplane="http://ogf.org/schema/network/topology/ctrlPlane/20070828/">
+  
+  <unis:topologyPropertiesBag>
+    <ctrlplane:topologyProperties>
+      <ctrlplane:idcId>https://ndb3-blmt.abilene.ucaid.edu:8443/axis2/services/OSCARS</ctrlplane:idcId>
+    </ctrlplane:topologyProperties>
+  </unis:topologyPropertiesBag>
+  
+  <unis:domain id="urn:ogf:network:domain=dcn.internet2.edu">
+    <unis:node id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY">
+      <unis:address>10.100.80.201</unis:address>
+      
+      <unis:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL129">
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        
+        <unis:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL129:link=10.100.90.33">
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability>unimplemented</ctrlplane:capability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+              <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+              <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+              <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+              <ctrlplane:granularity>50000000</ctrlplane:granularity>
+              <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+          
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL129</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL129</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL129:link=10.100.90.34</unis:linkIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+    </unis:node>
+    
+    
+    <unis:node id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST">
+      <unis:address>10.100.80.201</unis:address>
+      
+      <unis:port id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL129">
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        
+        <unis:link id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL129:link=10.100.90.34">
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability>unimplemented</ctrlplane:capability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+              <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+              <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+              <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+              <ctrlplane:granularity>50000000</ctrlplane:granularity>
+              <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+         
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL129</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL129</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL129:link=10.100.90.33</unis:linkIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+      
+      <unis:port id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL2">
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        
+        <unis:link id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL2:link=10.100.90.41">
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability>unimplemented</ctrlplane:capability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+              <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+              <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+              <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+              <ctrlplane:granularity>50000000</ctrlplane:granularity>
+              <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+          
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL2</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=CLEV:port=DTL1</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=CLEV:port=DTL1:link=10.100.90.42</unis:linkIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+    </unis:node>
+    
+    <unis:node id="urn:ogf:network:domain=dcn.internet2.edu:node=CLEV">
+      <unis:address>10.100.80.206</unis:address>
+      <unis:port id="urn:ogf:network:domain=dcn.internet2.edu:node=CLEV:port=DTL1">
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        
+        <unis:link id="urn:ogf:network:domain=dcn.internet2.edu:node=CLEV:port=DTL1:link=10.100.90.42">
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability>unimplemented</ctrlplane:capability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+              <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+              <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+              <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+              <ctrlplane:granularity>50000000</ctrlplane:granularity>
+              <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+          
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=CLEV:port=DTL1</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL2</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL2:link=10.100.90.41</unis:linkIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+    </unis:node>
+  </unis:domain>
+</unis:topology>

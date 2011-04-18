@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='utf-8'?>
+<unis:topology id="terapaths-import"
+ xmlns:unis="http://ogf.org/schema/network/topology/unis/20100528/"
+ xmlns:ip="http://ogf.org/schema/network/topology/unis/ipv4/20100528/">
+ <unis:domain id="urn:ogf:network:domain=escps.udel.edu">
+
+  <node id="urn:ogf:network:domain=escps.udel.edu,node=qtr1">
+   <name>Qtr1</name>
+   <description>hardware,CISCO_WS-C6509,type,SUP720,os,IOS12.2(18)SXF15</description>
+
+   <ip:port id="urn:ogf:network:domain=escps.udel.edu,node=qtr1,port=1">
+    <ipAddress>198.124.220.2</ipAddress>
+   </ip:port>
+
+  </node>
+
+  <node id="urn:ogf:network:domain=escps.udel.edu,node=qtr2">
+   <ipAddress>198.124.220.3</ipAddress>
+   <name>Qtr2</name>
+   <description>hardware,CISCO_WS-C6509,type,SUP2,os,IOS12.1(26)E5</description>
+
+   <ip:port id="urn:ogf:network:domain=escps.udel.edu,node=qtr2,port=1">
+    <ipAddress>198.124.220.2</ipAddress>
+   </ip:port>
+
+  </node>
+
+  <unis:link id="urn:ogf:network:domain=escps.udel.edu,link=vlan3560">
+   <VLAN>3560</VLAN>
+   <Subnet>10.100.1.40/30</Subnet>
+   <baseIp>10.100.1.40</baseIp>
+   <subnetMask>255.255.255.252</subnetMask>
+   <IpA>10.100.1.41</IpA>
+   <IpB>10.100.1.42</IpB>
+   <broadcastIp>10.100.1.43</broadcastIp>
+   <available>1</available>
+  </unis:link>
+
+  <unis:link id="urn:ogf:network:domain=escps.udel.edu,link=vlan3561">
+   <VLAN>3561</VLAN>
+   <Subnet>10.100.1.44/30</Subnet>
+   <baseIp>10.100.1.44</baseIp>
+   <subnetMask>255.255.255.252</subnetMask>
+   <IpA>10.100.1.45</IpA>
+   <IpB>10.100.1.46</IpB>
+   <broadcastIp>10.100.1.47</broadcastIp>
+   <available>1</available>
+  </unis:link>
+
+  <unis:link id="urn:ogf:network:domain=escps.udel.edu,link=vlan3562">
+   <VLAN>3562</VLAN>
+   <Subnet>10.100.1.48/30</Subnet>
+   <baseIp>10.100.1.48</baseIp>
+   <subnetMask>255.255.255.252</subnetMask>
+   <IpA>10.100.1.49</IpA>
+   <IpB>10.100.1.50</IpB>
+   <broadcastIp>10.100.1.51</broadcastIp>
+   <available>1</available>
+  </unis:link>
+
+  <unis:link id="urn:ogf:network:domain=escps.udel.edu,link=vlan3563">
+   <VLAN>3563</VLAN>
+   <Subnet>10.100.1.52/30</Subnet>
+   <baseIp>10.100.1.52</baseIp>
+   <subnetMask>255.255.255.252</subnetMask>
+   <IpA>10.100.1.53</IpA>
+   <IpB>10.100.1.54</IpB>
+   <broadcastIp>10.100.1.55</broadcastIp>
+   <available>1</available>
+  </unis:link>
+
+  <unis:link id="urn:ogf:network:domain=escps.udel.edu,link=vlan3564">
+   <VLAN>3564</VLAN>
+   <Subnet>10.100.1.56/30</Subnet>
+   <baseIp>10.100.1.56</baseIp>
+   <subnetMask>255.255.255.252</subnetMask>
+   <IpA>10.100.1.57</IpA>
+   <IpB>10.100.1.58</IpB>
+   <broadcastIp>10.100.1.59</broadcastIp>
+   <available>1</available>
+  </unis:link>
+
+  <!--
+
+
+  <service>
+   <ipAddress>192.84.86.16</ipAddress>
+   <mask>255.255.255.240</mask>
+   <maskedIpAddress>3226752528</maskedIpAddress>
+   <prefix>28</prefix>
+   <wsdlURL>https://tera01.ultralight.org:48583/terapathsAPI/tpsAPI</wsdlURL>
+   <preference>0</preference>
+  </service>
+
+  <service>
+   <ipAddress>192.5.207.0</ipAddress>
+   <mask>255.255.255.0</mask>
+   <maskedIpAddress>3221606144</maskedIpAddress>
+   <prefix>28</prefix>
+   <wsdlURL>https://terapaths.bu.edu:48583/terapathsAPI/tpsAPI</wsdlURL>
+   <preference>0</preference>
+  </service>
+
+  <service>
+   <ipAddress>198.124.220.9</ipAddress>
+   <name>netctrl01.bnl.gov</name>
+   <wsdlURL>https://198.124.220.9:48582/terapathsNetworkDeviceControllers/tpsNDC</wsdlURL>
+   <interface>GigabitEthernet9/2</interface>
+   <managerDir>/home/terapaths/routerConfig</managerDir>
+  </service>
+
+  <service>
+   <ipAddress>198.124.220.8</ipAddress>
+   <name>netctrl02.bnl.gov</name>
+   <wsdlURL>https://198.124.220.8:48582/terapathsNetworkDeviceControllers/tpsNDC</wsdlURL>
+   <interface>GigabitEthernet9/2</interface>
+   <managerDir>/home/terapaths/routerConfig</managerDir>
+  </service>
+-->
+
+
+ </unis:domain>
+</unis:topology>

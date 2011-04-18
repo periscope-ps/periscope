@@ -1,0 +1,285 @@
+<script type="text/javascript">
+
+function isEmpty(obj) {
+  for (var i in obj) { return false; }
+  return true;
+}  
+
+var xfers = {{json_xfers|safe}};
+var def_xfer = null;
+
+if (!isEmpty(xfers)) {
+  def_xfer = xfers.task0[0];
+}
+
+var host_t;
+
+// creates a floating pane for the host info
+function makePane(e) {
+
+	// global timer since there must be some bug with
+	// FloatingPane not destroying the timer object on close
+
+	host_t = new dojox.timing.Timer();
+
+	hostPane = new dojox.layout.FloatingPane({
+			href: '{% url measurements.views.get_host_info %}?id=' + e.target.id,
+			title: "Host information for " + e.target.id,
+			resizable: true,
+			dockable: false,
+			style: "position:absolute;top:200;left:400;width:860px;height:530px;visibility:hidden;",
+			id: "hostPane:"+e.target.id
+		}, dojo.create("div", null, dojo.body(), "first"));
+
+	hostPane.startup();
+	hostPane.show();
+	hostPane.refresh();
+	hostPane.bringToTop();
+
+	dojo.connect(hostPane, "close", null, function(e) { host_t.stop(); });
+}
+
+// opens the path chart when double-clicking a grid item
+function grid_window_event(grid) {
+	dojo.connect(grid, "onRowDblClick", function(e) {
+			var myGrid = e.grid;
+			var selectedRow = myGrid.getItem(e.rowIndex);
+			window.open('{% url measurements.views.get_res_chart %}?id=' + selectedRow.resId +
+				    '&event=http://ggf.org/ns/nmwg/characteristic/utilization/2.0',
+				    selectedRow.resId,
+				    'left=20,top=20,width=610,height=330,toolbar=0,resizable=0');
+		});
+}
+
+// opens a chart when double-clicking a port
+function chart_window_event(circle) {
+	dojo.connect(circle.getEventSource(), "ondblclick", null, function(e) {
+                        window.open('{% url measurements.views.get_dojo_chart %}?id=' + e.target.id +
+                                    '&event=http://ggf.org/ns/nmwg/characteristic/utilization/2.0&t=1800', e.target.id,
+                                    'left=20,top=20,width=610,height=350,toolbar=0,resizable=0');
+		});
+}
+
+// updates the circuit reservation grid with an ajax call
+function updateCircuitGrid() {
+	
+        function onDataReceived(series) {
+		var resStore = new dojo.data.ItemFileWriteStore({data: {
+					"items": series
+				}});
+		circuitGrid.setStore(resStore);
+        }
+
+        dojo.xhrGet({
+			url: "{% url topology.views.topology_get_reservations %}",
+				handleAs:"json",
+				load: onDataReceived,
+				error: function(err){console.error(err)}
+		});
+}
+
+function updateTransferGrid() {
+
+                function onDataReceived(series) {
+		        paths = series.paths
+                        var xferStore = new dojo.data.ItemFileWriteStore({data: {
+                                "items": series.xfers
+                                }});
+			
+			selectedItem = transferGrid.selection.getSelected()[0];
+
+                        transferGrid.setStore(xferStore);
+
+			if (def_xfer) {
+			  xferStore.fetch({query: { misc: "id="+def_xfer },
+						   onItem: function(item) {
+							var ind = transferGrid.getItemIndex(item);
+							transferGrid.selection.setSelected(ind, 'true');
+							transferGrid.scrollToRow(ind);
+							transferGrid.doclick({rowIndex: ind});
+							}
+					});
+			  def_xfer = null;
+			}
+			else if (selectedItem) {
+			  selectedItemIndex = transferGrid.getItemIndex(selectedItem);
+			  transferGrid.scrollToRow(selectedItemIndex);
+			}
+                }
+                var selected = dijit.byId('usersel').attr('value')[0];
+                if (selected) {
+                        dojo.xhrGet({
+                                url: "{% url topology.views.topology_get_user_transfers %}",
+                                handleAs:"json",
+                                                load: onDataReceived,
+                                                content: {user: selected},
+                                                error: function(err){console.error(err)}
+                                });
+                }
+}
+
+function updateUserSelect() {
+
+                function onDataReceived(data) {
+                        var users = [];
+			var selected = null;
+
+                        for (var i=0; i<data.length; i++) {
+				users.push(data[i].user);
+				if (def_xfer) {
+					var tids = data[i].t_ids;
+					for (var j=0; j<tids.length; j++) {
+						if (tids[j] == "id="+def_xfer) {
+							selected = data[i].user;
+							break;
+						}
+					}
+				}
+			}
+						
+                        if (!selected) {
+                        	selected = dijit.byId('usersel').attr('value')[0];
+			}
+
+                        var sel = dojo.byId('usersel');
+                        dojo.empty(sel);
+                        //dojo.forEach(sel.children, "dojo.query(item).orphan();");
+
+                        var n = 0;
+                        for (var i=0; i<users.length; i++) {
+                                var c = dojo.doc.createElement('option');
+                                c.innerHTML = users[i];
+                                if (users[i] == selected) {
+                                        c.selected = true;
+                                }
+                                c.value = users[i];
+                                sel.appendChild(c);
+				if (c.selected) {
+					updateTransferGrid();
+				}
+                        }
+                }
+
+                dojo.xhrGet({
+                                url: "{% url topology.views.topology_get_users %}",
+                                handleAs:"json",
+                                load: onDataReceived,
+                                error: function(err){console.error(err)}
+                        });
+}
+
+updateESCPSPerfometers = function () {
+	var data;
+	dojo.xhrGet( {
+			// The following URL must match that used to test the server.
+			url: "{% url measurements.views.get_perfometer_data %}?id=perfO",
+				handleAs: "json",
+				load: function(data, ioArgs) {
+				BNLRxNeedle.update(data.BNL.Rx);
+				BNLTxNeedle.update(data.BNL.Tx);
+				UltralightRxNeedle.update(data.Ultralight.Rx);
+				UltralightTxNeedle.update(data.Ultralight.Tx);
+				return data;
+			}
+		});
+};
+
+
+updateGRIDPerfometers = function () {
+	var data;
+	dojo.xhrGet( {
+		// The following URL must match that used to test the server.
+		url: "{% url measurements.views.get_perfometer_data %}?id=perfO",
+		handleAs: "json",
+		load: function(data, ioArgs) {
+		  xferNeedle.update(data.xfer.perf);
+          console.log(data);
+		  return data;
+		}
+	});
+};
+
+/*
+updateGRIDPerfometers = function () {
+	var data;
+	dojo.xhrGet( {
+		// The following URL must match that used to test the server.
+		url: "{% url measurements.views.get_perfometer_data %}?id=perfO",
+		handleAs: "json",
+		load: function(data, ioArgs) {
+		  xferNeedle.update(data.xfer.perf);
+		  return data;
+		}
+	});
+};
+*/
+delete_ESCPS_paths = function() {
+        ids="";
+
+        selected = circuitGrid.selection.getSelected();
+
+        if (selected.length) {
+		for (i=0; i<selected.length; i++) {
+			ids = ids + selected[i].resId + ",";
+		}
+		
+		var xhrArgs = {
+			url: "{% url topology.views.delete_paths %}",
+			postData: ids,
+			handleAs: "text"
+		}
+		var deferred = dojo.xhrPost(xhrArgs);
+        }
+}
+
+delete_GRID_transfers = function() {
+        ids="";
+
+        selected = transferGrid.selection.getSelected();
+        if (selected.length) {
+          for (i=0; i<selected.length; i++) {
+            ids = ids + selected[i].t_id + ",";
+          }
+
+          var xhrArgs = {
+            url: "{% url topology.views.del_transfer %}",
+            postData: ids,
+            handleAs: "text"
+          }
+          var deferred = dojo.xhrPost(xhrArgs);
+        }
+}
+
+update_topology_locations = function() {
+
+          topo_json = [];      
+
+          function gotItems(items, request) {
+	  	  for (var i=0; i<items.length; i++) {
+		    if ((items[i].type == "node") || (items[i].type == "port")) {
+		      json_item = {}; 
+		      json_item.id = items[i].id[0];
+		      json_item.type = items[i].type[0];
+		      json_item.x = items[i].x[0];
+		      json_item.y = items[i].y[0];
+		      topo_json.push(json_item);
+		    }		      
+		  }
+		  
+		  var xhrArgs = {
+			    url: "{% url topology.views.save_locations %}",
+			    headers: { "Content-Type": "application/json; charset=uft-8"},
+			    postData: dojo.toJson({items: topo_json}),
+			    handleAs: "json",
+		  };
+
+                  var deferred = dojo.xhrPost(xhrArgs);
+	  }
+
+          topoStore.fetch({
+	    onComplete: gotItems,
+	    onError: function(e) { console.log(e); }
+	    });
+}
+
+</script>

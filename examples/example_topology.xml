@@ -1,0 +1,1896 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- 
+        This is the topology representation of the Internet2 Dynamic Circuit
+        Network according to the DCN topology schema. More information about the
+        protocol and schema can be found at
+        https://wiki.internet2.edu/confluence/display/DCNSS/Home .
+-->
+<ctrlplane:topology id="dcn.internet2.edu-1225652886" xmlns:ctrlplane="http://ogf.org/schema/network/topology/ctrlPlane/20080828/">
+  <ctrlplane:idcId>https://ndb3-blmt.abilene.ucaid.edu:8443/axis2/services/OSCARS</ctrlplane:idcId>
+  <ctrlplane:domain id="urn:ogf:network:domain=dcn.internet2.edu">
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY">
+      <ctrlplane:address>10.100.80.201</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL129">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL129:link=10.100.90.33">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL129:link=10.100.90.34</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL9:link=10.100.90.37">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=PHIL:port=DTL9:link=10.100.90.38</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S26367">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S26367:link=10.100.80.149">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=uslhcnet.org:node=vlsr:port=S25855:link=10.8.4.1</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S26623">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S26623:link=10.100.80.189">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=es.net:node=aofa-sdn1:port=xe-7/1/0:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S27135">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S27135:link=10.100.80.197">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>2000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>2000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=geant2.net:node=10.10.0.5:port=10.10.32.29:link=10.10.64.8</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>2000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>2000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S27647">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S27647:link=10.100.80.205">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=nysernet.org:node=nyc-vlsr1:port=0-2-4:link=1</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S28159">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S28159:link=10.100.80.213">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S28671">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S28671:link=10.100.81.1">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S28927">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S28927:link=10.100.81.5">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S29183">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S29183:link=10.100.81.9">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S29439">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S29439:link=10.100.91.13">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=uva.nl:node=uva-node2:port=pizza2:link=pizza2</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST">
+      <ctrlplane:address>10.100.80.201</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL129">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL129:link=10.100.90.34">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL129:link=10.100.90.33</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL2">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL2:link=10.100.90.41">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=CLEV:port=DTL1:link=10.100.90.42</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=S26879">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=S26879:link=10.100.80.193">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=PHIL">
+      <ctrlplane:address>10.100.80.203</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=PHIL:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=PHIL:port=DTL9:link=10.100.90.38">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL9:link=10.100.90.37</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=PHIL:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=PHIL:port=DTL1:link=10.100.90.45">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=WASH:port=DTL1:link=10.100.90.46</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=WASH">
+      <ctrlplane:address>10.100.80.203</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=WASH:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=WASH:port=DTL1:link=10.100.90.46">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=PHIL:port=DTL1:link=10.100.90.45</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=WASH:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=WASH:port=DTL9:link=10.100.90.49">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=PITT:port=DTL1:link=10.100.90.50</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=WASH:port=DTL17">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=WASH:port=DTL17:link=10.100.90.53">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=CHAR:port=DTL2:link=10.100.90.54</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=WASH:port=S26111">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=WASH:port=S26111:link=10.100.80.133">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=WASH:port=S26367">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=WASH:port=S26367:link=10.100.80.221">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>2500000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>2500000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dragon.maxgigapop.net:node=MCLN:port=1-3-1:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>2500000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>2500000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=CHAR">
+      <ctrlplane:address>10.100.80.203</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=CHAR:port=DTL2">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=CHAR:port=DTL2:link=10.100.90.54">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=WASH:port=DTL17:link=10.100.90.53</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=CHAR:port=DTL129">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=CHAR:port=DTL129:link=10.100.90.165">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=ATLA:port=DTL17:link=10.100.90.166</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=PITT">
+      <ctrlplane:address>10.100.80.203</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=PITT:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=PITT:port=DTL9:link=10.100.90.57">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=CLEV:port=DTL2:link=10.100.90.58</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=PITT:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=PITT:port=DTL1:link=10.100.90.50">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=WASH:port=DTL9:link=10.100.90.49</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=CLEV">
+      <ctrlplane:address>10.100.80.206</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=CLEV:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=CLEV:port=DTL9:link=10.100.90.61">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=DTL1:link=10.100.90.62</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=CLEV:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=CLEV:port=DTL1:link=10.100.90.42">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL2:link=10.100.90.41</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=CLEV:port=DTL2">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=CLEV:port=DTL2:link=10.100.90.58">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=PITT:port=DTL9:link=10.100.90.57</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC">
+      <ctrlplane:address>10.100.80.206</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=DTL1:link=10.100.90.62">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=CLEV:port=DTL9:link=10.100.90.61</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=DTL9:link=10.100.90.65">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=KANS:port=DTL1:link=10.100.90.66</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=DTL2">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=DTL2:link=10.100.90.69">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=INDI:port=DTL1:link=10.100.90.70</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=S26111">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=S26111:link=10.100.80.165">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=S27647">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=S27647:link=10.100.80.181">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=es.net:node=chic-sdn2:port=xe-8/1/0:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=S27903">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=S27903:link=10.100.80.229">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=S28159">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=S28159:link=10.100.100.25">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=S28415">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=S28415:link=10.100.100.33">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=KANS">
+      <ctrlplane:address>10.100.80.206</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=KANS:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=KANS:port=DTL1:link=10.100.90.66">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=DTL9:link=10.100.90.65</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=KANS:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=KANS:port=DTL9:link=10.100.90.73">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=DENV:port=DTL1:link=10.100.90.74</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=KANS:port=DTL2">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=KANS:port=DTL2:link=10.100.90.110">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=HOUS:port=DTL2:link=10.100.90.109</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=KANS:port=S27391">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=KANS:port=S27391:link=10.100.80.185">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=INDI">
+      <ctrlplane:address>10.100.80.206</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=INDI:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=INDI:port=DTL1:link=10.100.90.70">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=CHIC:port=DTL2:link=10.100.90.69</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=INDI:port=DTL2">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=INDI:port=DTL2:link=10.100.90.77">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=LOUI:port=DTL1:link=10.100.90.78</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=DENV">
+      <ctrlplane:address>10.100.80.222</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=DENV:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=DENV:port=DTL1:link=10.100.90.74">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=KANS:port=DTL9:link=10.100.90.73</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=DENV:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=DENV:port=DTL9:link=10.100.90.81">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=SALT:port=DTL1:link=10.100.90.82</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=DENV:port=DTL2">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=DENV:port=DTL2:link=10.100.90.102">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>15</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=ALBU:port=DTL1:link=10.100.90.101</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=DENV:port=S27903">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=DENV:port=S27903:link=10.100.90.177">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>2500000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>2500000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=startlab-idc.hpna:node=vlsr1:port=7:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>2500000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>2500000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=SALT">
+      <ctrlplane:address>10.100.80.222</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=SALT:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=SALT:port=DTL1:link=10.100.90.82">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=DENV:port=DTL9:link=10.100.90.81</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=SALT:port=DTL2">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=SALT:port=DTL2:link=10.100.90.153">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=SEAT:port=DTL1:link=10.100.90.154</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=SALT:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=SALT:port=DTL9:link=10.100.90.93">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=SUNN:port=DTL1:link=10.100.90.94</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=SALT:port=S26879">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=SALT:port=S26879:link=10.100.80.217">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=SALT:port=S27647">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=SALT:port=S27647:link=10.100.90.173">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=SEAT">
+      <ctrlplane:address>10.100.80.222</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=SEAT:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=SEAT:port=DTL1:link=10.100.90.154">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=SALT:port=DTL2:link=10.100.90.153</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=SEAT:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=SEAT:port=DTL9:link=10.100.90.89">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=SUNN:port=DTL2:link=10.100.90.90</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=SEAT:port=S28159">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=SEAT:port=S28159:link=10.100.90.145">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=SUNN">
+      <ctrlplane:address>10.100.80.222</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=SUNN:port=DTL2">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=SUNN:port=DTL2:link=10.100.90.90">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=SEAT:port=DTL9:link=10.100.90.89</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=SUNN:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=SUNN:port=DTL1:link=10.100.90.94">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=SALT:port=DTL9:link=10.100.90.93</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=SUNN:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=SUNN:port=DTL9:link=10.100.90.97">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=LOSA:port=DTL1:link=10.100.90.98</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=SUNN:port=S26623">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=SUNN:port=S26623:link=10.100.80.101">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=LOSA">
+      <ctrlplane:address>10.100.80.222</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=LOSA:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=LOSA:port=DTL1:link=10.100.90.98">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=SUNN:port=DTL9:link=10.100.90.97</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=LOSA:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=LOSA:port=DTL9:link=10.100.90.161">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=ALBU:port=DTL9:link=10.100.90.162</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=LOSA:port=S27135">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=LOSA:port=S27135:link=10.100.100.9">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=LOSA:port=S27391">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=LOSA:port=S27391:link=10.100.100.13">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=caltech.edu:node=vlsr2:port=0-4-1:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=LOSA:port=S27391:link=jgn2">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.jgn2plus.jp:node=vlsr1:port=0-1-3:link=2</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=ALBU">
+      <ctrlplane:address>10.100.80.209</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=ALBU:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=ALBU:port=DTL1:link=10.100.90.101">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>15</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=DENV:port=DTL2:link=10.100.90.102</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=ALBU:port=DTL2">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=ALBU:port=DTL2:link=10.100.90.138">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>15</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=HOUS:port=DTL9:link=10.100.90.137</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=ALBU:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=ALBU:port=DTL9:link=10.100.90.162">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>15</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=LOSA:port=DTL9:link=10.100.90.161</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=LOUI">
+      <ctrlplane:address>10.100.80.209</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=LOUI:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=LOUI:port=DTL1:link=10.100.90.78">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=INDI:port=DTL2:link=10.100.90.77</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=LOUI:port=DTL2">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=LOUI:port=DTL2:link=10.100.90.117">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=NASH:port=DTL1:link=10.100.90.118</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=NASH">
+      <ctrlplane:address>10.100.80.209</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NASH:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NASH:port=DTL1:link=10.100.90.118">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=LOUI:port=DTL2:link=10.100.90.117</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NASH:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NASH:port=DTL9:link=10.100.90.145">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=ATLA:port=DTL1:link=10.100.90.146</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=ATLA">
+      <ctrlplane:address>10.100.80.209</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=ATLA:port=DTL17">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=ATLA:port=DTL17:link=10.100.90.166">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=CHAR:port=DTL129:link=10.100.90.165</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=ATLA:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=ATLA:port=DTL1:link=10.100.90.146">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=NASH:port=DTL9:link=10.100.90.145</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=ATLA:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=ATLA:port=DTL9:link=10.100.90.125">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=JACK:port=DTL1:link=10.100.90.126</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=JACK">
+      <ctrlplane:address>10.100.80.209</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=JACK:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=JACK:port=DTL1:link=10.100.90.126">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=ATLA:port=DTL9:link=10.100.90.125</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>20000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>20000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=JACK:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=JACK:port=DTL9:link=10.100.90.129">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=BATO:port=DTL1:link=10.100.90.130</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=JACK:port=S26111">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=JACK:port=S26111:link=10.100.80.129">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=BATO">
+      <ctrlplane:address>10.100.80.209</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=BATO:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=BATO:port=DTL1:link=10.100.90.130">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=JACK:port=DTL9:link=10.100.90.129</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=BATO:port=DTL2">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=BATO:port=DTL2:link=10.100.90.133">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=HOUS:port=DTL1:link=10.100.90.134</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=BATO:port=S27135">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=BATO:port=S27135:link=10.100.90.169">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=loni.org:node=switch1:port=0-3-1:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+    <ctrlplane:node id="urn:ogf:network:domain=dcn.internet2.edu:node=HOUS">
+      <ctrlplane:address>10.100.80.209</ctrlplane:address>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=HOUS:port=DTL1">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=HOUS:port=DTL1:link=10.100.90.134">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=BATO:port=DTL2:link=10.100.90.133</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=HOUS:port=DTL2">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=HOUS:port=DTL2:link=10.100.90.109">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=KANS:port=DTL2:link=10.100.90.110</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=HOUS:port=DTL9">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=HOUS:port=DTL9:link=10.100.90.137">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:encodingType>sdh</ctrlplane:encodingType>
+            <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:capability>unimplemented</ctrlplane:capability>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:trafficEngineeringMetric>10</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=dcn.internet2.edu:node=ALBU:port=DTL2:link=10.100.90.138</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+        <ctrlplane:minimumReservableCapacity>50000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=HOUS:port=S26623">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=HOUS:port=S26623:link=10.100.100.5">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=*:node=*:port=*:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+      <ctrlplane:port id="urn:ogf:network:domain=dcn.internet2.edu:node=HOUS:port=S26879">
+        <ctrlplane:link id="urn:ogf:network:domain=dcn.internet2.edu:node=HOUS:port=S26879:link=10.100.90.85">
+          <ctrlplane:SwitchingCapabilityDescriptors>
+            <ctrlplane:switchingcapType>l2sc</ctrlplane:switchingcapType>
+            <ctrlplane:switchingCapabilitySpecificInfo>
+              <ctrlplane:vlanRangeAvailability>0,2-4094</ctrlplane:vlanRangeAvailability>
+              <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+              <ctrlplane:vlanTranslation>true</ctrlplane:vlanTranslation>
+            </ctrlplane:switchingCapabilitySpecificInfo>
+            <ctrlplane:encodingType>ethernet</ctrlplane:encodingType>
+          </ctrlplane:SwitchingCapabilityDescriptors>
+          <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+          <ctrlplane:granularity>50000000</ctrlplane:granularity>
+          <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+          <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+          <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+          <ctrlplane:remoteLinkId>urn:ogf:network:domain=tx-learn.org:node=learn-sw:port=1-10-2:link=*</ctrlplane:remoteLinkId>
+        </ctrlplane:link>
+        <ctrlplane:minimumReservableCapacity>100000000</ctrlplane:minimumReservableCapacity>
+        <ctrlplane:granularity>50000000</ctrlplane:granularity>
+        <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+        <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+      </ctrlplane:port>
+    </ctrlplane:node>
+  </ctrlplane:domain>
+</ctrlplane:topology>

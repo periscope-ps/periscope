@@ -1,0 +1,72 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<style type="text/css">
+  @import "/static_media/js/dojox/grid/resources/Grid.css";
+  @import "/static_media/js/dojox/grid/resources/{{ theme }}Grid.css";
+  @import "/static_media/js/dojox/layout/resources/FloatingPane.css";
+  @import "/static_media/js/dojox/layout/resources/ResizeHandle.css";
+  @import "/static_media/css/periscope.css";
+  @import "/static_media/js/dojo/resources/dojo.css";
+  @import "/static_media/js/dijit/themes/tundra/tundra.css";
+</style>
+
+<script type="text/javascript" src="/static_media/js/dojo/dojo.js" djConfig="parseOnLoad:true, isDebug: true"></script>
+<script type="text/javascript" src="/static_media/js/dojox/gfx.js"></script>
+<script type="text/javascript" src="/static_media/js/periscope/main.js"></script>
+
+{% include "topology/js_template.html" %}
+
+<script type="text/javascript">
+
+createUNISTopoStore({{json_topology|safe}});
+
+var gfxOpts = {
+               width: 1100,
+               height: 400,
+               level: "node",
+               spring: "true",
+               movePorts: "false"
+              };
+
+dojo.addOnLoad(function() { initGfx(gfxOpts) });
+
+</script>
+</head>
+
+<body class="tundra">
+
+<div style="width: 100%">
+	<br>
+  <div id="top-text"><font color="red">Periscope</font> Monitoring v0.1alpha</div>
+</div>
+
+<div><p> </div>
+
+<div id="mtable">
+  <div id="row">
+    <div id="col" style="width: 150; vertical-align: top; padding: 10px;">
+      <div id="side-text">Topologies</div>
+      <hr >
+      <ul>
+        {% for topo in topologies %}
+        <li><a href="{% url topology.views.topology_generic %}{{topo.id}}/">{{topo.unis_id}}</a></li>
+        {% endfor %}
+      </ul>
+        <div><p></div>
+      <div id="side-text">Misc</div>
+      <hr >
+      <br>
+      <br>
+    </div>
+    <div id="col" style="width: 1080; text-align: center;">
+      <div id="topo"></div>     
+    </div>
+  </div>
+</div>
+
+<div id="canvas"></div>
+
+</body>
+</html>
