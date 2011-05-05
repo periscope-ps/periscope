@@ -140,6 +140,3 @@ if len(logger.handlers) == 0:
     hdlr.setFormatter(formatter)
     logger.addHandler(hdlr)
     logger.setLevel(logging.INFO)
-
-import sys
-sys.path.append("/home/ahassany/workspace/psapi")

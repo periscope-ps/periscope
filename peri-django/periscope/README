@@ -7,11 +7,8 @@ Dependencies:
 
 
 MySQL Settings:
- - Loging to mysql via the command line with an account supports create database and grant
- - Create a periscope database: "CREATE DATABASE periscopedb CHARACTER SET utf8;"
- - Create a periscope user: GRANT USAGE on *.* to periuser@localhost IDENTIFIED BY 'peri2pass';
- - Give all grant on the periscopedb to the periuser:  grant all privileges on periscopedb.* to periuser@localhost ;
- - Test it!
+ - Create periscope db:
+	$ mysql -u root -p < database/sql/periscopedb.sql
  - python manage.py syncdb
  - python manage.py loaddata initdata
 
@@ -36,7 +33,6 @@ Import ESnet's Topology:
  - Note if you are planing to run esnet-2-shapes.py multiple time, make sure
    to disable the unis import part, or delete topology before running the
    script.
-
 
 Preparing the Environment for SC10 demo:
     For sc10 demo we are only interested on getting information about ESnet.
