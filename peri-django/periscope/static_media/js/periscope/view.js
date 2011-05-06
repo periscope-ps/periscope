@@ -105,7 +105,7 @@ function visualizeTransferPath(e) {
 }
 
 function devisualizeTransferPath(e) {
-    var selectedRow = transferGrid.getItem(e);
+    var selectedRow = transferGrid.getItem(prev_row);
     
     if (!selectedRow) {
 	return;
@@ -147,9 +147,15 @@ function devisualizeTransferPath(e) {
 function visualizePath(e) {
     if (pathLinks['wanLine'])
 	return;
-    
-    var myGrid = e.grid;
-    var selectedRow = myGrid.getItem(e.rowIndex);	
+
+    var selectedRow = circuitGrid.getItem(e.rowIndex);	
+
+    if (prev_row == e.rowIndex) {
+        return;
+    }
+    else {
+        prev_row = e.rowIndex;
+    }
     
     function doVLAN(items) {
 	if (items.length != 2)
@@ -168,7 +174,6 @@ function visualizePath(e) {
 	port2.children[0].setFill("green");
 	
 	pathLinks['wanLine'] = wanLine;
-	idShapeMap['wanCloud'].moveToFront();
     }
     
     function doEndPoints(items) {
@@ -195,9 +200,13 @@ function visualizePath(e) {
 }
 
 function devisualizePath(e) {
-    var selectedRow = thisGrid.getItem(e);
+
+    var selectedRow = circuitGrid.getItem(prev_row);
     
     function doVLAN(items) {
+	if (items.length != 2)
+	    return;
+
         var o1 = items[0];
         var o2 = items[1];
         
@@ -299,25 +308,14 @@ function createWAN(items) {
     wanLine = surface.createLine({x1: o1.x, y1: o1.y, x2: o2.x, y2: o2.y});
     wanLine.setStroke({style: "Dash", width: 2, cap: "round"}, "black");
     wanLine.moveToBack();   
-    
-    imageGroup = surface.createGroup();
-    imageGroup.createImage({x: mid_x-50, y: mid_y-50, 
-		width: 100, height: 100,
-		src: "/static_media/images/wan_cloud.png"}); 
-    text = imageGroup.createText({x: mid_x-20, y: mid_y+5, text: "WAN"});
-    text.setFont({family: "Helvetica", size: "12pt", weight: "bold"});
-    text.setFill("black");
-    
-    idShapeMap['wanCloud'] = imageGroup;
-    idShapeMap['wanLine'] = wanLine;
 }
 
 function connectNodes(n1, n2, lwidth){
     var o1 = n1.children[0].getShape();
     var o2 = n2.children[0].getShape();
 
-    var o1_points = pointsOnCircle([o1.cx, o1.cy], o1.r, 20);
-    var o2_points = pointsOnCircle([o2.cx, o2.cy], o2.r, 20);
+    var o1_points = pointsOnCircle([o1.cx, o1.cy], o1.r, 40);
+    var o2_points = pointsOnCircle([o2.cx, o2.cy], o2.r, 40);
 
     var m_points = closestPoints(o1_points, o2_points);
 
@@ -368,13 +366,15 @@ function movePorts(items, request) {
         		query: { type: "link", source: items[i] },
                                 onComplete: moveLinks,
                                 dxshift: request['dxshift'],
-                                dyshift: request['dyshift']
+                                dyshift: request['dyshift'],
+		                mports: "true"
         	});
 		topoStore.fetch({
         		query: { type: "link", sink: items[i] },
                                 onComplete: moveLinks,
                                 dxshift: request['dxshift'],
-                                dyshift: request['dyshift']
+                                dyshift: request['dyshift'],
+		                mports: "true"
         	});
 	}
 	// find those ports that have no links
@@ -395,7 +395,8 @@ function movePorts(items, request) {
 
 function moveLinks(items, request) {
     
-    updateLinkPortsPos(items, request);	
+    if (request['mports'] == "true")
+	updateLinkPortsPos(items, request);	
 
     for(var i = 0; i < items.length; i++) {
 	var linkItem = items[i];
@@ -428,8 +429,8 @@ function moveLinks(items, request) {
 	var o1 = sourcePortShape.children[0].getShape();
         var o2 = sinkPortShape.children[0].getShape();
 
-        var o1_points = pointsOnCircle([o1.cx, o1.cy], o1.r, 20);
-        var o2_points = pointsOnCircle([o2.cx, o2.cy], o2.r, 20);
+        var o1_points = pointsOnCircle([o1.cx, o1.cy], o1.r, 40);
+        var o2_points = pointsOnCircle([o2.cx, o2.cy], o2.r, 40);
 
         var m_points = closestPoints(o1_points, o2_points);
 
@@ -474,9 +475,9 @@ function updateLinkPortsPos(items, request) {
 	    var sourceWidth =  sourceNode.width[0];
 	    var sinkWidth = sinkNode.width[0];
 
-	    // let's get 20 points around each node...
-            var source_points = pointsOnCircle(sourceNodePoint, sourceWidth, 20);
-            var sink_points = pointsOnCircle(sinkNodePoint, sinkWidth, 20);
+	    // let's get 40 points around each node...
+            var source_points = pointsOnCircle(sourceNodePoint, sourceWidth, 40);
+            var sink_points = pointsOnCircle(sinkNodePoint, sinkWidth, 40);
 
             // now find the closest points for the link
             var m_points = closestPoints(source_points, sink_points);
@@ -544,7 +545,35 @@ function makeShapes(items, request) {
 		dojo.connect(newCircle.getEventSource(), "onmouseleave", null, function(e) {
                         topoStore.fetch({query: {"unisId": e.target.id}, onComplete: decolorPort});
                     });
+
+		// make ports moveable
+                var m = new dojox.gfx.Moveable(newCircle);
+                m.shapeItem = shapeItem;
 		
+                dojo.connect(m, "onMoved", function(mover, shift){
+
+                    //save the new shape position
+                    var port = mover.host.shapeItem;
+                    topoStore.setValue(port, 'x', port.x[0] + shift.dx);
+                    topoStore.setValue(port, 'y', port.y[0] + shift.dy);
+		    
+		    /*
+		    topoStore.fetch({
+                        query: { type: "link", source: port },
+                        onComplete: moveLinks,
+                        dxshift: request['dxshift'],
+                        dyshift: request['dyshift'],
+                        mports: "false"
+                    });
+                    topoStore.fetch({
+                        query: { type: "link", sink: port },
+                        onComplete: moveLinks,
+                        dxshift: request['dxshift'],
+                        dyshift: request['dyshift'],
+                        mports: "false"
+                    });
+		    */
+		});
 	    } 
 	    else {
 		    var text = shapeGroup.createText({
@@ -553,7 +582,7 @@ function makeShapes(items, request) {
 				    text: shapeName,
 				    align: shapeTextAlign});
 		    text.setFont({family: "Helvetica", size: "8pt", weight: "bold"});
-		    text.setFill("white");
+		    text.setFill("black");
 		    
 		if (objectType == 'node') {
 		    

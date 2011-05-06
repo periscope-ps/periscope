@@ -79,7 +79,7 @@ function initTransferGrid() {
     var t = new dojox.timing.Timer();
     t.setInterval(30000);
     t.onTick = updateTransferGrid;
-    //t.start();
+    t.start();
 };
 
 function initCircuitGrid() {
@@ -178,7 +178,7 @@ function initCircuitGrid() {
         
     updateCircuitGrid();
     var t = new dojox.timing.Timer();
-    t.setInterval(5000);
+    t.setInterval(10000);
     t.onTick = updateCircuitGrid;
     t.start();
 };

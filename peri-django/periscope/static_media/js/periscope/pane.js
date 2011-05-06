@@ -9,8 +9,8 @@ var host_t;
 function makePane(e) {
 
 	host_t = new dojox.timing.Timer();
-
-	hostPane = new dojox.layout.FloatingPane({
+    
+        hostPane = new dojox.layout.FloatingPane({
 			href: '{% url measurements.views.get_host_info %}?id=' + e.target.id,
 			title: "Host information for " + e.target.id,
 			resizable: true,

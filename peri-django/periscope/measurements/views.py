@@ -15,9 +15,9 @@ from django.db.models import Max
 
 from periscope.measurements.models import Metadata, Data
 
-from periscope.measurements.lib.SNMPQuery import get_urn_measurements, get_node_latest_inout, get_port_latest_inout
+from periscope.measurements.lib.SNMPQuery import get_urn_measurements, get_port_latest_inout
 from periscope.measurements.models import Data, EventTypes, UrnStub, Metadata
-from periscope.topology.models import Port, Node, NetworkObjectDescriptions
+from periscope.topology.models import Port, Node, NetworkObjectDescriptions, EventType
 from periscope.monitoring.models import PathDataModel
 
 
@@ -32,26 +32,22 @@ def get_perfometer_data(request):
 
     Gbp10 = 1250000000.0
     
-    port = Port.objects.get(unis_id='urn:ogf:network:domain=ps.es.net:node=bois-cr1:port=xe-0/0/0')
+    port = Port.objects.get(unis_id='urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=TenGigabitEthernet9/1')
     inout = get_port_latest_inout(port)
     
-    #bnl = get_node_latest_inout('qtr1-Te9/1')
-    result += "{\"Tx\":%.2f,\n"%(bnl['Tx'] / Gbp10 * 100)
-    result += "\t\"Rx\":%.2f\n"%(bnl['Rx'] / Gbp10  * 100)
-    result += "},"
+    result = "{ \"BNL\": {\n"
+    result += "\t\"Tx\":%.2f,\n"%(inout['Tx'] / Gbp10 * 100)
+    result += "\t\"Rx\":%.2f\n"%(inout['Rx'] / Gbp10  * 100)
+    result += "\t},\n"
+
+    port = Port.objects.get(unis_id='urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet2/3')
+    inout = get_port_latest_inout(port)
     
-    return HttpResponse(result , mimetype="text/plain") #, mimetype="application/json")
-    
-    #result = "{ \"BNL\": {\n"
-    #result += "\t\"Tx\":%.2f,\n"%(bnl['Tx'] / Gbp10 * 100)
-    #result += "\t\"Rx\":%.2f\n"%(bnl['Rx'] / Gbp10  * 100)
-    #result += "\t},\n"
-    
-    #Ultralight = get_node_latest_inout('nile-Te2/1')
-    #result += "\"Ultralight\": {\n"
-    #result += "\t\"Tx\":%.2f,\n"%((Ultralight['Tx'] / Gbp10) * 100)
-    #result += "\t\"Rx\":%.2f\n"%((Ultralight['Rx'] / Gbp10)  * 100)
-    #result += "\t}\n}"
+    result += "\"Ultralight\": {\n"
+    result += "\t\"Tx\":%.2f,\n"%((inout['Tx'] / Gbp10) * 100)
+    result += "\t\"Rx\":%.2f\n"%((inout['Rx'] / Gbp10)  * 100)
+    result += "\t}\n}"
+
     return HttpResponse(result , mimetype="text/plain") #, mimetype="application/json")
    
 
@@ -98,7 +94,14 @@ def get_res_chart(request):
         except (PathDataModel.DoesNotExist):
             return HttpResponse("Path ID not found.", mimetype="text/plain")     
 
-        res = Data.objects.filter(urn=id)
+        recv = EventType.objects.get(value='http://ggf.org/ns/nmwg/characteristic/network/utilization/bytes/received/2.0')
+        try:
+            ptype = ContentType.objects.get_for_model(PathDataModel)
+            metain = Metadata.objects.get(objectID=path.id, objectType=ptype, event_type=recv)
+        except:
+            return HttpResponse("No metadata found.", mimetype="text/plain")
+
+        res = Data.objects.filter(metadata=md)
         if (len(res) < 1):
             return HttpResponse("No measurements found.", mimetype="text/plain")
 
@@ -207,8 +210,7 @@ def get_res_data(request):
             return HttpResponse("Invalid Event type", mimetype="text/plain")
 
         measurements = Data.objects.filter(urn=id)
-        #measurements = get_urn_measurements(id, event)	
-
+        
         json_data = StringIO() 
         json_data.write('[\n{urn: "%s", values: [' % id)
 

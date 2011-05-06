@@ -72,7 +72,19 @@ function updateCircuitGrid() {
 		var resStore = new dojo.data.ItemFileWriteStore({data: {
 					"items": series
 				}});
-		circuitGrid.setStore(resStore);
+
+                selectedItem = null;
+                if (circuitGrid.store) {
+                    selectedItem = circuitGrid.selection.getSelected()[0];
+                    selectedItemIndex = circuitGrid.getItemIndex(selectedItem);
+                }
+
+                circuitGrid.setStore(resStore);
+
+                if (selectedItem) {
+                          circuitGrid.selection.setSelected(selectedItemIndex, 'true');
+                          circuitGrid.scrollToRow(selectedItemIndex);
+                }
         }
 
         dojo.xhrGet({
@@ -180,13 +192,13 @@ updateESCPSPerfometers = function () {
 			url: "{% url measurements.views.get_perfometer_data %}?id=perfO",
 				handleAs: "json",
 				load: function(data, ioArgs) {
-				BNLRxNeedle.update(data.BNL.Rx);
-				BNLTxNeedle.update(data.BNL.Tx);
-				UltralightRxNeedle.update(data.Ultralight.Rx);
-				UltralightTxNeedle.update(data.Ultralight.Tx);
-				return data;
-			}
-		});
+						      BNLRxNeedle.update(data.BNL.Rx);
+						      BNLTxNeedle.update(data.BNL.Tx);
+						      UltralightRxNeedle.update(data.Ultralight.Rx);
+						      UltralightTxNeedle.update(data.Ultralight.Tx);
+						      return data;
+						      }
+			});
 };
 
 

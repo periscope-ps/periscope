@@ -1,5 +1,6 @@
 import logging
 import time
+from datetime import datetime
 
 from lxml import etree
 from urlparse import urlparse
@@ -98,7 +99,8 @@ NODE_KEY_MD_XPATH = '''
 
 PORT_KEY_MD_XPATH = '''
 //*[local-name()='metadata' and
-    ./*[local-name()='subject']/*[local-name()='interface' and 
+    ./*[local-name()='subject']/*[local-name()='interface' and
+           ./*[local-name()='hostName' and contains('%s', normalize-space(text()))] and
            ./*[local-name()='ifName' and contains('%s', normalize-space(text()))] and
            (string-length('%s') < 1 or ./*[local-name()='direction' and normalize-space(text())='%s'])] and
     count(./*[local-name()='eventType' and normalize-space(text())='%s']) > 0]/@id
@@ -229,6 +231,11 @@ class Command(BaseCommand):
                 root = etree.fromstring(response)
                 
                 for md in port_mds:
+                    addresses = []
+                    for node_address in NodeAddresses.objects.filter(node=md.subject.parent):
+                        addresses.append(node_address.address.value)
+                    addresses = ','.join(addresses)
+
                     names = []
                     for port_names in NetworkObjectNames.objects.filter(networkobject=md.subject):
                         names.append(port_names.name.value)
@@ -247,7 +254,7 @@ class Command(BaseCommand):
                         direction = 'out'
                         event_type = 'http://ggf.org/ns/nmwg/characteristic/utilization/2.0'
                        
-                    xpath = PORT_KEY_MD_XPATH % (names, direction, 
+                    xpath = PORT_KEY_MD_XPATH % (addresses, names, direction, 
                                                  direction, event_type)
                     metadata_ids = root.xpath( xpath )
 
@@ -260,8 +267,8 @@ class Command(BaseCommand):
                     
                     md.key = keys[0]
                     md.save()
-                    
-        
+
+        mds = Metadata.objects.all().exclude(key=None)
         for md in mds:
             last_datum = Data.objects.filter(metadata=md).order_by('time').reverse()[:1]
             if len(last_datum):
@@ -279,3 +286,8 @@ class Command(BaseCommand):
                 Data.objects.create(metadata=md, time=v['timeValue'],
                                     value=v['value'], units=v['valueUnits'])
 
+        # keep a sliding window of measurements
+        curr_time = int(time.time())
+        drop_time = datetime.fromtimestamp(float(curr_time - window))
+        old_data = Data.objects.filter(time__lt=drop_time)
+        old_data.delete()

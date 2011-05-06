@@ -1,8 +1,23 @@
 function drawWAN() {
-	topoStore.fetch({
-			query: { name: /^nile$|^amon$/ },
-				onComplete: createWAN
-				});
+    topoStore.fetch({
+	query: { name: /^nile$|^amon$/ },
+	onComplete: createWAN
+    });
+    
+    topoStore.fetch({
+        query: { name: /^ir1gw$|^amon$/ },
+        onComplete: createWAN
+    });
+
+    /*
+    imageGroup = surface.createGroup();
+    imageGroup.createImage({x: mid_x-50, y: mid_y-50, 
+			    width: 100, height: 100,
+			    src: "/static_media/images/wan_cloud.png"}); 
+    text = imageGroup.createText({x: mid_x-20, y: mid_y+5, text: "WAN"});
+    text.setFont({family: "Helvetica", size: "12pt", weight: "bold"});
+    text.setFill("black");
+    */
 }
 
 // Two needles for the Rx and Tx Perfometers
