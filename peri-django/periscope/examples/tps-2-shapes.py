@@ -3,12 +3,25 @@ from periscope.topology.models import *
 from periscope.topology.lib.topology import create_from_xml_file
 from periscope.topology.lib.util import save_parsed_elements
 
+try:
+    topo = Topology.objects.get(unis_id='terapaths-escps')
+    topo.delete()
+except:
+    print "no existing tps topo"
+
 t = create_from_xml_file(settings.PERISCOPE_ROOT + "examples/terapaths-unis-2.xml")
 save_parsed_elements(t[0])
 
 PeriscopeDomainProperties.objects.all().delete()
 PeriscopeNodeProperties.objects.all().delete()
 PeriscopePortProperties.objects.all().delete()
+
+d = Domain.objects.get(unis_id='urn:ogf:network:domain=escps.lbl.gov')
+PeriscopeDomainProperties.objects.create(parent=d,
+    shape=PeriscopeShape.objects.create(
+    shape="rect", x=800, y=280, width=200, height=100, fill="lightpink",
+    text_xdisp="10", text_ydisp="20", text_align="left"
+))
 
 d = Domain.objects.get(unis_id='urn:ogf:network:domain=escps.bnl.gov')
 PeriscopeDomainProperties.objects.create(parent=d, 
@@ -178,7 +191,7 @@ PeriscopePortProperties.objects.create(parent=p,
     text_xdisp="-10", text_ydisp="-10", text_align="middle"
 ))
 
-p = Port.objects.get(unis_id='urn:ogf:network:domain=escps.bnl.gov:node=netqos03:port=eth1')
+p = Port.objects.get(unis_id='urn:ogf:network:domain=escps.bnl.gov:node=netqos03:port=eth2')
 PeriscopePortProperties.objects.create(parent=p,
     shape=PeriscopeShape.objects.create(
     shape="circle", x=89, y=260, width=5, height=5, fill="aliceblue",
@@ -199,7 +212,7 @@ PeriscopePortProperties.objects.create(parent=p,
     text_xdisp="-10", text_ydisp="-10", text_align="middle"
 ))
 
-p = Port.objects.get(unis_id='urn:ogf:network:domain=escps.bnl.gov:node=netqos04:port=eth1')
+p = Port.objects.get(unis_id='urn:ogf:network:domain=escps.bnl.gov:node=netqos04:port=eth2')
 PeriscopePortProperties.objects.create(parent=p,
     shape=PeriscopeShape.objects.create(
     shape="circle", x=147, y=332, width=5, height=5, fill="aliceblue",
@@ -223,7 +236,7 @@ PeriscopePortProperties.objects.create(parent=p,
 d = Domain.objects.get(unis_id='urn:ogf:network:domain=escps.ultralight.org')
 PeriscopeDomainProperties.objects.create(parent=d, 
     shape=PeriscopeShape.objects.create(
-    shape="rect", x=800, y=80, width=200, height=270, fill="palegreen",
+    shape="rect", x=800, y=10, width=200, height=250, fill="palegreen",
     text_xdisp="10", text_ydisp="20", text_align="left"
 ))
 
@@ -297,7 +310,7 @@ PeriscopeNodeProperties.objects.create(parent=n,
     text_xdisp="0", text_ydisp="0", text_align="middle"
 ))
 
-p = Port.objects.get(unis_id='urn:ogf:network:domain=escps.ultralight.org:node=tera04:port=eth0')
+p = Port.objects.get(unis_id='urn:ogf:network:domain=escps.ultralight.org:node=tera04:port=eth4')
 PeriscopePortProperties.objects.create(parent=p,
     shape=PeriscopeShape.objects.create(
     shape="circle", x=915, y=203, width=5, height=5, fill="aliceblue",
@@ -311,7 +324,7 @@ PeriscopeNodeProperties.objects.create(parent=n,
     text_xdisp="0", text_ydisp="0", text_align="middle"
 ))
 
-p = Port.objects.get(unis_id='urn:ogf:network:domain=escps.ultralight.org:node=tera05:port=eth0')
+p = Port.objects.get(unis_id='urn:ogf:network:domain=escps.ultralight.org:node=tera05:port=eth4')
 PeriscopePortProperties.objects.create(parent=p,
     shape=PeriscopeShape.objects.create(
     shape="circle", x=890, y=278, width=5, height=5, fill="aliceblue",

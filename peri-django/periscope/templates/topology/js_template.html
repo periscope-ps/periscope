@@ -5,7 +5,12 @@ function isEmpty(obj) {
   return true;
 }  
 
-var xfers = {{json_xfers|safe}};
+{% if json_xfers %}
+  var xfers = {{json_xfers|safe}};
+{% else %}
+  var xfers = null;
+{% endif %}
+
 var def_xfer = null;
 
 if (!isEmpty(xfers)) {

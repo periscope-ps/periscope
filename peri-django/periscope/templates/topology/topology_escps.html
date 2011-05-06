@@ -41,7 +41,7 @@ updateESCPSPerfometers;
 var perf_t = new dojox.timing.Timer();
 perf_t.setInterval(15000);
 perf_t.onTick = updateESCPSPerfometers;
-perf_t.start();
+//perf_t.start();
 
 </script>
 </head>
@@ -100,6 +100,10 @@ perf_t.start();
   <a href="javascript:delete_ESCPS_paths()">
     <img style="vertical-align:middle" width="30px" src="/static_media/images/del_x.png"></a>
   Delete selected paths</span>
+<span style="vertical-align: middle">
+  <a href="javascript:update_topology_locations()">
+    <img style="vertical-align:middle" width="25px" src="/static_media/images/save.jpg"></a>
+  Save topology locations</span>
 <div id="gridContainer" style="width: 1255; height: 100%;"></div>
 
 </body>

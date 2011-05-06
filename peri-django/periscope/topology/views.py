@@ -31,27 +31,42 @@ def save_locations(request):
     post_data = request.raw_post_data
 
     items = json.loads(post_data)['items']
+    error_msg = ""
+
+    print items
 
     for i in items:
-        try:
-            obj = NetworkObject.objects.get(id=i['id'])
-            obj = obj.toRealType()
+        props = []
         
-            props = []
+        if (i['type'] == "node"):
+            node = Node.objects.get(id=i['id'])
+            try:
+                prop = PeriscopeNodeProperties.objects.get(parent=node)
+                prop.shape.x = i['x']
+                prop.shape.y = i['y']
+                prop.shape.save()
+            except:
+                PeriscopeNodeProperties.objects.create(parent=node, shape=PeriscopeShape.objects.create(
+                        shape="circle", x=i['x'], y=i['y'], width=30, height=30, fill="lightcyan",
+                        text_xdisp="0", text_ydisp="0", text_align="middle"))
 
-            if (i['type'] == "node"):
-                props = PeriscopeNodeProperties.objects.get(parent=obj)
-            
-            if (i['type'] == "port"):
-                props = PeriscopePortProperties.objects.get(parent=obj)
-                    
-            props.shape.x = i['x']
-            props.shape.y = i['y']
-            props.shape.save()
-        except:
-            return HttpResponse("ERROR", mimetype="text/plain")
-    
-    return HttpResponse("OK", mimetype="text/plain")
+        if (i['type'] == "port"):
+            port = Port.objects.get(id=i['id'])
+            props = port.properties_bag.all()
+
+            if (len(props) > 0):
+                for prop in props:
+                    prop = prop.toRealType()
+                    if isinstance(prop, PeriscopePortProperties):
+                        prop.shape.x = i['x']
+                        prop.shape.y = i['y']
+                        prop.shape.save()
+            else:
+                PeriscopePortProperties.objects.create(parent=port, shape=PeriscopeShape.objects.create(
+                        shape="circle", x=i['x'], y=i['y'], width=5, height=5, fill="aliceblue",
+                        text_xdisp="-10", text_ydisp="-10", text_align="middle"))
+                
+    return HttpResponse("OK ERROR:" + error_msg, mimetype="text/plain")
 
 def get_endpoints_mas(request):
     post_data = request.POST

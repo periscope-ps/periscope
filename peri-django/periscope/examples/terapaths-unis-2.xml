@@ -17,30 +17,30 @@
         <capacity>10000000000</capacity>
         <address type="ipv4">128.3.30.105</address>
         <address type="dns">srm</address>
-        <link id="urn:ogf:network:domain=escps.bnl.gov:node=srm:port=eth0:link=srm-lblrtr">
+        <link id="urn:ogf:network:domain=escps.lbl.gov:node=srm:port=eth0:link=srm-ir1gw">
           <relation type="source">
             <portIdRef>urn:ogf:network:domain=escps.lbl.gov:node=srm:port=eth0</portIdRef>
           </relation>
           <relation type="sink">
-            <portIdRef>urn:ogf:network:domain=escps.lbl.gov:node=lblrtr:port=teX/1</portIdRef>
+            <portIdRef>urn:ogf:network:domain=escps.lbl.gov:node=ir1gw:port=teX/1</portIdRef>
           </relation>
         </link>
       </port>
     </node>
     
-    <node id="urn:ogf:network:domain=escps.lbl.gov:node=lblrtr">
-      <name>lblrtr</name>
+    <node id="urn:ogf:network:domain=escps.lbl.gov:node=ir1gw">
+      <name>ir1gw</name>
       <address type="ipv4">0.0.0.0</address>
       
-      <port id="urn:ogf:network:domain=escps.lbl.gov:node=lblrtr:port=teX/1">
+      <port id="urn:ogf:network:domain=escps.lbl.gov:node=ir1gw:port=teX/1">
         <name>teX/1</name>
         <description>connection to srm</description>
         <capacity>10000000000</capacity>
         <address type="ipv4">0.0.0.0</address>
-        <address type="dns">lblrtr</address>
-        <link id="urn:ogf:network:domain=escps.lbl.gov:node=lblrtr:port=teX/1:link=lblrtr-srm">
+        <address type="dns">ir1gw</address>
+        <link id="urn:ogf:network:domain=escps.lbl.gov:node=ir1gw:port=teX/1:link=ir1gw-srm">
           <relation type="source">
-            <portIdRef>urn:ogf:network:domain=escps.lbl.gov:node=lblrtr:port=teX/1</portIdRef>
+            <portIdRef>urn:ogf:network:domain=escps.lbl.gov:node=ir1gw:port=teX/1</portIdRef>
           </relation>
           <relation type="sink">
             <portIdRef>urn:ogf:network:domain=escps.lbl.gov:node=srm:port=eth0</portIdRef>

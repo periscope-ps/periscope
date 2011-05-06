@@ -3,6 +3,7 @@ import re
 from periscope.topology.error import UnknownXMLNamespaceException,\
     UNISXMLParsingException
 
+from django.views.decorators.cache import never_cache
 import xml.dom.minidom as dom
 from django.db.models.manager import Manager
 from django.db.models.fields import related
@@ -26,7 +27,6 @@ def make_periscope_shape_json(shape, x, y, w, h, fill, tx, ty, align):
     return '"shape":"%s","x":%s,"y":%s,"width":%s,"height":%s,"fill":"%s"'\
         ',"textXDisp":%s,"textYDisp":%s,"textAlign":"%s"' % \
         (shape, x, y, w, h, fill, tx, ty, align)
-
 
 def get_shape_json_esnet(topology, excludeNodeNames=[]):
     """ Needs to be written in such way that only draws the nodes we care about.
@@ -144,7 +144,6 @@ def get_shape_json_esnet(topology, excludeNodeNames=[]):
     # TODO: json_topology.getvalue().replace("\n", '') for compression
 
     return json_topology
-
 
 def get_shape_json(topology):
     import os

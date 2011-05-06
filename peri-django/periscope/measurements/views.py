@@ -55,53 +55,38 @@ def get_perfometer_data(request):
     return HttpResponse(result , mimetype="text/plain") #, mimetype="application/json")
    
 
-
 def get_host_info(request):
-    from cStringIO import StringIO
-
     try:
-        id = request.GET['id']
+        id = urllib.unquote(request.GET['id'])
         
-        node_name = re.findall(r'node=(.*)', id)
-        
-        if len(node_name) > 0:
-            urns = UrnStub.objects.filter(ifHost=node_name[0])
-        else:
+        try:
+            node = Node.objects.get(unis_id=id)
+        except Node.DoesNotExist:
             return HttpResponse("Invalid ID", mimetype="text/plain")
         
-        if len(urns) < 1 :
-            return HttpResponse("No data", mimetype="text/plain")
-        
-        node = Node.objects.filter(names__value=node_name[0])
-
-        if node:
-            node_desc = NetworkObjectDescriptions.objects.get(networkobject=node[0]).description.value
-
         content = {}
-        #content['os'] = re.findall(r'os=(.*?),', node_desc)[0]
-        #content['kernel'] = re.findall(r'kernel=(.*?),', node_desc)[0]
-        #content['memory'] = re.findall(r'memory=(.*?),', node_desc)[0]
-        #content['cpu'] = re.findall(r'cpu=(.*?),', node_desc)[0]
-        #content['cores'] = re.findall(r'cores=(.*?),', node_desc)[0]
-        #content['blob'] = re.findall(r'blob=(.*)', node_desc)[0]
+        try:
+            node_desc = NetworkObjectDescriptions.objects.get(networkobject=node).description.value
+            content['os'] = re.findall(r'os=(.*?),', node_desc)[0]
+            content['kernel'] = re.findall(r'kernel=(.*?),', node_desc)[0]
+            content['memory'] = re.findall(r'memory=(.*?),', node_desc)[0]
+            content['cpu'] = re.findall(r'cpu=(.*?),', node_desc)[0]
+            content['cores'] = re.findall(r'cores=(.*?),', node_desc)[0]
+            content['blob'] = re.findall(r'blob=(.*)', node_desc)[0]
+        except:
+            content['os'] = "N/A"
+            content['kernel'] = "N/A"
+            content['memory'] = "N/A"
+            content['cpu'] = "N/A"
+            content['cores'] = "N/A"
+            content['blob'] = "Node description is not available"
 
-        content['os'] = "N/A"
-        content['kernel'] = "N/A"
-        content['memory'] = "N/A"
-        content['cpu'] = "N/A"
-        content['cores'] = "N/A"
-        content['blob'] = "Node description is not available"
+        content['node_id'] = urllib.quote(id)
 
-        i=0
-        for u in urns:
-            content['urn'+str(i)] = u.urn
-            i += 1
- 
         return render_to_response('measurements/host_info.html', content,
                                   context_instance=RequestContext(request))
     except (KeyError):
         return HttpResponse("Invalid Request", mimetype="text/plain")
-    
 
 def get_res_chart(request):
     try:
@@ -177,40 +162,36 @@ def get_host_data(request):
     from cStringIO import StringIO
 
     try:
-        urn0 = request.GET['urn0']
-        urn1 = request.GET['urn1']
-        urn2 = request.GET['urn2']
-        urn3 = request.GET['urn3']
-
-        urns = [urn0, urn1, urn2, urn3]
+        node_id = urllib.unquote(request.GET['id'])
 
         curr_time = int(time.time())
-        last_two_min = datetime.fromtimestamp(float(curr_time - 120))
+        last_two_min = datetime.fromtimestamp(float(curr_time - 1200))
 
         json_data = StringIO()
         json_data.write('[\n');
 
-        for i in range(4):
-            if (urns[i]):
-                measurements = Data.objects.filter(urn=urns[i], time__gte=last_two_min)
-                json_data.write('{urn: "%s", values: [' % urns[i])
-                
-                for m in measurements:
-                    json_data.write('%s,' % m.value)
-                
-                json_data.write("], timestamps: [")
-                    
-                for m in measurements:
-                    json_data.write('"%s",' % time.strftime("%H:%M:%S", m.time.timetuple()))
-                    
-                json_data.write("]},\n");
+        node = Node.objects.get(unis_id=node_id)
+        for md in Metadata.objects.filter(objectID=node.id):
+            measurements = Data.objects.filter(metadata=md, time__gte=last_two_min)
+
+            json_data.write('{eT: "%s", values: [' % md.event_type.value)
+
+            for m in measurements:
+                json_data.write('%s,' % m.value)
+
+            json_data.write("], timestamps: [")
+
+            for m in measurements:
+                json_data.write('"%s",' % time.strftime("%H:%M:%S", m.time.timetuple()))
+
+            json_data.write("]},\n");
 
         json_data.write(']');
-                        
+
         return HttpResponse(json_data.getvalue(), mimetype="application/json")
 
     except (KeyError):
-        return HttpResponse("Invalid Request", mimetype="text/plain")    
+        return HttpResponse("Invalid Request", mimetype="text/plain")
 
 
 def get_res_data(request):
