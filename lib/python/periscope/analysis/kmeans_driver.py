@@ -12,6 +12,10 @@ import dataIO
 from classifier import OnlineClassify
 import Queue
 
+"""
+The following set of functions return cluster centers depending on the application.
+The centers a
+"""
 def getGenomeClusters():
     genome_clusters = {}
     genome_clusters[0] = {'total':1, 'success':0.03390805, 'fail':0.9660920,
@@ -94,7 +98,15 @@ def getClusters(application):
     return applicationMap[application]()
 
 
-
+"""
+Example:
+./kmeans_direvier.py Application maxQueueSize filename
+./kmeans_driver.py genome 2048 HEP2_CHR21/epigenome-HEP2_CHR21-run0026.bp.1
+DataSink dumps to stdio.
+For each jobstate
+if state==Fail or Success
+    print current workflow summary, and classfication (0 being HFW)
+"""
 
 def main():
     """shared variable Heap
@@ -117,7 +129,6 @@ def main():
 
     Q = Queue.PriorityQueue(m)
     p={}
-    c={}
     n = len(filenames)
     
     for i in xrange(n):
