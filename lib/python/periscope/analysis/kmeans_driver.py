@@ -10,7 +10,6 @@ __date__ ="$Apr 26, 2011 8:48:26 AM$"
 
 import dataIO 
 from classifier import OnlineClassify
-import Queue
 
 """
 The following set of functions return cluster centers depending on the application.
@@ -127,6 +126,7 @@ def main():
 
     clusters = getClusters(app)
 
+    """
     Q = Queue.PriorityQueue(m)
     p={}
     n = len(filenames)
@@ -141,6 +141,10 @@ def main():
             break
     src = dataIO.eventQueue(Q)
     src.start()
+    """
+    
+    src = dataIO.FileProcessor(filenames, m)
+    
     
     sink = dataIO.printOutput()
     

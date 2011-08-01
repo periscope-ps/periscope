@@ -5,6 +5,8 @@ from _base import DataSink
 import threading
 import time
 import calendar
+import Queue
+
 
 class eventProducer(threading.Thread):
     def __init__(self, filename, q):
@@ -70,9 +72,32 @@ class eventQueue(DataSource, threading.Thread):
         #    print "consumed event"
         #    print e
 
+class FileProcessor(DataSource):
+    """Class to encapsulate reading bp files into PriorityQueue
+    """
+    def __init__(self, filenames, m):
+        self.Q = Queue.PriorityQueue(m)
+        p={}
+        n = len(filenames)
+        
+        for i in xrange(n):
+            try:
+                f = open(filenames[i])
+                f.close()
+                p[i] = eventProducer(filenames[i], self.Q)
+                p[i].start()
+            except:
+                break
+        self.events = eventQueue(self.Q)
+        self.events.start()
+    
+    def next(self):
+        return self.events.next()
+
 class printOutput(DataSink):
     def put(self, item):
         """Put data item.
 
         """
-        print item
+        if item is not None:
+            print item

@@ -76,6 +76,8 @@ class Method:
                 time.sleep(0.1)
                 continue
             results = self.process(item)
+            if results is None :
+                continue
             for r in results:
                 self._sink.put(r)
             if max_items > 0:

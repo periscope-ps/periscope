@@ -74,10 +74,10 @@ class OnlineClassify(Method):
                 return [(r)]
             finally:
                 pass
-        return " "
+        #return " "
     
     def noop(self, ts, record):
-        return " "
+        #return " "
         pass
 
     def handleWf(self, ts, record):
@@ -88,15 +88,13 @@ class OnlineClassify(Method):
         self.jobInfo[record['job.id']] = {}
         self.jobInfo[record['job.id']]['tsubmit'] = ts
         self.wf['total'] = self.wf['total']+1
-        #return ('Submit', self.wf)
-        return " "
+        #return " "
         pass
 
     def handleExecute(self, ts, record):
         self.jobInfo[record['job.id']]['delay'] = ts - self.jobInfo[record['job.id']]['tsubmit']
         self.jobInfo[record['job.id']]['texec'] = ts
-        #return ('Execute', self.wf)
-        return " "
+        #return " "
         pass
 
     def handleSuccess(self, ts, record):
@@ -133,7 +131,7 @@ class OnlineClassify(Method):
         pass
 
     def handleAbort(self, ts, record):
-       return " "
+       #return " "
        pass
 
     def classify(self, wf):
