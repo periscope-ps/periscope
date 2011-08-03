@@ -146,7 +146,8 @@ def main():
     src = dataIO.FileProcessor(filenames, m)
     
     
-    sink = dataIO.printOutput()
+    #sink = dataIO.printOutput()
+    sink = dataIO.CsvOutput("test-csv")
     
     classifier = OnlineClassify(src, sink, clusters)
     classifier.run()
