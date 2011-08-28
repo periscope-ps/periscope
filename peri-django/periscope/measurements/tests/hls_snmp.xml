@@ -1,0 +1,278 @@
+<nmwg:message xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" xmlns:nmtl3="http://ogf.org/schema/network/topology/l3/20070828/" xmlns:xquery="http://ggf.org/ns/nmwg/tools/org/perfsonar/service/lookup/xquery/1.0/" xmlns:owamp="http://ggf.org/ns/nmwg/tools/owamp/2.0/" xmlns:netutil="http://ggf.org/ns/nmwg/characteristic/utilization/2.0/" xmlns:nmwgr="http://ggf.org/ns/nmwg/result/2.0/" xmlns:xsd="http://www.w3.org/2001/XMLSchema/" xmlns:summary="http://ggf.org/ns/nmwg/tools/org/perfsonar/service/lookup/summarization/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance/" xmlns:nmtb="http://ogf.org/schema/network/topology/base/20070828/" xmlns:psservice="http://ggf.org/ns/nmwg/tools/org/perfsonar/service/1.0/" xmlns:pinger="http://ggf.org/ns/nmwg/tools/pinger/2.0/" xmlns:select="http://ggf.org/ns/nmwg/ops/select/2.0/" xmlns:SOAP_ENCODE="http://schemas.xmlsoap.org/soap/encoding/" xmlns:traceroute="http://ggf.org/ns/nmwg/tools/traceroute/2.0/" xmlns:iperf="http://ggf.org/ns/nmwg/tools/iperf/2.0/" xmlns:nmwgt="http://ggf.org/ns/nmwg/topology/2.0/" xmlns:perfsonar="http://ggf.org/ns/nmwg/tools/org/perfsonar/1.0/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" messageIdRef="GenID.69197770" id="message.16821574" type="LSQueryResponse">
+      <nmwg:metadata metadataIdRef="GenID.87568213" id="metadata.8894447">
+            <nmwg:eventType>success.ls.query</nmwg:eventType>
+      </nmwg:metadata>
+      <nmwg:data metadataIdRef="metadata.8894447" id="data.16638795">
+            <psservice:datum xmlns:psservice="http://ggf.org/ns/nmwg/tools/org/perfsonar/service/1.0/">
+                  <nmwg:metadata xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="47b339a4b8ecb573d66c3236dda1d576">
+                        <perfsonar:subject xmlns:perfsonar="http://ggf.org/ns/nmwg/tools/org/perfsonar/1.0/" id="subject.14759299">
+                              <psservice:service xmlns:psservice="http://ggf.org/ns/nmwg/tools/org/perfsonar/service/1.0/">
+                                    <psservice:serviceName>ESnet SNMP MA</psservice:serviceName>
+                                    <psservice:accessPoint>http://ps3.es.net:8080/perfSONAR_PS/services/snmpMA</psservice:accessPoint>
+                                    <psservice:serviceType>MA</psservice:serviceType>
+                                    <psservice:serviceDescription>ESnet perfSONAR SNMP MA</psservice:serviceDescription>
+                              </psservice:service>
+                        </perfsonar:subject>
+                  </nmwg:metadata>
+                  <nmwg:data xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="47b339a4b8ecb573d66c3236dda1d576/aa2ccf65f66c55fc512f073c31f6fb67" metadataIdRef="47b339a4b8ecb573d66c3236dda1d576">
+                        <nmwg:metadata id="meta36301">
+                              <netutil:subject xmlns:netutil="http://ggf.org/ns/nmwg/characteristic/utilization/2.0/" id="subj36301">
+                                    <nmwgt:interface xmlns:nmwgt="http://ggf.org/ns/nmwg/topology/2.0/">
+                                          <nmwgtopo3:urn xmlns:nmwgtopo3="http://ggf.org/ns/nmwg/topology/base/3.0/" xmlns:nmwgt3="http://ggf.org/ns/nmwg/topology/base/3.0/">urn:ogf:network:domain=es.net:node=bois-cr1:port=vt-0/3/0</nmwgtopo3:urn>
+                                          <nmwgt:hostName>bois-cr1.es.net</nmwgt:hostName>
+                                          <nmwgt:ifName>vt-0/3/0</nmwgt:ifName>
+                                          <nmwgt:capacity>10000000000</nmwgt:capacity>
+                                          <nmwgt:direction>in</nmwgt:direction>
+                                          <nmwgt:authRealm>ESnet-Public</nmwgt:authRealm>
+                                    </nmwgt:interface>
+                              </netutil:subject>
+                              <nmwg:eventType>http://ggf.org/ns/nmwg/characteristic/utilization/2.0/</nmwg:eventType>
+                              <nmwg:parameters id="metaparam36301">
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/characteristic/utilization/2.0/</nmwg:parameter>
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/tools/snmp/2.0/</nmwg:parameter>
+                              </nmwg:parameters>
+                        </nmwg:metadata>
+                  </nmwg:data>
+                  <nmwg:data xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="47b339a4b8ecb573d66c3236dda1d576/64d6105e22df790107bed85dc20fbc0c" metadataIdRef="47b339a4b8ecb573d66c3236dda1d576">
+                        <nmwg:metadata id="meta36302">
+                              <netutil:subject xmlns:netutil="http://ggf.org/ns/nmwg/characteristic/utilization/2.0/" id="subj36302">
+                                    <nmwgt:interface xmlns:nmwgt="http://ggf.org/ns/nmwg/topology/2.0/">
+                                          <nmwgtopo3:urn xmlns:nmwgtopo3="http://ggf.org/ns/nmwg/topology/base/3.0/" xmlns:nmwgt3="http://ggf.org/ns/nmwg/topology/base/3.0/">urn:ogf:network:domain=es.net:node=bois-cr1:port=vt-0/3/0</nmwgtopo3:urn>
+                                          <nmwgt:hostName>bois-cr1.es.net</nmwgt:hostName>
+                                          <nmwgt:ifName>vt-0/3/0</nmwgt:ifName>
+                                          <nmwgt:capacity>10000000000</nmwgt:capacity>
+                                          <nmwgt:direction>out</nmwgt:direction>
+                                          <nmwgt:authRealm>ESnet-Public</nmwgt:authRealm>
+                                    </nmwgt:interface>
+                              </netutil:subject>
+                              <nmwg:eventType>http://ggf.org/ns/nmwg/characteristic/utilization/2.0/</nmwg:eventType>
+                              <nmwg:parameters id="metaparam36302">
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/characteristic/utilization/2.0/</nmwg:parameter>
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/tools/snmp/2.0/</nmwg:parameter>
+                              </nmwg:parameters>
+                        </nmwg:metadata>
+                  </nmwg:data>
+                  <nmwg:data xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="47b339a4b8ecb573d66c3236dda1d576/875013c5c4dba1ead6886eb65566849d" metadataIdRef="47b339a4b8ecb573d66c3236dda1d576">
+                        <nmwg:metadata id="meta36303">
+                              <neterr:subject xmlns:neterr="http://ggf.org/ns/nmwg/characteristic/errors/2.0/" id="subj36303">
+                                    <nmwgt:interface xmlns:nmwgt="http://ggf.org/ns/nmwg/topology/2.0/">
+                                          <nmwgtopo3:urn xmlns:nmwgtopo3="http://ggf.org/ns/nmwg/topology/base/3.0/" xmlns:nmwgt3="http://ggf.org/ns/nmwg/topology/base/3.0/">urn:ogf:network:domain=es.net:node=bois-cr1:port=vt-0/3/0</nmwgtopo3:urn>
+                                          <nmwgt:hostName>bois-cr1.es.net</nmwgt:hostName>
+                                          <nmwgt:ifName>vt-0/3/0</nmwgt:ifName>
+                                          <nmwgt:capacity>10000000000</nmwgt:capacity>
+                                          <nmwgt:direction>in</nmwgt:direction>
+                                          <nmwgt:authRealm>ESnet-Public</nmwgt:authRealm>
+                                    </nmwgt:interface>
+                              </neterr:subject>
+                              <nmwg:eventType>http://ggf.org/ns/nmwg/characteristic/errors/2.0/</nmwg:eventType>
+                              <nmwg:parameters id="metaparam36303">
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/characteristic/errors/2.0/</nmwg:parameter>
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/tools/snmp/2.0/</nmwg:parameter>
+                              </nmwg:parameters>
+                        </nmwg:metadata>
+                  </nmwg:data>
+                  <nmwg:data xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="47b339a4b8ecb573d66c3236dda1d576/ac9ee981118b3f5cb8a392b0fa89d758" metadataIdRef="47b339a4b8ecb573d66c3236dda1d576">
+                        <nmwg:metadata id="meta36304">
+                              <neterr:subject xmlns:neterr="http://ggf.org/ns/nmwg/characteristic/errors/2.0/" id="subj36304">
+                                    <nmwgt:interface xmlns:nmwgt="http://ggf.org/ns/nmwg/topology/2.0/">
+                                          <nmwgtopo3:urn xmlns:nmwgtopo3="http://ggf.org/ns/nmwg/topology/base/3.0/" xmlns:nmwgt3="http://ggf.org/ns/nmwg/topology/base/3.0/">urn:ogf:network:domain=es.net:node=bois-cr1:port=vt-0/3/0</nmwgtopo3:urn>
+                                          <nmwgt:hostName>bois-cr1.es.net</nmwgt:hostName>
+                                          <nmwgt:ifName>vt-0/3/0</nmwgt:ifName>
+                                          <nmwgt:capacity>10000000000</nmwgt:capacity>
+                                          <nmwgt:direction>out</nmwgt:direction>
+                                          <nmwgt:authRealm>ESnet-Public</nmwgt:authRealm>
+                                    </nmwgt:interface>
+                              </neterr:subject>
+                              <nmwg:eventType>http://ggf.org/ns/nmwg/characteristic/errors/2.0/</nmwg:eventType>
+                              <nmwg:parameters id="metaparam36304">
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/characteristic/errors/2.0/</nmwg:parameter>
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/tools/snmp/2.0/</nmwg:parameter>
+                              </nmwg:parameters>
+                        </nmwg:metadata>
+                  </nmwg:data>
+                  <nmwg:data xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="47b339a4b8ecb573d66c3236dda1d576/00cf954ab1e12df260a563efb990f9e3" metadataIdRef="47b339a4b8ecb573d66c3236dda1d576">
+                        <nmwg:metadata id="meta36306">
+                              <netdisc:subject xmlns:netdisc="http://ggf.org/ns/nmwg/characteristic/discards/2.0/" id="subj36306">
+                                    <nmwgt:interface xmlns:nmwgt="http://ggf.org/ns/nmwg/topology/2.0/">
+                                          <nmwgtopo3:urn xmlns:nmwgtopo3="http://ggf.org/ns/nmwg/topology/base/3.0/" xmlns:nmwgt3="http://ggf.org/ns/nmwg/topology/base/3.0/">urn:ogf:network:domain=es.net:node=bois-cr1:port=vt-0/3/0</nmwgtopo3:urn>
+                                          <nmwgt:hostName>bois-cr1.es.net</nmwgt:hostName>
+                                          <nmwgt:ifName>vt-0/3/0</nmwgt:ifName>
+                                          <nmwgt:capacity>10000000000</nmwgt:capacity>
+                                          <nmwgt:direction>out</nmwgt:direction>
+                                          <nmwgt:authRealm>ESnet-Public</nmwgt:authRealm>
+                                    </nmwgt:interface>
+                              </netdisc:subject>
+                              <nmwg:eventType>http://ggf.org/ns/nmwg/characteristic/discards/2.0/</nmwg:eventType>
+                              <nmwg:parameters id="metaparam36306">
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/characteristic/discards/2.0/</nmwg:parameter>
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/tools/snmp/2.0/</nmwg:parameter>
+                              </nmwg:parameters>
+                        </nmwg:metadata>
+                  </nmwg:data>
+                  <nmwg:metadata xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="8c9a4ed862ae461cfaf54037e66ecca8">
+                        <perfsonar:subject xmlns:perfsonar="http://ggf.org/ns/nmwg/tools/org/perfsonar/1.0/" id="subject.6862225">
+                              <psservice:service xmlns:psservice="http://ggf.org/ns/nmwg/tools/org/perfsonar/service/1.0/">
+                                    <psservice:serviceName>ESnet SNMP MA</psservice:serviceName>
+                                    <psservice:accessPoint>http://ps6.es.net:8080/perfSONAR_PS/services/snmpMA</psservice:accessPoint>
+                                    <psservice:serviceType>MA</psservice:serviceType>
+                                    <psservice:serviceDescription>ESnet perfSONAR SNMP MA</psservice:serviceDescription>
+                              </psservice:service>
+                        </perfsonar:subject>
+                  </nmwg:metadata>
+                  <nmwg:data xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="8c9a4ed862ae461cfaf54037e66ecca8/13173cfb7279a07fd974440d53c3ea35" metadataIdRef="8c9a4ed862ae461cfaf54037e66ecca8">
+                        <nmwg:metadata id="meta8201">
+                              <netdisc:subject xmlns:netdisc="http://ggf.org/ns/nmwg/characteristic/discards/2.0/" id="subj8201">
+                                    <nmwgt:interface xmlns:nmwgt="http://ggf.org/ns/nmwg/topology/2.0/">
+                                          <nmwgtopo3:urn xmlns:nmwgtopo3="http://ggf.org/ns/nmwg/topology/base/3.0/" xmlns:nmwgt3="http://ggf.org/ns/nmwg/topology/base/3.0/">urn:ogf:network:domain=es.net:node=llnl-rt1:port=ge-0/2/0</nmwgtopo3:urn>
+                                          <nmwgt:hostName>llnl-rt1.es.net</nmwgt:hostName>
+                                          <nmwgt:ifName>ge-0/2/0</nmwgt:ifName>
+                                          <nmwgt:ifDescription>llnl-rt1->snll-asw1:ge::show:na</nmwgt:ifDescription>
+                                          <nmwgt:capacity>1000000000</nmwgt:capacity>
+                                          <nmwgt:direction>in</nmwgt:direction>
+                                          <nmwgt:authRealm>ESnet-Public</nmwgt:authRealm>
+                                    </nmwgt:interface>
+                              </netdisc:subject>
+                              <nmwg:eventType>http://ggf.org/ns/nmwg/characteristic/discards/2.0/</nmwg:eventType>
+                              <nmwg:parameters id="metaparam8201">
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/characteristic/discards/2.0/</nmwg:parameter>
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/tools/snmp/2.0/</nmwg:parameter>
+                              </nmwg:parameters>
+                        </nmwg:metadata>
+                  </nmwg:data>
+                  <nmwg:data xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="47b339a4b8ecb573d66c3236dda1d576/416b361b321dfc8c3bc3b3e22f204703" metadataIdRef="47b339a4b8ecb573d66c3236dda1d576">
+                        <nmwg:metadata id="meta36308">
+                              <netutil:subject xmlns:netutil="http://ggf.org/ns/nmwg/characteristic/utilization/2.0/" id="subj36308">
+                                    <nmwgt:interface xmlns:nmwgt="http://ggf.org/ns/nmwg/topology/2.0/">
+                                          <nmwgtopo3:urn xmlns:nmwgtopo3="http://ggf.org/ns/nmwg/topology/base/3.0/" xmlns:nmwgt3="http://ggf.org/ns/nmwg/topology/base/3.0/">urn:ogf:network:domain=es.net:node=bois-cr1:port=pe-0/3/0</nmwgtopo3:urn>
+                                          <nmwgt:hostName>bois-cr1.es.net</nmwgt:hostName>
+                                          <nmwgt:ifName>pe-0/3/0</nmwgt:ifName>
+                                          <nmwgt:capacity>10000000000</nmwgt:capacity>
+                                          <nmwgt:direction>out</nmwgt:direction>
+                                          <nmwgt:authRealm>ESnet-Public</nmwgt:authRealm>
+                                    </nmwgt:interface>
+                              </netutil:subject>
+                              <nmwg:eventType>http://ggf.org/ns/nmwg/characteristic/utilization/2.0/</nmwg:eventType>
+                              <nmwg:parameters id="metaparam36308">
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/characteristic/utilization/2.0/</nmwg:parameter>
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/tools/snmp/2.0/</nmwg:parameter>
+                              </nmwg:parameters>
+                        </nmwg:metadata>
+                  </nmwg:data>
+                  <nmwg:data xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="8c9a4ed862ae461cfaf54037e66ecca8/39486ca2b88cb88f4b93cbdfaa0923ec" metadataIdRef="8c9a4ed862ae461cfaf54037e66ecca8">
+                        <nmwg:metadata id="meta8202">
+                              <netdisc:subject xmlns:netdisc="http://ggf.org/ns/nmwg/characteristic/discards/2.0/" id="subj8202">
+                                    <nmwgt:interface xmlns:nmwgt="http://ggf.org/ns/nmwg/topology/2.0/">
+                                          <nmwgtopo3:urn xmlns:nmwgtopo3="http://ggf.org/ns/nmwg/topology/base/3.0/" xmlns:nmwgt3="http://ggf.org/ns/nmwg/topology/base/3.0/">urn:ogf:network:domain=es.net:node=llnl-rt1:port=ge-0/2/0</nmwgtopo3:urn>
+                                          <nmwgt:hostName>llnl-rt1.es.net</nmwgt:hostName>
+                                          <nmwgt:ifName>ge-0/2/0</nmwgt:ifName>
+                                          <nmwgt:ifDescription>llnl-rt1->snll-asw1:ge::show:na</nmwgt:ifDescription>
+                                          <nmwgt:capacity>1000000000</nmwgt:capacity>
+                                          <nmwgt:direction>out</nmwgt:direction>
+                                          <nmwgt:authRealm>ESnet-Public</nmwgt:authRealm>
+                                    </nmwgt:interface>
+                              </netdisc:subject>
+                              <nmwg:eventType>http://ggf.org/ns/nmwg/characteristic/discards/2.0/</nmwg:eventType>
+                              <nmwg:parameters id="metaparam8202">
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/characteristic/discards/2.0/</nmwg:parameter>
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/tools/snmp/2.0/</nmwg:parameter>
+                              </nmwg:parameters>
+                        </nmwg:metadata>
+                  </nmwg:data>
+                  <nmwg:data xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="47b339a4b8ecb573d66c3236dda1d576/a227d0da07c9b93400b9b727cda571b3" metadataIdRef="47b339a4b8ecb573d66c3236dda1d576">
+                        <nmwg:metadata id="meta36309">
+                              <neterr:subject xmlns:neterr="http://ggf.org/ns/nmwg/characteristic/errors/2.0/" id="subj36309">
+                                    <nmwgt:interface xmlns:nmwgt="http://ggf.org/ns/nmwg/topology/2.0/">
+                                          <nmwgtopo3:urn xmlns:nmwgtopo3="http://ggf.org/ns/nmwg/topology/base/3.0/" xmlns:nmwgt3="http://ggf.org/ns/nmwg/topology/base/3.0/">urn:ogf:network:domain=es.net:node=bois-cr1:port=pe-0/3/0</nmwgtopo3:urn>
+                                          <nmwgt:hostName>bois-cr1.es.net</nmwgt:hostName>
+                                          <nmwgt:ifName>pe-0/3/0</nmwgt:ifName>
+                                          <nmwgt:capacity>10000000000</nmwgt:capacity>
+                                          <nmwgt:direction>in</nmwgt:direction>
+                                          <nmwgt:authRealm>ESnet-Public</nmwgt:authRealm>
+                                    </nmwgt:interface>
+                              </neterr:subject>
+                              <nmwg:eventType>http://ggf.org/ns/nmwg/characteristic/errors/2.0/</nmwg:eventType>
+                              <nmwg:parameters id="metaparam36309">
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/characteristic/errors/2.0/</nmwg:parameter>
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/tools/snmp/2.0/</nmwg:parameter>
+                              </nmwg:parameters>
+                        </nmwg:metadata>
+                  </nmwg:data>
+                  <nmwg:data xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="8c9a4ed862ae461cfaf54037e66ecca8/adccb28753c48a7bf734dcf067f9815a" metadataIdRef="8c9a4ed862ae461cfaf54037e66ecca8">
+                        <nmwg:metadata id="meta8203">
+                              <netutil:subject xmlns:netutil="http://ggf.org/ns/nmwg/characteristic/utilization/2.0/" id="subj8203">
+                                    <nmwgt:interface xmlns:nmwgt="http://ggf.org/ns/nmwg/topology/2.0/">
+                                          <nmwgtopo3:urn xmlns:nmwgtopo3="http://ggf.org/ns/nmwg/topology/base/3.0/" xmlns:nmwgt3="http://ggf.org/ns/nmwg/topology/base/3.0/">urn:ogf:network:domain=es.net:node=llnl-rt1:port=lo0</nmwgtopo3:urn>
+                                          <nmwgt:hostName>llnl-rt1.es.net</nmwgt:hostName>
+                                          <nmwgt:ifName>lo0</nmwgt:ifName>
+                                          <nmwgt:ifDescription>llnl-rt1::loopback:show:na</nmwgt:ifDescription>
+                                          <nmwgt:direction>in</nmwgt:direction>
+                                          <nmwgt:authRealm>ESnet-Public</nmwgt:authRealm>
+                                    </nmwgt:interface>
+                              </netutil:subject>
+                              <nmwg:eventType>http://ggf.org/ns/nmwg/characteristic/utilization/2.0/</nmwg:eventType>
+                              <nmwg:parameters id="metaparam8203">
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/characteristic/utilization/2.0/</nmwg:parameter>
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/tools/snmp/2.0/</nmwg:parameter>
+                              </nmwg:parameters>
+                        </nmwg:metadata>
+                  </nmwg:data>
+                  <nmwg:data xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="47b339a4b8ecb573d66c3236dda1d576/4385006da87aadd50ba61e47ff05a69c" metadataIdRef="47b339a4b8ecb573d66c3236dda1d576">
+                        <nmwg:metadata id="meta36310">
+                              <neterr:subject xmlns:neterr="http://ggf.org/ns/nmwg/characteristic/errors/2.0/" id="subj36310">
+                                    <nmwgt:interface xmlns:nmwgt="http://ggf.org/ns/nmwg/topology/2.0/">
+                                          <nmwgtopo3:urn xmlns:nmwgtopo3="http://ggf.org/ns/nmwg/topology/base/3.0/" xmlns:nmwgt3="http://ggf.org/ns/nmwg/topology/base/3.0/">urn:ogf:network:domain=es.net:node=bois-cr1:port=pe-0/3/0</nmwgtopo3:urn>
+                                          <nmwgt:hostName>bois-cr1.es.net</nmwgt:hostName>
+                                          <nmwgt:ifName>pe-0/3/0</nmwgt:ifName>
+                                          <nmwgt:capacity>10000000000</nmwgt:capacity>
+                                          <nmwgt:direction>out</nmwgt:direction>
+                                          <nmwgt:authRealm>ESnet-Public</nmwgt:authRealm>
+                                    </nmwgt:interface>
+                              </neterr:subject>
+                              <nmwg:eventType>http://ggf.org/ns/nmwg/characteristic/errors/2.0/</nmwg:eventType>
+                              <nmwg:parameters id="metaparam36310">
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/characteristic/errors/2.0/</nmwg:parameter>
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/tools/snmp/2.0/</nmwg:parameter>
+                              </nmwg:parameters>
+                        </nmwg:metadata>
+                  </nmwg:data>
+                  <nmwg:data xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="8c9a4ed862ae461cfaf54037e66ecca8/7fd4456c82943f579bedee86626a3fb6" metadataIdRef="8c9a4ed862ae461cfaf54037e66ecca8">
+                        <nmwg:metadata id="meta8204">
+                              <netutil:subject xmlns:netutil="http://ggf.org/ns/nmwg/characteristic/utilization/2.0/" id="subj8204">
+                                    <nmwgt:interface xmlns:nmwgt="http://ggf.org/ns/nmwg/topology/2.0/">
+                                          <nmwgtopo3:urn xmlns:nmwgtopo3="http://ggf.org/ns/nmwg/topology/base/3.0/" xmlns:nmwgt3="http://ggf.org/ns/nmwg/topology/base/3.0/">urn:ogf:network:domain=es.net:node=llnl-rt1:port=lo0</nmwgtopo3:urn>
+                                          <nmwgt:hostName>llnl-rt1.es.net</nmwgt:hostName>
+                                          <nmwgt:ifName>lo0</nmwgt:ifName>
+                                          <nmwgt:ifDescription>llnl-rt1::loopback:show:na</nmwgt:ifDescription>
+                                          <nmwgt:direction>out</nmwgt:direction>
+                                          <nmwgt:authRealm>ESnet-Public</nmwgt:authRealm>
+                                    </nmwgt:interface>
+                              </netutil:subject>
+                              <nmwg:eventType>http://ggf.org/ns/nmwg/characteristic/utilization/2.0/</nmwg:eventType>
+                              <nmwg:parameters id="metaparam8204">
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/characteristic/utilization/2.0/</nmwg:parameter>
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/tools/snmp/2.0/</nmwg:parameter>
+                              </nmwg:parameters>
+                        </nmwg:metadata>
+                  </nmwg:data>
+                  <nmwg:data xmlns:nmwg="http://ggf.org/ns/nmwg/base/2.0/" id="8c9a4ed862ae461cfaf54037e66ecca8/30b74a999b8a558d1e8a0afd21f83c4c" metadataIdRef="8c9a4ed862ae461cfaf54037e66ecca8">
+                        <nmwg:metadata id="meta8205">
+                              <neterr:subject xmlns:neterr="http://ggf.org/ns/nmwg/characteristic/errors/2.0/" id="subj8205">
+                                    <nmwgt:interface xmlns:nmwgt="http://ggf.org/ns/nmwg/topology/2.0/">
+                                          <nmwgtopo3:urn xmlns:nmwgtopo3="http://ggf.org/ns/nmwg/topology/base/3.0/" xmlns:nmwgt3="http://ggf.org/ns/nmwg/topology/base/3.0/">urn:ogf:network:domain=es.net:node=llnl-rt1:port=lo0</nmwgtopo3:urn>
+                                          <nmwgt:hostName>llnl-rt1.es.net</nmwgt:hostName>
+                                          <nmwgt:ifName>lo0</nmwgt:ifName>
+                                          <nmwgt:ifDescription>llnl-rt1::loopback:show:na</nmwgt:ifDescription>
+                                          <nmwgt:direction>in</nmwgt:direction>
+                                          <nmwgt:authRealm>ESnet-Public</nmwgt:authRealm>
+                                    </nmwgt:interface>
+                              </neterr:subject>
+                              <nmwg:eventType>http://ggf.org/ns/nmwg/characteristic/errors/2.0/</nmwg:eventType>
+                              <nmwg:parameters id="metaparam8205">
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/characteristic/errors/2.0/</nmwg:parameter>
+                                    <nmwg:parameter name="supportedEventType">http://ggf.org/ns/nmwg/tools/snmp/2.0/</nmwg:parameter>
+                              </nmwg:parameters>
+                        </nmwg:metadata>
+                  </nmwg:data>
+            </psservice:datum>
+      </nmwg:data>
+</nmwg:message>

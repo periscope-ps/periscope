@@ -1,6 +1,6 @@
+from decimal import Decimal
 import bayes
 import tree
-import knn
 import orange, orngTest, orngStat
 
 class Utils():
@@ -12,20 +12,16 @@ class Utils():
     def __init__(self):
         self.b = bayes.Bayes()
         self.t = tree.DecisionTree()
-        self.k = knn.Knn()
-
 
     def getmethod(self, data, method):
         if method == "bayes":
             return self.b.learner(data)
         elif method == "tree":
             return self.t.learner(data)
-        elif method == "knn":
-            return self.k.learner(data, k=21)
         else:
             return None
         
-    def accuracy(self, data, method, size, detailed=False):
+    def accuracy(self, data, method, size, prnt=False, detailed=False):
         """
         Provides classification accuracy of the chosen method in testing data.
         """
@@ -38,9 +34,10 @@ class Utils():
             c = classifier(data[i])
             if data[i].getclass() == c:
                 accuracy += 1
-        print "Accuracy for %s: %5.1f%s " % (method, (accuracy * 100)/size, '%')
-        print "-------"
-        print
+        if prnt:
+            print "Accuracy for %s: %5.3f " % (method, Decimal(accuracy)/Decimal(size))
+            print "-------"
+            print
         return accuracy
     
     def testingclassifier(self, data, method, size, detailed=False, prnt=True):
@@ -120,14 +117,10 @@ class Utils():
         size = len(data)
         bscore = self.testingclassifier(data, "bayes", size, False, False)
         tscore = self.testingclassifier(data, "tree", size, False, False)
-        #kscore = self.testingclassifier(data, "knn", size, False, False)
-        kscore = 10000000
-        if (bscore < tscore) & (bscore < kscore):
+        if (bscore < tscore):
             chosen = "bayes"
-        elif (tscore < bscore) & (tscore < kscore):
+        elif (tscore < bscore):
             chosen = "tree"
-        elif (kscore < bscore) & (kscore < tscore):
-            chosen = "knn"
         else:
             print "More than one method has the lowest number of misclassifications."
         print "Method suggested (has the lowest overall number of misclassifications): %s" % (chosen)
