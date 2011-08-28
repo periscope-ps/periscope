@@ -23,7 +23,7 @@ class DataSource:
           StopIteration - no more data, ever
         """
         raise StopIteration
-    
+
     def __iter__(self):
         return self
 
