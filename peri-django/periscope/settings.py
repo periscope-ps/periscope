@@ -43,6 +43,15 @@ DATABASES = {
     }
 }
 
+MEASUREMENTS_DATABASE = {
+    'NAME': 'periscope',
+    'USER': '',
+    'PASSWORD': '',
+    'HOST': 'localhost',
+    'PORT': 27017,
+    'OPTIONS': {}
+}
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -139,4 +148,7 @@ if len(logger.handlers) == 0:
     formatter = logging.Formatter('%(name)s :%(asctime)s %(filename)s %(lineno)s %(levelname)s  %(message)s')
     hdlr.setFormatter(formatter)
     logger.addHandler(hdlr)
-    logger.setLevel(logging.INFO)
+    if DEBUG:
+        logger.setLevel(logging.DEBUG)
+    else:
+        logger.setLevel(logging.INFO)

@@ -1,13 +1,15 @@
-import urllib
-import time
-from datetime import datetime
-
+import json
 import re
+import time
+import urllib
+from datetime import datetime
+from datetime import timedelta
 
+from psapi.protocol import events
 from django.views.decorators.cache import never_cache
 
-
 from django.http import HttpResponse
+from django.http import HttpResponseBadRequest
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.db.models import Max
@@ -19,6 +21,7 @@ from periscope.measurements.lib.SNMPQuery import get_urn_measurements, get_port_
 from periscope.measurements.models import Data, EventTypes, UrnStub, Metadata
 from periscope.topology.models import Port, Node, NetworkObjectDescriptions, EventType
 from periscope.monitoring.models import PathDataModel
+from periscope.measurements.lib import query_measurements
 
 
 def get_perfometer_data(request):
@@ -117,6 +120,73 @@ def get_res_chart(request):
     except (KeyError):
         return HttpResponse("Invalid Request", mimetype="text/plain")
 
+
+def get_dojo_chart_mongo(request):
+    unis_id = urllib.unquote(request.GET.get('id', ''))
+    event = request.GET.get('event', None)
+    t = request.GET.get('t', 1800)
+    if not unis_id:
+        return HttpResponseBadRequest("UNIS ID is is not defined.")
+    
+    if not event:
+        return HttpResponseBadRequest("Event type is is not defined.")
+    
+    return render_to_response('measurements/dojo_plot3.html', {
+        'id': urllib.quote(unis_id),
+        'in': 'recv',
+        'out': 'sent',
+        'event': event,
+        't': 'time',
+    }, context_instance=RequestContext(request))
+
+    
+def get_measurements_data_mongo(request):
+    unis_id = urllib.unquote(request.GET.get('id', ''))
+    event = request.GET.get('event', None)
+    t = request.GET.get('t', 1800)
+    try:
+        t = int(t)
+    except:
+        return HttpResponseBadRequest("Time (t) must be an integer.")
+    
+    events_map = {}
+    events_map[events.NET_DISCARD] = [events.NET_DISCARD_RECV, events.NET_DISCARD_SENT]
+    events_map[events.NET_ERROR] = [events.NET_ERROR_RECV, events.NET_ERROR_SENT]
+    events_map[events.NET_UTILIZATION] = [events.NET_UTILIZATION_RECV, events.NET_UTILIZATION_SENT]
+    
+    if not unis_id:
+        return HttpResponseBadRequest("UNIS is is not defined.")
+    
+    if not event:
+        return HttpResponseBadRequest("Event type is is not defined.")
+
+    if event not in events_map:
+        return HttpResponseBadRequest("Invalid Event type")
+    
+    time_delta = timedelta(0, t)
+    measurements = query_measurements(unis_id, events_map[event], None, 
+        {'time': {
+            '$gte': datetime.now() - time_delta, '$lte': datetime.now()
+        }})
+        
+    values = ""
+    labels = ""
+    
+    result = {"identifier": "event_type",
+        "idAttribute": "event_type",
+        "label": "timestamps", "items": []}
+    
+    for meta_id, meta in measurements['meta'].items():
+        tmp = {'urn': meta['unis_id'], 'event_type': meta['event_type'], "values":[], 'timestamps': []}
+        for data in  measurements['data'][meta_id]:
+            tmp['values'].append(data['value'])
+            tmp['timestamps'].append(data['time'])
+        result['items'].append(tmp)
+    
+    dthandler = lambda obj: obj.isoformat() if isinstance(obj, datetime) else None
+    return HttpResponse(json.dumps(result,  default=dthandler), mimetype="text/plain")
+    
+        
 
 # TODO: 
 def get_dojo_chart(request):

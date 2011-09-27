@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+
+# TODO (AH): MARK FOR REMOVAL
+
 """
 Collected the perfSONAR gLSes root hints from a URL or a file
 """

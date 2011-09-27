@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# TODO(AH): MARK FOR REMOVAL
+# TODO(AH): Some functions better placed at the topology app lib
+
 """Auxilary functions for collection services from deployed perfsonar cloud.
 """
 

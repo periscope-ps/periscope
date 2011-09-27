@@ -310,7 +310,9 @@ def find_port(address=None, hostname=None, ifaddress=None, ifname=None):
     if ports.count() == 1:
         return ports[0]
     elif ports.count() > 1:
-        raise ValueError("Multiple ports were found: %s" % ports)
+        raise ValueError("Multiple ports were found: %s for searching "
+            "by: address=%s, hostname=%s, ifaddress=%s, "
+            "ifname=%s" % (ports, address, hostname, ifaddress, ifname))
     elif ports.count() == 0:
         return None
 
@@ -326,7 +328,7 @@ def create_endpoint(src, dst):
     
     See L{find_endpoint} to avoid duplicates.
     
-    @returns L{periscope.topology.models.EndPointPair}
+    @returns: L{periscope.topology.models.EndPointPair}
     """
     
     sport = find_port(src)
@@ -489,7 +491,7 @@ def find_service_watch(network_obj, event_types=None):
     @param network_obj: network object to find service watch for.
     @type network_obj: L{periscope.topology.models.NetworkObject}
     @param event_types: list of string event types or
-                        L{periscope.topology.models.EventTypes}
+                        L{periscope.topology.models.EventType}
     
     @returns: list of L{periscope.topology.models.Service}
     """

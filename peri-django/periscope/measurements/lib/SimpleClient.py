@@ -1,3 +1,5 @@
+# TODO(AH): MARK FOR REMOVAL
+
 from httplib import HTTPConnection, HTTPSConnection
 
 class SimpleClient:
