@@ -24,13 +24,14 @@ createUNISTopoStore({{json_topology|safe}});
 
 var gfxOpts = {
                width: 1100,
-               height: 400,
-               level: "node",
+               height: 500,
+               level: "domain",
                spring: "true",
                movePorts: "false"
               };
 
 dojo.addOnLoad(function() { initGfx(gfxOpts) });
+dojo.addOnLoad(initCircuitGrid);
 
 </script>
 </head>
@@ -39,7 +40,7 @@ dojo.addOnLoad(function() { initGfx(gfxOpts) });
 
 <div style="width: 100%">
 	<br>
-  <div id="top-text"><font color="red">Periscope</font> Monitoring v0.1alpha</div>
+  <div id="top-text"><font color="red">Periscope</font> Testbed Monitoring</div>
 </div>
 
 <div><p> </div>
@@ -67,6 +68,14 @@ dojo.addOnLoad(function() { initGfx(gfxOpts) });
 </div>
 
 <div id="canvas"></div>
-
+<span style="vertical-align: middle">
+  <a href="javascript:delete_paths()">
+    <img style="vertical-align:middle" width="30px" src="/static_media/images/del_x.png"></a>
+  Delete selected paths</span>
+<span style="vertical-align: middle">
+  <a href="javascript:update_topology_locations()">
+    <img style="vertical-align:middle" width="25px" src="/static_media/images/save.jpg"></a>
+  Save topology locations</span>
+<div id="gridContainer" style="width: 1255; height: 100%;"></div>
 </body>
 </html>

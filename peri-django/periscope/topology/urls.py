@@ -3,7 +3,7 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('periscope.topology.views',
     (r'^$', 'topology_list'),
     (r'^escps/((?P<topology_id>\d+)/)?$', 'topology_escps'),
-    (r'^lamp/((?P<topology_id>\d+)/)?$', 'topology_generic'),
+    (r'^generic/((?P<topology_id>\d+)/)?$', 'topology_generic'),
     (r'^get_res', 'topology_get_reservations'),
     (r'^get_users', 'topology_get_users'),
     (r'^get_xfers', 'topology_get_user_transfers'),

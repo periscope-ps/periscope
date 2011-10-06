@@ -24,6 +24,13 @@ PeriscopeDomainProperties.objects.all().delete()
 PeriscopeNodeProperties.objects.all().delete()
 PeriscopePortProperties.objects.all().delete()
 
+d = Domain.objects.get(unis_id='urn:ogf:network:domain=bnl-ani.es.net')
+PeriscopeDomainProperties.objects.create(parent=d,
+    shape=PeriscopeShape.objects.create(
+    shape="rect", x=5, y=5, width=1070, height=490, fill="moccasin",
+    text_xdisp="10", text_ydisp="20", text_align="left"
+))
+
 # newy-tb-rt-1
 newy_node = Node.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1')
 PeriscopeNodeProperties.objects.create(parent=newy_node, 
