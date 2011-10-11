@@ -645,3 +645,30 @@ function makeShapes(items, request) {
 	}
     }
 };
+
+
+/*
+ * Updates link's color by UNIS Id
+ */
+function updateLinkColor(urn, color) {
+    var linkId;
+    var getLinkId = function (items) {
+          if (items.length == 1)  {
+               linkId = items[0]['id'][0];
+          } else {
+              console.error("No link found of urn " + urn );
+          }
+    };
+   
+    try {
+        topoStore.fetch({query: {unisId: urn}, onComplete: getLinkId});
+        var linkShape = idShapeMap[linkId];
+        var stroke = linkShape.getStroke();
+        stroke['color'] = color;
+        linkShape.setStroke(stroke);
+        linkShape.setFill(color);
+    } catch (err) {
+        console.error("Error at urn: " + urn);
+        console.error(err);
+    }
+}

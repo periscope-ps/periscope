@@ -33,6 +33,12 @@ var gfxOpts = {
 dojo.addOnLoad(function() { initGfx(gfxOpts) });
 dojo.addOnLoad(initCircuitGrid);
 
+
+var events_t = new dojox.timing.Timer();
+events_t.setInterval(1000);
+events_t.onTick = updateEvents;
+events_t.start();
+
 </script>
 </head>
 

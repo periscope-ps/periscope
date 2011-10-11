@@ -299,4 +299,39 @@ update_topology_locations = function() {
 	    });
 }
 
+var last_update = null;
+
+function updateEvents() {
+    function onDataReceived(items) {
+        if (items.length > 0 ) {
+            last_update = Math.floor(new Date().getTime() / 1000);
+        }
+        var i;
+        for (i = 0; i < items.length; ++i) {
+             
+            if (items[i]['status'] == 'UP') {
+                updateLinkColor(items[i]['unisId'], 'red');
+            } else {
+                updateLinkColor(items[i]['unisId'], 'black');
+            }
+        }
+    }
+    
+    if (last_update == null) {
+        dojo.xhrGet({
+            url: "{% url monitoring.views.get_events %}",
+            handleAs:"json",
+            load: onDataReceived,
+            error: function(err){console.error(err)}
+        });
+    } else {
+        dojo.xhrGet({
+            url: "{% url monitoring.views.get_events %}" + "?last_update=" + last_update,
+            handleAs:"json",
+            load: onDataReceived,
+            error: function(err){console.error(err)}
+        });
+    }
+}
+
 </script>
