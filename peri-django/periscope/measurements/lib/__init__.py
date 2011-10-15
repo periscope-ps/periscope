@@ -944,7 +944,7 @@ def get_mongodb():
     
     mongodb.metadata.ensure_index([('unis_id', 1), ('event_type', 1)],
                                     unique=True)
-    mongodb.metadata.ensure_index([('meta_key', 1)], unique=True)
+    #mongodb.metadata.ensure_index([('meta_key', 1)], unique=True)
     
     return mongodb
 
@@ -1088,7 +1088,9 @@ def save_measurements_data(meta_ref, data):
     for datum in data:
         fdatum = datum
         fdatum['meta_ref'] = meta_ref
-        
+        if 'value' in datum:
+            if datum['value'] =='nan':
+                continue
         if 'timeType' in datum:
             time_type = fdatum.pop('timeType')
             if 'timeValue' in datum:
