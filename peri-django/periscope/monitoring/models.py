@@ -36,3 +36,7 @@ class NetworkObjectStatus(models.Model):
     network_object = models.ForeignKey(NetworkObject)
     status = models.CharField(max_length=200)
     last_update = models.DateTimeField(null=True)
+    gri = models.CharField(max_length=255)
+    username = models.CharField(max_length=255, null=True)
+    userid = models.CharField(max_length=255, null=True)
+    obj_type = models.CharField(max_length=200)
