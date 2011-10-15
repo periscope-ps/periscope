@@ -59,8 +59,8 @@ function grid_window_event(grid) {
 // opens a chart when double-clicking a port
 function chart_window_event(circle) {
 	dojo.connect(circle.getEventSource(), "ondblclick", null, function(e) {
-                        window.open('{% url measurements.views.get_dojo_chart %}?id=' + e.target.id +
-                                    '&event=http://ggf.org/ns/nmwg/characteristic/utilization/2.0&t=1800', e.target.id,
+                        window.open('{% url measurements.views.get_dojo_chart_mongo %}?id=' + e.target.id +
+                                    '&event=http://ggf.org/ns/nmwg/characteristic/utilization/2.0/&t=1800', e.target.id,
                                     'left=20,top=20,width=610,height=350,toolbar=0,resizable=0');
 		});
 }

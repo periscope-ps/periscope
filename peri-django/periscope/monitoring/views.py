@@ -97,9 +97,9 @@ def get_events(request):
     
 
 
-# curl -i -H "Accept: application/json" -X POST -d "urn=urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth4:link=eth4##192.168.100.58&status=up" http://127.0.0.1:8000/monitoring/event 
+# curl -i -H "Accept: application/json" -X POST -d "urn=urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth4:link=eth4##192.168.100.58&status=DOWN" http://127.0.0.1:8000/monitoring/event 
 
-# curl -i -H "Accept: application/json" -X POST -d "src_node=newy-tb-rt-1&src_port=xe-1/3/0&dst_node=bnl-tb-rt-2&dst_port=xe-0/0/1&type=link&status=up" http://127.0.0.1:8000/monitoring/event 
+# curl -i -H "Accept: application/json" -X POST -d "src_node=newy-tb-rt-1&src_port=xe-1/3/0&dst_node=bnl-tb-rt-2&dst_port=xe-0/0/1&type=link&status=UP" http://127.0.0.1:8000/monitoring/event 
 
 def post_event(request):
     

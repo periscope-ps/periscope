@@ -24,6 +24,7 @@ from psapi.query import IPerfQuery
 from psapi.query import OWAMPQuery
 from psapi.query import TracerouteQuery
 from psapi.query import XQuery
+from psapi.query import GangliaQuery
 from psapi.protocol import EndPointPair as psEndPointPair
 from psapi.protocol import Interface
 from psapi.protocol import IPerfSubject
@@ -33,6 +34,7 @@ from psapi.protocol import NMBService
 from psapi.protocol import NetDiscardSubject
 from psapi.protocol import NetErrorSubject
 from psapi.protocol import NetUtilSubject
+from psapi.protocol import Node as psNode
 from psapi.protocol import OWAMPSubject
 from psapi.protocol import PsService
 from psapi.protocol import PingerSubject
@@ -683,10 +685,10 @@ def make_query_by_key(key, event_type, start_time=None, end_time=None):
     if not (isinstance(key, str) or isinstance(key, unicode)):
         raise ValueError("key must be str.")
 
-    if not (event_type in all_events):
-        raise ValueError("Unrecognized event_type.")
-
-    if event_type in discard_events:
+    if event_type.find('ganglia') > 0:
+        query = GangliaQuery(maKey=key, event=event_type,
+                start_time=start_time, end_time=end_time)
+    elif event_type in discard_events:
         query = SNMPQuery(maKey=key, event=events.NET_DISCARD,
                 start_time=start_time, end_time=end_time)
     elif event_type in error_events:
@@ -809,7 +811,20 @@ def make_endpoint_query(endpoint, event_types):
 
     return endpoint_queries
 
+def node_to_psnode(node):
+    return psNode(name=node.names.all()[0])
 
+def make_ganglia_query(network_object, event_type, start_time=None, end_time=None):
+    if isinstance(network_object, Port):
+        subject = port_to_interface(network_object)
+    elif isinstance(network_object, Interface) or isinstance(network_object, psNode):
+        subject = network_object
+    elif isinstance(network_object, Node):
+        subject = node_to_psnode(psNode)
+    
+    return GangliaQuery(event=event_type, subject=subject, start_time=start_time, end_time=end_time)
+    
+    
 def get_meta_keys(service, network_objects, event_type):
     """
     Querys service for the metadata keys of all network objects with event_type.
@@ -837,7 +852,18 @@ def get_meta_keys(service, network_objects, event_type):
     # because some services doesn't relate the metadataIdRef with the 
     # original metadata ID.
     for obj in objects:
-        if isinstance(obj, Port):
+        if event_type.find('ganglia') > 0:
+            query = [make_ganglia_query(obj, event_type)]
+            if isinstance(obj, Port):
+                interface = port_to_interface(obj)
+                index = (interface.hostName,
+                        interface.ifName,
+                        interface.ipAddress,
+                        interface.ifAddress)
+                objects_index[index] = obj
+            elif isinstance(obj, Node):
+                objects_index[index] = obj.names.all()[0]
+        elif isinstance(obj, Port):
             query = make_snmp_query(obj, event_type)
             interface = port_to_interface(obj)
             index = (interface.hostName,
@@ -887,6 +913,11 @@ def get_meta_keys(service, network_objects, event_type):
         if isinstance(meta.subject.contents, psEndPointPair):
             ends = (meta.subject.src, meta.subject.dst)
             obj = objects_index[ends]
+            result_keys[obj] = {'key': data, 'meta': meta_result[meta_id]}
+        elif isinstance(obj, Node):
+            index = obj.names.all()[0]
+            obj = objects_index[index]
+            result_keys[obj] = data
             result_keys[obj] = {'key': data, 'meta': meta_result[meta_id]}
         elif isinstance(meta.subject.contents, Interface):
             interface = meta.subject.contents

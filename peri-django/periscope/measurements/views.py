@@ -149,10 +149,13 @@ def get_measurements_data_mongo(request):
     except:
         return HttpResponseBadRequest("Time (t) must be an integer.")
     
+    ganglia_sent = 'http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/2.0'
+    ganglia_recv = 'http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/received/2.0'
     events_map = {}
     events_map[events.NET_DISCARD] = [events.NET_DISCARD_RECV, events.NET_DISCARD_SENT]
     events_map[events.NET_ERROR] = [events.NET_ERROR_RECV, events.NET_ERROR_SENT]
     events_map[events.NET_UTILIZATION] = [events.NET_UTILIZATION_RECV, events.NET_UTILIZATION_SENT]
+    events_map[events.NET_UTILIZATION] = [ganglia_sent, ganglia_recv]
     
     if not unis_id:
         return HttpResponseBadRequest("UNIS is is not defined.")
@@ -177,7 +180,13 @@ def get_measurements_data_mongo(request):
         "label": "timestamps", "items": []}
     
     for meta_id, meta in measurements['meta'].items():
-        tmp = {'urn': meta['unis_id'], 'event_type': meta['event_type'], "values":[], 'timestamps': []}
+        if meta['event_type'] == ganglia_sent:
+            event = events.NET_UTILIZATION_SENT
+        elif meta['event_type'] == ganglia_recv:
+            event = events.NET_UTILIZATION_RECV
+        else:
+            event =  meta['event_type']
+        tmp = {'urn': meta['unis_id'], 'event_type': event, "values":[], 'timestamps': []}
         for data in  measurements['data'][meta_id]:
             tmp['values'].append(data['value'])
             tmp['timestamps'].append(data['time'])
