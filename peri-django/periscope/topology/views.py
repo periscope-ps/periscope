@@ -19,7 +19,7 @@ from django.conf import settings
 from periscope.topology.lib.topology import create_from_xml_string
 from periscope.topology.lib.util import *
 from periscope.topology.models import *
-from periscope.monitoring.models import PathDataModel, GridFTPTransfer
+from periscope.monitoring.models import PathDataModel, GridFTPTransfer, NetworkObjectStatus
 from periscope.measurements.lib.CollectLib import get_endpoints_info
 from periscope.measurements.lib.CollectLib import validIP4
 from periscope.measurements.lib.CollectLib import get_host_ips, find_cloud
@@ -272,6 +272,36 @@ def topology_get_user_transfers(request):
     json_xfers.write(']\n}')
     
     return HttpResponse(json_xfers.getvalue(), mimetype="application/json")
+
+@never_cache
+def topology_get_transfers(request):
+    """
+    ANI demo
+    """
+    from cStringIO import StringIO
+
+    user = request.GET.get('user', None)
+    
+    json_xfers = {'xfers': []}
+    user_xfers = NetworkObjectStatus.objects.filter(obj_type='transfer')
+    
+    if user:
+        user_xfers = user_xfers.filter(username=user)
+    
+    for xfer in user_xfers:
+        json_xfer = {
+            'resId': xfer.gri,
+            'status': xfer.status,
+            'src': xfer.network_object.unis_id.split(':')[0],
+            'dst': xfer.network_object.unis_id.split(':')[1],
+            'username': xfer.username,
+            'userid': xfer.userid,
+            }
+        json_xfers['xfers'].append(json_xfer)
+        
+    json_xfers['paths'] = []
+    
+    return HttpResponse(json.dumps(json_xfers['xfers']), mimetype="application/json")
 
 @never_cache
 def topology_get_reservations(request):
