@@ -24,7 +24,7 @@ PeriscopeDomainProperties.objects.all().delete()
 PeriscopeNodeProperties.objects.all().delete()
 PeriscopePortProperties.objects.all().delete()
 
-d = Domain.objects.get(unis_id='urn:ogf:network:domain=bnl-ani.es.net')
+d = Domain.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net')
 PeriscopeDomainProperties.objects.create(parent=d,
     shape=PeriscopeShape.objects.create(
     shape="rect", x=5, y=5, width=1070, height=490, fill="moccasin",
@@ -182,7 +182,7 @@ PeriscopePortProperties.objects.create(parent=p,
 ))
 
 
-p = Port.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Te0/26')
+p = Port.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26')
 PeriscopePortProperties.objects.create(parent=p,
     shape=PeriscopeShape.objects.create(
     shape="circle", x=140, y=200, width=5, height=5, fill="aliceblue",
@@ -344,7 +344,7 @@ PeriscopePortProperties.objects.create(parent=p,
     text_xdisp="-10", text_ydisp="-10", text_align="middle"
 ))
 
-p = Port.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=Te0/26')
+p = Port.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/26')
 PeriscopePortProperties.objects.create(parent=p,
     shape=PeriscopeShape.objects.create(
     shape="circle", x=1000, y=240, width=5, height=5, fill="aliceblue",

@@ -119,6 +119,69 @@ function set_surface_background(image) {
 	}
 }
 
+var GenericTxNeedle;
+var GenericRxNeedle;
+
+initGenericPerfometer = function () {
+    var gauge = dijit.byId('GenericPerfometer');
+    // Used for a gradient arc indicator below:                                                                                    
+    var fill = {
+        'type': 'linear',
+        'x1': 0,
+        'y1': 0,
+	'x2': 10,
+        'y2': 10,
+        'colors': [{
+            offset: 0,
+            color: 'black'
+        },
+		   {
+                       offset: 0.5,
+                       color: 'black'
+		   },
+		   {
+		       offset: 0.75,
+                       color: 'yellow'
+		   },
+		   {
+                       offset: 1,
+                       color: 'red'
+		   }]
+    };
+    gauge.addIndicator(new dojox.widget.gauge.AnalogArcIndicator({
+        'value': 10,
+        'width': 5,
+        'offset': 60,
+        'color': fill,
+        'noChange': true,
+        'hideValues': true
+    }));
+    gauge.addIndicator(new dojox.widget.gauge.AnalogArcIndicator({
+        'value': 7.5,
+        'width': 5,
+        'offset': 60,
+        'color': 'blue',
+        'noChange': true,
+        'hover': 'Arc: 75'
+    }));
+    BNLTxNeedle = gauge.addIndicator(new dojox.widget.gauge.AnalogNeedleIndicator({
+        'value': 0,
+        'width': 3,
+        'length': 60,
+        'color': 'red',
+        'title': 'Rx%',
+        'hover': 'Rx%: 0'
+    }));
+    BNLRxNeedle = gauge.addIndicator(new dojox.widget.gauge.AnalogNeedleIndicator({
+        'value': 0,
+        'width': 3,
+        'length': 60,
+        'color': 'yellow',
+        'title': 'Rx%',
+        'hover': 'Rx%: 0'
+    }));
+};
+
 include('/static_media/js/periscope/view.js');
 include('/static_media/js/periscope/grid.js');
 include('/static_media/js/periscope/pane.js');

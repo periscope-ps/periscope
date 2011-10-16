@@ -322,7 +322,7 @@ function connectNodes(n1, n2, lwidth){
     //var line = surface.createLine({x1: o1.cx, y1: o1.cy, x2: o2.cx, y2: o2.cy});
     var line = surface.createLine({x1: o1_points[m_points[0]][0], y1: o1_points[m_points[0]][1],
 				   x2: o2_points[m_points[1]][0], y2: o2_points[m_points[1]][1]});
-    line.setStroke({style: "Solid", width: lwidth, cap: "round", color: "black"});
+    line.setStroke({style: "Solid", width: lwidth, cap: "round", color: "grey"});
     return line;
 }
 
