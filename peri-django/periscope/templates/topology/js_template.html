@@ -88,7 +88,7 @@ function updateCircuitGrid() {
         }
 
         dojo.xhrGet({
-			url: "{% url topology.views.topology_get_reservations %}",
+			url: "{% url topology.views.topology_get_transfers %}",
 				handleAs:"json",
 				load: onDataReceived,
 				error: function(err){console.error(err)}
@@ -126,7 +126,7 @@ function updateTransferGrid() {
                 var selected = dijit.byId('usersel').attr('value')[0];
                 if (selected) {
                         dojo.xhrGet({
-                                url: "{% url topology.views.topology_get_user_transfers %}",
+                                url: "{% url topology.views.topology_get_transfers %}",
                                 handleAs:"json",
                                                 load: onDataReceived,
                                                 content: {user: selected},

@@ -19,7 +19,7 @@ from django.conf import settings
 from periscope.topology.lib.topology import create_from_xml_string
 from periscope.topology.lib.util import *
 from periscope.topology.models import *
-from periscope.monitoring.models import PathDataModel, GridFTPTransfer
+from periscope.monitoring.models import PathDataModel, GridFTPTransfer, NetworkObjectStatus
 from periscope.measurements.lib.CollectLib import get_endpoints_info
 from periscope.measurements.lib.CollectLib import validIP4
 from periscope.measurements.lib.CollectLib import get_host_ips, find_cloud
@@ -272,6 +272,86 @@ def topology_get_user_transfers(request):
     json_xfers.write(']\n}')
     
     return HttpResponse(json_xfers.getvalue(), mimetype="application/json")
+
+@never_cache
+def topology_get_transfers(request):
+    """
+    ANI demo
+    """
+    from cStringIO import StringIO
+
+    user = request.GET.get('user', None)
+    
+    json_xfers = {'xfers': []}
+    user_xfers = NetworkObjectStatus.objects.filter(obj_type='transfer')
+    
+    if user:
+        user_xfers = user_xfers.filter(username=user)
+    
+    for xfer in user_xfers:
+        json_xfer = {
+            'resId': xfer.gri,
+            'status': xfer.status,
+            'src': xfer.network_object.unis_id.split(':')[0],
+            'dst': xfer.network_object.unis_id.split(':')[1],
+            }
+        json_xfers['xfers'].append(json_xfer)
+        
+    json_xfers['paths'] = []
+
+    """
+    for xfer in user_xfers:        
+        if validIP4(xfer.src):
+            src = xfer.src
+        else:
+            try:
+                src = DNSCache.objects.get(hostname=xfer.src).ip
+            except:
+                src = get_host_ips(xfer.src)
+                if (len(src) == 0):
+                    continue
+                else:
+                    src = src[0]
+                    d = DNSCache(hostname=xfer.src, ip=src)
+                    d.save()
+
+        if validIP4(xfer.dst):
+            dst = xfer.dst
+        else:
+            try:
+                dst = DNSCache.objects.get(hostname=xfer.dst).ip
+            except:
+                dst = get_host_ips(xfer.dst)
+                if (len(dst) == 0):
+                    continue
+                else:
+                    dst = dst[0]
+                    d = DNSCache(hostname=xfer.dst, ip=dst)
+                    d.save()
+
+        src_node = find_cloud(src)
+        dst_node = find_cloud(dst)    
+
+        if (src_node is None or dst_node is None):
+            continue
+        
+        path = find_path(src_node, dst_node)
+
+        if (path):
+            json_xfers.write('\n {"t_id": "%s", "src_id": %s, "dst_id": %s, "link_ids": [' %
+                             (xfer.transfer_id, src_node.id, dst_node.id))
+            
+            hops = path.hops.all()
+            for h in hops:
+                # we just assume each hop is a link right now
+                link = h.target.toRealType()
+                json_xfers.write('%s,' % (link.id))
+
+            json_xfers.write(']},')
+    """
+
+    
+    return HttpResponse(json.dumps(json_xfers), mimetype="application/json")
 
 @never_cache
 def topology_get_reservations(request):
