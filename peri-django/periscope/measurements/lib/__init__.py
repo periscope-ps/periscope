@@ -822,7 +822,7 @@ def make_ganglia_query(network_object, event_type, start_time=None, end_time=Non
     elif isinstance(network_object, Node):
         subject = node_to_psnode(psNode)
     
-    return GangliaQuery(event=event_type, subject=subject, start_time=start_time, end_time=end_time)
+    return GangliaQuery(event=event_type, subject=subject, start_time=start_time, end_time=end_time, consolidation_function='AVERAGE', resolution=30)
     
     
 def get_meta_keys(service, network_objects, event_type):
@@ -1248,3 +1248,9 @@ def query_measurements(unis_ids, event_types, meta_filter=None, data_filter=None
         results['data'][meta_ref].append(datum)
     
     return results
+
+
+def reset_meta_keys():
+	db = get_mongodb()
+	db.metadata.update({}, {'$set' : {'meta_key': None}}, upsert=False, multi=True)
+
