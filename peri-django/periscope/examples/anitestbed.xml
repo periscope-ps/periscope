@@ -60,10 +60,10 @@
             <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/3</unis:portIdRef>
           </unis:relation>
           <unis:relation type="sink">
-            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Te0/26</unis:portIdRef>
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26</unis:portIdRef>
           </unis:relation>
           <unis:relation type="pair">
-            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Te0/26##192.168.100.82</unis:linkIdRef>
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26##192.168.100.82</unis:linkIdRef>
           </unis:relation>
           <unis:linkPropertiesBag>
             <ctrlplane:linkProperties>
@@ -403,7 +403,7 @@
     </unis:node>
     <unis:node id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1">
       <unis:description>NEC switch</unis:description>
-      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Te0/26">
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26">
         <unis:capacity>10000000000</unis:capacity>
         <unis:portPropertiesBag>
           <ctrlplane:portProperties>
@@ -413,10 +413,10 @@
             <ctrlplane:granularity>1000000</ctrlplane:granularity>
           </ctrlplane:portProperties>
         </unis:portPropertiesBag>
-        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Te0/26:link=Te0/26##192.168.100.82" directed="true">
-          <unis:name>Te0/26##192.168.100.82</unis:name>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26:link=10GBE0/26##192.168.100.82" directed="true">
+          <unis:name>10GBE0/26##192.168.100.82</unis:name>
           <unis:relation type="source">
-            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Te0/26</unis:portIdRef>
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26</unis:portIdRef>
           </unis:relation>
           <unis:relation type="sink">
             <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/3</unis:portIdRef>
@@ -831,8 +831,8 @@
         </unis:link>
       </unis:port>
       <!-- Port to Open Flow/Diskpt-1 -->
-      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=Te0/26">
-        <unis:name type="ifName">Te0/26</unis:name>
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/26">
+        <unis:name type="ifName">10GBE0/26</unis:name>
         <unis:capacity>10000000000</unis:capacity>
         <unis:description>Port to Open Flow/Diskpt-1</unis:description>
         <unis:portPropertiesBag>
@@ -843,10 +843,10 @@
             <ctrlplane:granularity>1000000</ctrlplane:granularity>
           </ctrlplane:portProperties>
         </unis:portPropertiesBag>
-        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=Te0/26:link=Te0/26##192.168.100.182" directed="true">
-          <unis:name>Te0/26##192.168.100.182</unis:name>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/26:link=10GBE0/26##192.168.100.182" directed="true">
+          <unis:name>10GBE0/26##192.168.100.182</unis:name>
           <unis:relation type="source">
-            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=Te0/26</unis:portIdRef>
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/26</unis:portIdRef>
           </unis:relation>
           <unis:relation type="sink">
             <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth5</unis:portIdRef>
@@ -1057,10 +1057,10 @@
             <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth5</unis:portIdRef>
           </unis:relation>
           <unis:relation type="sink">
-            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=Te0/26</unis:portIdRef>
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/26</unis:portIdRef>
           </unis:relation>
           <unis:relation type="pair">
-            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=Te0/26:link=Te0/26##192.168.100.182</unis:linkIdRef>
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/26:link=10GBE0/26##192.168.100.182</unis:linkIdRef>
           </unis:relation>
           <unis:linkPropertiesBag>
             <ctrlplane:linkProperties>
