@@ -310,9 +310,11 @@ function updateEvents() {
         for (i = 0; i < items.length; ++i) {
              
             if (items[i]['status'] == 'UP') {
-                updateLinkColor(items[i]['unisId'], 'red');
-            } else {
                 updateLinkColor(items[i]['unisId'], 'black');
+            } else if (items[i]['status'] == 'DOWN') {
+                updateLinkColor(items[i]['unisId'], 'gray');
+            } else if (items[i]['status'] == 'FAILURE') {
+                updateLinkColor(items[i]['unisId'], 'red');
             }
         }
     }
