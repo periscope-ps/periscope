@@ -4,7 +4,7 @@ from periscope.measurements.lib import *
 
 ports = [
     #'urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth1', 
-    'urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth4',
+    #'urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth4',
     'urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth5',
     #'urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth8',
     #'urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth9',
@@ -56,4 +56,3 @@ for urn in nodes:
         print "Cannot find node:", urn, "\n"
     for event in node_events:
         r = register_pull_network_object(node, event, service)
-

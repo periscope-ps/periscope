@@ -156,7 +156,7 @@
                 var xlabels = [];
                 
                 for (var i=0; i<data[0].timestamps.length; i++) {
-                       xlabels[i] = {value: i+1, text: data[0].timestamps[i]}
+                       xlabels[i] = {value: i+1, text: data[0].timestamps[i].split("T")[1]}
                 }
                 var tick = Math.ceil(data[0].timestamps.length / 3);
                         cpu_chart.addAxis("x", {
@@ -184,7 +184,7 @@
                 var xlabels = [];
 
                 for (var i=0; i<data[0].timestamps.length; i++) {
-                       xlabels[i] = {value: i+1, text: data[0].timestamps[i]}
+                       xlabels[i] = {value: i+1, text: data[0].timestamps[i].split("T")[1]}
                 }
                 var tick = Math.ceil(data[0].timestamps.length / 3);
                         mem_chart.addAxis("x", {
