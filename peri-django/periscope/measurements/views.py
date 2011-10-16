@@ -240,6 +240,46 @@ def view_dojo_chart(request):
         return HttpResponse("Invalid Request", mimetype="text/plain")
 
 
+def get_host_data_mongo(request):
+    unis_id = urllib.unquote(request.GET.get('id', ''))
+    t = request.GET.get('t', 300)
+    try:
+        t = int(t)
+    except:
+        return HttpResponseBadRequest("Time (t) must be an integer.")
+
+    if not unis_id:
+        return HttpResponseBadRequest("UNIS is is not defined.")
+
+    event_types = ['http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/sent/2.0',
+                   'http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/received/2.0',
+                   'http://ggf.org/ns/nmwg/tools/ganglia/memory/main/free/2.0',
+                   'http://ggf.org/ns/nmwg/tools/ganglia/cpu/utilization/system/2.0']
+    
+    time_delta = timedelta(0, t)
+    measurements = query_measurements(unis_id, event_types, None,
+                                      {'time': {
+                '$gte': datetime.now() - time_delta, '$lte': datetime.now()
+                }})
+
+    values = ""
+    labels = ""
+    
+    result = {"identifier": "urn",
+              "idAttribute": "event_type",
+              "label": "timestamps", "items": []}
+    
+    for meta_id, meta in measurements['meta'].items():
+        event =  meta['event_type']
+        tmp = {'urn': meta['unis_id'], 'event_type': event, "values":[], 'timestamps': []}
+        for data in  measurements['data'][meta_id]:
+            tmp['values'].append(data['value'])
+            tmp['timestamps'].append(data['time'])
+        result['items'].append(tmp)
+
+    dthandler = lambda obj: obj.isoformat() if isinstance(obj, datetime) else None
+    return HttpResponse(json.dumps(result,  default=dthandler), mimetype="text/plain")
+        
 def get_host_data(request):
     from cStringIO import StringIO
 

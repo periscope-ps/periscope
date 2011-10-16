@@ -812,7 +812,7 @@ def make_endpoint_query(endpoint, event_types):
     return endpoint_queries
 
 def node_to_psnode(node):
-    return psNode(name=node.names.all()[0])
+    return psNode(hostName=node.names.all()[0])
 
 def make_ganglia_query(network_object, event_type, start_time=None, end_time=None):
     if isinstance(network_object, Port):
@@ -820,7 +820,7 @@ def make_ganglia_query(network_object, event_type, start_time=None, end_time=Non
     elif isinstance(network_object, Interface) or isinstance(network_object, psNode):
         subject = network_object
     elif isinstance(network_object, Node):
-        subject = node_to_psnode(psNode)
+        subject = node_to_psnode(network_object)
     
     return GangliaQuery(event=event_type, subject=subject, start_time=start_time, end_time=end_time, consolidation_function='AVERAGE', resolution=30)
     
@@ -862,7 +862,9 @@ def get_meta_keys(service, network_objects, event_type):
                         interface.ifAddress)
                 objects_index[index] = obj
             elif isinstance(obj, Node):
-                objects_index[index] = obj.names.all()[0]
+                psnode = node_to_psnode(obj)
+                index = (psnode.hostName)
+                objects_index[index] = obj
         elif isinstance(obj, Port):
             query = make_snmp_query(obj, event_type)
             interface = port_to_interface(obj)

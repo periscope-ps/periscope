@@ -78,6 +78,7 @@ class MonitoringApp(DjangoSoapApp):
 @never_cache
 def get_events(request):
     last_update = request.GET.get('last_update', None)
+    last_update = None
     if last_update:
         try:
             last_update = datetime.fromtimestamp(int(last_update))

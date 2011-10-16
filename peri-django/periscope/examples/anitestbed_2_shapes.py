@@ -167,7 +167,7 @@ PeriscopeNodeProperties.objects.create(parent=newy_node,
 ))
 
 
-p = Port.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Te0/25')
+p = Port.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/25')
 PeriscopePortProperties.objects.create(parent=p,
     shape=PeriscopeShape.objects.create(
     shape="circle", x=125, y=170, width=5, height=5, fill="aliceblue",
@@ -337,7 +337,7 @@ PeriscopeNodeProperties.objects.create(parent=bnl_node,
     text_xdisp="0", text_ydisp="0", text_align="middle"
 ))
 
-p = Port.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=Te0/25')
+p = Port.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/25')
 PeriscopePortProperties.objects.create(parent=p,
     shape=PeriscopeShape.objects.create(
     shape="circle", x=960, y=200, width=5, height=5, fill="aliceblue",
