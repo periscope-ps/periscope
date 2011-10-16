@@ -67,7 +67,7 @@
             var recv = 0;
             var sent = 1;
             
-            if (data[0].eT.toString().search("sent")) {
+            if (data[0].event_type.toString().search("sent")) {
                 recv = 1;
                 sent = 0;
             }
@@ -75,12 +75,12 @@
             // Take the longest time series for labels
             if (data[recv].timestamps.length > data[sent].timestamps.length) {
                 for (var i=0; i<data[recv].timestamps.length; i++) {
-                    xlabels[i] = {value: i+1, text: data[recv].timestamps[i]}
+                    xlabels[i] = {value: i+1, text: data[recv].timestamps[i].split("T")[1]}
                 }
             }
             else {
                 for (var i=0; i<data[sent].timestamps.length; i++) {
-                    xlabels[i] = {value: i+1, text: data[sent].timestamps[i]}
+                    xlabels[i] = {value: i+1, text: data[sent].timestamps[i].split("T")[1]}
                 }
             }
 
@@ -236,15 +236,16 @@
         }
 
         function onDataReceived(series) {
-                var store = new dojo.data.ItemFileReadStore({data: {"items": series}});
-                store.fetch({query: {eT: /received|sent/ }, onComplete: plotNet, onError:function(err){console.error(err)}});
-                store.fetch({query: {eT: /cpu/}, onComplete: plotCpu, onError:function(err){console.error(err)}});
-                store.fetch({query: {eT: /mem/}, onComplete: plotMem, onError:function(err){console.error(err)}});
+	console.log(series);
+                var store = new dojo.data.ItemFileReadStore({data: {"items": series.items}});
+                store.fetch({query: {event_type: /received|sent/ }, onComplete: plotNet, onError:function(err){console.error(err)}});
+                store.fetch({query: {event_type: /cpu/}, onComplete: plotCpu, onError:function(err){console.error(err)}});
+                store.fetch({query: {event_type: /memory/}, onComplete: plotMem, onError:function(err){console.error(err)}});
 			      }
 
         function updatePlot() {
                 dojo.xhrGet({
-                        url: "{% url measurements.views.get_host_data %}?id={{node_id}}",
+                        url: "{% url measurements.views.get_host_data_mongo %}?id={{node_id}}",
                         handleAs:"json",
                         load: onDataReceived,
                         error: function(err){console.error(err)}
@@ -303,11 +304,14 @@ dojo.addOnLoad(doPlots);
       <div id="mtable">
         <div id="row">
           <div id="col" style="width: 270; height: 250; text-align: center;"><div id="ytitle"></div>
-	    <div id="net_chart" style="width: 270; height: 200;"><div id="net_legend"></div></div></div>
+	    <div id="net_chart" style="width: 270; height: 200;"><div id="net_legend"></div></div>
+	  </div>
           <div id="col" style="width: 270; height: 250; text-align: center;">CPU Utilization
-	    <div id="cpu_chart" style="width: 270; height: 200;"><div id="cpu_legend"></div></div></div>
+	    <div id="cpu_chart" style="width: 270; height: 200;"><div id="cpu_legend"></div></div>
+	  </div>
           <div id="col" style="width: 270; height: 250; text-align: center;"><div id="mtitle"></div>
-	    <div id="mem_chart" style="width: 270; height: 200;"><div id="mem_legend"></div></div></div>
+	    <div id="mem_chart" style="width: 270; height: 200;"><div id="mem_legend"></div></div>
+	  </div>
         </div>
       </div>
     </div>
