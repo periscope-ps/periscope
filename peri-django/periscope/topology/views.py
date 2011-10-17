@@ -282,11 +282,23 @@ def topology_get_transfers(request):
 
     user = request.GET.get('user', None)
     
-    json_xfers = {'xfers': []}
+    json_xfers = {'xfers': [], 'paths': []}
     user_xfers = NetworkObjectStatus.objects.filter(obj_type='transfer')
     
     if user:
         user_xfers = user_xfers.filter(username=user)
+    
+    links = [
+        'urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth5:link=eth5##192.168.100.82',
+        'urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26:link=10GBE0/26##192.168.100.82',
+        'urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-1/3/0:link=xe-1/3/0.0##192.168.100.21',
+        'urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-1/3/0:link=xe-1/3/0.0##192.168.100.181',
+        'urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/26:link=10GBE0/26##192.168.100.182',
+    ]
+    
+    links_ids = []
+    for link in links:
+        links_ids.append(Link.objects.get(unis_id=link).id)
     
     for xfer in user_xfers:
         json_xfer = {
@@ -298,10 +310,21 @@ def topology_get_transfers(request):
             'userid': xfer.userid,
             }
         json_xfers['xfers'].append(json_xfer)
-        
-    json_xfers['paths'] = []
+        if json_xfer['src'] != 'bnl-diskpt-1':
+            links = list(reversed(links_ids))
+        else:
+            links = links_ids
+        path = {
+            'resId': xfer.gri,
+            'src_id': xfer.network_object.toRealType().src_id,
+            'dst_id': xfer.network_object.toRealType().dst_id,
+            'link_ids': links
+        }
+        json_xfers['paths'].append(path)
+
     
-    return HttpResponse(json.dumps(json_xfers['xfers']), mimetype="application/json")
+    
+    return HttpResponse(json.dumps(json_xfers), mimetype="application/json")
 
 @never_cache
 def topology_get_reservations(request):
