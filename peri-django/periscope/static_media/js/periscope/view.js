@@ -32,6 +32,9 @@ function visualizeTransferPath(e) {
 	prev_row = e.rowIndex;
     }
 
+    if (selectedRow.status != 'UP') {
+        return;
+    }
     var txtOpts = {
 	x: 10,
 	y: 580,
