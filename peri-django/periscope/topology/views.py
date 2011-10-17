@@ -169,7 +169,7 @@ def delete_paths(request):
     #print >> sys.stderr, res_ids
 
     for r in res_ids:
-        paths = PathDataModel.objects.filter(path_id=r)
+        paths = NetworkObjectStatus.objects.filter(gri=r)
         for p in paths:
             p.delete()
 
