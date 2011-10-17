@@ -69,7 +69,7 @@ function visualizeTransferPath(e) {
 	for (var i=0; i<currp.link_ids.length; i++) {
 	    var currl = idShapeMap[currp.link_ids[i]];
 	    //currl.setStroke({style: "Solid", width: 3, cap: "round", color: "red"});
-	    currl.moveToFront();
+	    //currl.moveToFront();
 
             chunks[i] = surface.createRect({x: currl.shape.x1-3,
 					    y: currl.shape.y1-3,
@@ -325,7 +325,7 @@ function connectNodes(n1, n2, lwidth){
     //var line = surface.createLine({x1: o1.cx, y1: o1.cy, x2: o2.cx, y2: o2.cy});
     var line = surface.createLine({x1: o1_points[m_points[0]][0], y1: o1_points[m_points[0]][1],
 				   x2: o2_points[m_points[1]][0], y2: o2_points[m_points[1]][1]});
-    line.setStroke({style: "Solid", width: lwidth, cap: "round", color: "grey"});
+    line.setStroke({style: "Solid", width: lwidth, cap: "round", color: "gray"});
     return line;
 }
 
