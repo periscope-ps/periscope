@@ -25,9 +25,10 @@ createUNISTopoStore({{json_topology|safe}});
 var gfxOpts = {
                width: 1100,
                height: 500,
-               level: "domain",
+               level: "node",
                spring: "true",
-               movePorts: "false"
+               movePorts: "false",
+               background: "/static_media/images/newy_manlan.png"
               };
 
 dojo.addOnLoad(function() { initGfx(gfxOpts) });
