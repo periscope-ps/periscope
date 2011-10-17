@@ -324,6 +324,7 @@ function updateEvents() {
             last_update = Math.floor(new Date().getTime() / 1000);
         }
         var i;
+        var path_viz = false;
         for (i = 0; i < items.length; ++i) {
             if (items[i]['type'] == 'link') {
                 if (items[i]['status'] == 'UP') {
@@ -334,7 +335,16 @@ function updateEvents() {
                     updateLinkColor(items[i]['unisId'], 'red');
                 }
             }
+            if (items[i]['type'] == 'transfer') {
+                if (items[i]['status'] == 'UP') {
+                    path_viz = true;
+                }
+            }
         }
+        if (path_viz == false) {
+            devisualizeTransferPath(null);
+        }  
+            
     }
     
     if (last_update == null) {

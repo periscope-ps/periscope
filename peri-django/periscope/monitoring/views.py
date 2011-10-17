@@ -157,13 +157,13 @@ def post_event(request):
             if len(net_objs) > 0:
                 net_obj = net_objs[0].network_object.toRealType()
             else:
-                unis_id = src_node + ":" + dst_node
-                endpoints = EndPointPair.objects.filter(unis_id=unis_id)
-                if len(endpoints) > 0:
-                    net_obj = endpoints[0]
-                else:
-                    net_obj = EndPointPair.objects.create(unis_id=unis_id, src=nsrc, dst=ndst)
-                    net_obj.save()
+                unis_id = src_node + ":" + dst_node + ":" + gri
+                #endpoints = EndPointPair.objects.filter(unis_id=unis_id)
+                #if len(endpoints) > 0:
+                #    net_obj = endpoints[0]
+                #else:
+                net_obj = EndPointPair.objects.create(unis_id=unis_id, src=nsrc, dst=ndst)
+                net_obj.save()
             
             if not net_obj:
                 return HttpResponseBadRequest("Transfer with src_node=%s, "
