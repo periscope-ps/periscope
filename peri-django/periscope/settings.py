@@ -143,7 +143,7 @@ LOG_FILE = '/tmp/periscope' # better to use /var/log but needs permissions on th
 logger = logging.getLogger('periscope')
 if len(logger.handlers) == 0:
     hdlr = logging.handlers.RotatingFileHandler(
-              LOG_FILE , maxBytes=5242880, backupCount=5)
+              LOG_FILE , maxBytes=95242880, backupCount=5)
     #formatter = logging.Formatter('%(lineno)s %(asctime)s %(levelname)s %(message)s')
     formatter = logging.Formatter('%(name)s :%(asctime)s %(filename)s %(lineno)s %(levelname)s  %(message)s')
     hdlr.setFormatter(formatter)
