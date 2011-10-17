@@ -251,7 +251,7 @@ function initANIGrid() {
         
     updateCircuitGrid();
     var t = new dojox.timing.Timer();
-    t.setInterval(10000);
+    t.setInterval(2000);
     t.onTick = updateCircuitGrid;
     t.start();
 };

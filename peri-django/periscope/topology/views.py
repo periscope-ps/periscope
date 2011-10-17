@@ -288,17 +288,27 @@ def topology_get_transfers(request):
     if user:
         user_xfers = user_xfers.filter(username=user)
     
-    links = [
+    newy_links = [
         'urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth5:link=eth5##192.168.100.82',
         'urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26:link=10GBE0/26##192.168.100.82',
         'urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-1/3/0:link=xe-1/3/0.0##192.168.100.21',
         'urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-1/3/0:link=xe-1/3/0.0##192.168.100.181',
         'urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/26:link=10GBE0/26##192.168.100.182',
     ]
+    bnl_links = [
+        'urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth5:link=eth5##192.168.100.58',
+        'urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/25:link=10GBE0/25##192.168.100.182',
+        'urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-0/0/1:link=xe-0/0/1.0##192.168.100.22',
+        'urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/3:link=xe-0/0/3.0##192.168.100.81',
+        'urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/25:link=10GBE0/25##192.168.100.82'
+    ]
     
-    links_ids = []
-    for link in links:
-        links_ids.append(Link.objects.get(unis_id=link).id)
+    newy_links_ids = []
+    bnl_links_ids = []
+    for link in newy_links:
+        newy_links_ids.append(Link.objects.get(unis_id=link).id)
+    for link in bnl_links:
+        bnl_links_ids.append(Link.objects.get(unis_id=link).id)
     
     for xfer in user_xfers:
         json_xfer = {
@@ -310,10 +320,10 @@ def topology_get_transfers(request):
             'userid': xfer.userid,
             }
         json_xfers['xfers'].append(json_xfer)
-        if json_xfer['src'] != 'bnl-diskpt-1':
-            links = list(reversed(links_ids))
+        if json_xfer['src'] == 'bnl-diskpt-1':
+            links = bnl_links_ids
         else:
-            links = links_ids
+            links = newy_links_ids
         path = {
             'resId': xfer.gri,
             'src_id': xfer.network_object.toRealType().src_id,

@@ -65,7 +65,7 @@ function visualizeTransferPath(e) {
 	
 	for (var i=0; i<currp.link_ids.length; i++) {
 	    var currl = idShapeMap[currp.link_ids[i]];
-	    currl.setStroke({style: "Solid", width: 3, cap: "round", color: "red"});
+	    //currl.setStroke({style: "Solid", width: 3, cap: "round", color: "red"});
 	    currl.moveToFront();
 
             chunks[i] = surface.createRect({x: currl.shape.x1-3,
@@ -133,7 +133,7 @@ function devisualizeTransferPath(e) {
 
         for (var i=0; i<currp.link_ids.length; i++) {
             var currl = idShapeMap[currp.link_ids[i]];
-            currl.setStroke({style: "Solid", width: 2, cap: "round", color: "black"});
+            //currl.setStroke({style: "Solid", width: 2, cap: "round", color: "black"});
 	    if (chunks[i]) {
 		chunks[i].removeShape();
 	    }
