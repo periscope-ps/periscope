@@ -23,10 +23,10 @@ def find_path(src, dst):
 
     return path
 
-def make_periscope_shape_json(shape, x, y, w, h, fill, tx, ty, align):
+def make_periscope_shape_json(shape, x, y, w, h, fill, tx, ty, align, disp):
     return '"shape":"%s","x":%s,"y":%s,"width":%s,"height":%s,"fill":"%s"'\
-        ',"textXDisp":%s,"textYDisp":%s,"textAlign":"%s"' % \
-        (shape, x, y, w, h, fill, tx, ty, align)
+        ',"textXDisp":%s,"textYDisp":%s,"textAlign":"%s","text_disp":"%s"' % \
+        (shape, x, y, w, h, fill, tx, ty, align, disp)
 
 def get_shape_json_esnet(topology, excludeNodeNames=[]):
     """ Needs to be written in such way that only draws the nodes we care about.
@@ -56,7 +56,8 @@ def get_shape_json_esnet(topology, excludeNodeNames=[]):
             shape = PeriscopeDomainProperties.objects.get(parent=domain).shape
             shape_json = ',\n' + shape.toJson()
         except PeriscopeDomainProperties.DoesNotExist:
-            shape_json = ',\n' + make_periscope_shape_json("rect", 0, 0, 50, 50, "moccasin", 0, 0, "middle");
+            shape_json = ',\n' + make_periscope_shape_json("rect", 0, 0, 50, 50, "moccasin", 0,
+                                                           0, "middle", domain.unis_id);
         json_topology.write('{\n"id":%s,\n"type":"%s",\n"unisId":"%s",\n"name":"%s"%s\n},\n\n' % \
                                 (domain.id, 'domain', domain.unis_id, 
                                  get_urn_value(domain.unis_id, 'domain'), shape_json))
@@ -97,7 +98,8 @@ def get_shape_json_esnet(topology, excludeNodeNames=[]):
             shape = PeriscopeNodeProperties.objects.get(parent=node).shape
             shape_json = ',\n' + shape.toJson()
         except PeriscopeNodeProperties.DoesNotExist:
-            shape_json = ',\n' + make_periscope_shape_json("circle", 0, 0, 30, 30, "lightcyan", 0, 0, "middle");
+            shape_json = ',\n' + make_periscope_shape_json("circle", 0, 0, 30, 30, "lightcyan",
+                                                           0, 0, "middle", node.unis_id);
         json_topology.write('{\n"id":%s,\n"type":"%s",\n"parent":{"_reference":%s},\n'
                             '"unisId":"%s",\n"name":"%s"%s\n},\n\n' % \
                                 (node.id, 'node', domain.id, node.unis_id, 
@@ -108,7 +110,8 @@ def get_shape_json_esnet(topology, excludeNodeNames=[]):
         if unis_id == None:
             unis_id = port.unis_id
         port_display = 'Port ' + unis_id
-        shape_json =  ',\n' + make_periscope_shape_json("circle", 0, 0, 5, 5, "aliceblue", -10, -10, "middle");
+        shape_json =  ',\n' + make_periscope_shape_json("circle", 0, 0, 5, 5, "aliceblue",
+                                                        -10, -10, "middle", unis_id);
         for properties in port.properties_bag.all():
             properties = properties.toRealType()
             
@@ -163,7 +166,8 @@ def get_shape_json(topology):
             shape = PeriscopeDomainProperties.objects.get(parent=domain).shape
             shape_json = ',\n' + shape.toJson()
         except PeriscopeDomainProperties.DoesNotExist:
-            shape_json = ',\n' + make_periscope_shape_json("rect", 0, 0, 50, 50, "moccasin", 0, 0, "middle");
+            shape_json = ',\n' + make_periscope_shape_json("rect", 0, 0, 50, 50, "moccasin",
+                                                           0, 0, "middle", domain.unis_id);
         json_topology.write('{\n"id":%s,\n"type":"%s",\n"unisId":"%s",\n"name":"%s"%s\n},\n\n' % \
                                 (domain.id, 'domain', domain.unis_id, 
                                  get_urn_value(domain.unis_id, 'domain'), shape_json))
@@ -176,7 +180,8 @@ def get_shape_json(topology):
                 shape = PeriscopeNodeProperties.objects.get(parent=node).shape
                 shape_json = ',\n' + shape.toJson()
             except PeriscopeNodeProperties.DoesNotExist:
-                shape_json = ',\n' + make_periscope_shape_json("circle", 0, 0, 30, 30, "lightcyan", 0, 0, "middle");
+                shape_json = ',\n' + make_periscope_shape_json("circle", 0, 0, 30, 30, "lightcyan",
+                                                               0, 0, "middle", node.unis_id);
             json_topology.write('{\n"id":%s,\n"type":"%s",\n"parent":{"_reference":%s},\n'
                                 '"unisId":"%s",\n"name":"%s"%s\n},\n\n' % \
                                     (node.id, 'node', domain.id, node.unis_id, 
@@ -187,7 +192,8 @@ def get_shape_json(topology):
     for node in nodes:
         for port in node.get_ports():
             port_display = 'Port ' + get_urn_value(port.unis_id, 'port')
-            shape_json =  ',\n' + make_periscope_shape_json("circle", 0, 0, 5, 5, "aliceblue", -10, -10, "middle");
+            shape_json =  ',\n' + make_periscope_shape_json("circle", 0, 0, 5, 5, "aliceblue",
+                                                            -10, -10, "middle", port.unis_id);
             for properties in port.properties_bag.all():
                 properties = properties.toRealType()
                 

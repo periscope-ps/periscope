@@ -1259,7 +1259,6 @@ class PeriscopeNodeProperties(NodeProperties):
 class PeriscopePortProperties(PortProperties):
     shape = models.OneToOneField('PeriscopeShape')
     
-    
 class PeriscopeShape(models.Model):
     SHAPES = (
         (u"rect", u"rect"),
@@ -1280,13 +1279,14 @@ class PeriscopeShape(models.Model):
     text_xdisp = models.IntegerField()
     text_ydisp = models.IntegerField()
     text_align = models.CharField(max_length=6, choices=ALIGNS)
-    
+    text_display = models.CharField(max_length=256)
     
     def toJson(self):
         return '"shape":"%s","x":%s,"y":%s,"width":%s,"height":%s,"fill":"%s"'\
-               ',"textXDisp":%s,"textYDisp":%s,"textAlign":"%s"' % \
+               ',"textXDisp":%s,"textYDisp":%s,"textAlign":"%s","text_disp":"%s"' % \
                (self.shape, self.x, self.y, self.width, self.height, self.fill,
-                self.text_xdisp, self.text_ydisp, self.text_align)
+                self.text_xdisp, self.text_ydisp, self.text_align, self.text_display)
+
 
 ###############################################################################
 # perfSONAR Topology

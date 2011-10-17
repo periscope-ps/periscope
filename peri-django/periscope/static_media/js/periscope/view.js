@@ -585,9 +585,11 @@ function makeShapes(items, request) {
 		    text.setFill("black");
 		    
 		if (objectType == 'node') {
-		    
-		    text.getEventSource().id = shapeUnisId;
+		    var nodeDisplay = topoStore.getValue(shapeItem, 'text_disp', shapeName);
+                    new periscope.Tooltip(shapeGroup.children[0], { text: nodeDisplay });
 
+		    text.getEventSource().id = shapeUnisId;
+		    
 		    dojo.connect(text.getEventSource(), "onmouseover", null, function(e) {
                             topoStore.fetch({query: {"unisId": e.target.id}, onComplete: colorNode});
                         });

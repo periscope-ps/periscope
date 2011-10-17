@@ -3,6 +3,7 @@
   <unis:domain id="urn:ogf:network:domain=testbed.es.net">
     <unis:node id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1">
       <unis:address type="ipv4">172.31.255.17</unis:address>
+      <unis:description>os=,kernel=,memory=,cpu=,cores=,blob=Juniper MX80</unis:description>
       <!-- Port to newy-app (Application host virtual machines tb-vm-1 to tb-vm-28) -->
       <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=ge-1/0/1">
         <unis:capacity>1000000000</unis:capacity>
@@ -402,7 +403,7 @@
       </unis:port>
     </unis:node>
     <unis:node id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1">
-      <unis:description>NEC switch</unis:description>
+      <unis:description>os=,kernel=,memory=,cpu=,cores=,blob=NEC IP8800</unis:description>
       <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26">
         <unis:capacity>10000000000</unis:capacity>
         <unis:portPropertiesBag>
@@ -551,6 +552,7 @@
     </unis:node>
     <unis:node id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2">
       <unis:address type="ipv4">172.31.255.18</unis:address>
+      <unis:description>os=,kernel=,memory=,cpu=,cores=,blob=Juniper MX80</unis:description>
       <!-- Port to bnl-app (Application host virtual machines bnl-app-vm-1 to bnl-app-vm-28) -->
       <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=ge-1/0/1">
         <unis:name type="ifName">ge-1/0/1</unis:name>
@@ -789,7 +791,7 @@
       </unis:port>
     </unis:node>
     <unis:node id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2">
-      <unis:description>NEC switch</unis:description>
+      <unis:description>os=,kernel=,memory=,cpu=,cores=,blob=NEC IP8800</unis:description>
       <!-- Port to Open Flow/Diskpt-1 -->
       <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/25">
         <unis:name type="ifName">10GBE0/25</unis:name>

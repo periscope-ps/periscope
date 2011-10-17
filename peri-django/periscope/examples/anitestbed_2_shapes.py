@@ -36,7 +36,7 @@ newy_node = Node.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node
 PeriscopeNodeProperties.objects.create(parent=newy_node, 
     shape=PeriscopeShape.objects.create(
     shape="circle", x=300, y=200, width=40, height=40, fill="lightcyan",
-    text_xdisp="0", text_ydisp="0", text_align="middle"
+    text_xdisp="0", text_ydisp="0", text_align="middle", text_display="MX80 Router A (NEWY)"
 ))
 
 p = Port.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-1/2/0')
@@ -95,7 +95,7 @@ newy_node = Node.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node
 PeriscopeNodeProperties.objects.create(parent=newy_node, 
     shape=PeriscopeShape.objects.create(
     shape="circle", x=300, y=50, width=40, height=40, fill="lightcyan",
-    text_xdisp="0", text_ydisp="0", text_align="middle"
+    text_xdisp="0", text_ydisp="0", text_align="middle", text_display="RDMA Diskpt A (NEWY)"
 ))
 
 p = Port.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth5')
@@ -140,7 +140,7 @@ newy_node = Node.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node
 PeriscopeNodeProperties.objects.create(parent=newy_node, 
     shape=PeriscopeShape.objects.create(
     shape="circle", x=300, y=350, width=40, height=40, fill="lightcyan",
-    text_xdisp="0", text_ydisp="0", text_align="middle"
+    text_xdisp="0", text_ydisp="0", text_align="middle", text_display="VM Application Node (NEWY)"
 ))
 
 p = Port.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=newy-app:port=eth1')
@@ -163,7 +163,7 @@ newy_node = Node.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node
 PeriscopeNodeProperties.objects.create(parent=newy_node, 
     shape=PeriscopeShape.objects.create(
     shape="circle", x=100, y=200, width=40, height=40, fill="lightcyan",
-    text_xdisp="0", text_ydisp="0", text_align="middle"
+    text_xdisp="0", text_ydisp="0", text_align="middle", text_display="OpenFlow NEC A (NEWY)"
 ))
 
 
@@ -203,7 +203,7 @@ bnl_node = Node.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=
 PeriscopeNodeProperties.objects.create(parent=bnl_node,
     shape=PeriscopeShape.objects.create(
     shape="circle", x=800, y=200, width=40, height=40, fill="lightcyan",
-    text_xdisp="0", text_ydisp="0", text_align="middle"
+    text_xdisp="0", text_ydisp="0", text_align="middle", text_display="MX80 Router B (BNL)"
 ))
 
 
@@ -257,7 +257,7 @@ bnl_node = Node.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=
 PeriscopeNodeProperties.objects.create(parent=bnl_node,
     shape=PeriscopeShape.objects.create(
     shape="circle", x=1000, y=350, width=40, height=40, fill="lightcyan",
-    text_xdisp="0", text_ydisp="0", text_align="middle"
+    text_xdisp="0", text_ydisp="0", text_align="middle", text_display="RDMA DiskPT B (BNL)"
 ))
 
 p = Port.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth5')
@@ -296,7 +296,7 @@ bnl_node = Node.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=
 PeriscopeNodeProperties.objects.create(parent=bnl_node,
     shape=PeriscopeShape.objects.create(
     shape="circle", x=800, y=350, width=40, height=40, fill="lightcyan",
-    text_xdisp="0", text_ydisp="0", text_align="middle"
+    text_xdisp="0", text_ydisp="0", text_align="middle", text_display="RDMA DiskPT C (BNL)"
 ))
 
 p = Port.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth7')
@@ -334,7 +334,7 @@ bnl_node = Node.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=
 PeriscopeNodeProperties.objects.create(parent=bnl_node,
     shape=PeriscopeShape.objects.create(
     shape="circle", x=1000, y=200, width=40, height=40, fill="lightcyan",
-    text_xdisp="0", text_ydisp="0", text_align="middle"
+    text_xdisp="0", text_ydisp="0", text_align="middle", text_display="OpenFlow NEC B2 (BNL)"
 ))
 
 p = Port.objects.get(unis_id='urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/25')
