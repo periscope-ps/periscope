@@ -69,8 +69,9 @@ function chart_window_event(circle) {
 function updateCircuitGrid() {
 	
         function onDataReceived(series) {
+            paths = series.paths;
 		var resStore = new dojo.data.ItemFileWriteStore({data: {
-					"items": series
+					"items": series.xfers
 				}});
 
                 selectedItem = null;

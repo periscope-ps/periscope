@@ -242,11 +242,12 @@ function initANIGrid() {
     // Call startup, in order to render the grid:
     grid.startup();
     circuitGrid = grid;
+    transferGrid = grid;
 
     grid_window_event(grid);
     
-    dojo.connect(grid, "onRowClick", visualizePath);
-    dojo.connect(grid, "onDeselected", devisualizePath);
+    dojo.connect(grid, "onRowClick", visualizeTransferPath);
+    dojo.connect(grid, "onDeselected", devisualizeTransferPath);
         
     updateCircuitGrid();
     var t = new dojox.timing.Timer();

@@ -49,7 +49,7 @@ function visualizeTransferPath(e) {
 
     var ind = -1;
     for (var i=0; i<paths.length; i++) {
-	if (paths[i].t_id == selectedRow.t_id) {
+	if (paths[i].resId == selectedRow.resId) {
 	    ind = i;
 	    break;
 	}
@@ -117,7 +117,7 @@ function devisualizeTransferPath(e) {
 
     var ind = -1;
     for (var i=0; i<paths.length; i++) {
-        if (paths[i].t_id == selectedRow.t_id) {
+        if (paths[i].resId == selectedRow.resId) {
             ind = i;
             break;
         }
