@@ -69,7 +69,7 @@ function visualizeTransferPath(e) {
 	for (var i=0; i<currp.link_ids.length; i++) {
 	    var currl = idShapeMap[currp.link_ids[i]];
 	    //currl.setStroke({style: "Solid", width: 3, cap: "round", color: "red"});
-	    currl.moveToFront();
+	    //currl.moveToFront();
 
             chunks[i] = surface.createRect({x: currl.shape.x1-3,
 					    y: currl.shape.y1-3,
