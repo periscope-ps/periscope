@@ -23,7 +23,7 @@ from periscope.topology.models import Port, Node, NetworkObjectDescriptions, Eve
 from periscope.monitoring.models import PathDataModel
 from periscope.measurements.lib import query_measurements
 
-
+@never_cache
 def get_perfometer_data(request):
     """
     Return total Tx and Rx per site to used on ther perfometers
@@ -128,6 +128,7 @@ def get_res_chart(request):
         return HttpResponse("Invalid Request", mimetype="text/plain")
 
 
+@never_cache
 def get_dojo_chart_mongo(request):
     unis_id = urllib.unquote(request.GET.get('id', ''))
     event = request.GET.get('event', None)
@@ -146,7 +147,8 @@ def get_dojo_chart_mongo(request):
         't': 'time',
     }, context_instance=RequestContext(request))
 
-    
+
+@never_cache    
 def get_measurements_data_mongo(request):
     unis_id = urllib.unquote(request.GET.get('id', ''))
     event = request.GET.get('event', None)
@@ -215,7 +217,7 @@ def get_dojo_chart(request):
         return HttpResponse("Invalid Event type", mimetype="text/plain")
     
     event_in = 'http://ggf.org/ns/nmwg/characteristic/network/utilization/bytes/received/2.0'
-    event_out = 'http://ggf.org/ns/nmwg/characteristic/network/utilization/bytes/sent/2.0'
+    event_out = 'http://ggf.org/ns/nmwg/characteristic/network/utilization/bytes/2.0'
     try:
         port = Port.objects.get(unis_id=port_id)
         md_in = Metadata.objects.get(objectID=port.id, event_type__value=event_in)
@@ -247,6 +249,7 @@ def view_dojo_chart(request):
         return HttpResponse("Invalid Request", mimetype="text/plain")
 
 
+@never_cache
 def get_host_data_mongo(request):
     unis_id = urllib.unquote(request.GET.get('id', ''))
     t = request.GET.get('t', 300)

@@ -10,7 +10,7 @@ ports = [
     #'urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth9',
     
     #'urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth4',
-    'urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth7',
+    #'urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth7',
     #'urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth8',
     #'urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth9',
     
