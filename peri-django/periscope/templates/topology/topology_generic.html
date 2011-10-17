@@ -39,6 +39,12 @@ events_t.setInterval(1000);
 events_t.onTick = updateEvents;
 events_t.start();
 
+updatePerfometer;
+var perf_t = new dojox.timing.Timer();
+perf_t.setInterval(5000);
+perf_t.onTick = updatePerfometer;
+perf_t.start();
+
 </script>
 </head>
 
@@ -64,7 +70,7 @@ events_t.start();
         <div><p></div>
       <div id="side-text">Misc</div>
       <hr >
-      Transfer Rate <br />
+      Transfer Rate (Gb/s)<br />
        <div dojoType="dojox.widget.AnalogGauge" id='GenericPerfometer' width="140" height="90"
 	    cx="70" cy="80" radius="60" startAngle="-90" endAngle="90" useRangeStyles="0"
 	    hideValues="true" color: "white" majorTicks="{length: 5, offset: 30, interval: 2.5, color: 'gray'}"

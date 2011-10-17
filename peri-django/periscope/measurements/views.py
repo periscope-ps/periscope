@@ -33,27 +33,34 @@ def get_perfometer_data(request):
     #except:
     #    print "no ID"
 
-    Gbp10 = 1250000000.0
-    
-    port = Port.objects.get(unis_id='urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=TenGigabitEthernet9/1')
-    inout = get_port_latest_inout(port)
-    
-    result = "{ \"BNL\": {\n"
-    result += "\t\"Tx\":%.2f,\n"%(inout['Tx'] / Gbp10 * 100)
-    result += "\t\"Rx\":%.2f\n"%(inout['Rx'] / Gbp10  * 100)
-    result += "\t},\n"
+    ganglia_sent = 'http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/2.0'
+    ganglia_recv = 'http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/received/2.0'
 
-    port = Port.objects.get(unis_id='urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet2/3')
-    inout = get_port_latest_inout(port)
+    time_delta = timedelta(0, 60)
+    measurements = query_measurements('urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth5',
+                                      [ganglia_sent, ganglia_recv], None,
+                                      {'time': {
+                '$gte': datetime.now() - time_delta, '$lte': datetime.now()
+                }})
     
-    result += "\"Ultralight\": {\n"
-    result += "\t\"Tx\":%.2f,\n"%((inout['Tx'] / Gbp10) * 100)
-    result += "\t\"Rx\":%.2f\n"%((inout['Rx'] / Gbp10)  * 100)
-    result += "\t}\n}"
+    values = ""
+    labels = ""
 
-    return HttpResponse(result , mimetype="text/plain") #, mimetype="application/json")
-   
+    result = {"identifier": "event_type",
+        "idAttribute": "event_type",
+        "label": "timestamps", "items": []}
 
+    for meta_id, meta in measurements['meta'].items():
+        event =  meta['event_type']
+        tmp = {'urn': meta['unis_id'], 'event_type': event, "values":[], 'timestamps': []}
+        for data in  measurements['data'][meta_id]:
+            tmp['values'].append(data['value'])
+            tmp['timestamps'].append(data['time'])
+        result['items'].append(tmp)
+
+    dthandler = lambda obj: obj.isoformat() if isinstance(obj, datetime) else None
+    return HttpResponse(json.dumps(result,  default=dthandler), mimetype="text/plain")
+    
 def get_host_info(request):
     try:
         id = urllib.unquote(request.GET['id'])

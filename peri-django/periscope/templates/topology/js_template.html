@@ -201,6 +201,22 @@ updateESCPSPerfometers = function () {
 			});
 };
 
+updatePerfometer = function () {
+        var data;
+        dojo.xhrGet( {
+                // The following URL must match that used to test the server.
+                url: "{% url measurements.views.get_perfometer_data %}?id=perfO",
+                handleAs: "json",
+                load: function(data, ioArgs) {
+                  var ten_GBs = 125000000;						
+                  len = data.items[0].values.length;
+                  GenericRxNeedle.update(data.items[0].values[len-1]/ten_GBs);
+                  len = data.items[1].values.length;
+		  GenericTxNeedle.update(data.items[1].values[len-1]/ten_GBs);
+                  return data;
+                }
+        });
+};
 
 updateGRIDPerfometers = function () {
 	var data;

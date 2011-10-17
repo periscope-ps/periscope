@@ -164,21 +164,21 @@ initGenericPerfometer = function () {
         'noChange': true,
         'hover': 'Arc: 75'
     }));
-    BNLTxNeedle = gauge.addIndicator(new dojox.widget.gauge.AnalogNeedleIndicator({
+    GenericTxNeedle = gauge.addIndicator(new dojox.widget.gauge.AnalogNeedleIndicator({
         'value': 0,
         'width': 3,
         'length': 60,
         'color': 'red',
-        'title': 'Rx%',
-        'hover': 'Rx%: 0'
+        'title': 'Tx',
+        'hover': 'Tx: 0'
     }));
-    BNLRxNeedle = gauge.addIndicator(new dojox.widget.gauge.AnalogNeedleIndicator({
+    GenericRxNeedle = gauge.addIndicator(new dojox.widget.gauge.AnalogNeedleIndicator({
         'value': 0,
         'width': 3,
         'length': 60,
         'color': 'yellow',
-        'title': 'Rx%',
-        'hover': 'Rx%: 0'
+        'title': 'Rx',
+        'hover': 'Rx: 0'
     }));
 };
 

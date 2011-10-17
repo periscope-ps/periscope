@@ -39,20 +39,21 @@ node_events = [
     'http://ggf.org/ns/nmwg/tools/ganglia/memory/main/free/2.0',
 ]
 
-for urn in ports:
-    try:
-        port = Port.objects.get(unis_id=urn)
-    except:
-        print "Cannot find port:", urn, "\n"
-    for event in port_events:
-        r = register_pull_network_object(port, event, service)
-    
-
-
 for urn in nodes:
+    print urn
     try:
         node = Node.objects.get(unis_id=urn)
     except:
         print "Cannot find node:", urn, "\n"
     for event in node_events:
         r = register_pull_network_object(node, event, service)
+
+for urn in ports:
+    print urn
+    try:
+        port = Port.objects.get(unis_id=urn)
+    except:
+        print "Cannot find port:", urn, "\n"
+    for event in port_events:
+        r = register_pull_network_object(port, event, service)
+
