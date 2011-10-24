@@ -990,11 +990,11 @@ def get_all_meta_keys(query_filter=None):
     query_filter['meta_key'] = None
     
     # Group metadata by service and event type
-    #metadata_group = mongodb.metadata.group(['service', 'event_type'],
-    #        query_filter,
-    #        {'list': []}, 'function(obj, prev) {prev.list.push(obj)}')
+    metadata_group = mongodb.metadata.group(['service', 'event_type'],
+            query_filter,
+            {'list': []}, 'function(obj, prev) {prev.list.push(obj)}')
     
-    metadata_group = list(mongodb.metadata.find())
+    #metadata_group = list(mongodb.metadata.find())
 
     for group in metadata_group:
         service = group['service']
@@ -1002,15 +1002,15 @@ def get_all_meta_keys(query_filter=None):
         network_objects = []
         
         # Get UNIS network objects
-        #for meta in group['list']:
-        #    obj = NetworkObject.objects.get(
-        #                        unis_id=meta['unis_id']).toRealType()
-        #    network_objects.append(obj)
+        for meta in group['list']:
+            obj = NetworkObject.objects.get(
+                                unis_id=meta['unis_id']).toRealType()
+            network_objects.append(obj)
         
-        obj = NetworkObject.objects.get(                                                                                                                          
-            unis_id=group['unis_id']).toRealType()                                                                                                 
-        network_objects.append(obj)        
-
+        #obj = NetworkObject.objects.get(                                                                                                                          
+        #    unis_id=group['unis_id']).toRealType()                                                                                                 
+        #network_objects.append(obj)        
+        #print "Getting data for ", network_objects
         results = get_meta_keys(service, network_objects, event_type)
         
         for obj in results:
@@ -1145,11 +1145,11 @@ def pull_all_data(query_filter=None, start_time=None, end_time=None):
     query_filter['meta_key'] =  {'$not': {'$type': 10}}
     
     # Group metadata by service and event type
-    #metadata_group = mongodb.metadata.group(['service', 'event_type'],
-    #        query_filter,
-    #        {'list': []}, 'function(obj, prev) {prev.list.push(obj)}')
+    metadata_group = mongodb.metadata.group(['service', 'event_type'],
+            query_filter,
+            {'list': []}, 'function(obj, prev) {prev.list.push(obj)}')
     
-    metadata_group = list(mongodb.metadata.find())
+    #metadata_group = list(mongodb.metadata.find())
 
     for group in metadata_group:
         service = group['service']
@@ -1158,18 +1158,18 @@ def pull_all_data(query_filter=None, start_time=None, end_time=None):
         meta_keys = []
         meta_index = {}
         
-        #for meta in group['list']:
-        #    meta_keys.append(meta['meta_key'])
-        #    meta_index[meta['meta_key']] = DBRef('metadata', meta['_id'])
+        for meta in group['list']:
+            meta_keys.append(meta['meta_key'])
+            meta_index[meta['meta_key']] = DBRef('metadata', meta['_id'])
         
-        meta_keys.append(group['meta_key'])                                                                                                    
-        meta_index[group['meta_key']] = DBRef('metadata', group['_id'])                  
+        #meta_keys.append(group['meta_key'])                                                                                                    
+        #meta_index[group['meta_key']] = DBRef('metadata', group['_id'])                  
 
         if not start_time:
             last_measurement = mongodb.measurements.find(
                         {'meta_ref':
                             {'$in': meta_index.values()}}
-                        ).sort([('time', -1)]).limit(1)
+                        ).sort([('time', 1)]).limit(1)
             
             if last_measurement.count() > 0:
                 last_measurement = last_measurement.next()
@@ -1180,17 +1180,21 @@ def pull_all_data(query_filter=None, start_time=None, end_time=None):
         
         if not end_time:
             end_time = int(time.time())
+        #print "getting data for meta keys ", meta_keys
         
-        results = get_measurements_data(service, meta_keys,
+        try:
+            results = get_measurements_data(service, meta_keys,
                         event_type, start_time, end_time)
         
-        for key, value in results.items():
-            if isinstance(value, list):
-                save_measurements_data(meta_index[key], value)
-            elif not value:
-                pass
-            else:
-                logger.warn("Couldn't save data for maKey: %s, event:%s, value: %s" % (key, event_type, value))
+            for key, value in results.items():
+                if isinstance(value, list):
+                    save_measurements_data(meta_index[key], value)
+                elif not value:
+                    pass
+                else:
+                    logger.warn("Couldn't save data for maKey: %s, event:%s, value: %s" % (key, event_type, value))
+        except Exception as exp:
+            print "Couldn't query service:", service
 
 
 def register_pull_network_object(network_object, event_type, service):
