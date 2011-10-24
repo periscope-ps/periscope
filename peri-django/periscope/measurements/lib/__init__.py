@@ -863,7 +863,7 @@ def get_meta_keys(service, network_objects, event_type):
                 objects_index[index] = obj
             elif isinstance(obj, Node):
                 psnode = node_to_psnode(obj)
-                index = (psnode.hostName)
+                index = psnode.hostName.value
                 objects_index[index] = obj
         elif isinstance(obj, Port):
             query = make_snmp_query(obj, event_type)
@@ -916,9 +916,9 @@ def get_meta_keys(service, network_objects, event_type):
             ends = (meta.subject.src, meta.subject.dst)
             obj = objects_index[ends]
             result_keys[obj] = {'key': data, 'meta': meta_result[meta_id]}
-        elif isinstance(obj, Node):
-            index = obj.names.all()[0]
-            obj = objects_index[index]
+        elif isinstance(meta.subject.contents, psNode):
+            node =meta.subject.contents
+            obj = objects_index[node.hostName]
             result_keys[obj] = data
             result_keys[obj] = {'key': data, 'meta': meta_result[meta_id]}
         elif isinstance(meta.subject.contents, Interface):
@@ -1125,6 +1125,7 @@ def save_measurements_data(meta_ref, data):
                 pass
         
         mongodb.measurements.insert(fdatum)
+        #mongodb.measurements.update({'meta_ref': meta_ref, 'time': fdatum['time']}, {'$set': fdatum}, upsert=True, multi=False)
 
 
 def pull_all_data(query_filter=None, start_time=None, end_time=None):
@@ -1169,7 +1170,7 @@ def pull_all_data(query_filter=None, start_time=None, end_time=None):
             last_measurement = mongodb.measurements.find(
                         {'meta_ref':
                             {'$in': meta_index.values()}}
-                        ).sort([('time', 1)]).limit(1)
+                        ).sort([('time', -1)]).limit(1)
             
             if last_measurement.count() > 0:
                 last_measurement = last_measurement.next()
@@ -1180,7 +1181,7 @@ def pull_all_data(query_filter=None, start_time=None, end_time=None):
         
         if not end_time:
             end_time = int(time.time())
-        #print "getting data for meta keys ", meta_keys
+        print "getting data for meta keys ", meta_keys
         
         try:
             results = get_measurements_data(service, meta_keys,

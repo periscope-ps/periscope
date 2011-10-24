@@ -311,7 +311,7 @@ class Command(BaseCommand):
         pull_meta_key_opt = options.pop('get_meta_key', None)
         show_xml = options.pop('show_xml', None)
         meta_key = options.pop('meta_key', None)
-	reset_keys = options.pop('reset_keys', None)
+        reset_keys = options.pop('reset_keys', None)
 
         SILENT = not print_services
         
@@ -323,10 +323,10 @@ class Command(BaseCommand):
         endpoint = extract_endpoint(src, dst)
         interface = extract_interface(ifaddress, ifname, ipaddress, hostname)
 	
-	if reset_keys:
-	    reset_meta_keys()
-	    get_all_meta_keys()
-	
+        if reset_keys:
+            reset_meta_keys()
+            get_all_meta_keys()
+        
         if pull_meta_key_opt:
             pull_function = pull_meta_key
         else:
@@ -413,7 +413,7 @@ class Command(BaseCommand):
             else:
                 pull_filter = {}
             
-            get_all_meta_keys(pull_filter)
+            #get_all_meta_keys(pull_filter)
             pull_all_data(pull_filter, start_time=start_time, end_time=end_time)
         else:
             raise CommandError("Undefined pulling command: '%s'" % args[0])
