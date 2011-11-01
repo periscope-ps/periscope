@@ -1,0 +1,95 @@
+.jqplot-axis {
+  font-size: 0.85em;
+}
+.jqplot-title {
+  font-size: 1.1em;
+}
+
+.jqplot-target {
+  font-size: 13px;
+}
+
+ol.description {
+  list-style-position: inside;
+  font-size:14px;
+  margin:1.5em auto;
+  padding:0 15px;
+  width:225px;
+}
+/*#pricePointer {
+  background-color: rgba(40,40,40,0.7);
+  color: rgb(240,240,240);
+  padding: 2px 2px 2px 0px;
+}*/
+
+#wrapper{
+  margin: 0 auto;
+  width: 1360px;
+
+}
+
+.plotCell3 {
+  float: left ;
+  width: 450px ;
+  height: 330px;
+  border: dashed blue thin;
+}
+
+.plotCell2 {
+  float: left ;
+  width: 678px ;
+  height: 330px;
+  border: dashed blue thin;
+}
+
+.plotCell2thirds {
+  float: left ;
+  width: 907px ;
+  height: 330px;
+  border: dashed blue thin;
+}
+
+.plotRow {
+  float: left ;
+  width: 1359px ;
+  height: 330px;
+  border: dashed blue thin;
+}
+
+.resultsTable{
+  width: 1360px;
+}
+
+.loadImg {
+  margin-top: 127px;
+  margin-left: 207px;
+  /*starting*/
+}
+
+.searchButt {
+  color: #ff0000;
+  background-color: #fefefe;
+  font-family: ubuntu , tahoma;
+  font-size: 12px;
+  border-radius: 7px;
+  padding: 4px;
+  font-weight: bold;
+}
+
+.searchField {
+  color: #002dff;
+  background-color: white;
+  font-family: ubuntu , Tahoma;
+  font-size: 12px;
+  border-radius: 4px;
+  padding: 4px;
+  font-weight: bold;
+  width:470px
+}
+
+h1 {
+  text-align: center;
+  font-family: ubuntu , Tahoma;
+  cursor: progress;
+
+}
