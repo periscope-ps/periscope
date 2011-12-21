@@ -1,0 +1,17 @@
+;; Object blipp/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "blipp/"
+  :tables (list 
+   (semanticdb-table "setup.py"
+    :major-mode 'python-mode
+    :tags '(("\"\"\"
+Python install/distribution script for BLiPP.
+\"\"\"" code nil nil [1 54]) ("try" code nil nil [55 138]) ("os" include nil nil [138 147]) ("sys" include nil nil [148 158]) ("VERSION" variable nil nil [160 175]) ("if" code nil nil [334 674]))
+    :file "setup.py"
+    :pointmax 1553
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0pre4"
+  :semanticdb-version "2.0pre4"
+  )

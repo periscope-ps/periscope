@@ -1,0 +1,273 @@
+#!/usr/bin/env python
+"""
+Receive XSP monitoring messages and
+store them in a database.
+"""
+__rcsid__ = "$Id$"
+__author__ = "Dan Gunter <dkgunter@lbl.gov>"
+
+# Std library imports
+import datetime
+import logging
+import optparse
+import os
+import pprint
+import signal
+import socket
+import sqlite3
+import sys
+import time
+
+# Third-party imports
+import pymongo
+
+# Local imports
+from blipp import xsplib, util
+from blipp.util import bson_decode
+
+## Constants and globals
+## ---------------------
+
+XSP_TYPE = 0x20 # xsp msg type
+
+# Stop things that are in a loop
+g_stop = False
+
+# Logger
+g_log = None
+
+## Classes and functions
+## ---------------------
+
+# Exceptions
+
+class DBConnectionException(Exception):
+    pass
+
+# Signal handlers
+
+def on_kill(signo, frame):
+    """Signal handler for a graceful exit.
+    """
+    global g_stop
+    g_log.warn("killed, signal=%d", signo)
+    g_stop = True
+
+def on_hup(signo, frame):    
+    return
+
+#
+# Classes and functions
+#
+
+class DataStore:
+    def __init__(self):
+        return
+    
+    def store(self, data):
+        obj = bson_decode(data)
+        if isinstance(obj, list):
+            for item in obj:
+                if not isinstance(item, dict):
+                    raise ValueError("don't know how to insert " + str(type(item)))
+                self.insert(item)
+        elif isinstance(obj, dict):
+            self.insert(obj)
+        else:
+            raise ValueError("don't know how to store " + str(type(obj)))
+    
+class MongoStore(DataStore):
+    def __init__(self, host=None, port=None, database=None):
+        DataStore.__init__(self)
+        try:
+            self.conn = pymongo.Connection(host=host, port=port)
+        except pymongo.errors.ConnectionFailure:
+            raise DBConnectionException("Couldn't connect to Mongo at {0}:{1:d}"
+                                        .format(host, port))
+        self.db = self.conn[database]
+        self.coll = { 'data' : self.db['data'],
+                      'meta' : self.db['meta']}
+
+    def insert(self, obj):
+        """Insert items into each collection
+        """
+        for coll in 'data', 'meta':
+            for d in obj.get(coll, [ ]):
+                self.coll[coll].insert(d)
+
+class StdoutStore(DataStore):
+
+    def __init__(self):
+        DataStore.__init__(self)
+
+    def store(self, data):
+        print("DATA\n----")
+        ddict = bson_decode(data)
+        pprint.pprint(ddict)
+
+class SqliteStore(DataStore):
+
+    TMP  = "/tmp/xsp_server-{0}.sqlite".format(os.getpid())
+    
+    def __init__(self, filepath=None):
+        DataStore.__init__(self)
+        if filepath is None:
+            filepath = self.TMP
+        self._f = filepath
+        newfile = not os.path.exists(self._f)
+        self._connect()
+        if newfile:
+            self._create_tables()
+            
+    def _connect(self):
+        self._db = sqlite3.connect(self._f)
+
+    def _create_tables(self):
+        crs = self._db.cursor()
+        crs.execute("create table metadata (mid, pid, subj, param, et)")
+        crs.execute("create table data (mid, ts, val)")
+
+    def insert(self, obj):
+        """Insert items into each collection
+        """
+        crs = self._db.cursor()
+
+        # metadata
+        for item in obj.get('meta', []):
+            id_, pid = item.get('id', ''), item.get('pid','')
+            subj, params = item.get('subject', {}), item.get('params', {})
+            etype = item.get('event_type', None)
+            crs.execute("insert into metadata(mid, pid, subj, param, et) values (?,?,?,?,?)",
+                        (id_, pid, str(subj), str(params), etype))
+
+        # data
+        rows = [ ]
+        for item in obj.get('data', []):
+            mid = item.get('mid', '')
+            rows.extend([(mid, float(ts), val) for (ts, val) in item.get('values',[])])
+        crs.executemany("insert into data(mid, ts, val) values(?,?,?)", rows)
+        
+        self._db.commit()
+        
+def run(host=None, port=None, db=None):
+    """Accept and handle connections until killed.
+    """
+    g_log.info("run.start")
+    server = xsplib.XSPServer(host, port, db.store)
+    while not g_stop:
+        g_log.debug("loop.start")
+        server.loop(timeout=3, count=1)
+        g_log.debug("loop.end, status=%d", int(g_stop))
+    g_log.info("run.stop")
+
+def main(argv=None):
+    """Program entry point.
+    """
+    global g_stop, g_log
+
+    g_stop = False
+    status = 0
+
+    usage = "%prog [options] [DB_TYPE = mongo | sqlite | stdout (default=mongo)]"
+    desc = ' '.join(__doc__.split())
+    parser = optparse.OptionParser(usage=usage, description=desc)
+    parser.add_option("-f", "--fg", dest="foreground", action="store_true", default=False,
+                      help="Run in the foreground, don't fork into background")
+    parser.add_option("-H", "--host", dest="host", action="store", default="localhost",
+                      help="Server host (default=%default)")
+    parser.add_option("-l", "--log", dest="logfile", default=None,
+                      help="Log file (default=/tmp/blippd.<pid>.log, or stderr if -f/--fg)")
+    parser.add_option("-p", "--port", dest="port", action="store", type="int", default=5006,
+                      help="Listen on PORT for new connections (default=%default)")
+    parser.add_option("-v", "--verbose", dest="vb", action="count", default=0,
+                      help="More verbose messages")
+    group = optparse.OptionGroup(parser, "Options for DB_TYPE=mongo")
+    group.add_option("--dbhost", dest="dbhost", action="store", default="localhost",
+                     help="MongoDB server host (default=%default)")
+    group.add_option("--dbport", dest="dbport", action="store", type="int", default=27017,
+                      help="MongoDB server listen port (default=%default)")
+    group.add_option("--db", dest="db", action="store", default="ps",
+                     help="MongoDB database name to use or create (default=%default)")
+    parser.add_option_group(group)
+    group = optparse.OptionGroup(parser, "Options for DB_TYPE=sqlite")
+    group.add_option("--dbfile", dest="dbfile", action="store", default=SqliteStore.TMP,
+                     help="SQLite database file (default=%default)")
+    parser.add_option_group(group)
+
+    if argv is None:
+        argv = sys.argv[1:]
+    options, args = parser.parse_args(argv)
+
+    # Logging
+    g_log = logging.getLogger("xsp")
+    if options.vb > 0:
+        g_log.setLevel(logging.INFO)
+    elif options.vb > 1:
+        g_log.setLevel(logging.DEBUG)
+    else:
+        g_log.setLevel(logging.WARN)
+    if options.logfile:
+        try:
+            g_log.addHandler(logging.FileHandler(options.logfile))
+        except:
+            parser.error("Could not log to file: %s" % options.logfile)
+            sys.exit(1)
+    elif options.foreground:
+        g_log.addHandler(logging.StreamHandler())
+    else:
+        tmpfile = "/tmp/xsp_server.%d.log" % os.getpid()
+        try:
+            g_log.addHandler(logging.FileHandler(tmpfile))
+        except:
+            parser.error("Could not log to file: %s" % tmpfile)
+            sys.exit(1)
+
+    # Parse args
+    db = None
+    if len(args) == 0:
+        dbtype = 'mongo'
+    elif len(args) > 1:
+        parser.error("only one argument, DB_TYPE, allowed")
+        return(-1)
+    else:
+        dbtype = args[0].lower()
+    if dbtype.startswith('mongo'):
+        try:
+            db = MongoStore(host=options.dbhost, port=options.dbport,
+                            database=options.db)
+        except DBConnectionException, err:
+            g_log.critical("db.connect.error, msg=%s", err)
+            return(-3)
+    elif dbtype == 'stdout':
+        db = StdoutStore()
+    elif dbtype == 'sqlite':
+        db = SqliteStore(filepath=options.dbfile)
+    else:
+        parser.error("unknown DB_TYPE. must be in: mongo, sqlite, stdout")
+        return(-2)
+
+    # Set up signal handlers
+    util.handleSignals(
+        (on_kill, ('SIGTERM', 'SIGINT', 'SIGUSR2')),
+        (on_hup, ('SIGHUP',)) )
+
+    # Daemonize
+    if not options.foreground:
+        g_log.debug("daemonize.start")
+        try:
+            util.daemonize(g_log, root_log=logging.getLogger(''), close_fds=False)
+        except Exception, err:
+            g_log.critical("daemonize.error, msg=%s", str(err))
+            try:
+                xsp_sess.close()
+            except socket.error:
+                pass
+            status = -1
+        g_log.debug("daemonize.end, status=%d" % status)
+
+    # Run
+    status = run(host=options.host, port=options.port, db=db)
+    return status
+
+if __name__ == '__main__':
+    sys.exit(main())
