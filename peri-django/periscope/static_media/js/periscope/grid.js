@@ -184,4 +184,76 @@ function initCircuitGrid() {
 };
 
 
+function initANIGrid() {
+    
+    function doGridHTML(item) {
+	return item.replace(/&lt;/gi, "<");
+    }
+    
+    // set the layout structure:
+    var layout = [
+{
+    field: 'resId',
+    name: 'GRI',
+    width: '120px'
+},
+{
+    field: 'status',
+    name: 'Status',
+    width: '50px'
+},
+{
+    field: 'src',
+    name: 'Source',
+    width: '100px'
+},
+{
+    field: 'dst',
+    name: 'Destination',
+    width: '100px'
+},
+{
+    field: 'username',
+    name: 'username',
+    width: '70px'
+},
+{
+    field: 'userid',
+    name: 'userid',
+    width: '50px'
+},
+    ];
+
+    // create a new grid:
+    var grid = new dojox.grid.DataGrid({
+	    query: {
+                resId: "*"
+            },
+            //store: resStore,
+            clientSort: true,
+            rowSelector: '20px',
+            structure: layout
+        },
+        document.createElement('div'));
+    
+    // append the new grid to the div "gridContainer":
+    dojo.byId("gridContainer").appendChild(grid.domNode);
+    
+    // Call startup, in order to render the grid:
+    grid.startup();
+    circuitGrid = grid;
+    transferGrid = grid;
+
+    grid_window_event(grid);
+    
+    dojo.connect(grid, "onRowClick", visualizeTransferPath);
+    dojo.connect(grid, "onDeselected", devisualizeTransferPath);
+        
+    updateCircuitGrid();
+    var t = new dojox.timing.Timer();
+    t.setInterval(2000);
+    t.onTick = updateCircuitGrid;
+    t.start();
+};
+
 

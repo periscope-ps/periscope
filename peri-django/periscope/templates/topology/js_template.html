@@ -59,8 +59,8 @@ function grid_window_event(grid) {
 // opens a chart when double-clicking a port
 function chart_window_event(circle) {
 	dojo.connect(circle.getEventSource(), "ondblclick", null, function(e) {
-                        window.open('{% url measurements.views.get_dojo_chart %}?id=' + e.target.id +
-                                    '&event=http://ggf.org/ns/nmwg/characteristic/utilization/2.0&t=1800', e.target.id,
+                        window.open('{% url measurements.views.get_dojo_chart_mongo %}?id=' + e.target.id +
+                                    '&event=http://ggf.org/ns/nmwg/characteristic/utilization/2.0/&t=1800', e.target.id,
                                     'left=20,top=20,width=610,height=350,toolbar=0,resizable=0');
 		});
 }
@@ -69,8 +69,9 @@ function chart_window_event(circle) {
 function updateCircuitGrid() {
 	
         function onDataReceived(series) {
+            paths = series.paths;
 		var resStore = new dojo.data.ItemFileWriteStore({data: {
-					"items": series
+					"items": series.xfers
 				}});
 
                 selectedItem = null;
@@ -88,7 +89,7 @@ function updateCircuitGrid() {
         }
 
         dojo.xhrGet({
-			url: "{% url topology.views.topology_get_reservations %}",
+			url: "{% url topology.views.topology_get_transfers %}",
 				handleAs:"json",
 				load: onDataReceived,
 				error: function(err){console.error(err)}
@@ -126,7 +127,7 @@ function updateTransferGrid() {
                 var selected = dijit.byId('usersel').attr('value')[0];
                 if (selected) {
                         dojo.xhrGet({
-                                url: "{% url topology.views.topology_get_user_transfers %}",
+                                url: "{% url topology.views.topology_get_transfers %}",
                                 handleAs:"json",
                                                 load: onDataReceived,
                                                 content: {user: selected},
@@ -201,6 +202,22 @@ updateESCPSPerfometers = function () {
 			});
 };
 
+updatePerfometer = function () {
+        var data;
+        dojo.xhrGet( {
+                // The following URL must match that used to test the server.
+                url: "{% url measurements.views.get_perfometer_data %}?id=perfO",
+                handleAs: "json",
+                load: function(data, ioArgs) {
+                  var ten_GBs = 125000000;						
+                  len = data.items[0].values.length;
+                  GenericRxNeedle.update(data.items[0].values[len-1]/ten_GBs);
+                  len = data.items[1].values.length;
+		  GenericTxNeedle.update(data.items[1].values[len-1]/ten_GBs);
+                  return data;
+                }
+        });
+};
 
 updateGRIDPerfometers = function () {
 	var data;
@@ -297,6 +314,54 @@ update_topology_locations = function() {
 	    onComplete: gotItems,
 	    onError: function(e) { console.log(e); }
 	    });
+}
+
+var last_update = null;
+
+function updateEvents() {
+    function onDataReceived(items) {
+        if (items.length > 0 ) {
+            last_update = Math.floor(new Date().getTime() / 1000);
+        }
+        var i;
+        var path_viz = false;
+        for (i = 0; i < items.length; ++i) {
+            if (items[i]['type'] == 'link') {
+                if (items[i]['status'] == 'UP') {
+                    updateLinkColor(items[i]['unisId'], 'green');
+                } else if (items[i]['status'] == 'DOWN') {
+                    updateLinkColor(items[i]['unisId'], 'gray');
+                } else if (items[i]['status'] == 'FAILURE') {
+                    updateLinkColor(items[i]['unisId'], 'red');
+                }
+            }
+            if (items[i]['type'] == 'transfer') {
+                if (items[i]['status'] == 'UP') {
+                    path_viz = true;
+                }
+            }
+        }
+        if (path_viz == false) {
+            devisualizeTransferPath(null);
+        }  
+            
+    }
+    
+    if (last_update == null) {
+        dojo.xhrGet({
+            url: "{% url monitoring.views.get_events %}",
+            handleAs:"json",
+            load: onDataReceived,
+            error: function(err){console.error(err)}
+        });
+    } else {
+        dojo.xhrGet({
+            url: "{% url monitoring.views.get_events %}" + "?last_update=" + last_update,
+            handleAs:"json",
+            load: onDataReceived,
+            error: function(err){console.error(err)}
+        });
+    }
 }
 
 </script>

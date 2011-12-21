@@ -1,13 +1,15 @@
-import urllib
-import time
-from datetime import datetime
-
+import json
 import re
+import time
+import urllib
+from datetime import datetime
+from datetime import timedelta
 
+from psapi.protocol import events
 from django.views.decorators.cache import never_cache
 
-
 from django.http import HttpResponse
+from django.http import HttpResponseBadRequest
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.db.models import Max
@@ -19,8 +21,9 @@ from periscope.measurements.lib.SNMPQuery import get_urn_measurements, get_port_
 from periscope.measurements.models import Data, EventTypes, UrnStub, Metadata
 from periscope.topology.models import Port, Node, NetworkObjectDescriptions, EventType
 from periscope.monitoring.models import PathDataModel
+from periscope.measurements.lib import query_measurements
 
-
+@never_cache
 def get_perfometer_data(request):
     """
     Return total Tx and Rx per site to used on ther perfometers
@@ -30,27 +33,34 @@ def get_perfometer_data(request):
     #except:
     #    print "no ID"
 
-    Gbp10 = 1250000000.0
-    
-    port = Port.objects.get(unis_id='urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=TenGigabitEthernet9/1')
-    inout = get_port_latest_inout(port)
-    
-    result = "{ \"BNL\": {\n"
-    result += "\t\"Tx\":%.2f,\n"%(inout['Tx'] / Gbp10 * 100)
-    result += "\t\"Rx\":%.2f\n"%(inout['Rx'] / Gbp10  * 100)
-    result += "\t},\n"
+    ganglia_sent = 'http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/2.0'
+    ganglia_recv = 'http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/received/2.0'
 
-    port = Port.objects.get(unis_id='urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet2/3')
-    inout = get_port_latest_inout(port)
+    time_delta = timedelta(0, 60)
+    measurements = query_measurements('urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth5',
+                                      [ganglia_sent, ganglia_recv], None,
+                                      {'time': {
+                '$gte': datetime.now() - time_delta, '$lte': datetime.now()
+                }})
     
-    result += "\"Ultralight\": {\n"
-    result += "\t\"Tx\":%.2f,\n"%((inout['Tx'] / Gbp10) * 100)
-    result += "\t\"Rx\":%.2f\n"%((inout['Rx'] / Gbp10)  * 100)
-    result += "\t}\n}"
+    values = ""
+    labels = ""
 
-    return HttpResponse(result , mimetype="text/plain") #, mimetype="application/json")
-   
+    result = {"identifier": "event_type",
+        "idAttribute": "event_type",
+        "label": "timestamps", "items": []}
 
+    for meta_id, meta in measurements['meta'].items():
+        event =  meta['event_type']
+        tmp = {'urn': meta['unis_id'], 'event_type': event, "values":[], 'timestamps': []}
+        for data in  measurements['data'][meta_id]:
+            tmp['values'].append(data['value'])
+            tmp['timestamps'].append(data['time'])
+        result['items'].append(tmp)
+
+    dthandler = lambda obj: obj.isoformat() if isinstance(obj, datetime) else None
+    return HttpResponse(json.dumps(result,  default=dthandler), mimetype="text/plain")
+    
 def get_host_info(request):
     try:
         id = urllib.unquote(request.GET['id'])
@@ -118,6 +128,84 @@ def get_res_chart(request):
         return HttpResponse("Invalid Request", mimetype="text/plain")
 
 
+@never_cache
+def get_dojo_chart_mongo(request):
+    unis_id = urllib.unquote(request.GET.get('id', ''))
+    event = request.GET.get('event', None)
+    t = request.GET.get('t', 1800)
+    if not unis_id:
+        return HttpResponseBadRequest("UNIS ID is is not defined.")
+    
+    if not event:
+        return HttpResponseBadRequest("Event type is is not defined.")
+    
+    return render_to_response('measurements/dojo_plot3.html', {
+        'id': urllib.quote(unis_id),
+        'in': 'recv',
+        'out': 'sent',
+        'event': event,
+        't': 'time',
+    }, context_instance=RequestContext(request))
+
+
+@never_cache    
+def get_measurements_data_mongo(request):
+    unis_id = urllib.unquote(request.GET.get('id', ''))
+    event = request.GET.get('event', None)
+    t = request.GET.get('t', 1800)
+    try:
+        t = int(t)
+    except:
+        return HttpResponseBadRequest("Time (t) must be an integer.")
+    
+    ganglia_sent = 'http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/2.0'
+    ganglia_recv = 'http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/received/2.0'
+    events_map = {}
+    events_map[events.NET_DISCARD] = [events.NET_DISCARD_RECV, events.NET_DISCARD_SENT]
+    events_map[events.NET_ERROR] = [events.NET_ERROR_RECV, events.NET_ERROR_SENT]
+    events_map[events.NET_UTILIZATION] = [events.NET_UTILIZATION_RECV, events.NET_UTILIZATION_SENT]
+    events_map[events.NET_UTILIZATION] = [ganglia_sent, ganglia_recv]
+    
+    if not unis_id:
+        return HttpResponseBadRequest("UNIS is is not defined.")
+    
+    if not event:
+        return HttpResponseBadRequest("Event type is is not defined.")
+
+    if event not in events_map:
+        return HttpResponseBadRequest("Invalid Event type")
+    
+    time_delta = timedelta(0, t)
+    measurements = query_measurements(unis_id, events_map[event], None, 
+        {'time': {
+            '$gte': datetime.now() - time_delta, '$lte': datetime.now()
+        }})
+        
+    values = ""
+    labels = ""
+    
+    result = {"identifier": "event_type",
+        "idAttribute": "event_type",
+        "label": "timestamps", "items": []}
+    
+    for meta_id, meta in measurements['meta'].items():
+        if meta['event_type'] == ganglia_sent:
+            event = events.NET_UTILIZATION_SENT
+        elif meta['event_type'] == ganglia_recv:
+            event = events.NET_UTILIZATION_RECV
+        else:
+            event =  meta['event_type']
+        tmp = {'urn': meta['unis_id'], 'event_type': event, "values":[], 'timestamps': []}
+        for data in  measurements['data'][meta_id]:
+            tmp['values'].append(data['value'])
+            tmp['timestamps'].append(data['time'])
+        result['items'].append(tmp)
+    
+    dthandler = lambda obj: obj.isoformat() if isinstance(obj, datetime) else None
+    return HttpResponse(json.dumps(result,  default=dthandler), mimetype="text/plain")
+    
+        
+
 # TODO: 
 def get_dojo_chart(request):
     #try:
@@ -129,7 +217,7 @@ def get_dojo_chart(request):
         return HttpResponse("Invalid Event type", mimetype="text/plain")
     
     event_in = 'http://ggf.org/ns/nmwg/characteristic/network/utilization/bytes/received/2.0'
-    event_out = 'http://ggf.org/ns/nmwg/characteristic/network/utilization/bytes/sent/2.0'
+    event_out = 'http://ggf.org/ns/nmwg/characteristic/network/utilization/bytes/2.0'
     try:
         port = Port.objects.get(unis_id=port_id)
         md_in = Metadata.objects.get(objectID=port.id, event_type__value=event_in)
@@ -161,6 +249,47 @@ def view_dojo_chart(request):
         return HttpResponse("Invalid Request", mimetype="text/plain")
 
 
+@never_cache
+def get_host_data_mongo(request):
+    unis_id = urllib.unquote(request.GET.get('id', ''))
+    t = request.GET.get('t', 300)
+    try:
+        t = int(t)
+    except:
+        return HttpResponseBadRequest("Time (t) must be an integer.")
+
+    if not unis_id:
+        return HttpResponseBadRequest("UNIS is is not defined.")
+
+    event_types = ['http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/sent/2.0',
+                   'http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/received/2.0',
+                   'http://ggf.org/ns/nmwg/tools/ganglia/memory/main/free/2.0',
+                   'http://ggf.org/ns/nmwg/tools/ganglia/cpu/utilization/system/2.0']
+    
+    time_delta = timedelta(0, t)
+    measurements = query_measurements(unis_id, event_types, None,
+                                      {'time': {
+                '$gte': datetime.now() - time_delta, '$lte': datetime.now()
+                }})
+
+    values = ""
+    labels = ""
+    
+    result = {"identifier": "urn",
+              "idAttribute": "event_type",
+              "label": "timestamps", "items": []}
+    
+    for meta_id, meta in measurements['meta'].items():
+        event =  meta['event_type']
+        tmp = {'urn': meta['unis_id'], 'event_type': event, "values":[], 'timestamps': []}
+        for data in  measurements['data'][meta_id]:
+            tmp['values'].append(data['value'])
+            tmp['timestamps'].append(data['time'])
+        result['items'].append(tmp)
+
+    dthandler = lambda obj: obj.isoformat() if isinstance(obj, datetime) else None
+    return HttpResponse(json.dumps(result,  default=dthandler), mimetype="text/plain")
+        
 def get_host_data(request):
     from cStringIO import StringIO
 

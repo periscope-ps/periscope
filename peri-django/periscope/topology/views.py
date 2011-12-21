@@ -19,7 +19,7 @@ from django.conf import settings
 from periscope.topology.lib.topology import create_from_xml_string
 from periscope.topology.lib.util import *
 from periscope.topology.models import *
-from periscope.monitoring.models import PathDataModel, GridFTPTransfer
+from periscope.monitoring.models import PathDataModel, GridFTPTransfer, NetworkObjectStatus
 from periscope.measurements.lib.CollectLib import get_endpoints_info
 from periscope.measurements.lib.CollectLib import validIP4
 from periscope.measurements.lib.CollectLib import get_host_ips, find_cloud
@@ -169,7 +169,7 @@ def delete_paths(request):
     #print >> sys.stderr, res_ids
 
     for r in res_ids:
-        paths = PathDataModel.objects.filter(path_id=r)
+        paths = NetworkObjectStatus.objects.filter(gri=r)
         for p in paths:
             p.delete()
 
@@ -272,6 +272,69 @@ def topology_get_user_transfers(request):
     json_xfers.write(']\n}')
     
     return HttpResponse(json_xfers.getvalue(), mimetype="application/json")
+
+@never_cache
+def topology_get_transfers(request):
+    """
+    ANI demo
+    """
+    from cStringIO import StringIO
+
+    user = request.GET.get('user', None)
+    
+    json_xfers = {'xfers': [], 'paths': []}
+    user_xfers = NetworkObjectStatus.objects.filter(obj_type='transfer')
+    
+    if user:
+        user_xfers = user_xfers.filter(username=user)
+    
+    newy_links = [
+        'urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth5:link=eth5##192.168.100.82',
+        'urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26:link=10GBE0/26##192.168.100.82',
+        'urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-1/3/0:link=xe-1/3/0.0##192.168.100.21',
+        'urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-1/3/0:link=xe-1/3/0.0##192.168.100.181',
+        'urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/26:link=10GBE0/26##192.168.100.182',
+    ]
+    bnl_links = [
+        'urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth5:link=eth5##192.168.100.58',
+        'urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/25:link=10GBE0/25##192.168.100.182',
+        'urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-0/0/1:link=xe-0/0/1.0##192.168.100.22',
+        'urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/3:link=xe-0/0/3.0##192.168.100.81',
+        'urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/25:link=10GBE0/25##192.168.100.82'
+    ]
+    
+    newy_links_ids = []
+    bnl_links_ids = []
+    for link in newy_links:
+        newy_links_ids.append(Link.objects.get(unis_id=link).id)
+    for link in bnl_links:
+        bnl_links_ids.append(Link.objects.get(unis_id=link).id)
+    
+    for xfer in user_xfers:
+        json_xfer = {
+            'resId': xfer.gri,
+            'status': xfer.status,
+            'src': xfer.network_object.unis_id.split(':')[0],
+            'dst': xfer.network_object.unis_id.split(':')[1],
+            'username': xfer.username,
+            'userid': xfer.userid,
+            }
+        json_xfers['xfers'].append(json_xfer)
+        if json_xfer['src'] == 'bnl-diskpt-1':
+            links = bnl_links_ids
+        else:
+            links = newy_links_ids
+        path = {
+            'resId': xfer.gri,
+            'src_id': xfer.network_object.toRealType().src_id,
+            'dst_id': xfer.network_object.toRealType().dst_id,
+            'link_ids': links
+        }
+        json_xfers['paths'].append(path)
+
+    
+    
+    return HttpResponse(json.dumps(json_xfers), mimetype="application/json")
 
 @never_cache
 def topology_get_reservations(request):

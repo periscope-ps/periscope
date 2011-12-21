@@ -1,3 +1,5 @@
+# TODO(AH): MARK FOR REMOVAL
+
 from django.db.models import Max
 
 from periscope.measurements.models import UrnStub, EventTypes, Data, Units, Metadata

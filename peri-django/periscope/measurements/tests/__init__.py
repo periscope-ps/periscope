@@ -27,10 +27,7 @@ from periscope.measurements.models import DNSCache
 from periscope.measurements.lib import add_gls
 from periscope.measurements.lib import create_lookup_query
 from periscope.measurements.lib import create_service_client
-
-
 from periscope.measurements.lib import create_psservice
-
 from periscope.measurements.lib import find_port
 from periscope.measurements.lib import reverse_dns
 from periscope.measurements.lib import forward_dns
@@ -152,10 +149,8 @@ class MeasurementsLibTest(TestCase):
             client = create_service_client(test)
             self.assertIsInstance(client, ServiceClient)
             self.assertEqual(client.access_point, CLIENT_URL)
+
     
-    
-        
-        
     def test_parse_lookup_service_result(self):
         results = open(self.PATH + 'hls_snmp.xml').read()
         results_set = ResultSet.parse_result(results)

@@ -6,27 +6,29 @@ from django.contrib.contenttypes import generic
 from periscope.topology.models import NetworkObject, Service, EventType
 
 class DNSCache(models.Model):
+    # TODO (AH): add timestamp and timeout period for each entry
     hostname = models.CharField(max_length=256, null=True)
-    ip = models.CharField(max_length=16, null=True)
+    ip = models.CharField(max_length=40, null=True)
+    timestamp = models.DateTimeField(auto_now=True)
 
+    def __unicode__(self):
+        return "%s: %s" % (self.hostname, self.ip)
+    
 class Units(models.Model):
     pass
 
-# Adapted from GENI branch, with a little change
-# The subject is a generic relation because EndPointPair and Path are
-# not of type NetworkObject
+
 class Metadata(models.Model):
-    #subject = models.ForeignKey(NetworkObject)
+    subject = models.ForeignKey(NetworkObject)
     event_type = models.ForeignKey(EventType)
     service = models.ForeignKey(Service, null=True, related_name='metadatas')
     key = models.CharField(max_length=255, null=True)
     poll = models.BooleanField(default=False)
+    last_poll = models.DateTimeField(null=True)
+    # TODO (AH) add interval for scheduled pulling
     
-    objectType = models.ForeignKey(ContentType)
-    objectID = models.PositiveIntegerField()
-    subject = generic.GenericForeignKey('objectType', 'objectID')
     def __unicode__(self):
-        return self.subject.unis_id + ': ' + self.event_type.value
+        return self.subject.__unicode__() + ': ' + self.event_type.value
 
 
 class Data(models.Model):

@@ -311,6 +311,8 @@ class NetworkObject(models.Model):
             return self.service
         elif hasattr(self, 'path'):
             return self.path
+        elif hasattr(self, 'endpointpair'):
+            return self.endpointpair
         else:
             raise UNISXMLParsingException, "NetworkObject is not a known subclass."
 
@@ -868,10 +870,9 @@ class ServiceProperties(models.Model):
     def parse_xml(cls, element, parent):
         return parse_xml_unis_properties(cls, element, parent, 'service', (Service,))
   
-# TODO: parsing
-class EndPointPair(models.Model):
-    names = models.ManyToManyField(Name, through='EndPointPairNames')
-    type = models.CharField(max_length=255, null=True)
+
+class EndPointPair(NetworkObject):
+    # TODO (AH): Endpoint parsing
     src = models.ForeignKey(NetworkObject, null=True, 
                             related_name='endpointpairs_src_target')
     dst = models.ForeignKey(NetworkObject, null=True, 
@@ -1258,7 +1259,6 @@ class PeriscopeNodeProperties(NodeProperties):
 class PeriscopePortProperties(PortProperties):
     shape = models.OneToOneField('PeriscopeShape')
     
-    
 class PeriscopeShape(models.Model):
     SHAPES = (
         (u"rect", u"rect"),
@@ -1279,13 +1279,14 @@ class PeriscopeShape(models.Model):
     text_xdisp = models.IntegerField()
     text_ydisp = models.IntegerField()
     text_align = models.CharField(max_length=6, choices=ALIGNS)
-    
+    text_display = models.CharField(max_length=256)
     
     def toJson(self):
         return '"shape":"%s","x":%s,"y":%s,"width":%s,"height":%s,"fill":"%s"'\
-               ',"textXDisp":%s,"textYDisp":%s,"textAlign":"%s"' % \
+               ',"textXDisp":%s,"textYDisp":%s,"textAlign":"%s","text_disp":"%s"' % \
                (self.shape, self.x, self.y, self.width, self.height, self.fill,
-                self.text_xdisp, self.text_ydisp, self.text_align)
+                self.text_xdisp, self.text_ydisp, self.text_align, self.text_display)
+
 
 ###############################################################################
 # perfSONAR Topology
@@ -1324,7 +1325,7 @@ class L3PortProperties(PortProperties):
 
 
 class EventType(models.Model):
-    value = models.CharField(max_length=255)
+    value = models.CharField(max_length=255, unique=True, db_index=True)
     
     class Meta:
         app_label = 'topology'
@@ -1375,17 +1376,16 @@ class psServicePropertiesEventTypes(models.Model):
 
     
 class psServiceWatchList(models.Model):
-    # TODO: Needs to come with a better solution, since Relation doesn't
-    # support having relation with EndpointPairs
-    service = models.ForeignKey(Service)
-    eventType = models.ForeignKey(EventType)
+    service = models.ForeignKey(Service, related_name='service')
+    event_type = models.ForeignKey(EventType)
+    network_object = models.ForeignKey(NetworkObject, related_name='network_object')
     
-    objectType = models.ForeignKey(ContentType)
-    objectID = models.PositiveIntegerField()
-    watchedObject = generic.GenericForeignKey('objectType', 'objectID')
+    class Meta:
+        app_label = 'topology'
+        unique_together = (('service', 'event_type', 'network_object'),)
     
     def __unicode__(self):
-        return "%s->%s->%s" % (self.service, self.eventType, self.watchedObject)
+        return "%s->%s->%s" % (self.service, self.event_type, self.network_object)
 
 # TODO: maybe have this somewhere else?
 NAMESPACE_PREFIX_MAP = {

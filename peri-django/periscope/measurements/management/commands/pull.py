@@ -29,7 +29,13 @@ from periscope.measurements.lib import save_lookup_service_result
 from periscope.measurements.lib import create_service_client
 from periscope.measurements.lib import create_lookup_query
 from periscope.measurements.lib import interface_to_port
+from periscope.measurements.lib import set_print_xml
+from periscope.measurements.lib import get_all_meta_keys
+from periscope.measurements.lib import get_metadata_by_key
+from periscope.measurements.lib import save_measurements_data
+from periscope.measurements.lib import reset_meta_keys
 
+SILENT = False
 
 def pull_roots(service_url, print_services=True):
     """
@@ -52,19 +58,74 @@ def pull_lookup_service(service_url, print_services=True):
             "URL: e.g. --url http://example.com:9999/service")
 
     # Send pull all data to the lookup service
-    try:
-        client = create_service_client(service_url)
-        query = create_lookup_query()
-        result = query_psservice(client, query)
-        save_lookup_service_result(result, print_services)
-    except Exception as exp:
-        raise CommandError(exp)
+    #try:
+    client = create_service_client(service_url)
+    query = create_lookup_query()
+    result = query_psservice(client, query)
+    save_lookup_service_result(result, print_services)
+    #except Exception as exp:
+    #    raise CommandError(exp)
 
 
 def pull_measurements_data(service_url, network_object,
-                        measurements_events, start_time, end_time):
+                        measurements_events,
+                        start_time=int(time.time()) - 10000,
+                        end_time=int(time.time()),
+                        meta_key=None):
     """
     Generic method to pull perfSONAR measurements
+    """
+    global SILENT
+    if service_url:
+        service = create_service_client(service_url)
+    else:
+        if not isinstance(network_object, NetworkObject):
+            raise CommandError("Please define a service.")
+        
+        services = find_service_watch(network_object, measurements_events)
+        if not services:
+            raise CommandError("Please define a service.")
+        service = create_service_client(services[0])
+    
+    for event in measurements_events:
+        if not meta_key:
+            objects_keys = get_meta_keys(service, network_object, event)
+            keys = []
+            for obj in objects_keys:
+                keys.append(objects_keys[obj]['key'])
+        else:
+            keys = meta_key.strip().split()
+        
+        if not keys:
+            raise CommandError("Network object is not found.")
+        
+        results = get_measurements_data(service, keys, event,
+                        start_time, end_time)
+        
+        for key, value in results.items():
+            if not SILENT:
+                print "maKey", key, ":", event
+                if not value:
+                    print None
+                else:
+                    for v in value:
+                        print v
+            
+            meta = get_metadata_by_key(key)
+            if not meta:
+                continue
+            
+            if isinstance(value, list):
+                save_measurements_data(meta['_id'], value)
+
+
+def pull_meta_key(service_url, network_object,
+                        measurements_events,
+                        start_time=int(time.time()) - 10000,
+                        end_time=int(time.time()),
+                        meta_key=None):
+    """
+    Pulls only the metadata keys
     """
 
     if service_url:
@@ -80,17 +141,9 @@ def pull_measurements_data(service_url, network_object,
     
     for event in measurements_events:
         objects_keys = get_meta_keys(service, network_object, event)
-        keys = []
         for obj in objects_keys:
-            keys.append(objects_keys[obj])
-        
-        result = get_measurements_data(service, keys, event,
-                        start_time, end_time)
-        
-        # TODO (AH): save results
-        print event
-        print result.data
-        print "\n"
+            print objects_keys[obj]['key']
+
 
 def extract_endpoint(src, dst):
     """
@@ -184,12 +237,12 @@ class Command(BaseCommand):
             action='store',
             dest='meta_key',
             default=None,
-            help='Query metadata key'),
+            help='Query data by metadata key'),
         make_option(None, '--get-meta-key',
             action='store_true',
             dest='get_meta_key',
             default=None,
-            help='Query metadata key'),
+            help='Get metadata key for metadata'),
         make_option(None, '--profile',
             action='store',
             dest='profile',
@@ -215,6 +268,16 @@ class Command(BaseCommand):
             dest='end_time',
             default=None,
             help="Start time for measurements data."),
+        make_option(None, '--xml',
+            action='store_true',
+            dest='show_xml',
+            default=None,
+            help='Show raw XML queries and results'),
+	make_option(None, '--reset-keys',
+            action='store_true',
+            dest='reset_keys',
+            default=None,
+            help='Reset meta keys'),
     )
 
     def handle(self, *args, **options):
@@ -231,21 +294,44 @@ class Command(BaseCommand):
         """
         Unprofiled command handler.
         """
+        global SILENT
+        
         direction = options.pop('direction', None)
         service_url = options.pop('url', None)
-        start_time = options.pop('start_time', int(time.time()) - 10000)
-        end_time = options.pop('end_time', int(time.time()))
-        print_services = not options.pop('silent', False)
+        start_time = options.pop('start_time', None)
+        end_time = options.pop('end_time', None)
+        print_services = not options.pop('silent', SILENT)
         src = options.pop('src', None)
         dst = options.pop('dst', None)
         ifaddress = options.pop('ifAddress', None)
         ifname = options.pop('ifName', None)
         ipaddress = options.pop('ipAddress', None)
         hostname = options.pop('hostname', None)
+        ipaddress = options.pop('ipAddress', None)
+        pull_meta_key_opt = options.pop('get_meta_key', None)
+        show_xml = options.pop('show_xml', None)
+        meta_key = options.pop('meta_key', None)
+        reset_keys = options.pop('reset_keys', None)
 
+        SILENT = not print_services
+        
+        if show_xml:
+            set_print_xml(True, True)
+        else:
+            set_print_xml(False, False)
+        
         endpoint = extract_endpoint(src, dst)
         interface = extract_interface(ifaddress, ifname, ipaddress, hostname)
-
+	
+        if reset_keys:
+            reset_meta_keys()
+            get_all_meta_keys()
+        
+        if pull_meta_key_opt:
+            pull_function = pull_meta_key
+        else:
+            pull_function = pull_measurements_data
+        
         if len(args) == 0:
             raise CommandError("Use one of the following "
                             "arguments: %s" % self.args)
@@ -265,8 +351,8 @@ class Command(BaseCommand):
                 snmp_events = [events.NET_UTILIZATION_SENT,
                                 events.NET_UTILIZATION_RECV]
 
-            pull_measurements_data(service_url, interface,
-                                snmp_events, start_time, end_time)
+            pull_function(service_url, interface,
+                            snmp_events, start_time, end_time, meta_key)
         elif args[0] == 'if-error':
             if direction == 'sent':
                 snmp_events = [events.NET_ERROR_SENT]
@@ -275,8 +361,8 @@ class Command(BaseCommand):
             else:
                 snmp_events = [events.NET_ERROR_SENT, events.NET_ERROR_RECV]
 
-            pull_measurements_data(service_url, interface,
-                                snmp_events, start_time, end_time)
+            pull_function(service_url, interface,
+                            snmp_events, start_time, end_time, meta_key)
 
         elif args[0] == 'if-discard':
             if direction == 'sent':
@@ -287,23 +373,47 @@ class Command(BaseCommand):
                 snmp_events = [events.NET_DISCARD_SENT,
                                 events.NET_DISCARD_RECV]
 
-            pull_measurements_data(service_url, interface,
-                                snmp_events, start_time, end_time)
+            pull_function(service_url, interface,
+                            snmp_events, start_time, end_time, meta_key)
 
         elif args[0] == 'iperf':
-            pull_measurements_data(service_url, endpoint,
-                                [events.IPERF2], start_time, end_time)
+            pull_function(service_url, endpoint,
+                            [events.IPERF2], start_time, end_time, meta_key)
 
         elif args[0] == 'owamp':
-            pull_measurements_data(service_url, endpoint,
+            pull_function(service_url, endpoint,
                                 [events.OWAMP], start_time, end_time)
 
         elif args[0] == 'traceroute':
-            pull_measurements_data(service_url, endpoint,
-                                [events.TRACEROUTE], start_time, end_time)
+            pull_function(service_url, endpoint,
+                            [events.TRACEROUTE], start_time, end_time, meta_key)
 
         elif args[0] == 'all':
-            print "pulling all data"
-            pull_all_data()
+            pull_events = []
+            for arg in args[1:]:
+                if arg == 'traceroute':
+                    pull_events.append(events.TRACEROUTE)
+                elif arg == 'owamp':
+                    pull_events.append(events.OWAMP)
+                elif arg == 'iperf':
+                    pull_events.append(events.IPERF2)
+                elif arg == 'if-discard':
+                    pull_events.append(events.NET_DISCARD_SENT)
+                    pull_events.append(events.NET_DISCARD_RECV)
+                elif arg == 'if-error':
+                    pull_events.append(events.NET_ERROR_SENT)
+                    pull_events.append(events.NET_ERROR_RECV)
+                elif arg == 'if-utilization':
+                    pull_events.append(events.NET_UTILIZATION_SENT)
+                    pull_events.append(events.NET_UTILIZATION_RECV)
+                    
+            
+            if pull_events:
+                pull_filter = {'event_type': {'$in': pull_events}}
+            else:
+                pull_filter = {}
+            
+            #get_all_meta_keys(pull_filter)
+            pull_all_data(pull_filter, start_time=start_time, end_time=end_time)
         else:
             raise CommandError("Undefined pulling command: '%s'" % args[0])

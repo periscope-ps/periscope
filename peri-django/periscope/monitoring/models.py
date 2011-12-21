@@ -1,4 +1,6 @@
 from django.db import models
+from periscope.topology.models import NetworkObject
+
 
 class PathDataModel(models.Model):
     path_id = models.CharField(max_length=200)
@@ -29,3 +31,12 @@ class GridFTPTransfer(models.Model):
 
     def __unicode__(self):
         return self.transfer_id
+
+class NetworkObjectStatus(models.Model):
+    network_object = models.ForeignKey(NetworkObject)
+    status = models.CharField(max_length=200)
+    last_update = models.DateTimeField(null=True)
+    gri = models.CharField(max_length=255)
+    username = models.CharField(max_length=255, null=True)
+    userid = models.CharField(max_length=255, null=True)
+    obj_type = models.CharField(max_length=200)
