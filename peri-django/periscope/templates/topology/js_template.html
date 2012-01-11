@@ -69,7 +69,7 @@ function chart_window_event(circle) {
 function updateCircuitGrid() {
 	
         function onDataReceived(series) {
-            paths = series.paths;
+                paths = series.paths
 		var resStore = new dojo.data.ItemFileWriteStore({data: {
 					"items": series.xfers
 				}});
@@ -89,7 +89,7 @@ function updateCircuitGrid() {
         }
 
         dojo.xhrGet({
-			url: "{% url topology.views.topology_get_transfers %}",
+			url: "{% url topology.views.topology_get_reservations %}",
 				handleAs:"json",
 				load: onDataReceived,
 				error: function(err){console.error(err)}

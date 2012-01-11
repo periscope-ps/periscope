@@ -273,11 +273,16 @@ class Command(BaseCommand):
             dest='show_xml',
             default=None,
             help='Show raw XML queries and results'),
-	make_option(None, '--reset-keys',
+        make_option(None, '--reset-keys',
             action='store_true',
             dest='reset_keys',
             default=None,
             help='Reset meta keys'),
+        make_option(None, '--single',
+            action='store_true',
+            dest='single',
+            default=None,
+            help='send single queries'),
     )
 
     def handle(self, *args, **options):
@@ -312,6 +317,7 @@ class Command(BaseCommand):
         show_xml = options.pop('show_xml', None)
         meta_key = options.pop('meta_key', None)
         reset_keys = options.pop('reset_keys', None)
+        single = options.pop('single', None)
 
         SILENT = not print_services
         
@@ -325,7 +331,7 @@ class Command(BaseCommand):
 	
         if reset_keys:
             reset_meta_keys()
-            get_all_meta_keys()
+            get_all_meta_keys(aggregate = not single)
         
         if pull_meta_key_opt:
             pull_function = pull_meta_key
@@ -413,7 +419,7 @@ class Command(BaseCommand):
             else:
                 pull_filter = {}
             
-            #get_all_meta_keys(pull_filter)
-            pull_all_data(pull_filter, start_time=start_time, end_time=end_time)
+            get_all_meta_keys(pull_filter, aggregate = not single)
+            pull_all_data(pull_filter, start_time=start_time, end_time=end_time, aggregate=not single)
         else:
             raise CommandError("Undefined pulling command: '%s'" % args[0])

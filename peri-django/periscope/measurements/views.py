@@ -28,17 +28,17 @@ def get_perfometer_data(request):
     """
     Return total Tx and Rx per site to used on ther perfometers
     """
-    #try:
-    #    id = request.GET['id']
-    #except:
-    #    print "no ID"
+
+    urn = urllib.unquote(request.GET['urn'])
+
+    if not urn:
+        return HttpResponseBadRequest("URN is not defined")
 
     ganglia_sent = 'http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/2.0'
     ganglia_recv = 'http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/received/2.0'
 
     time_delta = timedelta(0, 60)
-    measurements = query_measurements('urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth5',
-                                      [ganglia_sent, ganglia_recv], None,
+    measurements = query_measurements(urn, [ganglia_sent, ganglia_recv], None,
                                       {'time': {
                 '$gte': datetime.now() - time_delta, '$lte': datetime.now()
                 }})
@@ -153,6 +153,10 @@ def get_measurements_data_mongo(request):
     unis_id = urllib.unquote(request.GET.get('id', ''))
     event = request.GET.get('event', None)
     t = request.GET.get('t', 1800)
+    
+    if event and event[-1] == '/':
+        event = event[:-1]
+    
     try:
         t = int(t)
     except:
@@ -163,8 +167,11 @@ def get_measurements_data_mongo(request):
     events_map = {}
     events_map[events.NET_DISCARD] = [events.NET_DISCARD_RECV, events.NET_DISCARD_SENT]
     events_map[events.NET_ERROR] = [events.NET_ERROR_RECV, events.NET_ERROR_SENT]
-    events_map[events.NET_UTILIZATION] = [events.NET_UTILIZATION_RECV, events.NET_UTILIZATION_SENT]
-    events_map[events.NET_UTILIZATION] = [ganglia_sent, ganglia_recv]
+    
+    if unis_id.find('escps') >=0:
+        events_map[events.NET_UTILIZATION] = [ganglia_sent, ganglia_recv]
+    else:
+        events_map[events.NET_UTILIZATION] = [events.NET_UTILIZATION_RECV, events.NET_UTILIZATION_SENT]
     
     if not unis_id:
         return HttpResponseBadRequest("UNIS is is not defined.")
@@ -173,7 +180,7 @@ def get_measurements_data_mongo(request):
         return HttpResponseBadRequest("Event type is is not defined.")
 
     if event not in events_map:
-        return HttpResponseBadRequest("Invalid Event type")
+        return HttpResponseBadRequest("Invalid Event type: " + event)
     
     time_delta = timedelta(0, t)
     measurements = query_measurements(unis_id, events_map[event], None, 
@@ -203,6 +210,7 @@ def get_measurements_data_mongo(request):
     
     dthandler = lambda obj: obj.isoformat() if isinstance(obj, datetime) else None
     return HttpResponse(json.dumps(result,  default=dthandler), mimetype="text/plain")
+    
     
         
 

@@ -1,0 +1,701 @@
+<?xml version='1.0' encoding='utf-8'?>
+<topology id="escps" 
+	  xmlns="http://ogf.org/schema/network/topology/unis/20100528/"
+	  xmlns:tps="http://ogf.org/schema/network/topology/terapaths/20100603/">
+  
+  <name>ESCPS Monitored Topology</name>
+
+  <domain id="urn:ogf:network:domain=escps.udel.edu">
+
+    <node id="urn:ogf:network:domain=escps.udel.edu:node=udel01">
+      <name type="hostname">udel01.damsl.cis.udel.edu</name>
+      <name>udel01</name>
+      <address type="ipv4">128.4.133.110</address>
+      <description>os=Debian 5,kernel=2.6.39.3-web10g,cpu=AMD Opteron(tm) Processor 6136,cores=8,memory=16384MB,blob=UDEL Test host 01</description>
+      <port id="urn:ogf:network:domain=escps.udel.edu:node=udel01:port=eth2">
+        <name>eth2</name>
+        <description>1G connection to EECIS</description>
+        <capacity>1000000000</capacity>
+        <address type="ipv4">128.4.133.110</address>
+        <address type="dns">udel01</address>
+        <link id="urn:ogf:network:domain=escps.udel.edu:node=udel01:port=eth2:link=udel01-EECIS">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.udel.edu:node=udel01:port=eth2</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=eecis.udel.edu:node=sw-eecis:port=Ge/0/1</portIdRef>
+          </relation>
+        </link>
+      </port>
+
+      <port id="urn:ogf:network:domain=escps.udel.edu:node=udel01:port=eth3">
+        <name>eth3</name>
+        <description>10G connection to sw-udel</description>
+        <capacity>10000000000</capacity>
+        <link id="urn:ogf:network:domain=escps.udel.edu:node=udel01:port=eth3:link=udel01-sw-udel">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.udel.edu:node=udel01:port=eth3</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.udel.edu:node=sw-udel:port=Te1/0/13</portIdRef>
+          </relation>
+        </link>
+      </port>
+    </node>
+   
+    <node id="urn:ogf:network:domain=escps.udel.edu:node=udel02">
+      <name type="hostname">udel02.damsl.cis.udel.edu</name>
+      <name>udel02</name>
+      <address type="ipv4">128.4.133.111</address>
+      <description>os=Debian 5,kernel=2.6.39.3-web10g,cpu=AMD Opteron(tm) Processor 6136,cores=8,memory=16384MB,blob=UDEL Test host 02</description>
+      <port id="urn:ogf:network:domain=escps.udel.edu:node=udel02:port=eth2">
+        <name>eth2</name>
+        <description>1G connection to EECIS</description>
+        <capacity>1000000000</capacity>
+        <address type="ipv4">128.4.133.111</address>
+        <address type="dns">udel02</address>
+        <link id="urn:ogf:network:domain=escps.udel.edu:node=udel02:port=eth2:link=udel02-EECIS">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.udel.edu:node=udel02:port=eth2</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=eecis.udel.edu:node=sw-eecis:port=Ge/0/2</portIdRef>
+          </relation>
+        </link>
+      </port>
+      
+      <port id="urn:ogf:network:domain=escps.udel.edu:node=udel02:port=eth3">
+        <name>eth3</name>
+        <description>10G connection to sw-udel</description>
+        <capacity>10000000000</capacity>
+        <link id="urn:ogf:network:domain=escps.udel.edu:node=udel02:port=eth3:link=udel02-sw-udel">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.udel.edu:node=udel02:port=eth3</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.udel.edu:node=sw-udel:port=Te1/0/14</portIdRef>
+          </relation>
+        </link>
+      </port>
+    </node>
+    
+    <node id="urn:ogf:network:domain=escps.udel.edu:node=sw-udel">
+      <name>sw-udel</name>
+      <address type="ipv4">0.0.0.0</address>
+      
+      <port id="urn:ogf:network:domain=escps.udel.edu:node=sw-udel:port=Te1/0/1">
+        <name>Te1/0/1</name>
+        <description>ION WAN port</description>
+        <capacity>10000000000</capacity>
+        <!-- link to ex4500 -->
+      </port>
+
+      <port id="urn:ogf:network:domain=escps.udel.edu:node=sw-udel:port=Te1/0/13">
+        <name>Te1/0/13</name>
+        <description>connects to udel01</description>
+        <capacity>10000000000</capacity>
+        <link id="urn:ogf:network:domain=escps.udel.edu:node=sw-udel:port=Te1/0/13:link=sw-udel-udel01">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.udel.edu:node=sw-udel:port=Te1/0/13</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.udel.edu:node=udel01:port=eth3</portIdRef>
+          </relation>
+        </link>
+      </port>
+      
+      <port id="urn:ogf:network:domain=escps.udel.edu:node=sw-udel:port=Te1/0/14">
+        <name>Te1/0/14</name>
+        <description>connects to udel02</description>
+        <capacity>10000000000</capacity>
+        <link id="urn:ogf:network:domain=escps.udel.edu:node=sw-udel:port=Te1/0/14:link=sw-udel-udel02">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.udel.edu:node=sw-udel:port=Te1/0/14</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.udel.edu:node=udel02:port=eth3</portIdRef>
+          </relation>
+        </link>
+      </port>
+    </node>    
+  </domain>
+
+  <domain id="urn:ogf:network:domain=escps.lbl.gov">
+
+    <node id="urn:ogf:network:domain=escps.lbl.gov:node=srm">
+      <name type="hostname">srm.lbl.gov</name>      
+      <name>srm</name>
+      <address type="ipv4">128.3.30.105</address>
+
+      <port id="urn:ogf:network:domain=escps.lbl.gov:node=srm:port=eth0">
+        <name>eth0</name>
+        <description>connection to lbl router</description>
+        <capacity>10000000000</capacity>
+        <address type="ipv4">128.3.30.105</address>
+        <address type="dns">srm</address>
+        <link id="urn:ogf:network:domain=escps.lbl.gov:node=srm:port=eth0:link=srm-ir1gw">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.lbl.gov:node=srm:port=eth0</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.lbl.gov:node=ir1gw:port=teX/1</portIdRef>
+          </relation>
+        </link>
+      </port>
+    </node>
+    
+    <node id="urn:ogf:network:domain=escps.lbl.gov:node=ir1gw">
+      <name>ir1gw</name>
+      <address type="ipv4">0.0.0.0</address>
+      
+      <port id="urn:ogf:network:domain=escps.lbl.gov:node=ir1gw:port=teX/1">
+        <name>teX/1</name>
+        <description>connection to srm</description>
+        <capacity>10000000000</capacity>
+        <address type="ipv4">0.0.0.0</address>
+        <address type="dns">ir1gw</address>
+        <link id="urn:ogf:network:domain=escps.lbl.gov:node=ir1gw:port=teX/1:link=ir1gw-srm">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.lbl.gov:node=ir1gw:port=teX/1</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.lbl.gov:node=srm:port=eth0</portIdRef>
+          </relation>
+        </link>
+      </port>
+    </node>    
+  </domain>
+  
+  <domain id="urn:ogf:network:domain=escps.bnl.gov">
+    
+    <node id="urn:ogf:network:domain=escps.bnl.gov:node=amon">
+      <name>amon</name>
+      <address type="ipv4">198.124.220.1</address>
+
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=amon:port=te1/1">
+        <name>te1/1</name>
+        <description>10Gb connection to qtr1</description>
+	<capacity>10000000000</capacity>
+	<address type="ipv4">198.124.220.1</address>
+	<address type="dns">amon</address>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=te1/1:link=amon-qtr1">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=amon:port=te1/1</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=TenGigabitEthernet9/1</portIdRef>
+          </relation>
+        </link>
+      </port>      
+      <!-- WAN port to ESNet? maybe have link to nile?-->
+    </node>
+
+    <node id="urn:ogf:network:domain=escps.bnl.gov:node=qtr1">
+      <name>Qtr1</name>
+      <description>hardware,CISCO_WS-C6509,type,SUP720,os,IOS12.2(18)SXF15</description>
+      <address type="ipv4">198.124.220.2</address>
+
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=Port-channel5">
+	<name>Port-channel5</name>
+	<capacity>8000000000</capacity>
+	<description>8x1Gb channel to Qtr2</description>
+	<link id="urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=Port-channel5:link=qtr1-qtr2">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=Port-channel5</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=Port-channel5</portIdRef>
+          </relation>
+        </link>
+      </port>
+
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=TenGigabitEthernet9/1">
+        <name>TenGigabitEthernet9/1</name>
+        <description>uplink to BNL border router (amon)</description>
+	<capacity>10000000000</capacity>
+	<link id="urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=TenGigabitEthernet9/1:link=qtr1-amon">
+	  <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=TenGigabitEthernet9/1</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=amon:port=te1/1</portIdRef>
+          </relation>
+        </link>
+      </port>
+
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=TenGigabitEthernet9/4">
+        <name>TenGigabitEthernet9/4</name>
+        <description>L2 connection to ex2500</description>
+	<capacity>10000000000</capacity>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=TenGigabitEthernet9/4:link=qtr1-ex2500">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=TenGigabitEthernet9/4</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=ex2500:port=port1</portIdRef>
+          </relation>
+        </link>
+      </port>
+      
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=unrouted-VLAN-3561">
+	<capacity>1000000000</capacity>
+	<portPropertiesBag>
+	  <tps:portProperties>
+	    <tps:vlan>3561</tps:vlan>
+	    <tps:subnet>10.100.1.44/30</tps:subnet>
+	    <tps:baseIp>10.100.1.44</tps:baseIp>
+	    <tps:subnetMask>255.255.255.252</tps:subnetMask>
+	    <tps:ipA>10.100.1.45</tps:ipA>
+	    <tps:ipB>10.100.1.46</tps:ipB>
+	    <tps:broadcastIp>10.100.1.47</tps:broadcastIp>
+	    <tps:available>1</tps:available>
+	  </tps:portProperties>
+	</portPropertiesBag>
+      </port>
+      
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=unrouted-VLAN-3562">
+	<capacity>1000000000</capacity>
+        <portPropertiesBag>
+          <tps:portProperties>
+	    <tps:vlan>3562</tps:vlan>
+	    <tps:subnet>10.100.1.48/30</tps:subnet>
+	    <tps:baseIp>10.100.1.48</tps:baseIp>
+	    <tps:subnetMask>255.255.255.252</tps:subnetMask>
+	    <tps:ipA>10.100.1.49</tps:ipA>
+	    <tps:ipB>10.100.1.50</tps:ipB>
+	    <tps:broadcastIp>10.100.1.51</tps:broadcastIp>
+	    <tps:available>1</tps:available>
+          </tps:portProperties>
+        </portPropertiesBag>
+      </port>
+      
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=unrouted-VLAN-3563">
+	<capacity>1000000000</capacity>
+	<portPropertiesBag>
+          <tps:portProperties>
+	    <tps:vlan>3563</tps:vlan>
+	    <tps:subnet>10.100.1.52/30</tps:subnet>
+	    <tps:baseIp>10.100.1.52</tps:baseIp>
+	    <tps:subnetMask>255.255.255.252</tps:subnetMask>
+	    <tps:ipA>10.100.1.53</tps:ipA>
+	    <tps:ipB>10.100.1.54</tps:ipB>
+	    <tps:broadcastIp>10.100.1.55</tps:broadcastIp>
+	    <tps:available>1</tps:available>
+          </tps:portProperties>
+        </portPropertiesBag>
+      </port>
+    </node>  <!-- ends Qtr1 -->
+
+    <node id="urn:ogf:network:domain=escps.bnl.gov:node=ex2500">
+      <name>ex2500</name>
+      <address type="ipv4">0.0.0.0/0</address>
+      <description>hardware,Juniper_EX2500</description>
+
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=ex2500:port=port1">
+        <name>port1</name>
+	<capacity>10000000000</capacity>
+        <description>L2 interface with Qtr1</description>
+        <address type="ipv4">0.0.0.0/0</address>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=ex2500:port=port1:link=ex2500-qtr1">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=ex2500:port=port1</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=TenGigabitEthernet9/4</portIdRef>
+          </relation>
+        </link>
+      </port>
+
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=ex2500:port=port2">
+        <name>port2</name>
+        <description>L2 interface with netqos03</description>
+	<capacity>10000000000</capacity>
+        <address type="ipv4">0.0.0.0/0</address>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=ex2500:port=port2:link=ex2500-netqos03">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=ex2500:port=port2</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=netqos03:port=eth2</portIdRef>
+          </relation>
+        </link>
+      </port>
+
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=ex2500:port=port3">
+        <name>port3</name>
+        <description>L2 interface with netqos04</description>
+	<capacity>10000000000</capacity>
+        <address type="ipv4">0.0.0.0/0</address>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=ex2500:port=port3:link=ex2500-netqos04">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=ex2500:port=port3</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=netqos04:port=eth2</portIdRef>
+          </relation>
+        </link>
+      </port>
+    </node> <!-- ends ex2500 -->    
+
+    <node id="urn:ogf:network:domain=escps.bnl.gov:node=qtr2">
+      <name>Qtr2</name>
+      <description>hardware,CISCO_WS-C6509,type,SUP2,os,IOS12.1(26)E5</description>
+      <address type="ipv4">198.124.220.3</address>
+      
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=Port-channel5">
+        <name>Port-channel5</name>
+        <description>8x1Gb channel to Qtr1</description>
+	<capacity>8000000000</capacity>
+	<link id="urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=Port-channel5:link=qtr2-qtr1">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=Port-channel5</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr1:port=Port-channel5</portIdRef>
+          </relation>
+	</link>
+      </port>
+      
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/37">
+        <name>GigabitEthernet9/37</name>
+        <description>port for netqos01</description>
+	<capacity>1000000000</capacity>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/37:link=qtr2-netqos01">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/37</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=netqos01:port=eth0</portIdRef>
+          </relation>
+        </link>
+      </port>
+
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/23">
+        <name>GigabitEthernet9/23</name>
+        <description>port for netqos02</description>
+	<capacity>1000000000</capacity>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/23:link=qtr2-netqos02">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/23</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=netqos02:port=eth2</portIdRef>
+          </relation>
+        </link>
+      </port>
+      
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/24">
+        <name>GigabitEthernet9/24</name>
+        <description>port for netqos03</description>
+	<capacity>1000000000</capacity>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/24:link=qtr2-netqos03">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/24</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=netqos03:port=eth0</portIdRef>
+          </relation>
+        </link>
+      </port>
+
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/25">
+        <name>GigabitEthernet9/25</name>
+        <description>port for netqos04</description>
+	<capacity>1000000000</capacity>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/25:link=qtr2-netqos04">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/25</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=netqos04:port=eth0</portIdRef>
+          </relation>
+        </link>
+      </port>
+    </node> <!-- ends Qtr2 -->    
+    
+    <node id="urn:ogf:network:domain=escps.bnl.gov:node=netqos01">
+      <name type="hostname">netqos01.bnl.gov</name>
+      <name>netqos01</name>
+      <address type="ipv4">198.124.220.135</address>
+      <description>os=RHEL4,kernel=2.6.9-89.0.16.ELsmp,memory=1024MB,cpu=Intel(R) Xeon(TM) CPU 3.06GHz,cores=4,blob=BNL test host 01</description>
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=netqos01:port=eth0">
+        <name>eth0</name>
+        <description>interfaces with Qtr2</description>
+	<capacity>1000000000</capacity>
+	<address type="ipv4">198.124.220.135</address>
+	<address type="dns">netqos01</address>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=netqos01:port=eth0:link=netqos01-qtr2">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=netqos01:port=eth0</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/37</portIdRef>
+          </relation>
+        </link>
+      </port>
+    </node> <!-- ends netqos01 -->
+
+    <node id="urn:ogf:network:domain=escps.bnl.gov:node=netqos02">
+      <name type="hostname">netqos02.bnl.gov</name>
+      <name>netqos02</name>
+      <address type="ipv4">198.124.220.134</address>
+      <description>os=RHEL4,kernel=2.6.9-89.0.16.ELsmp,memory=2048MB,cpu=Intel(R) Xeon(TM) CPU 3.06GHz,cores=4,blob=BNL test host 02</description>
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=netqos02:port=eth2">
+        <name>eth2</name>
+        <description>interfaces with Qtr2</description>
+	<capacity>1000000000</capacity>
+        <address type="ipv4">198.124.220.134</address>
+	<address type="dns">netqos02</address>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=netqos02:port=eth2:link=netqos02-qtr2">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=netqos02:port=eth2</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/23</portIdRef>
+          </relation>
+        </link>
+      </port>
+    </node> <!-- ends netqos02 -->
+
+    <node id="urn:ogf:network:domain=escps.bnl.gov:node=netqos03">
+      <name type="hostname">netqos03.bnl.gov</name>
+      <name>netqos03</name>
+      <address type="ipv4">198.124.220.136</address>
+      <description>os=RHEL4,kernel=2.6.9-89.0.16.ELsmp,memory=1024MB,cpu=Intel(R) Xeon(TM) CPU 3.06GHz,cores=4,blob=BNL test host 03</description>
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=netqos03:port=eth0">
+        <name>eth0</name>
+        <description>1G interface with Qtr2</description>
+	<capacity>1000000000</capacity>
+        <address type="ipv4">198.124.220.136</address>
+	<address type="dns">netqos03</address>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=netqos03:port=eth0:link=netqos03-qtr2">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=netqos03:port=eth0</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/24</portIdRef>
+          </relation>
+        </link>
+      </port>
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=netqos03:port=eth2">
+        <name>eth2</name>
+        <description>L2 10G interface with ex2500</description>
+	<capacity>10000000000</capacity>
+        <address type="ipv4">198.124.220.196</address>
+	<address type="dns">netqos03</address>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=netqos03:port=eth2:link=netqos03-ex2500">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=netqos03:port=eth2</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=ex2500:port=port2</portIdRef>
+          </relation>
+        </link>
+      </port>
+    </node> <!-- ends netqos03 -->
+
+    <node id="urn:ogf:network:domain=escps.bnl.gov:node=netqos04">
+      <name type="hostname">netqos04.bnl.gov</name>
+      <name>netqos04</name>
+      <address type="ipv4">198.124.220.137</address>
+      <description>os=RHEL4,kernel=2.6.9-89.0.16.ELsmp,memory=1024MB,cpu=Intel(R) Xeon(TM) CPU 3.06GHz,cores=4,blob=BNL test host 04</description>
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=netqos04:port=eth0">
+        <name>eth0</name>
+        <description>1G interface with Qtr2</description>
+	<capacity>1000000000</capacity>
+        <address type="ipv4">198.124.220.137</address>
+	<address type="dns">netqos04</address>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=netqos04:port=eth0:link=netqos04-qtr2">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=netqos04:port=eth0</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=qtr2:port=GigabitEthernet9/25</portIdRef>
+          </relation>
+        </link>
+      </port>
+      <port id="urn:ogf:network:domain=escps.bnl.gov:node=netqos04:port=eth2">
+        <name>eth2</name>
+        <description>L2 10G interface with ex2500</description>
+	<capacity>10000000000</capacity>
+        <address type="ipv4">198.124.220.197</address>
+	<address type="dns">netqos04</address>
+        <link id="urn:ogf:network:domain=escps.bnl.gov:node=netqos04:port=eth2:link=netqos04-ex2500">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=netqos04:port=eth2</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.bnl.gov:node=ex2500:port=port3</portIdRef>
+          </relation>
+        </link>
+      </port>
+    </node> <!-- ends netqos04 -->
+  </domain> <!-- ends escps.bnl.gov -->
+  
+  <domain id="urn:ogf:network:domain=escps.ultralight.org">
+    
+    <node id="urn:ogf:network:domain=escps.ultralight.org:node=nile">
+      <name>nile</name>
+      <address type="ipv4">192.84.86.252</address>
+
+      <port id="urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet7/4">
+        <name>TenGigabitEthernet7/4</name>
+        <description>1Gb connection to tera03</description>
+	<capacity>1000000000</capacity>
+        <link id="urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet7/4:link=nile-tera03">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet7/4</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.ultralight.org:node=tera03:port=eth0</portIdRef>
+          </relation>
+        </link>
+      </port>
+
+      <port id="urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet2/2">
+        <name>TenGigabitEthernet2/2</name>
+        <description>10Gb connection to tera04</description>
+	<capacity>10000000000</capacity>
+        <link id="urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet2/2:link=nile-tera04">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet2/2</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.ultralight.org:node=tera04:port=eth4</portIdRef>
+          </relation>
+        </link>
+      </port>
+
+      <port id="urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet2/3">
+        <name>TenGigabitEthernet2/3</name>
+        <description>10Gb connection to tera05</description>
+	<capacity>10000000000</capacity>
+        <link id="urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet2/3:link=nile-tera05">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet2/3</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.ultralight.org:node=tera05:port=eth4</portIdRef>
+          </relation>
+        </link>
+      </port>
+
+      
+      <port id="urn:ogf:network:domain=escps.ultralight.org:node=nile:port=unrouted-VLAN-3561">
+	<capacity>1000000000</capacity>
+        <portPropertiesBag>
+          <tps:portProperties>
+            <tps:vlan>3561</tps:vlan>
+            <tps:subnet>10.100.1.44/30</tps:subnet>
+            <tps:baseIp>10.100.1.44</tps:baseIp>
+            <tps:subnetMask>255.255.255.252</tps:subnetMask>
+            <tps:ipA>10.100.1.45</tps:ipA>
+            <tps:ipB>10.100.1.46</tps:ipB>
+            <tps:broadcastIp>10.100.1.47</tps:broadcastIp>
+            <tps:available>1</tps:available>
+          </tps:portProperties>
+        </portPropertiesBag>
+      </port>
+
+      <port id="urn:ogf:network:domain=escps.ultralight.org:node=nile:port=unrouted-VLAN-3562">
+	<capacity>1000000000</capacity>
+        <portPropertiesBag>
+          <tps:portProperties>
+            <tps:vlan>3562</tps:vlan>
+            <tps:subnet>10.100.1.48/30</tps:subnet>
+            <tps:baseIp>10.100.1.48</tps:baseIp>
+            <tps:subnetMask>255.255.255.252</tps:subnetMask>
+            <tps:ipA>10.100.1.49</tps:ipA>
+            <tps:ipB>10.100.1.50</tps:ipB>
+            <tps:broadcastIp>10.100.1.51</tps:broadcastIp>
+            <tps:available>1</tps:available>
+          </tps:portProperties>
+        </portPropertiesBag>
+      </port>
+
+      <port id="urn:ogf:network:domain=escps.ultralight.org:node=nile:port=unrouted-VLAN-3563">
+	<capacity>1000000000</capacity>
+        <portPropertiesBag>
+          <tps:portProperties>
+            <tps:vlan>3563</tps:vlan>
+            <tps:subnet>10.100.1.52/30</tps:subnet>
+            <tps:baseIp>10.100.1.52</tps:baseIp>
+            <tps:subnetMask>255.255.255.252</tps:subnetMask>
+            <tps:ipA>10.100.1.53</tps:ipA>
+            <tps:ipB>10.100.1.54</tps:ipB>
+            <tps:broadcastIp>10.100.1.55</tps:broadcastIp>
+            <tps:available>1</tps:available>
+          </tps:portProperties>
+        </portPropertiesBag>
+      </port>      
+      <!-- WAN port to Internet2? maybe have link to amon? -->
+    </node>
+    
+    <node id="urn:ogf:network:domain=escps.ultralight.org:node=tera03">
+      <name type="hostname">tera03.ultralight.org</name>
+      <name>tera03</name>
+      <address type="ipv4">192.84.86.188</address>
+      <description>os=Scientific Linux CERN SLC release 4.4 (Beryllium),kernel=2.6.9-34.0.1.EL.cernsmp,cpu=Dual Core AMD Opteron(tm) Processor 280,cores=4,memory=8192MB,blob=Ultralight test host 03</description>
+      <port id="urn:ogf:network:domain=escps.ultralight.org:node=tera03:port=eth0">
+        <name>eth0</name>
+        <description>1Gb interface with nile</description>
+	<capacity>1000000000</capacity>
+	<address type="ipv4">192.84.86.188</address>
+	<address type="dns">tera03</address>
+        <link id="urn:ogf:network:domain=escps.ultralight.org:node=tera03:port=eth0:link=tera03-nile">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.ultralight.org:node=tera03:port=eth0</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet7/4</portIdRef>
+          </relation>
+        </link>
+      </port>
+    </node>
+
+    <node id="urn:ogf:network:domain=escps.ultralight.org:node=tera04">
+      <name type="hostname">tera04.ultralight.org</name>
+      <name>tera04</name>
+      <address type="ipv4">192.84.86.189</address>
+      <description>os=Scientific Linux CERN SLC release 4.4 (Beryllium),kernel=2.6.9-34.0.1.EL.cernsmp,cpu=Dual Core AMD Optetron(tm) Processor 280,cores=4,memory=8192MB,blob=Ultralight test host 04</description>
+      <port id="urn:ogf:network:domain=escps.ultralight.org:node=tera04:port=eth4">
+        <name>eth4</name>
+        <description>10Gb interface with nile</description>
+	<capacity>10000000000</capacity>
+        <address type="ipv4">192.84.86.189</address>
+	<address type="dns">tera04</address>
+        <link id="urn:ogf:network:domain=escps.ultralight.org:node=tera04:port=eth4:link=tera04-nile">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.ultralight.org:node=tera04:port=eth4</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet2/2</portIdRef>
+          </relation>
+        </link>
+      </port>
+    </node>
+
+    <node id="urn:ogf:network:domain=escps.ultralight.org:node=tera05">
+      <name type="hostname">tera05.ultralight.org</name>
+      <name>tera05</name>
+      <address type="ipv4">192.84.86.190</address>
+      <description>os=Scientific Linux CERN SLC release 4.4 (Beryllium),kernel=2.6.9-34.0.1.EL.cernsmp,cpu=Dual Core AMD Optetron(tm) Processor 280,cores=4,memory=8192MB,blob=Ultralight test host 05</description>
+      <port id="urn:ogf:network:domain=escps.ultralight.org:node=tera05:port=eth4">
+        <name>eth4</name>
+        <description>10Gb interface with nile</description>
+	<capacity>10000000000</capacity>
+        <address type="ipv4">192.84.86.190</address>
+	<address type="dns">tera05</address>
+        <link id="urn:ogf:network:domain=escps.ultralight.org:node=tera05:port=eth4:link=tera05-nile">
+          <relation type="source">
+            <portIdRef>urn:ogf:network:domain=escps.ultralight.org:node=tera05:port=eth4</portIdRef>
+          </relation>
+          <relation type="sink">
+            <portIdRef>urn:ogf:network:domain=escps.ultralight.org:node=nile:port=TenGigabitEthernet2/3</portIdRef>
+          </relation>
+        </link>
+      </port>
+    </node>
+
+  </domain> <!-- ends escps.ultralight.org -->
+</topology>

@@ -28,23 +28,23 @@ var gfxOpts = {
                level: "node",
                spring: "true",
                movePorts: "false",
-               background: "/static_media/images/ani_liman.png"
+               background: "/static_media/images/escps_bg.png"
               };
 
 dojo.addOnLoad(function() { initGfx(gfxOpts) });
-dojo.addOnLoad(initANIGrid);
+dojo.addOnLoad(initCircuitGrid);
 dojo.addOnLoad(initGenericPerfometer);
 
-var events_t = new dojox.timing.Timer();
-events_t.setInterval(1000);
-events_t.onTick = updateEvents;
-events_t.start();
+//var events_t = new dojox.timing.Timer();
+//events_t.setInterval(1000);
+//events_t.onTick = updateEvents;
+//events_t.start();
 
-updatePerfometer;
-var perf_t = new dojox.timing.Timer();
-perf_t.setInterval(5000);
-perf_t.onTick = updatePerfometer;
-perf_t.start();
+//updatePerfometer;
+//var perf_t = new dojox.timing.Timer();
+//perf_t.setInterval(5000);
+//perf_t.onTick = updatePerfometer;
+//perf_t.start();
 
 </script>
 </head>

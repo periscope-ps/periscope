@@ -9,6 +9,7 @@ import time
 from urlparse import urlparse
 from bson.dbref import DBRef
 from pymongo import Connection
+from pymongo import DESCENDING, ASCENDING
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -578,9 +579,10 @@ def port_to_interface(port):
     if not isinstance(port, Port):
         raise ValueError("port must be of type periscope.topology.models.Port")
 
-    ifnames = port.names.filter(type='ifName')
+    ifnames = port.names.all()
     ifaddresses = port.addresses.filter(type='ifAddress')
-    ipaddresses = port.addresses.filter(Q(type='ipv4') | Q(type='ipv4'))
+    #ipaddresses = port.addresses.filter(Q(type='ipv4') | Q(type='ipv4'))
+    ipaddresses = None
     hostnames = port.parent.names.all()
 
     if ifnames:
@@ -688,6 +690,7 @@ def make_query_by_key(key, event_type, start_time=None, end_time=None):
     if event_type.find('ganglia') > 0:
         query = GangliaQuery(maKey=key, event=event_type,
                 start_time=start_time, end_time=end_time)
+                             #consolidation_function='AVERAGE', resolution=5)
     elif event_type in discard_events:
         query = SNMPQuery(maKey=key, event=events.NET_DISCARD,
                 start_time=start_time, end_time=end_time)
@@ -817,12 +820,21 @@ def node_to_psnode(node):
 def make_ganglia_query(network_object, event_type, start_time=None, end_time=None):
     if isinstance(network_object, Port):
         subject = port_to_interface(network_object)
+        # Remap event types
+        #if event_type.find('received') > 0:
+        #    subject.direction = 'in'
+        #    event_type = 'http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/2.0'
+        #else:
+        #    subject.direction = 'out'
+        #    event_type = 'http://ggf.org/ns/nmwg/tools/ganglia/network/utilization/bytes/2.0'
     elif isinstance(network_object, Interface) or isinstance(network_object, psNode):
         subject = network_object
     elif isinstance(network_object, Node):
         subject = node_to_psnode(network_object)
     
-    return GangliaQuery(event=event_type, subject=subject, start_time=start_time, end_time=end_time, consolidation_function='AVERAGE', resolution=30)
+            
+    return GangliaQuery(event=event_type, subject=subject, start_time=start_time,
+                        end_time=end_time)
     
     
 def get_meta_keys(service, network_objects, event_type):
@@ -858,7 +870,7 @@ def get_meta_keys(service, network_objects, event_type):
                 interface = port_to_interface(obj)
                 index = (interface.hostName,
                         interface.ifName,
-                        interface.ipAddress,
+                        #interface.ipAddress,
                         interface.ifAddress)
                 objects_index[index] = obj
             elif isinstance(obj, Node):
@@ -870,7 +882,7 @@ def get_meta_keys(service, network_objects, event_type):
             interface = port_to_interface(obj)
             index = (interface.hostName,
                     interface.ifName,
-                    interface.ipAddress,
+                    #interface.ipAddress,
                     interface.ifAddress)
             objects_index[index] = obj
         elif isinstance(obj, Interface):
@@ -925,8 +937,9 @@ def get_meta_keys(service, network_objects, event_type):
             interface = meta.subject.contents
             index = (interface.hostName,
                     interface.ifName,
-                    interface.ipAddress,
+                    #interface.ipAddress,
                     interface.ifAddress)
+            
             obj = objects_index[index]
             result_keys[obj] = data
             result_keys[obj] = {'key': data, 'meta': meta_result[meta_id]}
@@ -962,15 +975,16 @@ def save_metadata(service, unis_id, meta_key,
                     'meta_key': meta_key,
                     'pull': pull,
                     'parameters': parameters}
+    meta_document.update(keys)
     if kargs:
         meta_document.update(kargs)
     
-    metadata = mongodb.metadata.find_and_modify(keys,
+    metadata = mongodb.metadata.update(keys,
                         {'$set': meta_document}, upsert=True, new=True)
     return metadata
 
 
-def get_all_meta_keys(query_filter=None):
+def get_all_meta_keys(query_filter=None, aggregate=True):
     """
     Pulls all metakeys for all subjects with pulling enabled and key is null.
     
@@ -989,27 +1003,30 @@ def get_all_meta_keys(query_filter=None):
     query_filter['pull'] = True
     query_filter['meta_key'] = None
     
-    # Group metadata by service and event type
-    metadata_group = mongodb.metadata.group(['service', 'event_type'],
-            query_filter,
-            {'list': []}, 'function(obj, prev) {prev.list.push(obj)}')
-    
-    #metadata_group = list(mongodb.metadata.find())
+    if aggregate:
+        # Group metadata by service and event type
+        metadata_group = mongodb.metadata.group(['service', 'event_type'],
+                query_filter,
+                {'list': []}, 'function(obj, prev) {prev.list.push(obj)}')
+    else:
+        metadata_group = list(mongodb.metadata.find())
 
     for group in metadata_group:
         service = group['service']
         event_type = group['event_type']
         network_objects = []
         
-        # Get UNIS network objects
-        for meta in group['list']:
-            obj = NetworkObject.objects.get(
-                                unis_id=meta['unis_id']).toRealType()
-            network_objects.append(obj)
-        
-        #obj = NetworkObject.objects.get(                                                                                                                          
-        #    unis_id=group['unis_id']).toRealType()                                                                                                 
-        #network_objects.append(obj)        
+        if aggregate:
+            # Get UNIS network objects
+            for meta in group['list']:
+                obj = NetworkObject.objects.get(
+                                    unis_id=meta['unis_id']).toRealType()
+                network_objects.append(obj)
+
+        else:
+            obj = NetworkObject.objects.get(                                                                                                                          
+                unis_id=group['unis_id']).toRealType()                                                                                                 
+            network_objects.append(obj)        
         #print "Getting data for ", network_objects
         results = get_meta_keys(service, network_objects, event_type)
         
@@ -1124,17 +1141,21 @@ def save_measurements_data(meta_ref, data):
             except:
                 pass
         
-        mongodb.measurements.insert(fdatum)
-        #mongodb.measurements.update({'meta_ref': meta_ref, 'time': fdatum['time']}, {'$set': fdatum}, upsert=True, multi=False)
+        #mongodb.measurements.insert(fdatum)
+        mongodb.measurements.update({'meta_ref': meta_ref, 'time': fdatum['time']}, {'$set': fdatum}, upsert=True, multi=False)
 
+    # clear all older measurements
+    mongodb.measurements.remove({'time': { '$lt': to_datetime('unix', int(time.time()) - 2100)}})
 
-def pull_all_data(query_filter=None, start_time=None, end_time=None):
+def pull_all_data(query_filter=None, start_time=None, end_time=None, aggregate=True):
     """
     Pulls data for all metadata in Metadata table.
     
     @param  query_filter:  Query applied to filter subset of 
             L{periscope.measurements.models.Metadata}
     @type  query_filter: L{django.db.models.query_utils.Q}
+    
+    @param 
     
     @returns: None
     """
@@ -1145,12 +1166,13 @@ def pull_all_data(query_filter=None, start_time=None, end_time=None):
     query_filter['pull'] = True
     query_filter['meta_key'] =  {'$not': {'$type': 10}}
     
-    # Group metadata by service and event type
-    metadata_group = mongodb.metadata.group(['service', 'event_type'],
-            query_filter,
-            {'list': []}, 'function(obj, prev) {prev.list.push(obj)}')
-    
-    #metadata_group = list(mongodb.metadata.find())
+    if aggregate:
+        # Group metadata by service and event type
+        metadata_group = mongodb.metadata.group(['service', 'event_type'],
+                query_filter,
+                {'list': []}, 'function(obj, prev) {prev.list.push(obj)}')
+    else:
+        metadata_group = list(mongodb.metadata.find(query_filter))
 
     for group in metadata_group:
         service = group['service']
@@ -1159,29 +1181,34 @@ def pull_all_data(query_filter=None, start_time=None, end_time=None):
         meta_keys = []
         meta_index = {}
         
-        for meta in group['list']:
-            meta_keys.append(meta['meta_key'])
-            meta_index[meta['meta_key']] = DBRef('metadata', meta['_id'])
-        
-        #meta_keys.append(group['meta_key'])                                                                                                    
-        #meta_index[group['meta_key']] = DBRef('metadata', group['_id'])                  
+        if aggregate:
+            for meta in group['list']:
+                meta_keys.append(meta['meta_key'])
+                meta_index[meta['meta_key']] = DBRef('metadata', meta['_id'])
+        else:
+            meta_keys.append(group['meta_key'])                                                                                                    
+            meta_index[group['meta_key']] = DBRef('metadata', group['_id'])                  
 
+        
         if not start_time:
             last_measurement = mongodb.measurements.find(
                         {'meta_ref':
                             {'$in': meta_index.values()}}
-                        ).sort([('time', -1)]).limit(1)
+                        ).sort([('time', DESCENDING)]).limit(1)
             
             if last_measurement.count() > 0:
+                # get some of the previous values as well
+                # because some of them might have been 'nan' before
+                # Make this more robust...
                 last_measurement = last_measurement.next()
                 start_time = int(time.mktime(
-                                last_measurement['time'].timetuple()))
+                                last_measurement['time'].timetuple())) - 15
             else:
-                start_time = int(time.time()) - 1000
+            	start_time = int(time.time()) - 1800
         
         if not end_time:
             end_time = int(time.time())
-        print "getting data for meta keys ", meta_keys
+        
         
         try:
             results = get_measurements_data(service, meta_keys,
@@ -1195,7 +1222,8 @@ def pull_all_data(query_filter=None, start_time=None, end_time=None):
                 else:
                     logger.warn("Couldn't save data for maKey: %s, event:%s, value: %s" % (key, event_type, value))
         except Exception as exp:
-            print "Couldn't query service:", service
+            print "Couldn't query service:", service, ":", exp
+            
 
 
 def register_pull_network_object(network_object, event_type, service):

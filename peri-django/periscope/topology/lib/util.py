@@ -8,6 +8,31 @@ import xml.dom.minidom as dom
 from django.db.models.manager import Manager
 from django.db.models.fields import related
 
+def get_port_dns(ip):
+    from periscope.topology.models import Port, PortAddresses
+
+    port = Port.objects.filter(addresses__value=ip)
+    if (len(port) == 1):
+        pa=PortAddresses.objects.filter(address__type='dns',port=port[0].port)
+        if (len(pa)):
+            return pa[0].address
+        else:
+            return str(ip)
+    else:
+        return str(ip)
+        
+def find_path_byname(src, dst):
+    from periscope.topology.models import Path
+    
+    path_id = str(src) + '2' + str(dst)
+
+    try:
+        path = Path.objects.get(unis_id=path_id)
+    except Path.DoesNotExist:
+        return None
+
+    return path
+
 def find_path(src, dst):
     from periscope.topology.models import Path
     

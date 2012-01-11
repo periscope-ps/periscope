@@ -169,7 +169,7 @@ def delete_paths(request):
     #print >> sys.stderr, res_ids
 
     for r in res_ids:
-        paths = NetworkObjectStatus.objects.filter(gri=r)
+        paths = PathDataModel.objects.filter(path_id=r)
         for p in paths:
             p.delete()
 
@@ -344,41 +344,48 @@ def topology_get_reservations(request):
     json_res.write('[');
 
     reservations = PathDataModel.objects.all()
+
+    json_xfers = {'xfers': [], 'paths': []}
+
     for res in reservations:
-        outSrc=None
-        outDst=None
+        src=get_port_dns(res.src)
+        dst=get_port_dns(res.dst)
+        
+        json_xfer = {
+            'resId': res.path_id,
+            'status': res.status,
+            'src': str(src),
+            'dst': str(dst),
+            'dst-ports': res.src_port_range,
+            'src-ports': res.dst_port_range,
+            'direction': res.direction,
+            'start': datetime.fromtimestamp(float(res.start_time)).isoformat(' '),
+            'duration': res.duration,
+            'bw': res.bandwidth,
+            'bw-class': res.bw_class,
+            'vlan': res.vlan_id
+            }
+        json_xfers['xfers'].append(json_xfer)
 
-        srcPort = Port.objects.filter(addresses__value=res.src)
-        if (len(srcPort) == 1):
-            pa=PortAddresses.objects.filter(address__type='dns',port=srcPort[0].port)
-            if (len(pa)):
-                outSrc=pa[0].address
-            else:
-                outSrc=res.src
-        else:
-            outSrc=res.src
+        path = find_path_byname(src, dst)
+        if not path:
+            continue
+        
+        links = []
+        hops = path.hops.all()
+        for h in hops:
+            # we just assume each hop is a link right now
+            links.append(h.target.toRealType().id)
 
-        dstPort = Port.objects.filter(addresses__value=res.dst)
-        if (len(dstPort) == 1):
-            pa=PortAddresses.objects.filter(address__type='dns',port=dstPort[0].port)
-            if (len(pa)):
-                outDst=pa[0].address
-            else:
-                outDst=res.dst
-        else:
-            outDst=res.dst
-
-        json_res.write('\n{"resId":"%s",\n"status":"%s",\n"src":"%s",\n"dst":"%s",\n"dst-ports":"%s",\n'
-                       '"src-ports":"%s",\n"direction":"%s",\n"start":"%s",\n"duration":"%s",\n'
-                       '"bw":"%s",\n"bw-class":"%s",\n"vlan":"%s",\n},\n' % \
-                    (res.path_id, res.status, outSrc, outDst, res.src_port_range, \
-                    res.dst_port_range, res.direction, \
-                    datetime.fromtimestamp(float(res.start_time)), res.duration, \
-                    res.bandwidth, res.bw_class, res.vlan_id))
-    
-    json_res.write(']')
-
-    return HttpResponse(json_res.getvalue(), mimetype="application/json")
+        rpath = {
+            'resId': res.path_id,
+            'src_id': str(src),
+            'dst_id': str(dst),
+            'link_ids': links
+            }
+        json_xfers['paths'].append(rpath)
+        
+    return HttpResponse(json.dumps(json_xfers), mimetype="application/json")
 
 def topology_list(request):
     return render_to_response('topology/topology_list.html',

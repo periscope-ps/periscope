@@ -31,7 +31,7 @@ class PathData(ClassSerializer):
 
 class MonitoringApp(DjangoSoapApp):
  
-    __tns__ = 'http://blackseal.damsl.cis.udel.edu/escpscope/monitor-service/'
+    __tns__ = 'http://monitor.damslab.org/escpscope/monitor-service/'
 
     @soapmethod(PathData, _returns=soap_types.String, 
                 _outMessage='{'+__tns__+'}new_pathResponse')
@@ -58,12 +58,40 @@ class MonitoringApp(DjangoSoapApp):
                 _outMessage='{'+__tns__+'}status_pathResponse')
 #                _outMessage='status_pathResponse')
     def status_path(self, path):
-        p=PathDataModel.objects.get(path_id=path.path_id)
-        p.status = path.status
+        try:
+            p=PathDataModel.objects.get(path_id=path.path_id)
+        except:
+            results = 'path not found'
+            return results;
+
+        if (path.status):
+            p.status = path.status
+        if (path.src):
+            p.src = path.src
+        if (path.dst):
+            p.dst = path.dst
+        if (path.src_port_range and path.src_port_range != 0):
+            p.src_port_range = path.src_port_range
+        if (path.dst_port_range and path.dst_port_range != 0):
+            p.dst_port_range = path.dst_port_range
+        if (path.vlan_id and path.vlan_id != 0):
+            p.vlan_id = path.vlan_id
+        if (path.start_time and path.start_time != 0):
+            p.start_time = path.start_time
+        if (path.duration and path.duration != 0):
+            p.duration = path.duration
+        if (path.bandwidth and path.bandwidth != 0):
+            p.bandwidth = path.bandwidth
+        if (path.bw_class):
+            p.bw_class = path.bw_class
+        if (path.direction):
+            p.direction = path.direction
+
         p.save()
         results = 'OK'
         return results
      
+
     @soapmethod(soap_types.String, _returns=soap_types.String,
                 _outMessage='{'+__tns__+'}remove_pathResponse')
 #                _outMessage='remove_pathResponse')

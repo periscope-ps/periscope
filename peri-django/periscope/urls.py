@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     (r'^restapi/', include('periscope.restapi.urls')),
 
     (r'^monitoring/', include('periscope.monitoring.urls')),
+    (r'^monitor-service/', 'periscope.monitoring.views.monitor_service')
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
