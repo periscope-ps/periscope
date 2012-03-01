@@ -13,20 +13,20 @@ from periscope.handlers import NetworkResourceHandler
 
 class PeriscopeApplication(tornado.web.Application):
     """Defines Periscope Application."""
+    # TODO (AH): work on defining all top level resources
+    supported_netres = ['nodes', 'ports', 'networks', 'links', 'events']
+    
+    def _make_handlers(self, resources):
+        handlers = []
+        for res in resources:
+            handlers.append(("/%s$" % res, NetworkResourceHandler, dict(collection_name=res, base_url="/%s" % res)))
+            handlers.append(("/%s/(?P<res_id>[^\/]*)$" % res, NetworkResourceHandler, dict(collection_name=res, base_url="/%s" % res)))
+        return handlers
+            
     def __init__(self):
         self._async_db = None
         self._sync_db = None
-        handlers = [
-                ("/nodes$", NetworkResourceHandler, dict(collection_name="nodes", base_url="http://localhost:8888/nodes")),
-                ("/nodes/(?P<res_id>[^\/]*)$", NetworkResourceHandler, dict(collection_name="nodes", base_url="http://localhost:8888/nodes")),
-                (r'/nodes/(?P<res_id>[^\/]+)(?P<kwpath>/.*)?$', NetworkResourceHandler, dict(collection_name="nodes", base_url="http://localhost:8888/nodes")),
-                ("/ports$", NetworkResourceHandler, dict(collection_name="ports", base_url="http://localhost:8888/ports")),
-                ("/ports/(?P<res_id>[^\/]*)$", NetworkResourceHandler, dict(collection_name="ports", base_url="http://localhost:8888/ports")),
-                (r'/ports/(?P<res_id>[^\/]+)(?P<kwpath>/.*)?$', NetworkResourceHandler, dict(collection_name="ports", base_url="http://localhost:8888/ports")),
-                
-                ("/events$", NetworkResourceHandler, dict(collection_name="events", base_url="http://localhost:8888/events")),
-                ("/events/(?P<res_id>[^\/]*)$", NetworkResourceHandler, dict(collection_name="events", base_url="http://localhost:8888/events")),
-            ]
+        handlers =  self._make_handlers(self.supported_netres)
         tornado.web.Application.__init__(self, handlers,
                     default_host="localhost", **settings.APP_SETTINGS)
     

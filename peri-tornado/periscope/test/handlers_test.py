@@ -106,10 +106,10 @@ class NetworkResourceHandlerTest(PeriscopeHTTPTestCase):
                 return async_db
 
         return NetworkResourceApp([
-                    ("/nodes", NetworkResourceHandler, dict(collection_name=self.collection_name, base_url="http://localhost:10003/nodes")),
-                    ("/nodes/(?P<res_id>[^\/]+)", NetworkResourceHandler, dict(collection_name="test_res_handler", base_url="http://localhost:10003/nodes")),
-                    (r'/nodes/(?P<res_id>[^\/]+)(?P<kwpath>/.*)?$', NetworkResourceHandler, dict(collection_name="test_res_handler", base_url="http://localhost:10003/nodes")),
-                    ("/topologies", NetworkResourceHandler, dict(collection_name="topologies", base_url="http://localhost:10003/nodes")),
+                    ("/nodes", NetworkResourceHandler, dict(collection_name=self.collection_name, base_url="/nodes")),
+                    ("/nodes/(?P<res_id>[^\/]+)", NetworkResourceHandler, dict(collection_name="test_res_handler", base_url="/nodes")),
+                    (r'/nodes/(?P<res_id>[^\/]+)(?P<kwpath>/.*)?$', NetworkResourceHandler, dict(collection_name="test_res_handler", base_url="/nodes")),
+                    ("/topologies", NetworkResourceHandler, dict(collection_name="topologies", base_url="/nodes")),
                 ])
 
     def _create_node(self, nodeid):

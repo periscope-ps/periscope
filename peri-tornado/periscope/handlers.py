@@ -199,7 +199,7 @@ class NetworkResourceHandler(SSEHandler, nllog.DoesLogging):
         Parameters:
         collection_name: name of the database collection name that
                         stores information about the network resource.
-        base_url: the base full URL to access this resource, e.g., http://www.example.com/nodes
+        base_url: the base the path to access this resource, e.g., /nodes
         schemas_single: a dictionary that represents the network resources schema
                         to be validated againest. The dictionary is indexed
                         by content-type.
@@ -251,12 +251,15 @@ class NetworkResourceHandler(SSEHandler, nllog.DoesLogging):
             http://www.w3.org/TR/webarch/#def-coneg
         """
         if not getattr(self, '_accept', None):
+            self._accept = None
             accept = self.request.headers.get("Accept", MIME['PSJSON']).split(",")
             for accepted_mime in self._accepted_mime:
                 if accepted_mime in accept:
                     self._accept = accepted_mime
-                    return self._accept
-            raise HTTPError(406, "Unsupported accept content type '%s'" % self.request.headers.get("Accept", None))
+            if "*/*" in accept:
+                self._accept = MIME['PSJSON']
+            if not self._accept:
+                raise HTTPError(406, "Unsupported accept content type '%s'" % self.request.headers.get("Accept", None))
         return self._accept
 
     def _get_content_type(self):
@@ -474,7 +477,11 @@ class NetworkResourceHandler(SSEHandler, nllog.DoesLogging):
             return
         self.set_header("Content-Type", MIME['PSJSON'])
         self.set_status(202)
-        self.set_header("Location", "/" + res_id)
+        if self.request.uri.startswith("https://"):
+            protocol = "https://"
+        else:
+            protocol = "http://"
+        self.set_header("Location", "%s%s%s/%s" % (protocol, self.request.host, self._base_url, res_id))
         self.finish()
 
     def on_connection_close(self):
