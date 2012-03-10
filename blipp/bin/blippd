@@ -29,8 +29,6 @@ from blipp.eventtypes import * # just type defs, no real code
 ## Constants and globals
 ## ---------------------
 
-XSP_TYPE = 0x20 # xsp msg type
-
 # Stop things that are in a loop
 g_stop = False
 
