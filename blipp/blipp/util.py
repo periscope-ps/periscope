@@ -112,3 +112,6 @@ def daemonize(log, root_log=None, close_fds=True):
     except OSError:
         pass
     log.info("daemonize.end")
+
+def log_formatter():
+    return logging.Formatter("%(asctime)s %(levelname)-9s %(message)s")

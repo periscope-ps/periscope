@@ -18,8 +18,11 @@ import sys
 import time
 import traceback
 
+# Third party
+import simplejson as json
+
 # Local imports
-from blipp import base, probes, util, xsplib
+from blipp import base, probes, util, xsplib, output
 from blipp.util import bson_encode, bson_decode
 from blipp.eventtypes import * # just type defs, no real code
 
@@ -116,37 +119,23 @@ def on_kill(signo, frame):
 def on_hup(signo, frame):
     return
 
-class NullXSPSession(xsplib.XSPSession):
-    """Null pattern for XSPSession.
-    """
-    def __init__(self, sock=None): pass
-    def connect(self, host, port): pass
-    def send_msg(self, data, length, type_): pass
-    def send_auth(self, name=""): pass
-    def send_open(self, host='localhost'): pass
-    def send_close(self): pass
-    def send_ack(self): pass
-    def recv_msg(self): pass
-    def close(self): pass
-    def ping(self): pass
-
 class BlippDaemon:
     """Blippd instance to run.
     """
-    def __init__(self, xsp_sess, samples_per_iter=None,
+    def __init__(self, sink=None, samples_per_iter=None,
              dt=None, proc=None, pids=[ ], ifaces=[ ], xsp_rcv_port=-1):
         """Initialize variables
 
         Args:
-          xsp_sess - XSP session state, may be a NullXSPSession for debug mode.
+          `sink` - output.Sink instance
         """
         assert samples_per_iter is not None, "samples_per_iter not defined"
         assert dt is not None, "dt not defined"
 
-        self.xsp_sess, self.nsamples = xsp_sess, samples_per_iter
+        self.nsamples = samples_per_iter
         self.dt, self.proc, self.pids, self.ifaces = dt, proc, pids, ifaces
-
-        self._debug_mode =  isinstance(xsp_sess, NullXSPSession)
+        self._sink = sink
+        self._debug_mode = True
         g_log.info("start")
         self._iface_meta = { }
         self.mblocks = { } # metadata blocks
@@ -471,13 +460,8 @@ class BlippDaemon:
             # waiting for web10g messages, if any
             time.sleep(self.dt - web10g_tmout)
             g_log.debug("iterate.sample.end, i=%d", i)
-        # Done with inner loop. Send message to xspd
-        if self._debug_mode:
-            print("\nDATA\n----")
-            print(pprint.pformat(b.as_dict()))
-        else:
-            data = bson_encode(b.as_dict())
-            self.xsp_sess.send_msg(data, len(data), XSP_TYPE)
+        # Done with inner loop. Send message.
+        self._sink.add(b.as_dict())
         b.clear()
         g_log.info("iterate.end")
         return 0
@@ -565,23 +549,13 @@ def main():
         (on_kill, ('SIGTERM', 'SIGINT', 'SIGUSR2')),
         (on_hup, ('SIGHUP',)) )
 
-    # Connect to XSP
+    # Set up data sink
+    sink = None
     if options.dbg:
-        # don't really connect to XSP
         daemonize = False
-        xsp_sess = NullXSPSession()
+        sink = output.Print_sink()
     else:
-        # yes, really connect to XSP
-        g_log.debug("xsp-connect.start")
-        try:
-            xsp_sess = xsplib.XSPSession()
-            xsp_sess.connect(options.host, options.port)
-        except Exception, err:
-            g_log.critical("connect.error, msg=%s host=%s, port=%d, details=%s",
-                           "failed connection to xsp",
-                           options.host, options.port, util.traceback())
-            return(-1)
-        g_log.debug("xsp-connect.end, status=%d", status)
+        sink = output.XSP_sink(options.host, options.port)
 
     # Daemonize
     status = 0
@@ -591,10 +565,6 @@ def main():
             util.daemonize(g_log, root_log=logging.getLogger(''), close_fds=False)
         except Exception, err:
             g_log.critical("daemonize.error, msg=%s", str(err))
-            try:
-                xsp_sess.close()
-            except socket.error:
-                pass
             status = -1
         g_log.debug("daemonize.end, status=%d", status)
 
@@ -610,7 +580,7 @@ def main():
     # Run the program
     try:
         proc = probes.Proc(dirname=options.proc)
-        blippd = BlippDaemon(xsp_sess, samples_per_iter=options.samples,
+        blippd = BlippDaemon(sink, samples_per_iter=options.samples,
                              dt=options.dt, proc=proc, pids=options.pids,
                              xsp_rcv_port=options.lport)
         for i in xrange(options.iter):
@@ -625,11 +595,7 @@ def main():
             tb = traceback.format_exc()
         g_log.fatal("probe.error, msg=%s\n%s", errmsg, tb)
     finally:
-        try:
-            if xsp_sess:
-                xsp_sess.close()
-        except socket.error, err:
-            g_log.warn("xsp_close.failed, msg=%s", str(err))
+        sink.close()
         sys.exit(0)
 
     g_log.info("run.end, status=%d", status)
