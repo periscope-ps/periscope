@@ -19,7 +19,6 @@ class Sink:
     def __init__(self, encode_fn=None):
         self._encode = encode_fn
         self.log = logging.getLogger("blipp.output.sink")
-        
     def add(self, data):
         pass
     def close(self):
