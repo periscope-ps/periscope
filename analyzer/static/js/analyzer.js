@@ -39,7 +39,7 @@ $(function() {
         });
         $('#accordion_xform').hide();
         $('#accordion_wf_title').html('Select a workflow');
-        $("#showsub").hide();
+        $("#subcontrols").hide();
         $('#rootTable').flexReload({url: '/wf/list'});
     });
     $('#workflow').click(function() {
@@ -67,7 +67,6 @@ $(function() {
             data: "",
             success: show_summary_stats
         });
-        $("#showsub").show();
     });
     $('#subworkflow').click(function() {
         $('#rootContainer').hide();
@@ -94,7 +93,6 @@ $(function() {
             data: "",
             success: show_summary_stats
         });
-        $("#showsub").show();
     });
     $('#showsub').click(function() {
         $.ajax({
@@ -102,6 +100,15 @@ $(function() {
             dataType: 'json',
                 data: "",
                 success: show_subworkflows
+        });
+    });
+    $('#subtotals').click(function() {
+        //alert($('#subtotals').is(':checked'));
+        $.ajax({
+            url: "/wf/" + get_uuid() + "/info",
+            dataType: 'json',
+            data: "",
+            success: show_summary_stats
         });
     });
 });
@@ -142,7 +149,6 @@ function get_job_task_stats(celDiv) {
                 data: "",
                 success: show_summary_stats
             });
-            $("#showsub").show();
         }
     );
 }
@@ -151,6 +157,12 @@ function get_job_task_stats(celDiv) {
 // transformations accordion
 show_summary_stats = function(data, text_status, jqxhr) {
     plotScroll(data.summary, 'summaryChartScroll', 'bar', false);
+    numSubworkflows = data.summary.successful[3];
+    numSubworkflows += data.summary.failed[3];
+    numSubworkflows += data.summary.incomplete[3];
+    if (numSubworkflows > 0) {
+        $("#subcontrols").show();
+    }
     plotScroll(data.xforms, 'xformChartScroll', 'bar', false);
 }
 
@@ -165,11 +177,13 @@ show_subworkflows = function(data, text_status, jqxhr) {
     $("#accordion_wf").accordion({
         active: false 
     });
-    $("#showsub").hide();
+    $("#subcontrols").hide();
     $('#accordion_xform').hide()
     $("#accordion_xform").accordion({
          active: false
     });
+    $('#summaryChartScroll').empty();
+    $('#xformChartScroll').empty();
     plotScroll(data, 'subChartScroll', 'column', true);
     return;
 }

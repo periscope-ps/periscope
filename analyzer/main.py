@@ -96,12 +96,11 @@ class WfInfo(WfSummary):
         results = {}
         wfnames = ['Tasks', 'Transforms', 'Jobs', 'Sub-workflows']
         db = web.ctx.db
-	subwf = db.find_sub_workflows(path)
-	wf = db.find_workflow_stats(path)
+	wf = db.find_workflow_stats(path, True)
         # faking some results for now
-        successseries = [wf['taskSuccesses'], 400, wf['jobSuccesses'], subwf['totalSuccesses']]
-        failureseries = [wf['taskFailures'], 200, wf['jobFailures'], subwf['totalFailures']]
-        incompleteseries = [wf['taskIncompletes'], 100, wf['jobIncompletes'], subwf['totalIncompletes']]
+        successseries = [wf['taskSuccesses'], 400, wf['jobSuccesses'], wf['subSuccesses']]
+        failureseries = [wf['taskFailures'], 200, wf['jobFailures'], wf['subFailures']]
+        incompleteseries = [wf['taskIncompletes'], 100, wf['jobIncompletes'], wf['subIncompletes']]
         task_results = {
             'successful': successseries,
             'failed': failureseries,

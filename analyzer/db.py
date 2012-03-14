@@ -74,7 +74,6 @@ class StampedeDB:
         stats.initialize(parent_uuid)
         stats.set_job_filter('all')
 	result = stats.get_sub_workflow_ids()
-        workflows = { }
         successseries = []
         failureseries = []
         incompleteseries = []
@@ -107,14 +106,11 @@ class StampedeDB:
             'successful' : successseries,
             'failed' : failureseries,
             'incomplete' : incompleteseries,
-	    'totalSuccesses': totalSuccesses,
-	    'totalFailures': totalFailures,
-	    'totalIncompletes': totalIncompletes,
             'names' : wfnames
         }
         return results
 
-    def find_workflow_stats(self, wf_uuid):
+    def find_workflow_stats(self, wf_uuid, includeSubTotals):
         conn = self._connect()
         stats = sstat.StampedeStatistics(connString=self.dburl, expand_workflow=False)
         stats.initialize(wf_uuid)
@@ -135,6 +131,41 @@ class StampedeDB:
             taskIncompletes = taskTotal - taskSuccesses - taskFailures
         else:
             taskIncompletes = 0
+	result = stats.get_sub_workflow_ids()
+	subSuccesses = 0
+	subFailures = 0
+	subIncompletes = 0
+        # Get information for each sub-workflow
+        for wf_id, wf_uuid, label in result:
+            stats = sstat.StampedeStatistics(connString=self.dburl, expand_workflow=False)
+            stats.initialize(wf_uuid)
+            stats.set_job_filter('all')
+	    if includeSubTotals:
+                total = stats.get_total_jobs_status()
+                succ = stats.get_total_succeeded_jobs_status()
+	        jobSuccesses += succ
+                fail = stats.get_total_failed_jobs_status()
+	        jobFailures += fail
+                if (total - succ - fail) > 0:
+		    jobIncompletes += total - succ - fail
+                taskTotal = stats.get_total_tasks_status()
+                ts = stats.get_total_succeeded_tasks_status()
+                taskSuccesses += ts
+                tf = stats.get_total_failed_tasks_status()
+	        taskFailures += tf
+                if (taskTotal - ts - tf) > 0:
+                    taskIncompletes += taskTotal - ts - tf
+            wf_states = stats.get_workflow_states()
+	    if len(wf_states) > 1:
+		row = wf_states[len(wf_states)-1]
+		if row.status and (row.status == 1):
+		    subFailures += 1
+		elif row.state == 'WORKFLOW_STARTED':
+                    subIncompletes += 1
+	        elif row.state == 'WORKFLOW_TERMINATED':
+                    subSuccesses += 1
+	    else:
+		subIncompletes += 1
         results = {
 	    'jobSuccesses': jobSuccesses,
 	    'jobFailures': jobFailures,
@@ -142,6 +173,9 @@ class StampedeDB:
 	    'taskSuccesses': taskSuccesses,
 	    'taskFailures': taskFailures,
 	    'taskIncompletes': taskIncompletes,
+	    'subSuccesses': subSuccesses,
+	    'subFailures': subFailures,
+	    'subIncompletes': subIncompletes,
         }
         return results
 
