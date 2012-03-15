@@ -263,12 +263,11 @@ def get_info(uuid, includeSubTotals):
     }
     results['summary'] = task_results
     num = len(wf['xsuccessful'])
-    xform_names = ['Transform {0:d}'.format(x) for x in range(1,num+1)]
     xform_results = {
         'successful': wf['xsuccessful'],
         'failed': wf['xfailed'],
         'incomplete': wf['xincomplete'],
-        'names': xform_names,
+        'names': wf['names'],
         'num': num
     }
     results['xforms'] = xform_results

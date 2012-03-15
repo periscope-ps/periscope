@@ -137,8 +137,10 @@ class StampedeDB:
         xsuccessseries = []
         xfailureseries = []
         xincompleteseries = []
+	xnames = []
 	xforms = stats.get_transformation_statistics()
 	for xform in xforms:
+	    xnames.append(xform.transformation)
 	    xformTotal = xform.count
 	    xsuccessseries.append(xform.success)
 	    xformSuccesses += xform.success
@@ -206,6 +208,7 @@ class StampedeDB:
 	    'subSuccesses': subSuccesses,
 	    'subFailures': subFailures,
 	    'subIncompletes': subIncompletes,
+            'names' : xnames,
             'xsuccessful' : xsuccessseries,
             'xfailed' : xfailureseries,
             'xincomplete' : xincompleteseries,
