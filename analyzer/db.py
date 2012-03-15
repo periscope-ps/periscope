@@ -174,6 +174,14 @@ class StampedeDB:
 	        taskFailures += tf
                 if (taskTotal - ts - tf) > 0:
                     taskIncompletes += taskTotal - ts - tf
+	        xforms = stats.get_transformation_statistics()
+	        for xform in xforms:
+	            xformTotal = xform.count
+	            xformSuccesses += xform.success
+	            xformFailures += xform.failure
+	            incompletes = xformTotal - xform.success - xform.failure
+                    if (xformTotal - xform.success - xform.failure) > 0:
+                        xformIncompletes += incompletes
             wf_states = stats.get_workflow_states()
 	    if len(wf_states) > 1:
 		row = wf_states[len(wf_states)-1]
