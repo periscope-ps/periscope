@@ -250,9 +250,9 @@ def get_info(uuid, includeSubTotals):
     db = web.ctx.db
     wf = db.find_workflow_stats(uuid, includeSubTotals)
     # faking some results for now
-    successseries = [wf['taskSuccesses'], 400, wf['jobSuccesses'], wf['subSuccesses']]
-    failureseries = [wf['taskFailures'], 200, wf['jobFailures'], wf['subFailures']]
-    incompleteseries = [wf['taskIncompletes'], 100, wf['jobIncompletes'], wf['subIncompletes']]
+    successseries = [wf['taskSuccesses'], wf['xformSuccesses'], wf['jobSuccesses'], wf['subSuccesses']]
+    failureseries = [wf['taskFailures'], wf['xformFailures'], wf['jobFailures'], wf['subFailures']]
+    incompleteseries = [wf['taskIncompletes'], wf['xformIncompletes'], wf['jobIncompletes'], wf['subIncompletes']]
     task_results = {
         'successful': successseries,
         'failed': failureseries,
@@ -262,17 +262,14 @@ def get_info(uuid, includeSubTotals):
         'num': 4
     }
     results['summary'] = task_results
-    xform_names = ['Transform 1', 'Transform 2', 'Transform 3', 'Transform4']
-        # faking results for now
-    x_successseries = [30, 20, 60, 80]
-    x_failureseries = [90, 10, 10, 50]
-    x_incompleteseries = [100, 50, 10, 70]
+    num = len(wf['xsuccessful'])
+    xform_names = ['Transform {0:d}'.format(x) for x in range(1,num+1)]
     xform_results = {
-        'successful': x_successseries,
-        'failed': x_failureseries,
-        'incomplete': x_incompleteseries,
+        'successful': wf['xsuccessful'],
+        'failed': wf['xfailed'],
+        'incomplete': wf['xincomplete'],
         'names': xform_names,
-        'num': str(len(xform_names))
+        'num': num
     }
     results['xforms'] = xform_results
     return results

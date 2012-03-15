@@ -131,6 +131,25 @@ class StampedeDB:
             taskIncompletes = taskTotal - taskSuccesses - taskFailures
         else:
             taskIncompletes = 0
+	xformSuccesses = 0
+	xformFailures = 0
+	xformIncompletes = 0
+        xsuccessseries = []
+        xfailureseries = []
+        xincompleteseries = []
+	xforms = stats.get_transformation_statistics()
+	for xform in xforms:
+	    xformTotal = xform.count
+	    xsuccessseries.append(xform.success)
+	    xformSuccesses += xform.success
+	    xfailureseries.append(xform.failure)
+	    xformFailures += xform.failure
+	    incompletes = xformTotal - xform.success - xform.failure
+            if (xformTotal - xform.success - xform.failure) > 0:
+                xformIncompletes += incompletes
+		xincompleteseries.append(incompletes)
+	    else:
+		xincompleteseries.append(0)
 	result = stats.get_sub_workflow_ids()
 	subSuccesses = 0
 	subFailures = 0
@@ -173,9 +192,15 @@ class StampedeDB:
 	    'taskSuccesses': taskSuccesses,
 	    'taskFailures': taskFailures,
 	    'taskIncompletes': taskIncompletes,
+	    'xformSuccesses': xformSuccesses,
+	    'xformFailures': xformFailures,
+	    'xformIncompletes': xformIncompletes,
 	    'subSuccesses': subSuccesses,
 	    'subFailures': subFailures,
 	    'subIncompletes': subIncompletes,
+            'xsuccessful' : xsuccessseries,
+            'xfailed' : xfailureseries,
+            'xincomplete' : xincompleteseries,
         }
         return results
 
