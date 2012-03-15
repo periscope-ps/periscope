@@ -62,7 +62,7 @@ $(function() {
             });
         }
         $.ajax({
-            url: "/wf/" + get_uuid() + "/info",
+            url: get_info_url(get_uuid()),
             dataType: 'json',
             data: "",
             success: show_summary_stats
@@ -88,7 +88,7 @@ $(function() {
             });
         }
         $.ajax({
-            url: "/wf/" + get_sub_uuid() + "/info",
+            url: get_info_url(get_sub_uuid()),
             dataType: 'json',
             data: "",
             success: show_summary_stats
@@ -103,9 +103,10 @@ $(function() {
         });
     });
     $('#subtotals').click(function() {
-        //alert($('#subtotals').is(':checked'));
+        $('#summaryChartScroll').empty();
+        $('#xformChartScroll').empty();
         $.ajax({
-            url: "/wf/" + get_uuid() + "/info",
+            url: get_info_url(get_uuid()),
             dataType: 'json',
             data: "",
             success: show_summary_stats
@@ -144,7 +145,7 @@ function get_job_task_stats(celDiv) {
                 });
             }
             $.ajax({
-                url: "/wf/" + wf_uuid + "/info",
+                url: get_info_url(wf_uuid),
                 dataType: 'json',
                 data: "",
                 success: show_summary_stats
@@ -292,11 +293,19 @@ show_subworkflow_info = function(category, uuid) {
         });
     }
     $.ajax({
-        url: "/wf/" + uuid + "/info",
+        url: get_info_url(uuid),
         dataType: 'json',
         data: "",
         success: show_summary_stats
     });
+}
+
+get_info_url = function(uuid) {
+    if ($('#subtotals').is(':checked')) {
+        return "/wf/" + uuid + "/subinfo";
+    } else {
+        return "/wf/" + uuid + "/info";
+    }
 }
 
 // Refresh table

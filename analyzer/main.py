@@ -93,37 +93,15 @@ class WfSubList(WfSummary):
 class WfInfo(WfSummary):
     def get_summary(self, path):
         self.log.info("info.get_summary.start")
-        results = {}
-        wfnames = ['Tasks', 'Transforms', 'Jobs', 'Sub-workflows']
-        db = web.ctx.db
-	wf = db.find_workflow_stats(path, True)
-        # faking some results for now
-        successseries = [wf['taskSuccesses'], 400, wf['jobSuccesses'], wf['subSuccesses']]
-        failureseries = [wf['taskFailures'], 200, wf['jobFailures'], wf['subFailures']]
-        incompleteseries = [wf['taskIncompletes'], 100, wf['jobIncompletes'], wf['subIncompletes']]
-        task_results = {
-            'successful': successseries,
-            'failed': failureseries,
-            'incomplete': incompleteseries,
-            'names': wfnames,
-            'uuid': path,
-            'num': 4
-        }
-        results['summary'] = task_results
-        xform_names = ['Transform 1', 'Transform 2', 'Transform 3', 'Transform 4']
-        # faking results for now
-        x_successseries = [30, 20, 60, 80]
-        x_failureseries = [90, 10, 10, 50]
-        x_incompleteseries = [100, 50, 10, 70]
-        xform_results = {
-            'successful': x_successseries,
-            'failed': x_failureseries,
-            'incomplete': x_incompleteseries,
-            'names': xform_names,
-            'num': str(len(xform_names))
-        }
-        results['xforms'] = xform_results
+	results = get_info(path, False)
         self.log.info("info.get_summary.end")
+        return results
+
+class WfSubInfo(WfSummary):
+    def get_summary(self, path):
+        self.log.info("subinfo.get_summary.start")
+	results = get_info(path, True)
+        self.log.info("subinfo.get_summary.end")
         return results
 
 class WfTransforms(WfSummary):
@@ -221,7 +199,8 @@ urls = (
     '/', 'Index',              # Home page
     '/wf/list', 'WfList',      # List of top-level workflows
     '/wf/(.*)/list', 'WfSubList',
-    '/wf/(.*)/info', 'WfInfo', # All summary info
+    '/wf/(.*)/info', 'WfInfo', # summary info
+    '/wf/(.*)/subinfo', 'WfSubInfo', # summary info including sub-workflows
     '/wf/(.*)/xfrm', 'WfTransforms', # Get transform summary
     '/wf/(.*)/task', 'WfTasks', # Get task/job summary
     )
@@ -264,6 +243,39 @@ def init_db(dbname, test_only):
         web.ctx.db = db
         return handler()
     app.add_processor(load_stdb)
+
+def get_info(uuid, includeSubTotals):
+    results = {}
+    wfnames = ['Tasks', 'Transforms', 'Jobs', 'Sub-workflows']
+    db = web.ctx.db
+    wf = db.find_workflow_stats(uuid, includeSubTotals)
+    # faking some results for now
+    successseries = [wf['taskSuccesses'], 400, wf['jobSuccesses'], wf['subSuccesses']]
+    failureseries = [wf['taskFailures'], 200, wf['jobFailures'], wf['subFailures']]
+    incompleteseries = [wf['taskIncompletes'], 100, wf['jobIncompletes'], wf['subIncompletes']]
+    task_results = {
+        'successful': successseries,
+        'failed': failureseries,
+        'incomplete': incompleteseries,
+        'names': wfnames,
+        'uuid': uuid,
+        'num': 4
+    }
+    results['summary'] = task_results
+    xform_names = ['Transform 1', 'Transform 2', 'Transform 3', 'Transform4']
+        # faking results for now
+    x_successseries = [30, 20, 60, 80]
+    x_failureseries = [90, 10, 10, 50]
+    x_incompleteseries = [100, 50, 10, 70]
+    xform_results = {
+        'successful': x_successseries,
+        'failed': x_failureseries,
+        'incomplete': x_incompleteseries,
+        'names': xform_names,
+        'num': str(len(xform_names))
+    }
+    results['xforms'] = xform_results
+    return results
 
 class NLFormatter(logging.Formatter):
     def formatTime(self, record, datefmt=None):
