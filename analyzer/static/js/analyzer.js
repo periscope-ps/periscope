@@ -27,10 +27,14 @@ $(function() {
     $('#root_wfs').click(function() {
         $('#rootContainer').show();
         $('#subContainer').hide();
-        $('#summaryChartScroll').empty();
+        for (i=0; i < 4; i++) {
+            $('#summaryChartScroll' + i).empty();
+        }
         $('#xformChartScroll').empty();
         $('#summaryChartEmpty').show();
-        $('#summaryChartScroll').hide();
+        for (i=0; i < 4; i++) {
+            $('#summaryChartScroll' + i).hide();
+        }
         $("#accordion_wf").accordion({
             active: false 
         });
@@ -53,7 +57,9 @@ $(function() {
             });
         }
         $('#summaryChartEmpty').hide();
-        $('#summaryChartScroll').show();
+        for (i=0; i < 4; i++) {
+            $('#summaryChartScroll' + i).show();
+        }
         $('#accordion_xform').show();
         var active = $("#accordion_xform").accordion("option", "active");
         if (active === false) {
@@ -79,7 +85,9 @@ $(function() {
             });
         }
         $('#summaryChartEmpty').hide();
-        $('#summaryChartScroll').show();
+        for (i=0; i < 4; i++) {
+            $('#summaryChartScroll' + i).show();
+        }
         $('#accordion_xform').show();
         var active = $("#accordion_xform").accordion("option", "active");
         if (active === false) {
@@ -103,7 +111,9 @@ $(function() {
         });
     });
     $('#subtotals').click(function() {
-        $('#summaryChartScroll').empty();
+        for (i=0; i < 4; i++) {
+            $('#summaryChartScroll' + i).empty();
+        }
         $('#xformChartScroll').empty();
         $.ajax({
             url: get_info_url(get_uuid()),
@@ -114,7 +124,7 @@ $(function() {
     });
 });
 
-var summaryChartScroll;
+var summaryChartScroll = new Array(4);
 var xformChartScroll;
 var subChartScroll;
 
@@ -136,7 +146,9 @@ function get_job_task_stats(celDiv) {
                 });
             }
             $('#summaryChartEmpty').hide();
-            $('#summaryChartScroll').show();
+            for (i=0; i < 4; i++) {
+                $('#summaryChartScroll' + i).show();
+            }
             $('#accordion_xform').show();
             var active = $("#accordion_xform").accordion("option", "active");
             if (active === false) {
@@ -157,7 +169,10 @@ function get_job_task_stats(celDiv) {
 // Show job, task, transformation, and sub-workflow bars, and get data for
 // transformations accordion
 show_summary_stats = function(data, text_status, jqxhr) {
-    plotScroll(data.summary, 'summaryChartScroll', 'bar', false);
+    plotSummaryScroll(data.summary, 0);
+    plotSummaryScroll(data.summary, 1);
+    plotSummaryScroll(data.summary, 2);
+    plotSummaryScroll(data.summary, 3);
     numSubworkflows = data.summary.successful[3];
     numSubworkflows += data.summary.failed[3];
     numSubworkflows += data.summary.incomplete[3];
@@ -183,16 +198,16 @@ show_subworkflows = function(data, text_status, jqxhr) {
     $("#accordion_xform").accordion({
          active: false
     });
-    $('#summaryChartScroll').empty();
+    for (i=0; i < 4; i++) {
+        $('#summaryChartScroll' + i).empty();
+    }
     $('#xformChartScroll').empty();
     plotScroll(data, 'subChartScroll', 'column', true);
     return;
 }
 
 plotScroll = function(data, id, orientation, handleClick) {
-    if (id == 'summaryChartScroll') {
-        var plot = summaryChartScroll;
-    } else if (id == 'xformChartScroll') {
+    if (id == 'xformChartScroll') {
         var plot = xformChartScroll;
     } else if (id == 'subChartScroll') {
         var plot = subChartScroll;
@@ -201,7 +216,7 @@ plotScroll = function(data, id, orientation, handleClick) {
     $('#' + id).empty();
     var n = data.num; // number of bars
     if (orientation != 'column') {
-        document.getElementById(id).style.height = n * 40;
+        document.getElementById(id).style.height = n * 30;
     }
     plot = new Highcharts.Chart({
         chart: {
@@ -272,6 +287,78 @@ plotScroll = function(data, id, orientation, handleClick) {
     });
 }
 
+plotSummaryScroll = function(data, indx) {
+    names = [data.names[indx]];
+    successful = [data.successful[indx]];
+    incomplete = [data.incomplete[indx]];
+    failed = [data.failed[indx]];
+    var plot = summaryChartScroll[indx];
+    var jobstate = ['Success','Incomplete','Failure'];
+    $('#summaryChartScroll' + indx).empty();
+    if (indx == 3) {
+        document.getElementById("summaryChartScroll" + indx).style.height = 85;
+        showLegend = true;
+    } else {
+        document.getElementById("summaryChartScroll" + indx).style.height = 50;
+        showLegend = false;
+    }
+    plot = new Highcharts.Chart({
+        chart: {
+            renderTo: 'summaryChartScroll' + indx,
+            defaultSeriesType: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
+            formatter: function() {
+                return this.series.name + ': ' + this.point.y;
+            }
+        },
+        xAxis: {
+            categories: names
+        },
+        yAxis: {
+            min:0,
+            title: {
+                text: ''
+           }
+        }, 
+        legend: {
+            enabled: showLegend,
+            backgroundColor: '#FFFFFF',
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal',
+                animation: false,
+            }
+        },
+        colors: [
+            'rgba(0, 200, 0, 0.8)',
+            'rgba(200, 200, 0, 0.8)',
+            'rgba(255, 0, 0, 0.8)'
+        ],
+        series: [
+        {
+            name: 'Successful',
+            data: successful
+        },
+        {
+            name: 'Incomplete',
+            data: incomplete
+        },
+        {
+            name: 'Failed',
+            data: failed
+        }]
+    });
+}
+
 show_subworkflow_info = function(category, uuid) {
     set_sub_uuid(uuid);
     $('#sep2').html("&nbsp;->&nbsp;");
@@ -284,7 +371,9 @@ show_subworkflow_info = function(category, uuid) {
         });
     }
     $('#summaryChartEmpty').hide();
-    $('#summaryChartScroll').show();
+    for (i=0; i < 4; i++) {
+        $('#summaryChartScroll' + i).show();
+    }
     $('#accordion_xform').show();
     var active = $("#accordion_xform").accordion("option", "active");
     if (active === false) {

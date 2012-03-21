@@ -194,6 +194,7 @@ class StampedeDB:
 	        elif row.state == 'WORKFLOW_TERMINATED':
                     subSuccesses += 1
 	    else:
+		print("nothing returned for get_workflow_states")
 		subIncompletes += 1
         results = {
 	    'jobSuccesses': jobSuccesses,
