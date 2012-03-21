@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> 
+    {{> head}}
+    <body>
+        <!--span id="credits">Stampede is funded by the NSF and DOE</span-->
+        <div class="header">
+            <span id="logo">
+                <a href="https://confluence.pegasus.isi.edu/display/stampede/Home" target="_blank">
+		<img src="{{img_path}}/stampede-logo.png"/>
+                </a>
+            </span>
+            <span id="page_title">Stampede Workflow Analyzer</span>
+        </div>
+        <div class="main">
+            <div id="breadcrumbs">
+	        <a href="#" id="root_wfs">Root workflows</a>
+	        <span id="sep1"></span>
+	        <a href="#" id="workflow"></a>
+	        <span id="sep2"></span>
+                <a href="#" id="subworkflow"></a>
+	    </div>
+            <div>
+                <input type="button" id="refresh" value="REFRESH"></input>
+            <input type="hidden" id="dax_label"></input>
+            <input type="hidden" id="uuid"></input>
+            <input type="hidden" id="sub_uuid"></input>
+            </div>
+            <!-- <span style="visibility:hidden" id="uuid"></span> -->
+            <div style="clear:both;"></div>
+            <br />
+	    <div id="errorDiv"></div>
+            <div id="topLevel"></div>
+            <br />
+	    <div id="rootContainer">
+            <table id="rootTable">
+            </table>
+            </div> 
+	    <div id="subContainer" style="display:none">
+                <div id="subChartScroll"></div>
+	    </div>
+	    <br />
+
+	    <div id="accordion_wf">
+                <h3 id="accordion_wf_header"><a href="#" id="accordion_wf_title">Select a workflow</a></h3>
+		<div id="summaryChartDiv">
+		    <div id="summaryChartEmpty">No workflow selected</div>
+		    <div id="summaryChartScroll" class="barLegendScroll" style="display:none">
+		    </div>
+                    <div id="subcontrols" style="display:none">
+                        <input type="button" id="showsub" value="Show sub-workflows">
+			<input type="checkbox" id="subtotals">Include sub-workflow totals
+                    </div>
+		</div>
+	    </div>
+            <div id="accordion_xform" style="display:none">
+                <h3 id="accordion_xform_header"><a href="#" id="accordion_xform_title">Transformations</a></h3>
+                <div id="xformChartDiv">
+	            <div id="xformChartScroll" class="barLegendScroll"></div>
+                </div>
+            </div>
+	<br /><br />
+        <div id="credits" >
+            <img src="{{img_path}}/logos/LBL.png">
+            <img src="{{img_path}}/logos/ISI.gif">
+            <img src="{{img_path}}/logos/USF.png">
+            <img src="{{img_path}}/logos/UDEL.png">
+        </div>
+	<br />
+
+        <div style="font-size: small">This page is copyright (2012) Lawrence Berkeley National Laboratory</div>
+        </div>
+    </body>
+</html>
