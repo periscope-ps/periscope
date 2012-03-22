@@ -9,25 +9,26 @@
 		<img src="{{img_path}}/stampede-logo.png"/>
                 </a>
             </span>
-            <span id="page_title">Stampede Workflow Analyzer</span>
+            <span id="page_title">Workflow Analyzer</span>
         </div>
-        <div class="main">
-            <div id="breadcrumbs">
+	<div class="top">
+	    <div class="topLeft">
 	        <a href="#" id="root_wfs">Root workflows</a>
 	        <span id="sep1"></span>
 	        <a href="#" id="workflow"></a>
 	        <span id="sep2"></span>
                 <a href="#" id="subworkflow"></a>
 	    </div>
-            <div>
+	    <div class="topRight">
                 <input type="button" id="refresh" value="REFRESH"></input>
+	    </div>
+	    <div style="clear:both;"></div>
+	</div>
+	<div style="clear:both;"></div>
+	<div class="main">
             <input type="hidden" id="dax_label"></input>
             <input type="hidden" id="uuid"></input>
             <input type="hidden" id="sub_uuid"></input>
-            </div>
-            <!-- <span style="visibility:hidden" id="uuid"></span> -->
-            <div style="clear:both;"></div>
-            <br />
 	    <div id="errorDiv"></div>
             <div id="topLevel"></div>
             <br />
