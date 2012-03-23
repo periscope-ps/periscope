@@ -1,6 +1,12 @@
 // JavaScript for Stampede workflow analyzer.
 
 $(function() {
+    $.ajax({
+        url: "/db",
+        dataType: 'json',
+            data: "",
+            success: set_database_name
+    });
     get_uuid = function() {
         return $('#uuid').text()
     }
@@ -94,6 +100,10 @@ function get_job_task_stats(celDiv) {
             show_workflow_view(true);
         }
     );
+}
+
+set_database_name = function(data, text_status, jqxhr) {
+    $('#root_wfs').html('Database ' + data.name);
 }
 
 // Show job, task, transformation, and sub-workflow bars, and get data for

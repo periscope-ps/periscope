@@ -34,6 +34,15 @@ class Index(Logged):
     def GET(self):
         return render.index()
 
+class Database(Logged):
+    """Return database information.
+    """
+    @jsonic
+    def GET(self):
+        result = {}
+        result['name'] = web.ctx.dbname
+        return result
+
 class WfList(Logged):
     """List root workflows in a DB.
     """
@@ -197,6 +206,7 @@ URL patterns.
 """
 urls = (
     '/', 'Index',              # Home page
+    '/db', 'Database',
     '/wf/list', 'WfList',      # List of top-level workflows
     '/wf/(.*)/list', 'WfSubList',
     '/wf/(.*)/info', 'WfInfo', # summary info
@@ -241,6 +251,7 @@ def init_db(dbname, test_only):
     # add processor for setting DB into context
     def load_stdb(handler):
         web.ctx.db = db
+        web.ctx.dbname = dbname
         return handler()
     app.add_processor(load_stdb)
 
