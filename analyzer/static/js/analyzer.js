@@ -17,6 +17,12 @@ $(function() {
         if ($('#subworkflow_view').val()) {
             sub_uuid = get_sub_uuid();
             show_subworkflow_view(sub_uuid, false);
+        } else if ($('#subworkflow_list_view').val()) {
+            for (i=0; i < 4; i++) {
+                $('#summaryChartScroll' + i).empty();
+            }
+            $('#xformChartScroll').empty();
+            plotScroll(data, 'subChartScroll', 'column', true);
         } else if ($('#workflow_view').val()) {
             show_workflow_view(false);
         } else {
@@ -36,6 +42,14 @@ $(function() {
     });
     $('#workflow').click(function() {
         show_workflow_view(true);
+    });
+    $('#subworkflow_list').click(function() {
+        $.ajax({
+            url: "/wf/" + get_uuid() + "/list",
+            dataType: 'json',
+                data: "",
+                success: show_subworkflows
+        });
     });
     $('#subworkflow').click(function() {
         sub_uuid = get_sub_uuid();
@@ -105,6 +119,8 @@ show_transformations = function(data, text_status, jqxhr) {
 }
 
 show_subworkflows = function(data, text_status, jqxhr) {
+    $('#sep2').html("&nbsp;->&nbsp;");
+    $('#subworkflow_list').html('sub-workflows');
     $('#rootContainer').hide();
     $('#subContainer').show();
     $('#accordion_wf_title').html('Select a sub-workflow');
@@ -277,7 +293,7 @@ plotSummaryScroll = function(data, indx, showLegend) {
 
 show_subworkflow_info = function(category, uuid) {
     set_sub_uuid(uuid);
-    $('#sep2').html("&nbsp;->&nbsp;");
+    $('#sep3').html("&nbsp;->&nbsp;");
     $('#subworkflow').html('sub-workflow ' + category);
     show_subworkflow_view(uuid, true);
 }
