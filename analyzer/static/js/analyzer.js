@@ -14,7 +14,14 @@ $(function() {
         $('#sub_uuid').html(value)
     }
     $('#refresh').click(function() {
-        $('#rootTable').flexReload({url: '/wf/list'});
+        if ($('#subworkflow_view').val()) {
+            sub_uuid = get_sub_uuid();
+            show_subworkflow_view(sub_uuid, false);
+        } else if ($('#workflow_view').val()) {
+            show_workflow_view(false);
+        } else {
+            show_root_view(false);
+        }
     });
 		$("#accordion_wf").accordion({
 			collapsible: true,
@@ -25,82 +32,14 @@ $(function() {
 			active: false
     });
     $('#root_wfs').click(function() {
-        $('#rootContainer').show();
-        $('#subContainer').hide();
-        for (i=0; i < 4; i++) {
-            $('#summaryChartScroll' + i).empty();
-        }
-        $('#xformChartScroll').empty();
-        $('#summaryChartEmpty').show();
-        for (i=0; i < 4; i++) {
-            $('#summaryChartScroll' + i).hide();
-        }
-        $("#accordion_wf").accordion({
-            active: false 
-        });
-        $("#accordion_xform").accordion({
-             active: false
-        });
-        $('#accordion_xform').hide();
-        $('#accordion_wf_title').html('Select a workflow');
-        $("#subcontrols").hide();
-        $('#rootTable').flexReload({url: '/wf/list'});
+        show_root_view(true);
     });
     $('#workflow').click(function() {
-        $('#rootContainer').show();
-        $('#subContainer').hide();
-        $('#accordion_wf_title').html('Summary for workflow ' + $('#dax_label').html());
-        var active = $("#accordion_wf").accordion("option", "active");
-        if (active === false) {
-            $("#accordion_wf").accordion({
-                active: 0
-            });
-        }
-        $('#summaryChartEmpty').hide();
-        for (i=0; i < 4; i++) {
-            $('#summaryChartScroll' + i).show();
-        }
-        $('#accordion_xform').show();
-        var active = $("#accordion_xform").accordion("option", "active");
-        if (active === false) {
-            $("#accordion_xform").accordion({
-                active: 0
-            });
-        }
-        $.ajax({
-            url: get_info_url(get_uuid()),
-            dataType: 'json',
-            data: "",
-            success: show_summary_stats
-        });
+        show_workflow_view(true);
     });
     $('#subworkflow').click(function() {
-        $('#rootContainer').hide();
-        $('#subContainer').show();
-        $('#accordion_wf_title').html('Summary for sub-workflow ');
-        var active = $("#accordion_wf").accordion("option", "active");
-        if (active === false) {
-            $("#accordion_wf").accordion({
-                active: 0
-            });
-        }
-        $('#summaryChartEmpty').hide();
-        for (i=0; i < 4; i++) {
-            $('#summaryChartScroll' + i).show();
-        }
-        $('#accordion_xform').show();
-        var active = $("#accordion_xform").accordion("option", "active");
-        if (active === false) {
-            $("#accordion_xform").accordion({
-                active: 0
-            });
-        }
-        $.ajax({
-            url: get_info_url(get_sub_uuid()),
-            dataType: 'json',
-            data: "",
-            success: show_summary_stats
-        });
+        sub_uuid = get_sub_uuid();
+        show_subworkflow_view(sub_uuid, true);
     });
     $('#showsub').click(function() {
         $.ajax({
@@ -138,30 +77,7 @@ function get_job_task_stats(celDiv) {
             $('#sep1').html("&nbsp;->&nbsp;");
             $('#dax_label').html(dax_label);
             $('#workflow').html(dax_label);
-            $('#accordion_wf_title').html('Summary for workflow ' + dax_label);
-            var active = $("#accordion_wf").accordion("option", "active");
-            if (active === false) {
-                $("#accordion_wf").accordion({
-                    active: 0
-                });
-            }
-            $('#summaryChartEmpty').hide();
-            for (i=0; i < 4; i++) {
-                $('#summaryChartScroll' + i).show();
-            }
-            $('#accordion_xform').show();
-            var active = $("#accordion_xform").accordion("option", "active");
-            if (active === false) {
-                $("#accordion_xform").accordion({
-                    active: 0
-                });
-            }
-            $.ajax({
-                url: get_info_url(wf_uuid),
-                dataType: 'json',
-                data: "",
-                success: show_summary_stats
-            });
+            show_workflow_view(true);
         }
     );
 }
@@ -169,15 +85,17 @@ function get_job_task_stats(celDiv) {
 // Show job, task, transformation, and sub-workflow bars, and get data for
 // transformations accordion
 show_summary_stats = function(data, text_status, jqxhr) {
-    plotSummaryScroll(data.summary, 0);
-    plotSummaryScroll(data.summary, 1);
-    plotSummaryScroll(data.summary, 2);
-    plotSummaryScroll(data.summary, 3);
+    plotSummaryScroll(data.summary, 0, false);
+    plotSummaryScroll(data.summary, 1, false);
     numSubworkflows = data.summary.successful[3];
     numSubworkflows += data.summary.failed[3];
     numSubworkflows += data.summary.incomplete[3];
     if (numSubworkflows > 0) {
+        plotSummaryScroll(data.summary, 2, false);
         $("#subcontrols").show();
+        plotSummaryScroll(data.summary, 3, true);
+    } else {
+        plotSummaryScroll(data.summary, 2, true);
     }
     plotScroll(data.xforms, 'xformChartScroll', 'bar', false);
 }
@@ -287,7 +205,7 @@ plotScroll = function(data, id, orientation, handleClick) {
     });
 }
 
-plotSummaryScroll = function(data, indx) {
+plotSummaryScroll = function(data, indx, showLegend) {
     names = [data.names[indx]];
     successful = [data.successful[indx]];
     incomplete = [data.incomplete[indx]];
@@ -295,12 +213,10 @@ plotSummaryScroll = function(data, indx) {
     var plot = summaryChartScroll[indx];
     var jobstate = ['Success','Incomplete','Failure'];
     $('#summaryChartScroll' + indx).empty();
-    if (indx == 3) {
+    if (showLegend) {
         document.getElementById("summaryChartScroll" + indx).style.height = 85;
-        showLegend = true;
     } else {
         document.getElementById("summaryChartScroll" + indx).style.height = 50;
-        showLegend = false;
     }
     plot = new Highcharts.Chart({
         chart: {
@@ -363,23 +279,102 @@ show_subworkflow_info = function(category, uuid) {
     set_sub_uuid(uuid);
     $('#sep2').html("&nbsp;->&nbsp;");
     $('#subworkflow').html('sub-workflow ' + category);
-    $('#accordion_wf_title').html('Summary for sub-workflow ');
-    var active = $("#accordion_wf").accordion("option", "active");
-    if (active === false) {
+    show_subworkflow_view(uuid, true);
+}
+
+show_root_view = function(changeXface) {
+    if (changeXface) {
+        $('#rootContainer').show();
+        $('#subContainer').hide();
+        $('#subworkflow_view').val('');
+        $('#workflow_view').val('');
+        $('#root_view').val('set');
+        $('#summaryChartEmpty').show();
+        for (i=0; i < 4; i++) {
+            $('#summaryChartScroll' + i).hide();
+        }
         $("#accordion_wf").accordion({
-            active: 0
+            active: false 
         });
-    }
-    $('#summaryChartEmpty').hide();
-    for (i=0; i < 4; i++) {
-        $('#summaryChartScroll' + i).show();
-    }
-    $('#accordion_xform').show();
-    var active = $("#accordion_xform").accordion("option", "active");
-    if (active === false) {
         $("#accordion_xform").accordion({
-            active: 0
+             active: false
         });
+        $('#accordion_xform').hide();
+        $('#accordion_wf_title').html('Select a workflow');
+        $("#subcontrols").hide();
+    }
+    for (i=0; i < 4; i++) {
+        $('#summaryChartScroll' + i).empty();
+    }
+    $('#xformChartScroll').empty();
+    $('#rootTable').flexReload({url: '/wf/list'});
+}
+
+show_workflow_view = function(changeXface) {
+    if (changeXface) {
+        $('#subworkflow_view').val('');
+        $('#workflow_view').val('set');
+        $('#root_view').val('');
+        $('#rootContainer').show();
+        $('#subContainer').hide();
+        $('#accordion_wf_title').html('Summary for workflow ' + $('#dax_label').html());
+        var active = $("#accordion_wf").accordion("option", "active");
+        if (active === false) {
+            $("#accordion_wf").accordion({
+                active: 0
+            });
+        }
+        $('#summaryChartEmpty').hide();
+        for (i=0; i < 4; i++) {
+            $('#summaryChartScroll' + i).show();
+        }
+        $('#accordion_xform').show();
+        var active = $("#accordion_xform").accordion("option", "active");
+        if (active === false) {
+            $("#accordion_xform").accordion({
+                active: 0
+            });
+        }
+    }
+    $.ajax({
+        url: get_info_url(get_uuid()),
+        dataType: 'json',
+        data: "",
+        success: show_summary_stats
+    });
+}
+
+show_subworkflow_view = function(uuid, changeXface) {
+    if (changeXface) {
+        $('#subworkflow_view').val('set');
+        $('#workflow_view').val('');
+        $('#root_view').val('');
+        $('#rootContainer').hide();
+        $('#subContainer').show();
+        $("#subcontrols").hide();
+        $('#accordion_wf_title').html('Summary for sub-workflow ');
+        var active = $("#accordion_wf").accordion("option", "active");
+        if (active === false) {
+            $("#accordion_wf").accordion({
+                active: 0
+            });
+        }
+        $('#summaryChartEmpty').hide();
+        for (i=0; i < 4; i++) {
+            $('#summaryChartScroll' + i).empty();
+            $('#summaryChartScroll' + i).show();
+        }
+        $('#accordion_xform').show();
+        var active = $("#accordion_xform").accordion("option", "active");
+        if (active === false) {
+            $("#accordion_xform").accordion({
+                active: 0
+            });
+        }
+    } else {
+        for (i=0; i < 4; i++) {
+            $('#summaryChartScroll' + i).empty();
+        }
     }
     $.ajax({
         url: get_info_url(uuid),
@@ -395,14 +390,4 @@ get_info_url = function(uuid) {
     } else {
         return "/wf/" + uuid + "/info";
     }
-}
-
-// Refresh table
-refresh = function() {
-    $.ajax({
-        url: "/workflows/",
-        dataType: 'json',
-        data: "",
-        success: show_success
-    });
 }
