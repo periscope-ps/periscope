@@ -83,10 +83,20 @@ $(function() {
         });
     });
     /*
-    $('selectWorkflow').click(function() {
+    $('#selectWorkflow').click(function() {
         $('#selectWorkflowHelp').dialog();
     });
     */
+    $('#selectWorkflow').live('hover',
+        function() {
+            $('#selectWorkflowHelp').dialog();
+        }
+    );
+    $('#summaryWorkflow').live('hover',
+        function() {
+            $('#summaryWorkflowHelp').dialog();
+        }
+    );
 });
 
 var summaryChartScroll = new Array(4);
@@ -380,7 +390,7 @@ show_root_view = function(changeXface) {
              active: false
         });
         $('#accordion_xform').hide();
-        $('#accordion_wf_title').html('Select a workflow');
+        $('#accordion_wf_title').html('Select a workflow <span id="selectWorkflow">[?]</span>');
         $("#subcontrols").hide();
     }
     for (i=0; i < 4; i++) {
@@ -397,7 +407,7 @@ show_workflow_view = function(changeXface) {
         $('#root_view').val('');
         $('#rootContainer').show();
         $('#subContainer').hide();
-        $('#accordion_wf_title').html('Summary for workflow ' + $('#dax_label').html());
+        $('#accordion_wf_title').html('Summary for workflow ' + $('#dax_label').html() + '<span id="summaryWorkflow"> [?]</span>');
         var active = $("#accordion_wf").accordion("option", "active");
         if (active === false) {
             $("#accordion_wf").accordion({
