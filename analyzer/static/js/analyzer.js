@@ -1,5 +1,6 @@
 // JavaScript for Stampede workflow analyzer.
 
+
 $(function() {
     $.ajax({
         url: "/db",
@@ -81,6 +82,11 @@ $(function() {
             success: show_summary_stats
         });
     });
+    /*
+    $('selectWorkflow').click(function() {
+        $('#selectWorkflowHelp').dialog();
+    });
+    */
 });
 
 var summaryChartScroll = new Array(4);
@@ -244,6 +250,7 @@ plotSummaryScroll = function(data, indx, showLegend) {
     } else {
         document.getElementById("summaryChartScroll" + indx).style.height = 50;
     }
+    if (indx != 0) {
     plot = new Highcharts.Chart({
         chart: {
             renderTo: 'summaryChartScroll' + indx,
@@ -299,6 +306,53 @@ plotSummaryScroll = function(data, indx, showLegend) {
             data: failed
         }]
     });
+    } else {
+    plot = new Highcharts.Chart({
+        chart: {
+            renderTo: 'summaryChartScroll' + indx,
+            defaultSeriesType: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
+            formatter: function() {
+                return 'Total: ' + this.point.y;
+            }
+        },
+        xAxis: {
+            categories: names
+        },
+        yAxis: {
+            min:0,
+            title: {
+                text: ''
+           }
+        }, 
+        legend: {
+            enabled: showLegend,
+            backgroundColor: '#FFFFFF',
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal',
+                animation: false,
+            }
+        },
+        colors: [
+            'rgba(200, 200, 200, 0.8)'
+        ],
+        series: [
+        {
+            name: 'Total',
+            data: successful
+        }]
+    });
+    }
 }
 
 show_subworkflow_info = function(category, uuid) {

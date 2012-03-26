@@ -260,10 +260,14 @@ def get_info(uuid, includeSubTotals):
     wfnames = ['Tasks', 'Transforms', 'Jobs', 'Sub-workflows']
     db = web.ctx.db
     wf = db.find_workflow_stats(uuid, includeSubTotals)
-    # faking some results for now
-    successseries = [wf['taskSuccesses'], wf['xformSuccesses'], wf['jobSuccesses'], wf['subSuccesses']]
+    successseries = [wf['taskTotal'], wf['xformSuccesses'], wf['jobSuccesses'], wf['subSuccesses']]
+    failureseries = [wf['taskTotal'], wf['xformFailures'], wf['jobFailures'], wf['subFailures']]
+    incompleteseries = [wf['taskTotal'], wf['xformIncompletes'], wf['jobIncompletes'], wf['subIncompletes']]
+    """
+    successseries = [wf['taskuccesses'], wf['xformSuccesses'], wf['jobSuccesses'], wf['subSuccesses']]
     failureseries = [wf['taskFailures'], wf['xformFailures'], wf['jobFailures'], wf['subFailures']]
     incompleteseries = [wf['taskIncompletes'], wf['xformIncompletes'], wf['jobIncompletes'], wf['subIncompletes']]
+    """
     task_results = {
         'successful': successseries,
         'failed': failureseries,

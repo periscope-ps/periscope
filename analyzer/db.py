@@ -124,6 +124,7 @@ class StampedeDB:
         else:
             jobIncompletes = 0
         taskTotal = stats.get_total_tasks_status()
+	"""
         taskSuccesses = stats.get_total_succeeded_tasks_status()
         taskFailures = stats.get_total_failed_tasks_status()
         taskRetries = stats.get_total_tasks_retries()
@@ -131,6 +132,7 @@ class StampedeDB:
             taskIncompletes = taskTotal - taskSuccesses - taskFailures
         else:
             taskIncompletes = 0
+	"""
 	xformSuccesses = 0
 	xformFailures = 0
 	xformIncompletes = 0
@@ -169,6 +171,8 @@ class StampedeDB:
 	        jobFailures += fail
                 if (total - succ - fail) > 0:
 		    jobIncompletes += total - succ - fail
+                taskTotal += stats.get_total_tasks_status()
+		"""
                 taskTotal = stats.get_total_tasks_status()
                 ts = stats.get_total_succeeded_tasks_status()
                 taskSuccesses += ts
@@ -176,6 +180,7 @@ class StampedeDB:
 	        taskFailures += tf
                 if (taskTotal - ts - tf) > 0:
                     taskIncompletes += taskTotal - ts - tf
+		"""
 	        xforms = stats.get_transformation_statistics()
 	        for xform in xforms:
 	            xformTotal = xform.count
@@ -200,9 +205,7 @@ class StampedeDB:
 	    'jobSuccesses': jobSuccesses,
 	    'jobFailures': jobFailures,
 	    'jobIncompletes': jobIncompletes,
-	    'taskSuccesses': taskSuccesses,
-	    'taskFailures': taskFailures,
-	    'taskIncompletes': taskIncompletes,
+	    'taskTotal': taskTotal,
 	    'xformSuccesses': xformSuccesses,
 	    'xformFailures': xformFailures,
 	    'xformIncompletes': xformIncompletes,
