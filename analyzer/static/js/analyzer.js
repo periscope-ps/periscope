@@ -82,11 +82,6 @@ $(function() {
             success: show_summary_stats
         });
     });
-    /*
-    $('#selectWorkflow').click(function() {
-        $('#selectWorkflowHelp').dialog();
-    });
-    */
     $('#selectWorkflow').live('hover',
         function() {
             $('#selectWorkflowHelp').dialog();
@@ -94,7 +89,7 @@ $(function() {
     );
     $('#summaryWorkflow').live('hover',
         function() {
-            $('#summaryWorkflowHelp').dialog();
+            $('#summaryWorkflowHelp').dialog({ minWidth: 350 });
         }
     );
 });
@@ -407,6 +402,8 @@ show_workflow_view = function(changeXface) {
         $('#root_view').val('');
         $('#rootContainer').show();
         $('#subContainer').hide();
+        // doesn't seem to cause problems if not open
+        $('#selectWorkflowHelp').dialog('close');
         $('#accordion_wf_title').html('Summary for workflow ' + $('#dax_label').html() + '<span id="summaryWorkflow"> [?]</span>');
         var active = $("#accordion_wf").accordion("option", "active");
         if (active === false) {
