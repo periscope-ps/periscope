@@ -87,6 +87,11 @@ $(function() {
             $('#selectWorkflowHelp').dialog();
         }
     );
+    $('#selectSubWorkflow').live('hover',
+        function() {
+            $('#selectSubWorkflowHelp').dialog();
+        }
+    );
     $('#summaryWorkflow').live('hover',
         function() {
             $('#summaryWorkflowHelp').dialog({ minWidth: 350 });
@@ -144,7 +149,7 @@ show_subworkflows = function(data, text_status, jqxhr) {
     $('#subworkflow_list').html('sub-workflows');
     $('#rootContainer').hide();
     $('#subContainer').show();
-    $('#accordion_wf_title').html('Select a sub-workflow');
+    $('#accordion_wf_title').html('Select a sub-workflow ' + '<span id="selectSubWorkflow">[?]<span>');
     $("#accordion_wf").accordion({
         active: false 
     });
@@ -356,6 +361,7 @@ show_workflow_view = function(changeXface) {
         $('#subContainer').hide();
         // doesn't seem to cause problems if not open
         $('#selectWorkflowHelp').dialog('close');
+        $('#selectSubWorkflowHelp').dialog('close');
         $('#accordion_wf_title').html('Summary for workflow ' + $('#dax_label').html() + '<span id="summaryWorkflow"> [?]</span>');
         var active = $("#accordion_wf").accordion("option", "active");
         if (active === false) {
@@ -391,7 +397,10 @@ show_subworkflow_view = function(uuid, changeXface) {
         $('#rootContainer').hide();
         $('#subContainer').show();
         $("#subcontrols").hide();
-        $('#accordion_wf_title').html('Summary for sub-workflow ');
+        $('#selectWorkflowHelp').dialog('close');
+        $('#selectSubWorkflowHelp').dialog('close');
+        $('#subtotals').prop('checked', false);
+        $('#accordion_wf_title').html('Summary for sub-workflow ' + '<span id="summaryWorkflow">[?]</span>');
         var active = $("#accordion_wf").accordion("option", "active");
         if (active === false) {
             $("#accordion_wf").accordion({

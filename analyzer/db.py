@@ -126,7 +126,6 @@ class StampedeDB:
         taskTotal = stats.get_total_tasks_status()
         taskSuccesses = stats.get_total_succeeded_tasks_status()
         taskFailures = stats.get_total_failed_tasks_status()
-        taskRetries = stats.get_total_tasks_retries()
         if (taskTotal - taskSuccesses - taskFailures) > 0:
             taskIncompletes = taskTotal - taskSuccesses - taskFailures
         else:
@@ -200,7 +199,6 @@ class StampedeDB:
 	    'jobSuccesses': jobSuccesses,
 	    'jobFailures': jobFailures,
 	    'jobIncompletes': jobIncompletes,
-	    'taskTotal': taskTotal,
 	    'xformSuccesses': xformSuccesses,
 	    'xformFailures': xformFailures,
 	    'xformIncompletes': xformIncompletes,
