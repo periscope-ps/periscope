@@ -137,11 +137,11 @@ show_summary_stats = function(data, text_status, jqxhr) {
     } else {
         plotSummaryScroll(data.summary, 2, true);
     }
-    plotScroll(data.xforms, 'xformChartScroll', 'bar', false);
+    plotTransformScroll(data.xforms, 'xformChartScroll', 'bar');
 }
 
 show_transformations = function(data, text_status, jqxhr) {
-    plotScroll(data, 'xformChartScroll', 'bar', false);
+    plotTransformScroll(data, 'xformChartScroll', 'bar');
 }
 
 show_subworkflows = function(data, text_status, jqxhr) {
@@ -328,6 +328,97 @@ plotSummaryScroll = function(data, indx, showLegend) {
         {
             name: 'Failed',
             data: failed
+        }]
+    });
+}
+
+function log10(n) {
+     return Math.log(n)/Math.log(10);   
+}
+
+plotTransformScroll = function(data, id, orientation) {
+    var plot = xformChartScroll;
+    var jobstate = ['Success','Incomplete','Failure'];
+    $('#' + id).empty();
+    var n = data.num; // number of bars
+    for (var i=0; i < data.successful.length; i++) {
+        data.successful[i] = log10(data.successful[i]);
+    }
+    for (var i=0; i < data.incomplete.length; i++) {
+        data.incomplete[i] = log10(data.incomplete[i]);
+    }
+    for (var i=0; i < data.failed.length; i++) {
+        data.failed[i] = log10(data.failed[i]);
+    }
+    if (orientation != 'column') {
+        document.getElementById(id).style.height = n * 30;
+    }
+    plot = new Highcharts.Chart({
+        chart: {
+            renderTo: id,
+            defaultSeriesType: orientation
+        },
+        title: {
+            text: ''
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
+            formatter: function() {
+                return this.series.name + ': ' + Math.round(Math.pow(10,this.point.y));
+            }
+        },
+        xAxis: {
+            categories: data.names
+        },
+        yAxis: {
+            min:0,
+            title: {
+                text: ''
+           },
+           labels: {
+                formatter: function() {
+                    return Math.round(Math.pow(10, this.value));
+                }
+            }
+        }, 
+        legend: {
+            backgroundColor: '#FFFFFF',
+            reversed: true
+        },
+        plotOptions: {
+            area: {
+                shadow: false
+            },
+            bar: {
+                borderWidth: 0
+            },
+            column: {
+                borderWidth: 0
+            },
+            series: {
+                stacking: 'normal',
+                animation: false,
+            }
+        },
+        colors: [
+            'rgba(0, 200, 0, 0.8)',
+            'rgba(200, 200, 0, 0.8)',
+            'rgba(255, 0, 0, 0.8)'
+        ],
+        series: [
+        {
+            name: 'Successful',
+            data: data.successful
+        },
+        {
+            name: 'Incomplete',
+            data: data.incomplete
+        },
+        {
+            name: 'Failed',
+            data: data.failed
         }]
     });
 }
