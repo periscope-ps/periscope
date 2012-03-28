@@ -212,6 +212,15 @@ plotScroll = function(data, id, orientation, handleClick) {
             reversed: true
         },
         plotOptions: {
+            area: {
+                shadow: false
+            },
+            bar: {
+                borderWidth: 0
+            },
+            column: {
+                borderWidth: 0
+            },
             series: {
                 stacking: 'normal',
                 animation: false,
@@ -291,6 +300,12 @@ plotSummaryScroll = function(data, indx, showLegend) {
             reversed: true
         },
         plotOptions: {
+            area: {
+                shadow: false
+            },
+            bar: {
+                borderWidth: 0
+            },
             series: {
                 stacking: 'normal',
                 animation: false,
