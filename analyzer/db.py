@@ -5,6 +5,7 @@ __rcsid__ = "$Id: db.py 30872 2012-03-09 23:21:47Z davidr $"
 
 import sqlalchemy as sa
 import time
+from datetime import datetime
 from netlogger.analysis.workflow import stampede_statistics as sstat
 
 class StampedeDB:
@@ -92,8 +93,6 @@ class StampedeDB:
 	    totalSuccesses += succ
             fail = stats.get_total_failed_jobs_status()
 	    totalFailures += fail
-	    # unused for now
-            retry = stats.get_total_jobs_retries()
 	    successseries.append({'y': succ, 'uuid': wf_uuid})
 	    failureseries.append({'y': fail, 'uuid': wf_uuid})
             if (total - succ - fail) > 0:
@@ -112,7 +111,10 @@ class StampedeDB:
 
     def find_workflow_stats(self, wf_uuid, includeSubTotals):
         conn = self._connect()
-        stats = sstat.StampedeStatistics(connString=self.dburl, expand_workflow=False)
+	if not includeSubTotals:
+            stats = sstat.StampedeStatistics(connString=self.dburl, expand_workflow=False)
+	else:
+            stats = sstat.StampedeStatistics(connString=self.dburl, expand_workflow=True)
         stats.initialize(wf_uuid)
         stats.set_job_filter('all')
         jobTotal = stats.get_total_jobs_status()
@@ -123,13 +125,6 @@ class StampedeDB:
             jobIncompletes = jobTotal - jobSuccesses - jobFailures
         else:
             jobIncompletes = 0
-        taskTotal = stats.get_total_tasks_status()
-        taskSuccesses = stats.get_total_succeeded_tasks_status()
-        taskFailures = stats.get_total_failed_tasks_status()
-        if (taskTotal - taskSuccesses - taskFailures) > 0:
-            taskIncompletes = taskTotal - taskSuccesses - taskFailures
-        else:
-            taskIncompletes = 0
 	xformSuccesses = 0
 	xformFailures = 0
 	xformIncompletes = 0
@@ -139,50 +134,35 @@ class StampedeDB:
 	xnames = []
 	xforms = stats.get_transformation_statistics()
 	for xform in xforms:
-	    xnames.append(xform.transformation)
 	    xformTotal = xform.count
-	    xsuccessseries.append(xform.success)
-	    xformSuccesses += xform.success
-	    xfailureseries.append(xform.failure)
-	    xformFailures += xform.failure
-	    incompletes = xformTotal - xform.success - xform.failure
-            if (xformTotal - xform.success - xform.failure) > 0:
-                xformIncompletes += incompletes
-		xincompleteseries.append(incompletes)
-	    else:
-		xincompleteseries.append(0)
-	result = stats.get_sub_workflow_ids()
+	    if xformTotal != 0:
+	        xnames.append(xform.transformation)
+	        xsuccessseries.append(xform.success)
+	        xformSuccesses += xform.success
+	        xfailureseries.append(xform.failure)
+	        xformFailures += xform.failure
+	        incompletes = xformTotal - xform.success - xform.failure
+                if (xformTotal - xform.success - xform.failure) > 0:
+                    xformIncompletes += incompletes
+		    xincompleteseries.append(incompletes)
+	        else:
+		    xincompleteseries.append(0)
 	subSuccesses = 0
 	subFailures = 0
 	subIncompletes = 0
+        taskTotal = stats.get_total_tasks_status()
+        taskSuccesses = stats.get_total_succeeded_tasks_status()
+        taskFailures = stats.get_total_failed_tasks_status()
+        if (taskTotal - taskSuccesses - taskFailures) > 0:
+            taskIncompletes = taskTotal - taskSuccesses - taskFailures
+        else:
+            taskIncompletes = 0
+	result = stats.get_descendant_workflow_ids()
         # Get information for each sub-workflow
-        for wf_id, wf_uuid, label in result:
+        for wf_id, wf_uuid in result:
             stats = sstat.StampedeStatistics(connString=self.dburl, expand_workflow=False)
             stats.initialize(wf_uuid)
             stats.set_job_filter('all')
-	    if includeSubTotals:
-                total = stats.get_total_jobs_status()
-                succ = stats.get_total_succeeded_jobs_status()
-	        jobSuccesses += succ
-                fail = stats.get_total_failed_jobs_status()
-	        jobFailures += fail
-                if (total - succ - fail) > 0:
-		    jobIncompletes += total - succ - fail
-                taskTotal = stats.get_total_tasks_status()
-                ts = stats.get_total_succeeded_tasks_status()
-                taskSuccesses += ts
-                tf = stats.get_total_failed_tasks_status()
-	        taskFailures += tf
-                if (taskTotal - ts - tf) > 0:
-                    taskIncompletes += taskTotal - ts - tf
-	        xforms = stats.get_transformation_statistics()
-	        for xform in xforms:
-	            xformTotal = xform.count
-	            xformSuccesses += xform.success
-	            xformFailures += xform.failure
-	            incompletes = xformTotal - xform.success - xform.failure
-                    if (xformTotal - xform.success - xform.failure) > 0:
-                        xformIncompletes += incompletes
             wf_states = stats.get_workflow_states()
 	    if len(wf_states) > 1:
 		row = wf_states[len(wf_states)-1]
@@ -193,7 +173,7 @@ class StampedeDB:
 	        elif row.state == 'WORKFLOW_TERMINATED':
                     subSuccesses += 1
 	    else:
-		print("nothing returned for get_workflow_states")
+		#print("nothing returned for get_workflow_states")
 		subIncompletes += 1
         results = {
 	    'jobSuccesses': jobSuccesses,
