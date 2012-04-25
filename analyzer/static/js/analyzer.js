@@ -341,14 +341,32 @@ plotTransformScroll = function(data, id, orientation) {
     var jobstate = ['Success','Incomplete','Failure'];
     $('#' + id).empty();
     var n = data.num; // number of bars
+    var max = 0
     for (var i=0; i < data.successful.length; i++) {
-        data.successful[i] = log10(data.successful[i]);
+        if (data.successful[i] > max) {
+            max = data.successful[i];
+        }
     }
     for (var i=0; i < data.incomplete.length; i++) {
-        data.incomplete[i] = log10(data.incomplete[i]);
+        if (data.incomplete[i] > max) {
+            max = data.incomplete[i];
+        }
     }
     for (var i=0; i < data.failed.length; i++) {
-        data.failed[i] = log10(data.failed[i]);
+        if (data.failed[i] > max) {
+            max = data.failed[i];
+        }
+    }
+    if (max > 25) {
+        for (var i=0; i < data.successful.length; i++) {
+            data.successful[i] = log10(data.successful[i]);
+        }
+        for (var i=0; i < data.incomplete.length; i++) {
+            data.incomplete[i] = log10(data.incomplete[i]);
+        }
+        for (var i=0; i < data.failed.length; i++) {
+            data.failed[i] = log10(data.failed[i]);
+        }
     }
     if (orientation != 'column') {
         document.getElementById(id).style.height = n * 30;
@@ -366,7 +384,11 @@ plotTransformScroll = function(data, id, orientation) {
         },
         tooltip: {
             formatter: function() {
-                return this.series.name + ': ' + Math.round(Math.pow(10,this.point.y));
+                if (max > 25) {
+                    return this.series.name + ': ' + Math.round(Math.pow(10,this.point.y));
+                } else {
+                    return this.series.name + ': ' + this.point.y;
+                }
             }
         },
         xAxis: {
@@ -379,7 +401,11 @@ plotTransformScroll = function(data, id, orientation) {
            },
            labels: {
                 formatter: function() {
-                    return Math.round(Math.pow(10, this.value));
+                    if (max > 25) {
+                        return Math.round(Math.pow(10, this.value));
+                    } else {
+                        return this.value;
+                    }
                 }
             }
         }, 
