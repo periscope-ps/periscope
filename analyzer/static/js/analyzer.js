@@ -219,7 +219,8 @@ plotScroll = function(data, id, orientation, handleClick) {
                 borderWidth: 0
             },
             column: {
-                borderWidth: 0
+                borderWidth: 0,
+                pointWidth: n < 20 ? 10 : null
             },
             series: {
                 stacking: 'normal',
