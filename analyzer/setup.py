@@ -5,8 +5,52 @@ except:
 from glob import glob
 import os
 import sys
+import fnmatch
 
 VERSION = '1.0'
+
+# material from http://wiki.python.org/moin/Distutils/Tutorial
+def opj(*args):
+    path = os.path.join(*args)
+    return os.path.normpath(path)
+
+def find_data_files(srcdir, *wildcards, **kw):
+    # get a list of all files under the srcdir matching wildcards,
+    # returned in a format to be used for install_data
+    ## A list of partials within a filename that would disqualify it
+    ## from appearing in the tarball.
+    badnames=["jquery", "ui-lightness"]
+    def walk_helper(arg, dirname, files):
+        names = []
+        lst, wildcards = arg
+        for wc in wildcards:
+            wc_name = opj(dirname, wc)
+            for f in files:
+                filename = opj(dirname, f)
+                #if ".pyc" not in filename:
+                ## This hairy looking line excludes the filename
+                ## if any part of one of  badnames is in it:
+                if not any(bad in filename for bad in badnames):
+                    if fnmatch.fnmatch(filename, wc_name) and not os.path.isdir(filename):
+		        print(filename)
+                        names.append(filename)
+        if names:
+            lst.append( (dirname, names ) )
+    file_list = []
+    recursive = kw.get('recursive', True)
+    if recursive:
+        os.path.walk(srcdir, walk_helper, (file_list, wildcards))
+    else:
+        walk_helper((file_list, wildcards),
+                     srcdir,
+                     [os.path.basename(f) for f in glob.glob(opj(srcdir, '*'))])
+    return file_list
+
+## This is a list of files to install, and where:
+## Make sure the MANIFEST.in file points to all the right 
+## directories too.
+
+files = find_data_files('static/', '*')
 
 # Main function
 # -------------
@@ -16,6 +60,7 @@ setup(name = "stampede-analyzer",
       py_modules = ["db",
                   "main",
                     "util", ],
+      data_files = files,
       ext_modules = [], #[ks_ext],
       install_requires=["pystache >= 0.4.1", "netlogger >= 4.3.0" ],
       # metadata for upload to PyPI
