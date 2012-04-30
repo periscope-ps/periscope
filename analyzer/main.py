@@ -247,6 +247,8 @@ def init_db(dbname, test_only):
     if test_only:
         db = MockDB()
     elif dbname:
+        if not dbname.startswith('sqlite:') and not dbname.startswith('mysql:'):
+	    dbname = 'sqlite:///' + dbname
         db = StampedeDB(dbname)
     # add processor for setting DB into context
     def load_stdb(handler):
