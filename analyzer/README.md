@@ -3,10 +3,14 @@
 This is a web interface to workflow status and performance. It
 operates on the [Pegasus](http://pegasus.usu.edu) 3.1 monitoring
 database developed under the STAMPEDE project.
- 
-## Installation
 
-### Installing NetLogger
+## Requirements
+
+Below are the requirements for Python and Javascript.
+ 
+## Python
+
+[Python](http://python.org) 2.5 or above
 
 NetLogger (this package) Python modules must be installed and in
 your Python path, i.e. check out this code:
@@ -16,14 +20,6 @@ your Python path, i.e. check out this code:
 		python setup.py install
 
 Then make sure the install directory is in your PYTHONPATH.
-
-### Requirements
-
-#### Base
-
-[Python](http://python.org) 2.5 or above
-
-#### External Python modules
 
 We recommend installing Python modules using
 [pip](http://pypi.python.org/pypi/pip), which is a replacement for
@@ -42,29 +38,40 @@ directories for these:
 
 * lib/pystache - pystache template tool
 
-#### Javascript modules
+## Javascript
 
 These are included in the source code:
 
-* [jQuery](http://jquery.com) - JavaScript library for lots of things.
 * [mustache.js](http://github.com/janl/mustache.js) is an implementation of the [Mustache](http://mustache.github.com/) template system in JavaScript.
 * [stringformat](www.masterdata.se/r/string_format_for_javascript/)
   - Help with some string formatting things.
-* [JQplot](http://www.jqplot.com/) - Plotting library
+* [Highcharts](http://www.highcharts.com/) - Plotting library
 
-## Running
+These must be downloaded:
 
-The main module is called by convention __main.py__.
+* [jQuery](http://docs.jquery.com/Downloading_jQuery
+    JavaScript library for lots of things. You will need to do 
+    a "save link as" on the latest current release.
+    Then copy `jquery-*.*.*.min.js` to `static/js/jquery.min.js`
 
-To run this directly from the commandline, type: `python main.py`.
-Then navigate to the [local web URL](http://0.0.0.0:8080/).
+* jQuery UI is the official jQuery user interface library.  Go to
+  http://jqueryui.com/download, click on "Deselect all" on the Effects, and
+  then download the library.
 
-### Testing
+  After unzipping, copy `js/jquery-ui-*.*.*.custom.min.js` to
+  `static/js/jquery-ui.custom.min.js`.  Copy css/ui-lightness to 
+  static/css/ui-lightness.
+
+## Testing
 
 The tests are written using [nose](http://readthedocs.org/docs/nose/en/latest/)
 and [paste](http://pythonpaste.org/), and live in the "test" subdirectory.
 
 Running the tests is as easy as a single command: `nosetests`
 
+## Running
 
+To run directly from the commandline, type: `./stampede-dashboard`.
+This simply runs the main.py code.
+Then navigate to the [local web URL](http://0.0.0.0:8080/).
 
