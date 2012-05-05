@@ -47,9 +47,15 @@ These are included in the source code:
   - Help with some string formatting things.
 * [Highcharts](http://www.highcharts.com/) - Plotting library
 
-These must be downloaded:
+JQuery and JQUery-UI components must be downloaded.
+There is an auto-install script install-jquery.sh.
+Simply run it as:
 
-* [jQuery](http://docs.jquery.com/Downloading_jQuery
+        ./install-jquery.sh
+
+If this does not work, you'll have to download and install manually:
+
+* [jQuery](http://docs.jquery.com/Downloading_jQuery)
     JavaScript library for lots of things. You will need to do 
     a "save link as" on the latest current release.
     Then copy `jquery-*.*.*.min.js` to `static/js/jquery.min.js`
