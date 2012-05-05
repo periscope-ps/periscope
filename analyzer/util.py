@@ -9,6 +9,7 @@ import re
 # third-party includes
 import json
 import pystache
+from pystache import loader
 import web
 
 """
@@ -62,13 +63,32 @@ def returns_json(fn):
         return json_data
     return new
 
-class LocalView(pystache.View):
+class BaseLocalView:
     def __init__(self, **kw):
-        pystache.View.__init__(self, **kw)
         self._static = "/static/"
-    def js_path(self): return self._static + "js"
-    def img_path(self): return self._static + "img"
-    def css_path(self): return self._static + "css"
+
+if hasattr(pystache, 'View'):
+    class LocalView(pystache.View, BaseLocalView):
+        def __init__(self, **kw):
+            pystache.View.__init__(self, **kw)
+            BaseLocalView.__init__(self)
+        def js_path(self): return self._static + "js"
+        def img_path(self): return self._static + "img"
+        def css_path(self): return self._static + "css"
+else:
+    class LocalView(BaseLocalView):
+        def __init__(self, **kw):
+            BaseLocalView.__init__(self)
+            self._loader = None
+            self._context = kw
+            for ext in "js", "img", "css":
+                self._context[ext + "_path"] = self._static + ext
+        def render(self):
+            if self._loader is None:
+                self._loader = loader.Loader(search_dirs=[self.template_path])
+            tmpl = self._loader.load_name(self.template_name)
+            r = pystache.Renderer(search_dirs=[self.template_path])
+            return r.render(tmpl, self._context)
 
 class render(object):
     """Make pystache rendering imitate web.py native
@@ -92,10 +112,10 @@ class render(object):
                 try:
                     result = view.render()
                 except IOError, err:
-                    raise ValueError("Template {name:s} not found: {msg:s}".format(name=key, msg=err))
+                    raise ValueError("Template {name:s} not found: {msg:s}"
+                    .format(name=key, msg=err))
                 web.header('Content-Type', 'text/html')
                 return result
             return render_fn
         else:
             return self.__dict__[key]
-
