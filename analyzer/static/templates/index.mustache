@@ -25,6 +25,7 @@
                 <input type="button" id="refresh" value="REFRESH"></input>
 	    </div>
 	    <div style="clear:both;"></div>
+	  	<a id="terminology" href="#terminology_help">Terminology</a>
 	</div>
 	<div style="clear:both;"></div>
 	<div class="main">
@@ -49,7 +50,7 @@
 
 	    <!-- <div><a href="#" id="selectWorkflow">[?]</a></div> -->
 	    <div id="accordion_wf">
-		    <h3 id="accordion_wf_header"><a href="#" id="accordion_wf_title">Select a workflow <span id="selectWorkflow">[?]</span></a></h3>
+		    <h3 id="accordion_wf_header"><a href="#" id="accordion_wf_title">Select a workflow </a></h3>
 		<div id="summaryChartDiv">
 		    <div id="summaryChartEmpty">No workflow selected</div>
 	            <div id="summaryChartScroll0" class="barLegendScroll"></div>
@@ -95,5 +96,43 @@
 	<li>Sub-workflow: A workflow that is contained in another workflow.  Clicking on "Show sub-workflows" will bring up a view with job statistics for all the children of this workflow.  Checking "Include sub-workflow totals" will include statistics for this workflow and all its child sub-workflows.
 	</ul>
         </div>
+		<div style="display:none">
+			<style type="text/css"><!--
+			#terminology_help {
+			padding: 5px;
+			background-color: #f5f5f5;
+			color: #fff;
+			}
+			#terminology_help h2 {
+				color: #339;
+				font-size: 110%;
+			}
+			ul { margin-left: 0; padding: 0;}
+			ul li  { list-style-type: none; color: #33f;}
+			dl dt { color: black; font-weight: 900;}
+			dl dd { color: black;}
+			--></style>
+		<div id="terminology_help">
+			<h2>Terminology</h2>
+		<ul>
+		<li>Objects
+		<dl>
+		<dt>workflow</dt><dd>Container for an entire computation</dd>
+		<dt>sub-workflow</dt><dd>Workflow launched within a workflow</dd>
+		<dt>task</dt><dd>Representation of a computation</dd>
+		<dt>transform</dt><dd>The name the user gives to what is done by a given type of task</dd>
+		<dt>job</dt><dd>Unit of execution by the scheduler (e.g., Condor). May represent part of a task (e.g. a stage-in/out), one task or many tasks
+		</dl>
+		</li>
+		<li>Metrics
+			<dl>
+		<dt>failed</dt><dd>Completed with an error</dd>
+		<dt>incomplete</dt><dd>Started, but did not complete</dd>
+		<dt>successful</dt><dd>Completed with no errors</dd>
+		</dl>
+		</li>
+		</ul>
+		<a class="cbclose" href="#" onclick="$.colorbox.close()">Close</a>
+		</div></div>
     </body>
 </html>

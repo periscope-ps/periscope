@@ -75,13 +75,14 @@ if hasattr(pystache, 'View'):
         def js_path(self): return self._static + "js"
         def img_path(self): return self._static + "img"
         def css_path(self): return self._static + "css"
+        def html_path(self): return self._static + "html"
 else:
     class LocalView(BaseLocalView):
         def __init__(self, **kw):
             BaseLocalView.__init__(self)
             self._loader = None
             self._context = kw
-            for ext in "js", "img", "css":
+            for ext in "js", "img", "css", "html":
                 self._context[ext + "_path"] = self._static + ext
         def render(self):
             if self._loader is None:
