@@ -47,7 +47,10 @@ class StampedeDB:
             stats.set_job_filter('all')
             stats.initialize(row.wf_uuid)
             wf_states = stats.get_workflow_states()
-            t = time.ctime(wf_states[0].timestamp)
+            try:
+                t = time.ctime(wf_states[0].timestamp)
+            except IndexError:
+                t = time.ctime(time.time())
             parsed = time.strptime(t)
             dtime = time.strftime("%b %e, %Y", parsed)
             cell.append(dtime)
