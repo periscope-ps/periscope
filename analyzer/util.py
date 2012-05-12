@@ -7,6 +7,7 @@ __rcsid__ = "$Id: util.py 29859 2012-02-01 23:36:09Z dang $"
 import os
 import re
 # third-party includes
+import decimal
 import json
 import pystache
 from pystache import loader
@@ -16,6 +17,12 @@ import web
 Expected format for UUID is:
     77D2E619-41C5-42C6-8C55-2CF54EF30F04
 """
+class DBEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, decimal.Decimal):
+            return(str(float(obj)))
+        return json.JSONEncoder.default(self, obj)
+
 UUID_RE = re.compile(
     "{0}{{8}}-{0}{{4}}-{0}{{4}}-{0}{{4}}-{0}{{12}}"
     .format("[0-9A-Fa-f]"))
@@ -58,7 +65,7 @@ def returns_json(fn):
     """
     def new(self, *args, **kwarg):
         json_header()
-        json_data = json.dumps(fn(self, *args, **kwarg))
+        json_data = json.dumps(fn(self, *args, **kwarg), cls=DBEncoder)
         #print("RETURN: "+json_data) # debug
         return json_data
     return new

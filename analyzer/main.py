@@ -231,12 +231,19 @@ def main(test_only=False):
     parser.add_option("-t", "--test", action="store_true", dest="test_only")
     parser.add_option("-v", "--verbose", action="store_true", dest="vb")
     parser.add_option("-d", "--database", default=DB_URL, dest="dbname")
+    parser.add_option("--port", default=8080, type="int", dest="wport",
+                      metavar="PORT", help="Run web server on PORT (%default)")
+    parser.add_option("--host", default="0.0.0.0", dest="whost",
+                      metavar="ADDR", help="Run web server on host ADDR (%default)")
     (options, args) = parser.parse_args()
     print(options.dbname)
     sys.argv = sys.argv[:1] # reset for run()
     init_db(options.dbname, options.test_only)
     log = init_logging(debug=options.test_only or options.vb)
-    log.info("app.run.start")
+    sys.argv = [sys.argv[0],
+                "{h}:{p:d}".format(h=options.whost, p=options.wport)]
+    log.info("app.run.start host={h} port={p}"
+            .format(h=options.whost, p=options.wport))
     app.run()
     log.info("app.run.end")
 
