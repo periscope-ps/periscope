@@ -38,6 +38,13 @@ directories for these:
 
 * lib/pystache - pystache template tool
 
+
+## Example: Installing system-wide with on Ubuntu
+
+aptitude install python-mock python-nose python-paste sqlalchemy python-mysqldb
+easy_install netlogger==4.3.1
+easy_install pystache
+
 ## Javascript
 
 These are included in the source code:
@@ -79,5 +86,3 @@ Running the tests is as easy as a single command: `nosetests`
 
 To run directly from the commandline, type: `./stampede-dashboard`.
 This simply runs the main.py code.
-Then navigate to the [local web URL](http://0.0.0.0:8080/).
-
