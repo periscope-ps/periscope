@@ -2,7 +2,7 @@ catch {cd tcl/}
 source anue_tcl_library.tcl
 
 set loss [lindex $argv 0]
-set rloss [expr int($loss * 100000000)]
+set rloss [expr int(100/$loss)]
 
 est_com 149.165.150.100:2003:1
 puts "Setting packet loss on Blade #1 to $loss% (1 in $rloss)"
