@@ -1,0 +1,4382 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="./index.css" type="text/css" />
+<title>g:/Builds/Release/Hilo/v6.1/WORKING/xgemlib/tcldoc/index</title>
+<!-- Source: ./ -->
+<!-- Generated with ROBODoc Version 4.99.34 (Jun 24 2007) -->
+</head>
+<body>
+<div id="logo">
+<a name="robo_top_of_doc">XGEM Tcl Library Documentation</a>
+<div style="padding-right:18px; font-size: 70%;">version 3.2</div>
+</div> <!-- logo -->
+<h3>TABLE OF CONTENTS</h3>
+<ul>
+<li><a href="#robo0">xgem</a></li>
+<ul>
+<li><a href="#robo1">set_bound_chk</a></li>
+<li><a href="#robo2">set_default_verbose_mode</a></li>
+<li><a href="#robo3">set_default_conn</a></li>
+<li><a href="#robo4">set_default_line</a></li>
+<li><a href="#robo5">set_default_profile</a></li>
+<li><a href="#robo6">open_conn</a></li>
+<li><a href="#robo7">close_conn</a></li>
+<li><a href="#robo8">apply_profiles</a></li>
+<li><a href="#robo9">set_classifier</a></li>
+<li><a href="#robo10">set_classifier_equation</a></li>
+<li><a href="#robo11">get_profile_bandwidth_control</a></li>
+<li><a href="#robo12">set_profile_bandwidth_control</a></li>
+<li><a href="#robo13">get_profile_correct_incoming_crc</a></li>
+<li><a href="#robo14">set_profile_correct_incoming_crc</a></li>
+<li><a href="#robo15">get_profile_correct_fcoe_cksum</a></li>
+<li><a href="#robo16">set_profile_correct_fcoe_cksum</a></li>
+<li><a href="#robo17">get_profile_crc_corrupt</a></li>
+<li><a href="#robo18">set_profile_crc_corrupt</a></li>
+<li><a href="#robo19">get_profile_delay</a></li>
+<li><a href="#robo20">set_profile_delay</a></li>
+<li><a href="#robo21">get_profile_drop</a></li>
+<li><a href="#robo22">set_profile_drop</a></li>
+<li><a href="#robo23">get_profile_dup</a></li>
+<li><a href="#robo24">set_profile_dup</a></li>
+<li><a href="#robo25">get_profile_jumbo_dup</a></li>
+<li><a href="#robo26">set_profile_jumbo_dup</a></li>
+<li><a href="#robo27">get_profile_jitter</a></li>
+<li><a href="#robo28">set_profile_jitter</a></li>
+<li><a href="#robo29">get_profile_modify</a></li>
+<li><a href="#robo30">set_profile_modify</a></li>
+<li><a href="#robo31">get_profile_pkt_corrupt</a></li>
+<li><a href="#robo32">set_profile_pkt_corrupt</a></li>
+<li><a href="#robo33">get_profile_reorder</a></li>
+<li><a href="#robo34">set_profile_reorder</a></li>
+<li><a href="#robo35">get_profile_jumbo_reorder</a></li>
+<li><a href="#robo36">set_profile_jumbo_reorder</a></li>
+<li><a href="#robo37">get_profile_alarms</a></li>
+<li><a href="#robo38">reset_profile_alarms</a></li>
+<li><a href="#robo39">get_profile_stats</a></li>
+<li><a href="#robo40">reset_profile_stats</a></li>
+<li><a href="#robo41">get_line_bandwidth_control</a></li>
+<li><a href="#robo42">set_line_bandwidth_control</a></li>
+<li><a href="#robo43">get_line_ber</a></li>
+<li><a href="#robo44">set_line_ber</a></li>
+<li><a href="#robo45">get_line_minimum_ipg</a></li>
+<li><a href="#robo46">set_line_minimum_ipg</a></li>
+<li><a href="#robo47">get_line_repeater_emulation</a></li>
+<li><a href="#robo48">set_line_repeater_emulation</a></li>
+<li><a href="#robo49">get_line_alarms</a></li>
+<li><a href="#robo50">reset_line_alarms</a></li>
+<li><a href="#robo51">get_ipg_stats</a></li>
+<li><a href="#robo52">reset_ipg_stats</a></li>
+<li><a href="#robo53">get_line_stats</a></li>
+<li><a href="#robo54">reset_line_stats</a></li>
+<li><a href="#robo55">reset_alarms</a></li>
+<li><a href="#robo56">reset_stats</a></li>
+<li><a href="#robo57">reset_all_alarms</a></li>
+<li><a href="#robo58">reset_all_stats</a></li>
+<li><a href="#robo59">list_all_commands</a></li>
+<li><a href="#robo60">generate_tcl_script</a></li>
+<li><a href="#robo61">ERROR</a></li>
+<li><a href="#robo62">WARNING</a></li>
+</ul>
+</ul>
+<a name="robo0">
+<a name="anue2fxgem">
+<h1>xgem  </h1>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ Module ]</p>
+<p class="item_name">DESCRIPTION</p>
+<pre>   The anue::<strong>xgem</strong> package provides an interface for communicating with an Anue
+   XGEM box via Tcl.  This file outlines how to use this package.
+</pre>
+<p class="item_name">USAGE</p>
+<pre>   To communicate with an XGEM box, you must follow four basic steps:
+      1) Correctly import the XGEM package
+      2) Connect to an Anue XGEM box
+      3) Run desired commands
+      4) Disconnect from the Anue XGEM box
+
+   Each step is briefly outlined here.  A full example is given in the EXAMPLE
+   section below.  The remainder of this document focuses on the details of
+   each available method.
+   
+   1) Correctly import the XGEM package:
+         Assuming you have correctly installed the Anue Tcl Library (see NOTES
+         below), import the anue::<strong>xgem</strong> package using the 'package require'
+         command:
+            % package require anue::<strong>xgem</strong>
+         If successful, the version of the Anue Tcl Library will be returned.
+         
+         Next, it is convenient to import the XGEM namespace:
+            % namespace import ::anue::<strong>xgem</strong>::*
+         This allows for easy access to the <strong>xgem</strong> commands with minimal typing.
+
+   2) Connect to an Anue XGEM box:
+         Connecting to an XGEM box returns a connection reference that is used
+         to communicate with the XGEM box for the remainder of the script.
+         You may create as many connection references as you want, however
+         only one reference is needed for communication.
+         When connecting, you must specify the connection's access privileges.
+         Only one client is allowed to connect with read-write privileges.  At
+         this time, connecting with read-only privileges is not supported.
+
+         To create a connection reference and connect to an XGEM box:
+            % set my_conn [<a href="#robo6">open_conn</a> -ip 192.168.40.99 -name "xgem1" -access rw]
+         The name parameter (xgem1 in this example) is a friendly name used in
+         various output texts to refer to the connection.
+
+   3) Run desired commands
+         Nearly all commands require a connection reference to be passed via
+         the -conn command parameter:
+            % <a href="#robo20">set_profile_delay</a> -conn $my_conn -line 1 -p 1 -delay 100
+
+         If your Tcl script deals with only one connection, you may set a
+         default connection used by all commands using:
+            % <a href="#robo3">set_default_conn</a> -conn $my_conn
+         After issuing this command, you may omit the -conn parameter from
+         future commands.  Thus, the <a href="#robo20">set_profile_delay</a> command above becomes:
+            % <a href="#robo20">set_profile_delay</a> -line 1 -p 1 -delay 100
+
+         Similar commands exist for default lines and profiles: see
+         <a href="#robo5">set_default_profile</a> and <a href="#robo4">set_default_line</a>.
+
+         All commands support the -help parameter.  Passing -help will print
+         the same information contained in this file for a specific command.
+
+   4) Disconnect from the Anue XGEM box:
+         To disconnect from the XGEM box before your script ends, simply call:
+            % <a href="#robo7">close_conn</a> -conn $my_conn
+</pre>
+<p class="item_name">NOTES</p>
+<pre>   The Anue Tcl Library must be installed from the Anue installation CD.
+   Ensure the CD installation has completed successfully before trying to
+   connect to an Anue box.
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>   % package require anue::<strong>xgem</strong>
+   Anue Systems Inc. XGEM Version 3.2 (build 42295)
+   3.2
+   % namespace import ::anue::<strong>xgem</strong>::*
+   % set my_conn [<a href="#robo6">open_conn</a> -ip 192.168.1.71 -name "xgem1" -access rw]
+   % <a href="#robo3">set_default_conn</a> -conn $my_conn
+   % <a href="#robo20">set_profile_delay</a> -line 1 -p 1 -delay 100 -unit ms
+   % <a href="#robo7">close_conn</a>
+</pre>
+<a name="robo1">
+<a name="xgem2fset5fbound5fchk">
+<h2>set_bound_chk  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ General ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Set bound check error severity to a INFO or <a href="#robo62">WARNING</a> or <a href="#robo61">ERROR</a>.  The default
+  severity is <a href="#robo61">ERROR</a>.
+  ERRORs halt the excecution of a Tcl script.  If a command is called with an
+  invalid value for a parameter (e.g. a delay that is greater than the maximum
+  allowed delay), the script will stop.  If the bound check severity is set to
+  <a href="#robo62">WARNING</a> or INFO, an invalid value will be automatically coerced to the
+  nearest valid value and the script will continue to run.  An INFO or <a href="#robo62">WARNING</a>
+  message will be displayed if a value is coerced.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>   <strong>set_bound_chk</strong> [-v|q] -severity &lt;INFO|<a href="#robo62">WARNING</a>|<a href="#robo61">ERROR</a>&gt;
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+   -severity
+     Sets the level of error to INFO|<a href="#robo62">WARNING</a>|<a href="#robo61">ERROR</a>
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>   None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>   [INFO] Setting bound check errors to  INFO|<a href="#robo62">WARNING</a>|<a href="#robo61">ERROR</a>
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>   % <strong>set_bound_chk</strong>  -severity INFO ; # convert bound checks to INFO
+   % ... some commands ...
+   % <strong>set_bound_chk</strong>  -severity <a href="#robo61">ERROR</a> ; # revert back to bound check as <a href="#robo61">ERROR</a>
+</pre>
+<a name="robo2">
+<a name="xgem2fset5fdefault5fverbose5fmode">
+<h2>set_default_verbose_mode  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ General ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>   Sets wether or not INFO messages are printed. The [-v|q] setting on each
+   individual command supersedes the global setting.  The default global
+   setting is on.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>   <strong>set_default_verbose_mode</strong> [-v|q] -on|off
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+   -on|off
+     Enable/Disable INFO message display from script execution
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>   None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>   [INFO] Setting default VERBOSE mode to [ON/OFF]
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>   % <strong>set_default_verbose_mode</strong> -on ; # verbose message turned on
+</pre>
+<a name="robo3">
+<a name="xgem2fset5fdefault5fconn">
+<h2>set_default_conn  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ General ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the default connection reference, so that -conn option is not required
+  by each individual command 
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>   <strong>set_default_conn</strong> [-v|q] -conn &lt;connection_reference&gt;
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+   -conn
+     Sets the reference to the connection
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>   None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>   [INFO] Setting default connection reference to &lt;connection alias&gt;  
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>   # specify the default connection reference
+   % <strong>set_default_conn</strong>  -conn $my_conn
+</pre>
+<a name="robo4">
+<a name="xgem2fset5fdefault5fline">
+<h2>set_default_line  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ General ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the default line, so that -line option is not required by each
+  individual command 
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>   <strong>set_default_line</strong> [-v|q] -line &lt;line_number&gt;
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>   None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>   [INFO] Setting default line to &lt;line_number&gt;  
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>   % <strong>set_default_line</strong>  -line 1 ; # specify the default line = 1
+</pre>
+<a name="robo5">
+<a name="xgem2fset5fdefault5fprofile">
+<h2>set_default_profile  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ General ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the default profile, so that -p option is not required by each
+  individual command 
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>   <strong>set_default_profile</strong> [-v|q] -p &lt;profile_number&gt;
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+   -p
+     Sets the default profile for commands
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>   None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>   [INFO] Setting default profile to &lt;profile_number&gt;  
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>   % <strong>set_default_profile</strong>  -p 3 ; # specify the default profile = 3
+</pre>
+<a name="robo6">
+<a name="xgem2fopen5fconn">
+<h2>open_conn  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ General ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>   Creates a connection to a chassis and returns a connection reference.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>   <strong>open_conn</strong> [-v|q] [-nowarn_reconnect] -ip &lt;ip_address&gt; [-name &lt;alias_name&gt;]
+             [-access &lt;ro|rw&gt;]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+   -nowarn_reconnect
+     Suppresses socket warning if socket reconnects due to inactivity. Default
+     is warning enabled on reconnect.
+   -ip
+     The XGEM box's IP address
+   -name    
+     The alias name to be displayed in messages and warnings in commands. If
+     not specified it is assumed to be the same as IP address.
+   -access
+     (ro|rw) Specifies whether the connection is read only or a read/write
+     connection. A read only connection can not change settings on the device
+     but can read the configuration and stats.  Defaults to rw.
+     Currently "ro" connections behave as "rw" because "ro" is not implemented.
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>   connection_ref 
+     Reference to the connection that is created for communicating with the
+     chassis
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>   [INFO] Connected to &lt;ip_address&gt; (&lt;alias_name&gt;)  with access &lt;access_type&gt;
+   ** The alias name is shown only if it has been specified.
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, SOCK_ERR, WRONG_FW_ERR, PROTOCOL_ERR, CMD_AUTH_ERR
+ TOO_MANY_CONN_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>   % package require anue::<a href="#robo0">xgem</a>
+   % set my_chassis [<strong>open_conn</strong> -ip 192.168.40.99  -name "ANUE1" 
+     -access rw]
+</pre>
+<a name="robo7">
+<a name="xgem2fclose5fconn">
+<h2>close_conn  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ General ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>   Disconnects from the Anue box.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>   <strong>close_conn</strong> [-v|q] [-conn &lt;connection_ref&gt;]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+   -conn
+     Specifies the connection reference that needs to be disconnected
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>   None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>   [INFO] Disconnected from &lt;ip_address&gt; (&lt;alias_name&gt;)
+   ** alias_name is shown only if specified with <a href="#robo6">open_conn</a>
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None 
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>   % set my_chassis [<a href="#robo6">open_conn</a> -ip 192.168.40.99]
+   % ... (some commands)
+   % <strong>close_conn</strong> -conn $my_chassis
+</pre>
+<a name="robo8">
+<a name="xgem2fapply5fprofiles">
+<h2>apply_profiles  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Applies all the pending changes to classifier and profile settings.  If 
+  changes exist for both the classifier and profile settings, all classifier
+  settings will be applied on all profiles followed by all profile settings.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>apply_profiles</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -nowarn
+     Suppress warnings for this command (overrides defaults)
+  -conn
+     Object reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>apply_profiles</strong> on &lt;alias_name&gt; line &lt;line&gt;:
+         classifier profiles: &lt;list of profiles&gt;
+         impairment profiles: &lt;list of profiles&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  CLASSIFIER_WARNING, PROFILE_NOCHANGES_WARNING (Refer to <a href="#robo62">WARNING</a>)
+</pre>
+<p class="item_name">ERRORS</p>
+<pre>  CLASSIFIER_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>apply_profiles</strong> -conn $my_conn -line 1 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<a name="robo9">
+<a name="xgem2fset5fclassifier">
+<h2>set_classifier  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Enables, disables and sets options for the classifier for a specific profile.
+  Classifier equations are modified with <a href="#robo10">set_classifier_equation</a>.
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+  NOTE: Any changes to the classifier set through <strong>set_classifier</strong> or 
+  <a href="#robo10">set_classifier_equation</a> are added to the current classifier configuration on
+  the XGEM box.  To clear the configuration on the XGEM box, pass the -clear
+  parameter to the <a href="#robo10">set_classifier_equation</a> command.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_classifier</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                 [-line &lt;line&gt;] [-p &lt;profile&gt;]
+                 -enable &lt;true|false&gt; [-check_ip_version &lt;true|false&gt;]
+                 [-name &lt;profile name&gt;]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, indexed from 1
+     NOTE: The default profile is profile #0, however the classifier cannot be
+     configured for profile 0.
+  -enable
+     (true|false) Enable the particular profile
+  -check_ip_version
+     (true|false) When true, the IP version number is checked
+  -name
+     (string) A name used to describe this profile
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_classifier</strong> on &lt;alias_name&gt; line &lt;line&gt; and profile &lt;profile&gt; to:
+              enable           = &lt;true|false&gt;
+              check_ip_version = &lt;true|false&gt;
+              name             = &lt;profile name&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre>  ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_classifier</strong> -conn $my_conn -line 1 -p 1 -enable true -name "IP Traffic"
+  % <a href="#robo10">set_classifier_equation</a> -conn $my_conn -line 1 -p 1 -clear
+  % <a href="#robo10">set_classifier_equation</a> -conn $my_conn -line 1 -p 1
+                            -protocol Ipv4
+                            -field Src_Addr
+                            -field_value 128...
+  % <a href="#robo10">set_classifier_equation</a> -conn $my_conn -line 1 -p 1
+                            -append
+                            -protocol Vlan
+                            -field Vlan_Id
+                            -field_value 0x7F
+  % <a href="#robo10">set_classifier_equation</a> -conn $my_conn -line 1 -p 1
+                            -append
+                            -protocol Custom_8
+                            -field 0
+                            -offset 24
+                            -field_value 0x55
+                            -field_mask 0xFF
+  % <a href="#robo8">apply_profiles</a> -line 1
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  set_classifier_term, <a href="#robo8">apply_profiles</a>
+</pre>
+<a name="robo10">
+<a name="xgem2fset5fclassifier5fequation">
+<h2>set_classifier_equation  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Adds an element to a classifier term for a given profile.  The element
+  replaces any existing elements for a term unless the -append parameter is
+  passed.  If -append is passed the element is ANDed together with any existing
+  elements for a term.  There is currently no support for ORing terms.
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+  NOTE: Any changes to the classifier set through <a href="#robo9">set_classifier</a> or 
+  <strong>set_classifier_equation</strong> are added to the current classifier configuration on
+  the XGEM box.  To clear the configuration on the XGEM box, pass the -clear
+  parameter to the <strong>set_classifier_equation</strong> command.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_classifier_equation</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                          [-line &lt;line&gt;] [-p &lt;profile&gt;]
+                          -clear
+  <strong>set_classifier_equation</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                          [-line &lt;line&gt;] [-p &lt;profile&gt;]
+                          [-append]
+                          -protocol &lt;predefined protocol&gt;
+                          -field &lt;field name&gt;
+                          -field_value &lt;field value&gt;
+  <strong>set_classifier_equation</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                          [-line &lt;line&gt;] [-p &lt;profile&gt;]
+                          [-append]
+                          -protocol &lt;Custom_8|Custom_32&gt;
+                          -field &lt;0-7&gt;
+                          -offset &lt;offset&gt;
+                          -field_value &lt;field value&gt;
+                          -field_mask &lt;field mask&gt;
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, indexed from 1
+     NOTE: The default profile is profile #0, however the classifier cannot be
+     configured for profile 0.
+  -clear
+    Clears all terms from the classifier equation for this profile
+  -append
+    Appends an element to existing elements for a term.  When this parameter is
+    passed, the element is ANDed together with any existing elements for the
+    the term.  If this parameter is omitted, this element replaces any existing
+    elements in the term.
+  -protocol
+    (Custom_8|Custom_32|&lt;Predefined Protocol&gt;) Defines the protocol associated
+    with this term.  See the field parameter for a list of predefined
+    protocols.
+  -field
+    (0-7)|&lt;Predefined Field&gt;) Defines the field this term matches against.  If
+    protocol is Custom_8 or Custom_32, this value should be a number, 0-7,
+    that identifies the custom field to add.  Otherwise, acceptable predefined
+    field names depend on the protocol parameter:
+      Protocol    Field                      Field
+      Parameter   Parameter                  Value/Type
+      ------------------------------------------------------------------------
+      Mac         Dest_Addr, Src_Addr            xx:xx:xx:xx:xx:xx
+                  Len_Type                       Integer
+      Second_Tag  Tpid, Vlan_Id, User_Priority   Integer
+      First_Tag   Tpid, Vlan_Id, User_Priority   Integer
+      Mpls_1      Label                          Integer
+      Mpls_2      Label                          Integer
+      Ipv4        Src_Addr, Dest_Addr            ***.***.***.***[/**]
+                  DiffServTOS                    Integer
+      Ipv6        Src_Addr, Dest_Addr            8 hexadecimal 16-bit words
+                                                 seperated by colons
+      Ip          Protocol                       Integer
+      Tcp         Src_Port, Dest_Port            Integer
+  -field_value
+    When protocol is Custom_8 or Custom_32, field value is a 8-bit or 32-bit
+    number to match.
+    When protocol is one of the predefined protocols described above, see the
+    field value/type column above for acceptable values.
+    Integer values can be entered in decimal or hexadecimal.  To enter a
+    number in hexadecimal, add a '0x' prefix.  String field values indicated
+    above with an asterik (*) are specified in decimal, while values indicated
+    above with an (x) are specified in hexadecimal (without the '0x' prefix).
+    In values requiring separators (Mac address, IP address, etc.), numbers
+    between separators can be left blank to not set that byte.
+  -field_mask
+    Only applies to Custom_8 and Custon_32 protocols.  Bit mask specifying the
+    bits that should be masked when checking the value against a packet.  A
+    value of '0' means that the bit is not compared and '1' means the value is
+    checked.  The mask can be specified in hex using the '0x' prefix, or
+    decimal.
+  -offset
+    Only applies to Custom_8 and Custom_32 protocols.  An offset from the
+    start of the ethernet frame specified in decimal (note, there is a fixed
+    offset for specifying the start of the IP layer)
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_classifier_equation</strong> on &lt;alias_name&gt; line &lt;line&gt; and 
+         profile &lt;profile&gt; to:
+  [INFO]      append       = &lt;true|false&gt;
+  [INFO]      protocol     = &lt;protocol&gt;
+  [INFO]      field        = &lt;field_name&gt;
+  [INFO]      field_value  = &lt;field_value&gt;
+  [INFO]      field_mask   = &lt;field_mask&gt;
+                   (** Printed if protocol = &lt;Custom_8|Custom_32&gt;)
+  [INFO]      offset       = &lt;offset&gt;
+                   (** Printed if protocol = &lt;Custom_8|Custom_32&gt;)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre>  ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <a href="#robo9">set_classifier</a> -conn $my_conn -line 1 -p 1 -enable true
+  % <strong>set_classifier_equation</strong> -conn $my_conn -line 1 -p 1 -clear
+  % <strong>set_classifier_equation</strong> -conn $my_conn -line 1 -p 1
+                            -protocol Ipv4
+                            -field Src_Addr
+                            -field_value 128...
+  % <strong>set_classifier_equation</strong> -conn $my_conn -line 1 -p 1
+                            -append
+                            -protocol Vlan
+                            -field Vlan_Id
+                            -field_value 0x7F
+  % <strong>set_classifier_equation</strong> -conn $my_conn -line 1 -p 1
+                            -append
+                            -protocol Custom_8
+                            -field 0
+                            -offset 24
+                            -field_value 0x55
+                            -field_mask 0xFF
+  % <a href="#robo8">apply_profiles</a> -line 1
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo9">set_classifier</a>, <a href="#robo8">apply_profiles</a>
+</pre>
+<a name="robo11">
+<a name="xgem2fget5fprofile5fbandwidth5fcontrol">
+<h2>get_profile_bandwidth_control  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the Profile Bandwidth parameters. 
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_bandwidth_control</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of line bandwidth control parameters.  To index an
+  individual parameter, use the predefined tags below.
+
+  Element Name             Returned Value    Definition
+  ENABLE_POLICER           true|false        policer enabled
+  POLICER_BURST_CMTD       Integer           burst tolerance committed (bytes)
+  POLICER_RATE_CMTD        Integer           policer rate (kbps)
+  POLICER_BURST_EXCESS     Integer           burst tolerance excess (bytes)
+  POLICER_RATE_EXCESS      Integer           policer rate excess (kbps)
+  POLICER_RATE_COUPLED     true|false        policer rate coupled
+  ENABLE_SHAPER            true|false        shaper enabled
+  SHAPER_BURST             Integer           shaper burst tolerance (bytes)
+  SHAPER_RATE              Integer           shaper rate (kbps)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_bandwidth_control</strong> on &lt;alias_name&gt; line &lt;line&gt;
+         and profile &lt;profile&gt; has following parameters:
+  [INFO]      enable_profile_policer   = &lt;true|false&gt;
+  [INFO]        policer_burst_cmtd     = &lt;committed burst tolerance in bytes&gt;
+                      (** Printed if enable_policer = true)
+  [INFO]        policer_rate_cmtd      = &lt;committed policer_rate in kbps&gt;
+                      (** Printed if enable_policer = true)
+  [INFO]        policer_burst_excess   = &lt;excess burst tolerance in bytes&gt;
+                      (** Printed if enable_policer = true)
+  [INFO]        policer_rate_excess    = &lt;excess policer_rate in kbps&gt;
+                      (** Printed if enable_policer = true)
+  [INFO]        policer_rate_coupled   = &lt;true|false&gt;
+                      (** Printed if enable_policer = true)
+  [INFO]      enable_shaper  = &lt;true|false&gt;
+  [INFO]        shaper_burst           = &lt;tolerance in bytes&gt;
+                      (** Printed if enable_shaper = true)
+  [INFO]        shaper_rate    = &lt;shaper_rate in kbps&gt;
+                      (** Printed if enable_shaper = true)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % set retval [<strong>get_profile_bandwidth_control</strong> -conn $my_conn -line 1 -p 1]
+  % set policer_enabled $retval(ENABLE_POLICER)
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo12">set_profile_bandwidth_control</a>
+</pre>
+<a name="robo12">
+<a name="xgem2fset5fprofile5fbandwidth5fcontrol">
+<h2>set_profile_bandwidth_control  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the Profile Bandwidth parameters. If policer/shaper is turned off, its
+  respective parameters are not required to complete the command. If the
+  policer/shaper is on, then all the required parameters for that section must
+  be completely specified, e.g. if policer is turned on, then burst tolerance,
+  policer_rate (committed,excess,coupling) must be specified. 
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_profile_bandwidth_control</strong> [-v|q] [-nowarn]
+                  [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] [-p &lt;profile&gt;]
+                  -enable_policer true 
+                  -policer_burst_cmtd &lt;committed burst tolerance in bytes&gt;
+                  -policer_rate_cmtd &lt;committed rate kbps&gt;
+                  -policer_burst_excess &lt;excess burst tolerance in bytes&gt;
+                  -policer_rate_excess &lt;excess rate kbps&gt;
+                  -policer_rate_coupled true|false
+                  -enable_shaper true
+                  -shaper_burst &lt;burst tolerance bytes&gt;
+                  -shaper_rate &lt;shaper rate kbps&gt;
+  <strong>set_profile_bandwidth_control</strong> [-v|q] [-nowarn]
+                  [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] [-p &lt;profile&gt;]
+                  -enable_policer true 
+                  -policer_burst_cmtd &lt;committed burst tolerance in bytes&gt;
+                  -policer_rate_cmtd &lt;committed rate kbps&gt;
+                  -policer_burst_excess &lt;excess burst tolerance in bytes&gt;
+                  -policer_rate_excess &lt;excess rate kbps&gt;
+                  -policer_rate_coupled true|false
+                  -enable_shaper false 
+  <strong>set_profile_bandwidth_control</strong> [-v|q] [-nowarn]
+                  [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] [-p &lt;profile&gt;]
+                  -enable_policer false 
+                  -enable_shaper true
+                  -shaper_burst &lt;burst tolerance bytes&gt;
+                  -shaper_rate &lt;shaper rate kbps&gt;
+  <strong>set_profile_bandwidth_control</strong> [-v|q] [-nowarn]
+                  [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] [-p &lt;profile&gt;]
+                  -enable_policer false 
+                  -enable_shaper false 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -nowarn
+     Suppress warnings for this command (overrides defaults)
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -enable_policer
+     (true|false) Enable the profile policer
+  -policer_burst_cmtd
+     (Integer) Burst tolerance threshold in bytes above which packets are
+     considered non compliant. Packets are considered yellow if excess policer
+     rate has enough credits, else it is considered red. Red packets are 
+     dropped. (** Required if enable_policer = true)
+  -policer_rate_cmtd
+     (Integer) Committed Policer Rate in kbps
+     (** Required if enable_policer = true)
+  -policer_burst_excess
+     (Integer) Excess Burst tolerance threshold in bytes above which packets
+     are considered non compliant. (** Required if enable_policer = true)
+  -policer_rate_excess
+     (Integer) Excess Policer Rate in kbps
+     (** Required if enable_policer = true)
+  -policer_rate_coupled
+     (true|false) If true, the excess credits from committed token bucket are
+     added to the excess token bucket, when the committed bucket gets full. If
+     this flag is false, any committed credits are lost when committed bucket
+     is full. (** Required if enable_policer = true)
+  -enable_shaper
+     (true|false) Enable profile shaper 
+  -shaper_burst
+     (Integer) Burst tolerance in bytes. (** Required if enable_shaper = true)
+  -shaper_rate
+     (Integer) Shaper Rate in kbps (** Required if enable_shaper = true)
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_profile_bandwidth_control</strong> on &lt;alias_name&gt; line &lt;line&gt;
+         and profile &lt;profile&gt; to:
+  [INFO]      enable_profile_policer   = &lt;true|false&gt;
+  [INFO]        policer_burst_cmtd     = &lt;committed burst tolerance in bytes&gt;
+                      (** Printed if enable_policer = true)
+  [INFO]        policer_rate_cmtd      = &lt;committed policer_rate in kbps&gt;
+                      (** Printed if enable_policer = true)
+  [INFO]        policer_burst_excess   = &lt;excess burst tolerance in bytes&gt;
+                      (** Printed if enable_policer = true)
+  [INFO]        policer_rate_excess    = &lt;excess policer_rate in kbps&gt;
+                      (** Printed if enable_policer = true)
+  [INFO]        policer_rate_coupled   = &lt;true|false&gt;
+                      (** Printed if enable_policer = true)
+  [INFO]      enable_shaper  = &lt;true|false&gt;
+  [INFO]        shaper_burst           = &lt;tolerance in bytes&gt;
+                      (** Printed if enable_shaper = true)
+  [INFO]        shaper_rate            = &lt;shaper_rate in kbps&gt;
+                      (** Printed if enable_shaper = true)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  PROFILE_THROTTLE_WARNING (Refer to <a href="#robo62">WARNING</a>)
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a> )
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_profile_bandwidth_control</strong>  -line 1 -conn $my_conn -p 0
+                         -enable_policer true -policer_burst_cmtd 10000 
+                         -policer_rate_cmtd 100000 
+                         -policer_burst_excess 10000 -policer_rate_excess 50
+                         -enable_shaper true -shaper_burst 0 
+                         -shaper_rate 101000
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo11">get_profile_bandwidth_control</a>
+</pre>
+<a name="robo13">
+<a name="xgem2fget5fprofile5fcorrect5fincoming5fcrc">
+<h2>get_profile_correct_incoming_crc  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the incoming crc correction for a given profile
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_correct_incoming_crc</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of profile incoming crc correction parameters. To index an
+  individual parameter, use the predefined tags below.
+
+  Element Name      Returned Value       Definition
+  ENABLED           true|false           Whether or not profile incoming crc
+                                         correct is enabled
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_correct_incoming_crc</strong> on &lt;alias_name&gt; line &lt;line&gt; and
+         profile &lt;profile&gt; has following parameters :
+  [INFO]      enable = &lt;true|false&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array set retval [<strong>get_profile_correct_incoming_crc</strong> -conn $my_conn -line 1 -p 0]
+  % set enabled $retval[ENABLED]
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo14">set_profile_correct_incoming_crc</a>
+</pre>
+<a name="robo14">
+<a name="xgem2fset5fprofile5fcorrect5fincoming5fcrc">
+<h2>set_profile_correct_incoming_crc  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the crc correction on the profile before the impairments are applied.
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_profile_correct_incoming_crc</strong> [-v|q] [-conn &lt;connection_reference&gt;] 
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true|false 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -enable
+     (true|false) Enables or disables correcting invalid CRCs on incoming
+     packets
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_profile_correct_incoming_crc</strong> on &lt;alias_name&gt; line &lt;line&gt; and 
+         profile &lt;profile&gt; to:
+  [INFO]      enable = &lt;true|false&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a> )
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_profile_correct_incoming_crc</strong> -conn $my_conn -line 1 -p 0 
+                  -enable true 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo13">get_profile_correct_incoming_crc</a>, <a href="#robo8">apply_profiles</a>
+</pre>
+<a name="robo15">
+<a name="xgem2fget5fprofile5fcorrect5ffcoe5fcksum">
+<h2>get_profile_correct_fcoe_cksum  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the FCoE cksum correction for a given profile
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_correct_fcoe_cksum</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of profile FCoE cksum correction parameters. To index an
+  individual parameter, use the predefined tags below.
+
+  Element Name      Returned Value       Definition
+  ENABLED           true|false           Whether or not profile FCoE cksum
+                                         correct is enabled
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_correct_fcoe_cksum</strong> on &lt;alias_name&gt; line &lt;line&gt; and
+         profile &lt;profile&gt; has following parameters :
+  [INFO]      enable = &lt;true|false&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array set retval [<strong>get_profile_correct_fcoe_cksum</strong> -conn $my_conn -line 1 -p 0]
+  % set enabled $retval[ENABLED]
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo16">set_profile_correct_fcoe_cksum</a>
+</pre>
+<a name="robo16">
+<a name="xgem2fset5fprofile5fcorrect5ffcoe5fcksum">
+<h2>set_profile_correct_fcoe_cksum  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the crc correction on the profile before the impairments are applied.
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_profile_correct_fcoe_cksum</strong> [-v|q] [-conn &lt;connection_reference&gt;] 
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true|false 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -enable
+     (true|false) Enables or disables correcting invalid FCoE checksums
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_profile_correct_fcoe_cksum</strong> on &lt;alias_name&gt; line &lt;line&gt; and 
+         profile &lt;profile&gt; to:
+  [INFO]      enable = &lt;true|false&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a> )
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_profile_correct_fcoe_cksum</strong> -conn $my_conn -line 1 -p 0 
+                  -enable true 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo15">get_profile_correct_fcoe_cksum</a>, <a href="#robo8">apply_profiles</a>
+</pre>
+<a name="robo17">
+<a name="xgem2fget5fprofile5fcrc5fcorrupt">
+<h2>get_profile_crc_corrupt  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the outgoing crc corruption parameters for a profile
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_crc_corrupt</strong> [-v|q] [-conn &lt;connection_reference&gt;] 
+                     [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of crc corruption parameters. To index an individual
+  parameter, use the predefined tags below.
+
+  Element Name      Returned Value       Definition
+  ENABLED           true|false           Whether or not profile crc corruption
+                                         is enabled
+  DISTRIBUTION      uniform|periodic     Crc corruption distribution
+                    |gaussian|poisson
+  SELECT_CNT        Integer              Crc corruption selection count (if
+                                         distribution is periodic)
+  INTERVAL          Integer              Crc corruption interval count (if
+                                         distribution is periodic)
+  PROBABILITY       Float                Crc corruption probability (if
+                                         distribution is uniform)
+                                         distribution is uniform)
+  BURST_DURATION    Integer              Distribution repeat count
+  STD_DEVIATION     Float                Distribution percentage of mean time
+                                         between errors (if distribution
+                                         is gaussian)
+  (see examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_crc_corrupt</strong> on &lt;alias_name&gt; line &lt;line&gt; and 
+         profile &lt;profile&gt; has following parameters:
+  [INFO]      enable          = &lt;true|false&gt;
+  [INFO]      distribution    = &lt;periodic|poisson|gaussian|uniform&gt;
+                  (** Printed if enable = true)
+  [INFO]      select_cnt      = &lt;select cnt&gt;  
+                  (** Printed if enable = true and distribution is periodic)
+  [INFO]      select_duration = &lt;select duration&gt; 
+                  (** Printed if enable = true and distribution is periodic)
+  [INFO]      probability     = &lt;probability&gt;                
+                  (** Printed if enable = true and distribution is uniform)
+  [INFO]      burst_duration = &lt;select repeat count&gt;
+                  (** Printed if enabled = true
+  [INFO]      std_deviation = &lt;% stdev&gt;
+                  (** Printed if enabled = true and distribution is gaussian)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array set retval [<strong>get_profile_crc_corrupt</strong> -conn $my_conn -line 1 -p 0]
+  % set enabled $retval[ENABLED]
+  % set dist $retval[DISTRIBUTION]
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo18">set_profile_crc_corrupt</a>
+</pre>
+<a name="robo18">
+<a name="xgem2fset5fprofile5fcrc5fcorrupt">
+<h2>set_profile_crc_corrupt  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the outgoing crc corruption for the given profile
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_profile_crc_corrupt</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                     [-line &lt;line&gt;] [-p &lt;profile&gt;]
+                     -enable true -select_cnt &lt;select cnt&gt;
+                     -interval &lt;interval&gt; -distribution {periodic | poisson}
+                     -burst_duration &lt;repeat-count&gt;
+  <strong>set_profile_crc_corrupt</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                     [-line &lt;line&gt;] [-p &lt;profile&gt;]
+                     -enable true -prob &lt;probability&gt;
+                     -distribution uniform
+                     -burst_duration &lt;repeat-count&gt;
+  <strong>set_profile_crc_corrupt</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                     [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                     -enable true -select_cnt &lt;select cnt&gt; 
+                     -interval &lt;interval&gt; -distribution gaussian
+                     -burst_duration &lt;repeat-count&gt; -std_deviation &lt;stdev %&gt;
+  <strong>set_profile_crc_corrupt</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                     [-p &lt;profile&gt;]
+                     -enable false
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -enable
+     (true|false) Enable or Disable packet impairment
+  -distribution
+     (string) periodic/uniform distribution
+  -select_cnt
+     (Integer) Number of frames selcted for impairment in interval.
+     Required if enable = true and distribution is periodic.
+  -interval
+     (Integer) Interval size in frames. Required if enable = true and
+     distribution is periodic.
+  -prob
+     (Float) A floating point value &lt;=1 representing probability of error.
+     Required if enable = true and distribution is uniform.
+  -burst_duration
+     (Integer) 1-65535. Number of times to repeat, 65535 means repeat forever.
+  -std_deviation
+     (FLoat) Valid only for gaussian distributions this is a floating point value
+     (0.0 &lt; value &lt;= 100.0). This is the percentage of the mean time between errors.
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_profile_crc_corrupt</strong> on &lt;alias_name&gt; line &lt;line&gt; and
+         profile &lt;profile&gt; to:
+  [INFO]      enable          = &lt;true|false&gt;
+  [INFO]      distribution    = &lt;periodic|uniform&gt; (** Printed if enable = true)
+  [INFO]      select_cnt      = &lt;select cnt&gt;           
+                  (** Printed if enable = true and distribution is periodic)
+  [INFO]      interval        = &lt;select duration&gt; 
+                  (** Printed if enable = true and distribution is periodic)
+  [INFO]      prob = &lt;probability&gt;                
+                  (** Printed if enable = true and distribution is uniform)
+  [INFO]      burst_duration = &lt;select repeat count&gt; (** Printed if enabled = true
+  [INFO]      std_deviation = &lt;% stdev&gt;           (**Printed if enabled = true
+  and distribution is gaussian)
+  [INFO]      distribution = &lt;periodic|poisson|gaussian|uniform&gt;   (** Printed if enable = true)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a> )
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_profile_crc_corrupt</strong> -conn $my_conn -line 1 -p 0 
+                   -enable true -select_cnt 5 -interval 10 -distribution periodic
+                   -burst_duration 100
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo17">get_profile_crc_corrupt</a>, <a href="#robo8">apply_profiles</a>
+</pre>
+<a name="robo19">
+<a name="xgem2fget5fprofile5fdelay">
+<h2>get_profile_delay  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the delay for a given profile from the specified connection.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_delay</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+                    [-p &lt;profile&gt;] [-unit &lt;unit&gt;]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -unit
+     (String) Units can be specified as [ns,us,ms,m,km,bits,bytes]. Default is
+     ms. 
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  (Float) delay_val (in unit specified) 
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_delay</strong> on &lt;alias_name&gt; line &lt;line&gt; profile &lt;profile&gt; 
+            is &lt;value&gt; &lt;unit&gt; 
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % set delay_in_km [<strong>get_profile_delay</strong> -conn $my_conn -line 1 -p 0 -u km]
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo20">set_profile_delay</a>
+</pre>
+<a name="robo20">
+<a name="xgem2fset5fprofile5fdelay">
+<h2>set_profile_delay  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the delay for a given profile
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_profile_delay</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+             [-p &lt;profile&gt;] -delay &lt;delay&gt; [-unit &lt;unit&gt;]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Object reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -delay 
+     (Float) The delay amount to apply. The unit if not specified are assumed
+      to be ms.
+  -unit
+     (String) Units can be specified as [ns,us,ms,m,km,bits,bytes]. Default is
+     ms. 
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None   
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_profile_delay</strong> on &lt;alias_name&gt; line &lt;line&gt; and profile &lt;profile&gt;
+  to &lt;value&gt; &lt;unit&gt; 
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>   % <strong>set_profile_delay</strong>  -conn $my_conn -line 1 -p 0 -delay 100 -unit ms 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>   <a href="#robo19">get_profile_delay</a>, <a href="#robo8">apply_profiles</a>
+</pre>
+<a name="robo21">
+<a name="xgem2fget5fprofile5fdrop">
+<h2>get_profile_drop  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the drop configuration for the specified connection.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_drop</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                   [-p &lt;profile&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of profile drop parameters. To index an individual
+  parameter, use the predefined tags below.
+
+  Element Name      Returned Value       Definition
+  ENABLED           true|false           Whether or not profile drop is 
+                                         enabled
+  DISTRIBUTION      uniform|periodic     Drop distribution
+                    |gaussian|poisson
+  SELECT_CNT        Integer              Drop selection count (if distribution
+                                         is periodic)
+  INTERVAL          Integer              Drop interval count (if distribution
+                                         is periodic)
+  PROBABILITY       Float                Drop probability (if distribution is
+                                         uniform)
+  BURST_DURATION    Integer              Distribution repeat count
+  STD_DEVIATION     Float                Distribution percentage of mean time
+                                         between errors (if distribution
+                                         is gaussian)
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_drop</strong> on &lt;alias_name&gt; line &lt;line&gt; and profile &lt;profile&gt;
+  has the following parameters:
+  [INFO]      enabled       = &lt;true|false&gt;
+  [INFO]      distribution  = &lt;periodic|poisson|gaussian|uniform&gt; (** If enable = true)
+  [INFO]      probability   = &lt;probability&gt;      (** If enable = true and
+  distribution is uniform)
+  [INFO]      select_cnt    = &lt;select_cnt&gt;       (** If enable = true and
+  distribution is periodic)
+  [INFO]      interval      = &lt;interval&gt;         (** If enable = true and
+  distribution is periodic)
+  [INFO]      burst_duration = &lt;select repeat count&gt; (** If enabled = true
+  [INFO]      std_deviation = &lt;% stdev&gt;              (** If enabled = true
+  and distribution is gaussian)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array set retval [<strong>get_profile_drop</strong> -conn $my_conn -line 1 -p 0]
+  % set drop_enabled $retval(ENABLED)
+  % set dist_type $retval(DISTRIBUTION)
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo22">set_profile_drop</a>
+</pre>
+<a name="robo22">
+<a name="xgem2fset5fprofile5fdrop">
+<h2>set_profile_drop  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the packet drop configuration for a given profile.
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_profile_drop</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                   [-p &lt;profile&gt;] 
+                   -enable true -select_cnt &lt;select impairment size&gt; 
+                   -interval &lt;interval&gt; -distribution {periodic | poisson}
+                   -burst_duration &lt;repeat-count&gt;
+                   -burst_duration &lt;repeat-count&gt;
+  <strong>set_profile_drop</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                   [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                   -enable true -select_cnt &lt;select cnt&gt; 
+                   -interval &lt;interval&gt; -distribution gaussian
+                   -burst_duration &lt;repeat-count&gt; -std_deviation &lt;stdev %&gt;
+  <strong>set_profile_drop</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                   [-p &lt;profile&gt;] 
+                   -enable true -prob &lt;probability&gt; -distribution uniform
+  <strong>set_profile_drop</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                   [-p &lt;profile&gt;] 
+                   -enable false 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Object reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -enable
+     (true|false) Enable or Disable packet drop
+  -distribution
+     (string) periodic/poisson/gaussianuniform distribution
+  -select_cnt
+     (Integer) Impairment Select for packet drop. Required if enable = true
+     and distribution = periodic
+  -interval
+     (Integer) Interval for packet drop. Required if enable = true and
+     distribution = periodic
+  -prob 
+     (Float) A floating point value &lt;=1 representing probability of error.
+     Required if enable = true and distribution is uniform.
+  -burst_duration
+     (Integer) 1-65535. Number of times to repeat, 65535 means repeat forever.
+  -std_deviation
+     (FLoat) Valid only for gaussian distributions this is a floating point value
+     (0.0 &lt; value &lt;= 100.0). This is the percentage of the mean time between errors.
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_profile_drop</strong> on &lt;alias_name&gt; line &lt;line&gt; and profile &lt;profile&gt;
+  to:
+  [INFO]      enabled = &lt;true|false&gt;
+  [INFO]      distribution = &lt;periodic|poisson|gaussian|uniform&gt;   (** Printed if enable = true)
+  [INFO]      select_cnt = &lt;select_cnt&gt;           (**printed if enable = true
+  and distribution = periodic)
+  [INFO]      interval = &lt;interval&gt;               (**printed if enable = true
+  and distribution = periodic)
+  [INFO]      probability  = &lt;probability&gt;        (**printed if enable = true
+  and distribution = uniform)
+  [INFO]      burst_duration = &lt;select repeat count&gt; (** Printed if enabled = true
+  [INFO]      std_deviation = &lt;% stdev&gt;           (**Printed if enabled = true
+  and distribution is gaussian)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_profile_drop</strong> -conn $my_conn -line 1 -p 0 
+                   -enable true -select_cnt 5 -interval 10 -distribution periodic
+                   -burst_duration 39
+  % <strong>set_profile_drop</strong> -conn $my_conn -line 1 -p 0 
+                   -enable true -select_cnt 5 -interval 10 -distribution gaussian
+                   -burst_duration 3 -std_deviation 30.0
+  % <strong>set_profile_drop</strong> -conn $my_conn -line 1 -p 0 
+                   -enable true -prob 0.25 -distribution uniform
+                   -burst_duration 1
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo21">get_profile_drop</a>,<a href="#robo8">apply_profiles</a>
+</pre>
+<a name="robo23">
+<a name="xgem2fget5fprofile5fdup">
+<h2>get_profile_dup  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the duplication configuration for the specified connection.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_dup</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                  [-p &lt;profile&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of profile duplication parameters.  To index an individual
+  parameter, use the predefined tags below.
+
+  Element Name      Returned Value       Definition
+  ENABLED           true|false           Whether or not profile duplication is
+                                         enabled
+  DISTRIBUTION      uniform|periodic     Duplication Probability
+                    |gaussian|poisson
+  SELECT_CNT        Integer              Duplication Selection Count (if 
+                                         distribution is periodic)
+  INTERVAL          Integer              Duplication Interval Count (if 
+                                         distribution is periodic)
+  PROBABILITY       Float                Duplication Probability (if
+                                         distribution is uniform)
+  BURST_DURATION    Integer              Distribution repeat count
+  STD_DEVIATION     Float                Distribution percentage of mean time
+                                         between errors (if distribution
+                                         is gaussian)
+  RANGE_FROM        Integer              Duplication Range From      
+  RANGE_TO          Integer              Duplication Range To        
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_dup</strong> on &lt;alias_name&gt; line &lt;line&gt; and profile &lt;profile&gt; has
+  the following parameters:
+  [INFO]      enabled = &lt;true|false&gt;
+  [INFO]      distribution  = &lt;periodic|poisson|gaussian|uniform&gt; (** If enable = true)
+  [INFO]      probability   = &lt;probability&gt;      (** If enable = true and
+  distribution is uniform)
+  [INFO]      select_cnt    = &lt;select_cnt&gt;       (** If enable = true and
+  distribution is periodic)
+  [INFO]      interval      = &lt;interval&gt;         (** If enable = true and
+  distribution is periodic)
+  [INFO]      burst_duration = &lt;select repeat count&gt; (** If enabled = true
+  [INFO]      std_deviation = &lt;% stdev&gt;              (** If enabled = true
+  and distribution is gaussian)
+  [INFO]      from          = &lt;from_range&gt;       (** If enable = true)
+  [INFO]      to            = &lt;to_range&gt;         (** If enable = true)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array set retval [<strong>get_profile_dup</strong> -conn $my_conn -line 1 -p 0]
+  % set dup_enabled $retval(DUPLICATION)
+  % set dup_from $retval(RANGE_FROM)
+  % set dup_to $retval(RANGE_TO)
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo24">set_profile_dup</a>
+</pre>
+<a name="robo24">
+<a name="xgem2fset5fprofile5fdup">
+<h2>set_profile_dup  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the packet duplication configuration
+
+  NOTE: Normal and jumbo duplication cannot be enabled simultaneously on a profile.
+  If the <strong>set_profile_dup</strong> command is executed with -enable true on a profile
+  that already has jumbo duplication enabled, jumbo duplication will be disabled.
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_profile_dup</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -select_cnt &lt;select cnt&gt; 
+                  -interval &lt;interval&gt; -distribution {periodic | poisson}
+                  -burst_duration &lt;repeat-count&gt;
+                  -dup_range_from &lt;from_val&gt; -dup_range_to &lt;to_range&gt;
+  <strong>set_profile_dup</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -prob &lt;probability&gt; 
+                  -distribution uniform
+                  -burst_duration &lt;repeat-count&gt;
+                  -dup_range_from &lt;from_val&gt; -dup_range_to &lt;to_range&gt;
+  <strong>set_profile_dup</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -select_cnt &lt;select cnt&gt; 
+                  -interval &lt;interval&gt; -distribution gaussian
+                  -burst_duration &lt;repeat-count&gt; -std_deviation &lt;stdev %&gt;
+                  -dup_range_from &lt;from_val&gt; -dup_range_to &lt;to_range&gt;
+  <strong>set_profile_dup</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                  [-p &lt;profile&gt;] 
+                  -enable false
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -nowarn
+     Suppress warnings for this command (overrides defaults)
+  -conn
+     Object reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -enable
+     (true|false) Enable or Disable packet duplication
+  -distribution
+     (string) periodic/poisson/gaussianuniform distribution
+  -select_cnt
+     (Integer) Number of frames selcted for impairment in interval.Required if
+     enable = true and distribution is periodic.
+  -interval
+     (Integer) Interval size in frames. Required if enable = true and
+     distribution is periodic.
+  -prob
+     (Float) A floating point value &lt;=1 representing probability of error.
+     Required if enable = true and distribution is uniform.
+  -burst_duration
+     (Integer) 1-65535. Number of times to repeat, 65535 means repeat forever.
+  -std_deviation
+     (FLoat) Valid only for gaussian distributions this is a floating point value
+     (0.0 &lt; value &lt;= 100.0). This is the percentage of the mean time between errors.
+  -dup_range_from 
+     (Integer) Duplication range starting value
+  -dup_range_to
+     (Integer) Duplication range ending value.
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_profile_dup</strong> on &lt;alias_name&gt; line &lt;line&gt; and profile &lt;profile&gt; to:
+  [INFO]      enabled = &lt;true|false&gt;
+  [INFO]      distribution = &lt;periodic|poisson|gaussian|uniform&gt;   (** Printed if enable = true)
+  [INFO]      select_cnt = &lt;select cnt&gt;           (** Printed if enable = true
+  and distribution is periodic)
+  [INFO]      select_duration = &lt;select duration&gt; (** Printed if enable = true
+  and distribution is periodic)
+  [INFO]      prob = &lt;probability&gt;                (** Printed if enable = true
+  and distribution is uniform)
+  [INFO]      burst_duration = &lt;select repeat count&gt; (** Printed if enabled = true
+  [INFO]      std_deviation = &lt;% stdev&gt;           (**Printed if enabled = true
+  and distribution is gaussian)
+  [INFO]      dup_range = &lt;from&gt; - &lt;to&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  DUPLICATION_WARNING (Refer to <a href="#robo62">WARNING</a>)
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_profile_dup</strong> -conn $my_conn -line 1 -p 0 
+                 -enable true -select_cnt 5 -interval 10 -distribution periodic
+                 -burst_duration 65535 -dup_range_from 2 -dup_range_to 30
+  % <strong>set_profile_dup</strong> -conn $my_conn -line 1 -p 0 
+                 -enable true -select_cnt 5 -interval 10 -distribution gaussian
+                 -burst_duration 3 -std_deviation 30.0
+                 -dup_range_from 2 -dup_range_to 30 
+  % <strong>set_profile_dup</strong> -conn $my_conn -line 1 -p 0 
+                 -enable true -prob 0.6  -distribution uniform
+                 -dup_range_from 2 -dup_range_to 30
+  % <strong>set_profile_dup</strong> -conn $my_conn -line 1 -p 0 
+                 -enable false 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo23">get_profile_dup</a>, <a href="#robo8">apply_profiles</a>, <a href="#robo26">set_profile_jumbo_dup</a>
+</pre>
+<a name="robo25">
+<a name="xgem2fget5fprofile5fjumbo5fdup">
+<h2>get_profile_jumbo_dup  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the jumbo duplication configuration for the specified connection.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_jumbo_dup</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                  [-p &lt;profile&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of profile duplication parameters.  To index an individual
+  parameter, use the predefined tags below.
+
+  Element Name      Returned Value       Definition
+  ENABLED           true|false           Whether or not profile duplication is
+                                         enabled
+  DISTRIBUTION      uniform|periodic     Duplication Probability     
+                    |gaussian|poisson
+  SELECT_CNT        Integer              Duplication Selection Count (if 
+                                         distribution is periodic)
+  INTERVAL          Integer              Duplication Interval Count (if 
+                                         distribution is periodic)
+  PROBABILITY       Float                Duplication Probability (if
+                                         distribution is uniform)
+  BURST_DURATION    Integer              Distribution repeat count
+  STD_DEVIATION     Float                Distribution percentage of mean time
+                                         between errors (if distribution
+                                         is gaussian)
+  RANGE_FROM        Integer              Duplication Range From      
+  RANGE_TO          Integer              Duplication Range To        
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_jumbo_dup</strong> on &lt;alias_name&gt; line &lt;line&gt; and profile &lt;profile&gt; has
+  the following parameters:
+  [INFO]      enabled = &lt;true|false&gt;
+  [INFO]      distribution  = &lt;periodic|poisson|gaussian|uniform&gt; (** If enable = true)
+  [INFO]      probability   = &lt;probability&gt;      (** If enable = true and
+  distribution is uniform)
+  [INFO]      select_cnt    = &lt;select_cnt&gt;       (** If enable = true and
+  distribution is periodic)
+  [INFO]      interval      = &lt;interval&gt;         (** If enable = true and
+  distribution is periodic)
+  [INFO]      burst_duration = &lt;select repeat count&gt; (** If enabled = true
+  [INFO]      std_deviation = &lt;% stdev&gt;              (** If enabled = true
+  and distribution is gaussian)
+  [INFO]      from          = &lt;from_range&gt;       (** If enable = true)
+  [INFO]      to            = &lt;to_range&gt;         (** If enable = true)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array set retval [<strong>get_profile_jumbo_dup</strong> -conn $my_conn -line 1 -p 0]
+  % set dup_enabled $retval(DUPLICATION)
+  % set dup_from $retval(RANGE_FROM)
+  % set dup_to $retval(RANGE_TO)
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo26">set_profile_jumbo_dup</a>
+</pre>
+<a name="robo26">
+<a name="xgem2fset5fprofile5fjumbo5fdup">
+<h2>set_profile_jumbo_dup  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the jumbo packet duplication configuration
+
+  NOTE: Normal and jumbo duplication cannot be enabled simultaneously on a profile.
+  If the <strong>set_profile_jumbo_dup</strong> command is executed with -enable true on a profile
+  that already has normal duplication enabled, normal duplication will be disabled.
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_profile_jumbo_dup</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -select_cnt &lt;select cnt&gt; 
+                  -interval &lt;interval&gt; -distribution {periodic | poisson}
+                  -burst_duration &lt;repeat-count&gt;
+                  -dup_range_from &lt;from_val&gt; -dup_range_to &lt;to_range&gt;
+  <strong>set_profile_jumbo_dup</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -prob &lt;probability&gt; 
+                  -distribution uniform
+                  -burst_duration &lt;repeat-count&gt;
+                  -dup_range_from &lt;from_val&gt; -dup_range_to &lt;to_range&gt;
+  set_profile_jumbo+dup [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -select_cnt &lt;select cnt&gt; 
+                  -interval &lt;interval&gt; -distribution gaussian
+                  -burst_duration &lt;repeat-count&gt; -std_deviation &lt;stdev %&gt;
+                  -dup_range_from &lt;from_val&gt; -dup_range_to &lt;to_range&gt;
+  <strong>set_profile_jumbo_dup</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                  [-p &lt;profile&gt;] 
+                  -enable false
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -nowarn
+     Suppress warnings for this command (overrides defaults)
+  -conn
+     Object reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -enable
+     (true|false) Enable or Disable packet duplication
+  -distribution
+     (string) periodic/poisson/gaussianuniform distribution
+  -select_cnt
+     (Integer) Number of frames selcted for impairment in interval.Required if
+     enable = true and distribution is periodic.
+  -interval
+     (Integer) Interval size in frames. Required if enable = true and
+     distribution is periodic.
+  -prob
+     (Float) A floating point value &lt;=1 representing probability of error.
+     Required if enable = true and distribution is uniform.
+  -burst_duration
+     (Integer) 1-65535. Number of times to repeat, 65535 means repeat forever.
+  -std_deviation
+     (FLoat) Valid only for gaussian distributions this is a floating point value
+     (0.0 &lt; value &lt;= 100.0). This is the percentage of the mean time between errors.
+  -dup_range_from 
+     (Integer) Duplication range starting value
+  -dup_range_to
+     (Integer) Duplication range ending value.
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_profile_jumbo_dup</strong> on &lt;alias_name&gt; line &lt;line&gt; and profile &lt;profile&gt; to:
+  [INFO]      enabled = &lt;true|false&gt;
+  [INFO]      distribution = &lt;periodic|poisson|gaussian|uniform&gt;   (** Printed if enable = true)
+  [INFO]      select_cnt = &lt;select cnt&gt;           (** Printed if enable = true
+  and distribution is periodic)
+  [INFO]      select_duration = &lt;select duration&gt; (** Printed if enable = true
+  and distribution is periodic)
+  [INFO]      prob = &lt;probability&gt;                (** Printed if enable = true
+  and distribution is uniform)
+  [INFO]      burst_duration = &lt;select repeat count&gt; (** Printed if enabled = true
+  [INFO]      std_deviation = &lt;% stdev&gt;           (**Printed if enabled = true
+  and distribution is gaussian)
+  [INFO]      dup_range = &lt;from&gt; - &lt;to&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  DUPLICATION_WARNING (Refer to <a href="#robo62">WARNING</a>)
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_profile_jumbo_dup</strong> -conn $my_conn -line 1 -p 0 
+                 -enable true -select_cnt 5 -interval 10 -distribution periodic
+                 -dup_range_from 2 -dup_range_to 30
+                 -burst_duration 65535 -dup_range_from 2 -dup_range_to 30
+  % <strong>set_profile_jumbo_dup</strong> -conn $my_conn -line 1 -p 0 
+                 -enable true -select_cnt 5 -interval 10 -distribution gaussian
+                 -burst_duration 3 -std_deviation 30.0
+                 -dup_range_from 2 -dup_range_to 30 
+  % <strong>set_profile_jumbo_dup</strong> -conn $my_conn -line 1 -p 0 
+                 -enable true -prob 0.6  -distribution uniform
+                 -dup_range_from 2 -dup_range_to 30
+  % <strong>set_profile_jumbo_dup</strong> -conn $my_conn -line 1 -p 0 
+                 -enable false 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo25">get_profile_jumbo_dup</a>, <a href="#robo8">apply_profiles</a>, <a href="#robo24">set_profile_dup</a>
+</pre>
+<a name="robo27">
+<a name="xgem2fget5fprofile5fjitter">
+<h2>get_profile_jitter  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the jitter configuration for the specified connection.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_jitter</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  [-u &lt;unit&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -unit
+     (String) Units can be specified as [ns,us,ms,m,km,bits,bytes]. Default is
+     ms. 
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of jitter parameters. To index an individual parameter,
+  use the predefined tags below.
+
+  Element Name        Returned Value     Definition
+  ENABLED             true|false         Whether or not profile jitter rate
+                                         is enabled
+  MAX_DELAY           Float              Maximum delay setting for jitter
+  MIN_DELAY           Float              Minimum delay setting for jitter
+  MAX_NEG_DELTA       Float              Maximum decreasing change in delay 
+                                         for jitter
+  MAX_POS_DELTA       Float              Maximum increasing change in delay
+                                         for jitter
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_jitter</strong> on &lt;alias_name&gt; line &lt;line&gt; and profile &lt;profile&gt;
+  has the following parameters:
+  [INFO[      enabled   = true
+  [INFO]      min_delay = &lt;min_delay&gt; &lt;unit&gt;
+  [INFO]      max_delay = &lt;max_delay&gt; &lt;unit&gt;
+  [INFO]      min_delta = &lt;min_delta&gt; &lt;unit&gt;
+  [INFO]      max_delta = &lt;max_delta&gt; &lt;unit&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array set retval [<strong>get_profile_jitter</strong> -conn $my_conn -line 1 -p 0  -unit ms]
+  % set jitter_enabled $retval(ENABLED)
+  % set max_delay $retval(MAX_DELAY)
+  % set min_delay $retval(MIN_DELAY)
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo28">set_profile_jitter</a>
+</pre>
+<a name="robo28">
+<a name="xgem2fset5fprofile5fjitter">
+<h2>set_profile_jitter  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the jitter configuration 
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_profile_jitter</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true
+                  -min_delay &lt;min_delay&gt; -max_delay &lt;max_delay&gt; 
+                  -max_neg_delta &lt;max_neg_delta&gt; -max_pos_delta &lt;max_pos_delta&gt;
+                  [-unit &lt;unit&gt;]
+  <strong>set_profile_jitter</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                     [-p &lt;profile&gt;] -enable false
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Object reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -enable
+     (true|false) Enable/Disable this impairment
+  -min_delay 
+     (Float) Minimum delay for jitter in unit specified (default ms).
+     Required if enable = true.
+  -max_delay 
+     (Float) Maximum delay for jitter in unit specified (default ms).
+     Required if enable = true.
+  -max_neg_delta 
+     (Float) Maximum decreasing change in delay for jitter in unit specified
+     (default ms).
+     Required if enable = true.
+  -max_pos_delta 
+     (Float) Maximum increasing change in delay for jitter in unit specified
+     (default ms).
+     Required if enable = true.
+  -unit
+     (String) Units can be specified as [ns,us,ms,m,km,bits,bytes]. Default is
+     ms. Required if enable = true.
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_profile_jitter</strong> on &lt;alias_name&gt; line &lt;line&gt; and profile &lt;profile&gt;
+  to:
+  [INFO]      enabled       = &lt;true|false&gt;
+  [INFO]      min_delay     = &lt;min_delay&gt; &lt;unit&gt; (** printed if enable = true)
+  [INFO]      max_delay     = &lt;max_delay&gt; &lt;unit&gt; (** printed if enable = true)
+  [INFO]      max_neg_delta = &lt;max_neg_delta&gt; &lt;unit&gt; (** printed if enable =
+  true)
+  [INFO]      max_pos_delta = &lt;max_pos_delta&gt; &lt;unit&gt; (** printed if enable =
+  true)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_profile_jitter</strong> -conn $my_conn -line 1 -p 0 
+                       -enable true
+                       -min_delay 100 -max_delay 300 -max_neg_delta 20
+                       -max_pos_delta 20 -unit ms 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo27">get_profile_jitter</a>, <a href="#robo8">apply_profiles</a>
+</pre>
+<a name="robo29">
+<a name="xgem2fget5fprofile5fmodify">
+<h2>get_profile_modify  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the packet modification configuration for 1 of the 6 engines available
+  per profile
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_modify</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                     [-p &lt;profile&gt;] 
+                     -mod_engine &lt;0-5&gt;
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -mod_engine 
+     (0-5) Specifies the specific target engine for which parameters are
+     queried
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of modify parameters. To index an individual parameter,
+  use the predefined tags below.
+
+  Element Name        Returned Value       Definition
+  ENABLED             true|false           Whether or not profile modify is
+                                           enabled
+  DISTRIBUTION        uniform|periodic     the type of distribution
+                      |gaussian|poisson
+  SELECT_CNT          Integer              Selected packet count
+  INTERVAL            Integer              If distribution is periodic,
+                                           specifies random interval in which
+                                           selected packets are modified
+  PROBABILITY         Float                Probability &lt;= 1 of modification
+  BURST_DURATION      Integer              Distribution repeat count
+  STD_DEVIATION       Float                Distribution percentage of mean time
+                                           between errors (if distribution
+                                           is gaussian)
+  STARTING_OFFSET     Integer              Starting offset for modification
+  VALUE               UInt64               8 byte integer value**
+  MASK                UInt64               8 byte integer mask**
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_modify</strong> on &lt;alias_name&gt; line &lt;line&gt; and profile &lt;profile&gt;
+         has following parameters :
+  [INFO]      enable = &lt;true|false&gt;
+  [INFO]      distribution  = &lt;periodic|poisson|gaussian|uniform&gt; (** If enable = true)
+  [INFO]      mod_engine = &lt;0-5&gt;
+  [INFO]      select_cnt = &lt;select cnt&gt;  
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      interval = &lt;interval&gt; 
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      prob = &lt;probability&gt;                
+                   (** Printed if enable = true and distribution is uniform)
+  [INFO]      burst_duration = &lt;select repeat count&gt; (** If enabled = true
+  [INFO]      std_deviation = &lt;% stdev&gt;              (** If enabled = true
+  and distribution is gaussian)
+  [INFO]      starting_offset = &lt;offset&gt;         (** Printed if enable = true)
+  [INFO]      value  = &lt;8 byte value&gt;            (** Printed if enable = true)
+  [INFO]      mask   = &lt;8 byte mask&gt;             (** Printed if enable = true)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array set retval [<strong>get_profile_modify</strong> -conn $my_conn -line 1 -p 0 #                      -mod_engine 0]
+  % set enabled $retval[ENABLED]
+  % set value $retval[VALUE]
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo30">set_profile_modify</a>
+</pre>
+<a name="robo30">
+<a name="xgem2fset5fprofile5fmodify">
+<h2>set_profile_modify  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the packet modification configuration for 1 of the 6 engines available
+  per profile
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_profile_modify</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                     [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                     -enable true -mod_engine &lt;0-5&gt; 
+                     -distribution {periodic | poisson}
+                     -select_cnt &lt;select cnt&gt; -interval &lt;interval&gt;
+                     -burst_duration &lt;repeat-count&gt;
+                     -starting_offset &lt;offset&gt;
+                     -value &lt;hexadecimal value 8 bytes&gt;
+                     -mask &lt;hexadecimal value 8 bytes&gt;
+  <strong>set_profile_modify</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                     [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                     -enable true -mod_engine &lt;0-5&gt;
+                     -distribution uniform
+                     -prob &lt;probability&gt; 
+                     -burst_duration &lt;repeat-count&gt;
+                     -starting_offset &lt;offset&gt;
+                     -value &lt;hexadecimal value 8 bytes&gt; 
+                     -mask &lt;hexadecimal value 8 bytes&gt;
+  <strong>set_profile_modify</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                     [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                     -enable true -select_cnt &lt;select cnt&gt; 
+                     -interval &lt;interval&gt; -distribution gaussian
+                     -burst_duration &lt;repeat-count&gt; -std_deviation &lt;stdev %&gt;
+                     -starting_offset &lt;offset&gt;
+                     -value &lt;hexadecimal value 8 bytes&gt; 
+                     -mask &lt;hexadecimal value 8 bytes&gt;
+  <strong>set_profile_modify</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+                     [-p &lt;profile&gt;] 
+                     -enable false -mod_engine &lt;0-5&gt;
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+     Suppress warnings for this command (overrides defaults)
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -enable
+     (true|false) Enable or Disable packet impairment
+  -mod_engine 
+     (0-5) Specifies the specific target engine that will be configured
+  -distribution
+     (string) periodic/poisson/gaussianuniform distribution
+  -select_cnt
+     (Integer) Number of frames selcted for impairment in interval.Required if 
+     enable = true and distribution is periodic.
+  -interval
+     (Integer) Interval size in frames. Required if enable = true and
+     distribution is periodic.
+  -prob
+     (Float) A floating point value &lt;=1 representing probability of error.
+     Required if enable = true and distribution is uniform.
+  -burst_duration
+     (Integer) 1-65535. Number of times to repeat, 65535 means repeat forever.
+  -std_deviation
+     (FLoat) Valid only for gaussian distributions this is a floating point value
+     (0.0 &lt; value &lt;= 100.0). This is the percentage of the mean time between errors.
+  -starting_offset
+     (0-12279) Starting offset of the modification field
+  -value 
+     (Integer) The value of the 8 byte field to modify 
+  -mask 
+     (Integer) The mask for the modification field. A value of 1 indicates
+     mask disabled for that bit i.e. the bit will be modified.
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_profile_modify</strong> on &lt;alias_name&gt; line &lt;line&gt; and profile &lt;profile&gt; to:
+  [INFO]      mod_engine      = &lt;0-5&gt;
+  [INFO]      enable          = &lt;true|false&gt;
+  [INFO]      distribution    = &lt;periodic|poisson|gaussian|uniform&gt;   (** Printed if enable = true)
+  [INFO]      select_cnt      = &lt;select cnt&gt;  
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      interval        = &lt;interval in which some selected packets are 
+                                errored&gt;
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      prob            = &lt;probability&gt;                
+                   (** Printed if enable = true and distribution is uniform)
+  [INFO]      burst_duration  = &lt;select repeat count&gt; (** Printed if enabled = true
+  [INFO]      std_deviation   = &lt;% stdev&gt;           (**Printed if enabled = true
+  and distribution is gaussian)
+  [INFO]      starting_offset = &lt;offset&gt;         (** Printed if enable = true)
+  [INFO]      value           = &lt;8 byte value&gt;   (** Printed if enable = true)
+  [INFO]      mask            = &lt;8 byte mask&gt;    (** Printed if enable = true)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a> )
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_profile_modify</strong> -conn $my_conn -line 1 -p 0 
+                   -enable true -mod_engine 0
+                   -distribution periodic
+                   -select_cnt 5 -interval 10 
+                   -starting_offset 1000 
+                   -value 0x000000000055AA00 -mask 0000000000FFFF00
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo29">get_profile_modify</a>, <a href="#robo8">apply_profiles</a>
+</pre>
+<a name="robo31">
+<a name="xgem2fget5fprofile5fpkt5fcorrupt">
+<h2>get_profile_pkt_corrupt  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the packet corruption configuration parameters
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_pkt_corrupt</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                  [-p &lt;profile&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of packet corruption parameters. To index an individual
+  parameter, use the predefined tags below.
+
+  Element Name      Returned Value       Definition
+  ENABLED           true|false           Whether or not profile packet 
+                                         corruption is enabled
+  DISTRIBUTION      uniform|periodic     Packet corruption distribution
+                    |gaussian|poisson
+  SELECT_CNT        Integer              Packet corruption selection count (if
+                                         distribution is periodic)
+  INTERVAL          Integer              Packet corruption interval count (if
+                                         distribution is periodic)
+  PROBABILITY       Float                Packet corruption probability (if
+                                         distribution is uniform)
+  BURST_DURATION    Integer              Distribution repeat count
+  STD_DEVIATION     Float                Distribution percentage of mean time
+                                         between errors (if distribution
+                                         is gaussian)
+  PATTERN           zero|one|invert      Pattern for replacement
+  FROM_OFFSET       Integer              Packet corruption starting offset
+  TO_OFFSET         Integer              Packet corruption ending offset
+  MIN_BURST_LEN     Integer              Minimum burst length in bytes
+  BURST_LEN_VAR     Integer              Burst Length Variation
+  ERROR_RATE        Float                Rate of error 
+  CORRECT_CRC       true|false           Whether CRC is corrected
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_pkt_corrupt</strong> on &lt;alias_name&gt; line &lt;line&gt; and 
+         profile &lt;profile&gt; has following parameters :
+  [INFO]      enable          = &lt;true|false&gt;
+  [INFO]      distribution    = &lt;periodic|poisson|gaussian|uniform&gt;
+                   (** Printed if enable = true)
+  [INFO]      select_cnt      = &lt;select cnt&gt;
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      interval        = &lt;interval&gt;
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      probability     = &lt;probability&gt;
+                   (** Printed if enable = true and distribution is uniform)
+  [INFO]      burst_duration  = &lt;select repeat count&gt; (** Printed if enabled = true
+  [INFO]      std_deviation   = &lt;% stdev&gt;
+                   (** Printed if enabled = true and distribution is gaussian)
+  [INFO]      pattern         = &lt;zero|one|invert&gt; (** Printed if enable = true)
+  [INFO]      offset          = &lt;from_offset&gt; - &lt;to_offset&gt;
+                                (** Printed if enable = true)
+  [INFO]      min burst len   = &lt;min burst length&gt; (** Printed if enable = true)
+  [INFO]      burst len var   = &lt;burst length variation&gt;
+                                (** Printed if enable = true)
+  [INFO]      error rate      = &lt;error rate&gt;       (** Printed if enable = true)
+  [INFO]      correct_crc     = &lt;true|false&gt;       (** Printed if enable = true)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array set retval [<strong>get_profile_pkt_corrupt</strong> -conn $my_conn -line 1 -p 0]
+  % set enabled $retval[ENABLED]
+  % set error_rate $retval[ERROR_RATE]
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo32">set_profile_pkt_corrupt</a>
+</pre>
+<a name="robo32">
+<a name="xgem2fset5fprofile5fpkt5fcorrupt">
+<h2>set_profile_pkt_corrupt  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the packet corruption configuration parameters
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_profile_pkt_corrupt</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -distribution {periodic | poisson}
+                  -interval &lt;interval&gt; -select_cnt &lt;select cnt&gt;
+                  -burst_duration &lt;repeat-count&gt;
+                  -pattern &lt;zero|one|invert&gt; 
+                  -from_offset &lt;from_range&gt; [-to_offset &lt;to_range&gt;]
+                  -error_rate &lt;rate&gt;
+                  -min_burst_len &lt;minimum burst length in bytes&gt;
+                  -burst_len_var &lt;variation&gt;
+                  -correct_crc true|false
+  <strong>set_profile_pkt_corrupt</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -select_cnt &lt;select cnt&gt; 
+                  -interval &lt;interval&gt; -distribution gaussian
+                  -burst_duration &lt;repeat-count&gt; -std_deviation &lt;stdev %&gt;
+                  -pattern &lt;zero|one|invert&gt;
+                  -from_offset &lt;from_range&gt; [-to_offset &lt;to_range&gt;]
+                  -error_rate &lt;rate&gt;
+                  -min_burst_len &lt;minimum burst length in bytes&gt;
+                  -burst_len_var &lt;variation&gt;
+                  -correct_crc true|false
+  <strong>set_profile_pkt_corrupt</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -distribution uniform
+                  -prob &lt;probability&gt; 
+                  -burst_duration &lt;repeat-count&gt;
+                  -pattern &lt;zero|one|invert&gt;
+                  -from_offset &lt;from_range&gt; [-to_offset &lt;to_range&gt;]
+                  -error_rate &lt;rate&gt;
+                  -min_burst_len &lt;minimum burst length in bytes&gt;
+                  -burst_len_var &lt;variation&gt;
+                  -correct_crc true|false
+  <strong>set_profile_pkt_corrupt</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;]
+                  -enable false
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -enable
+     (true|false) Enable or Disable packet corruption
+  -distribution
+     (string) periodic/poisson/gaussianuniform distribution
+  -select_cnt
+     (Integer) Number of frames selcted for impairment in interval. Required if
+     enable = true and distribution is periodic.
+  -interval
+     (Integer) Interval size in frames. Required if enable = true and
+     distribution is periodic.
+  -prob
+     (Float) A floating point value &lt;=1 representing probability of error.
+     Required if enable = true and distribution is uniform.
+  -burst_duration
+     (Integer) 1-65535. Number of times to repeat, 65535 means repeat forever.
+  -std_deviation
+     (FLoat) Valid only for gaussian distributions this is a floating point value
+     (0.0 &lt; value &lt;= 100.0). This is the percentage of the mean time between errors.
+  -pattern 
+     (zero|one|invert) The corruption pattern is either replace by zero, by
+     one or invert incoming bits.
+  -from_offset
+     (0-12279) The starting offset of the part of packet which can be
+     corrupted
+  -to_offset
+     (0-12279) The ending offset of the part of packet which can be corrupted.
+     Optional, if not included the corruption will continue to the end of the
+     packet.
+  -min_burst_len
+     Burst length = Min Burst Length + Random number(0,burst_len_variation).
+     This parameter provides the minimum burst length in bytes.
+     (** Required if enable = true)
+  -burst_len_var
+     Burst length variation provides randomness in the burst length as defined
+     above. This value is rounded to nearest as 2**n-1 where n is in range 0-15.
+     (** Required if enable = true)
+  -error_rate
+     (Float) Error Rate Value e.g. 1.5e-6. (** Required if enable = true)
+  -correct_crc 
+     (true|false) Correct the CRC if the flag is true and the packet was
+     corrupted
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_profile_pkt_corrupt</strong> on &lt;alias_name&gt; line &lt;line&gt; and 
+         profile &lt;profile&gt; to:
+  [INFO]      enable          = &lt;true|false&gt;
+  [INFO]      distribution = &lt;periodic|poisson|gaussian|uniform&gt;   (** Printed if enable = true)
+  [INFO]      select_cnt      = &lt;select cnt&gt;           
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      interval        = &lt;select duration&gt;
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      probability     = &lt;probability&gt;
+                   (** Printed if enable = true and distribution is uniform)
+  [INFO]      burst_duration = &lt;select repeat count&gt; (** Printed if enabled = true
+  [INFO]      std_deviation = &lt;% stdev&gt;           (**Printed if enabled = true
+  and distribution is gaussian)
+  [INFO]      pattern         = &lt;zero|one|invert&gt;  (** Printed if enable = true)
+  [INFO]      offset          = &lt;from_offset&gt; - &lt;to_offset&gt;
+                               (** Printed if enable = true)
+  [INFO]      min burst len   = &lt;min burst length&gt; (** Printed if enable = true)
+  [INFO]      burst len var   = &lt;burst length var&gt; (** Printed if enable = true)
+  [INFO]      error rate      = &lt;error rate&gt;       (** Printed if enable = true)
+  [INFO]      correct_crc     = &lt;true|false&gt;       (** Printed if enable = true)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a> )
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_profile_pkt_corrupt</strong> -conn $my_conn -line 1 -p 0 
+                  -enable true -select_cnt 5 -interval 10 -distribution periodic
+                  -burst_duration 3
+                  -pattern zero -from_offset 14 -to_offset 1000
+                  -error_rate 1e-6 -min_burst_len 1 -burst_len_var 3
+                  -correct_crc true
+  % <strong>set_profile_pkt_corrupt</strong> -conn $my_conn -line 1 -p 0 
+                  -enable true -select_cnt 5 -interval 10 -distribution gaussian
+                  -burst_duration 3 -std_deviation 30.0
+                  -pattern zero -from_offset 14 -to_offset 1000
+                  -error_rate 1e-6 -min_burst_len 1 -burst_len_var 3
+                  -correct_crc true
+  % <strong>set_profile_pkt_corrupt</strong> -conn $my_conn -line 1 -p 0 
+                  -enable true -prob 0.6  -distribution uniform
+                  -burst_duration 200
+                  -pattern zero -from_offset 14 -to_offset 1000
+                  -error_rate 1e-6 -min_burst_len 1 -burst_len_var 3
+                  -correct_crc true
+  % <strong>set_profile_pkt_corrupt</strong> -conn $my_conn -line 1 -p 0 
+                   -enable false 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo31">get_profile_pkt_corrupt</a>, <a href="#robo8">apply_profiles</a>
+</pre>
+<a name="robo33">
+<a name="xgem2fget5fprofile5freorder">
+<h2>get_profile_reorder  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the packet reorder configuration
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_reorder</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                  [-p &lt;profile&gt;]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of reorder parameters. To index an individual parameter,
+  use the predefined tags below.
+
+  Element Name      Returned Value       Definition
+  ENABLED           true|false           Whether or not profile reorder
+                                         is enabled
+  DISTRIBUTION      uniform|periodic     Reorder distribution
+                    |gaussian|poisson
+  SELECT_CNT        Integer              Reorder selection count (if
+                                         distribution is periodic)
+  INTERVAL          Integer              Reorder interval count (if
+                                         distribution is periodic)
+  PROBABILITY       Float                Reorder probability (if
+                                         distribution is uniform)
+  BURST_DURATION    Integer              Distribution repeat count
+  STD_DEVIATION     Float                Distribution percentage of mean time
+                                         between errors (if distribution
+                                         is gaussian)
+  RANGE_FROM        Integer              Reorder range minimum value
+  RANGE_TO          Integer              Reorder range maximum value
+  (see examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_reorder</strong> on &lt;alias_name&gt; line &lt;line&gt; and profile &lt;profile&gt;
+         has following parameters:
+  [INFO]      enable          = &lt;true|false&gt;
+  [INFO]      distribution    = &lt;periodic|poisson|gaussian|uniform&gt; (** If enable = true)
+  [INFO]      select_cnt      = &lt;select cnt&gt;           
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      interval        = &lt;select duration&gt; 
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      probability     = &lt;probability&gt;                
+                   (** Printed if enable = true and distribution is uniform)
+  [INFO]      burst_duration = &lt;select repeat count&gt; (** If enabled = true
+  [INFO]      std_deviation = &lt;% stdev&gt;              (** If enabled = true
+  and distribution is gaussian)
+  [INFO]      reorder_range   = &lt;from&gt; - &lt;to&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array set retval [<strong>get_profile_reorder</strong> -conn $my_conn -line 1 -p 0]
+  % set enabled $retval[ENABLED]
+  % set range_from $retval[RANGE_FROM]
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo34">set_profile_reorder</a>
+</pre>
+<a name="robo34">
+<a name="xgem2fset5fprofile5freorder">
+<h2>set_profile_reorder  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the packet reorder configuration
+
+  NOTE: Normal and jumbo reorder cannot be enabled simultaneously on a profile.
+  If the <strong>set_profile_reorder</strong> command is executed with -enable true on a profile
+  that already has jumbo reorder enabled, jumbo reorder will be disabled.
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_profile_reorder</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -select_cnt &lt;select cnt&gt; 
+                  -interval &lt;interval&gt; -distribution periodic
+                  -burst_duration &lt;repeat-count&gt;
+                  -range_from &lt;from_val&gt; -range_to &lt;to_range&gt;
+  <strong>set_profile_reorder</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -select_cnt &lt;select cnt&gt; 
+                  -interval &lt;interval&gt; -distribution gaussian
+                  -burst_duration &lt;repeat-count&gt; -std_deviation &lt;stdev %&gt;
+                  -range_from &lt;from_val&gt; -range_to &lt;to_range&gt;
+  <strong>set_profile_reorder</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -prob &lt;probability&gt; 
+                  -distribution uniform
+                  -range_from &lt;from_val&gt; -range_to &lt;to_range&gt;
+  <strong>set_profile_reorder</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable false
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -enable
+     (true|false) Enable or Disable packet reorder
+  -distribution
+     (string) periodic/poisson/gaussianuniform distribution
+  -select_cnt
+     (Integer) Number of frames selcted for impairment in interval.
+     Required if enable = true and distribution is periodic.
+  -interval
+     (Integer) Interval size in frames. Required if enable = true and
+     distribution is periodic.
+  -prob
+     (Float) A floating point value &lt;=1 representing probability of error.
+     Required if enable = true and distribution is uniform.
+  -burst_duration
+     (Integer) 1-65535. Number of times to repeat, 65535 means repeat forever.
+  -std_deviation
+     (FLoat) Valid only for gaussian distributions this is a floating point value
+     (0.0 &lt; value &lt;= 100.0). This is the percentage of the mean time between errors.
+  -range_from 
+     (Integer) reorder range starting value
+  -range_to
+     (Integer) reorder range ending value.
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_profile_reorder</strong> on &lt;alias_name&gt; line &lt;line&gt; and 
+         profile &lt;profile&gt; to:
+  [INFO]      enable          = &lt;true|false&gt;
+  [INFO]      distribution    = &lt;periodic|poisson|gaussian|uniform&gt;   (** Printed if enable = true)
+  [INFO]      select_cnt      = &lt;select cnt&gt;           
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      interval        = &lt;select duration&gt; 
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      probability     = &lt;probability&gt;                
+                   (** Printed if enable = true and distribution is uniform)
+  [INFO]      burst_duration = &lt;select repeat count&gt; (** Printed if enabled = true
+  [INFO]      std_deviation = &lt;% stdev&gt;           (**Printed if enabled = true
+  and distribution is gaussian)
+  [INFO]      reorder_range   = &lt;from&gt; - &lt;to&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a> )
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_profile_reorder</strong> -conn $my_conn -line 1 -p 0 
+                   -enable true -select_cnt 5 -interval 10 -distribution periodic
+                   -range_from 2 -range_to 30
+  % <strong>set_profile_reorder</strong> -conn $my_conn -line 1 -p 0 
+                   -enable true -select_cnt 5 -interval 10 -distribution gaussian
+                   -burst_duration 3 -std_deviation 30.0
+                   -range_from 2 -range_to 30
+  % <strong>set_profile_reorder</strong> -conn $my_conn -line 1 -p 0 
+                   -enable true -prob 0.6  -distribution uniform
+                   -range_from 2 -range_to 30
+  % <strong>set_profile_reorder</strong> -conn $my_conn -line 1 -p 0 
+                   -enable false 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo33">get_profile_reorder</a>, <a href="#robo8">apply_profiles</a>, <a href="#robo36">set_profile_jumbo_reorder</a>
+</pre>
+<a name="robo35">
+<a name="xgem2fget5fprofile5fjumbo5freorder">
+<h2>get_profile_jumbo_reorder  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the jumbo packet reorder configuration
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_jumbo_reorder</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                  [-p &lt;profile&gt;]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of reorder parameters. To index an individual parameter,
+  use the predefined tags below.
+
+  Element Name      Returned Value       Definition
+  ENABLED           true|false           Whether or not profile reorder
+                                         is enabled
+  DISTRIBUTION      uniform|periodic     Reorder distribution
+                    |gaussian|poisson
+  SELECT_CNT        Integer              Reorder selection count (if
+                                         distribution is periodic)
+  INTERVAL          Integer              Reorder interval count (if
+                                         distribution is periodic)
+  PROBABILITY       Float                Reorder probability (if
+                                         distribution is uniform)
+  BURST_DURATION    Integer              Distribution repeat count
+  STD_DEVIATION     Float                Distribution percentage of mean time
+                                         between errors (if distribution
+                                         is gaussian)
+  RANGE_FROM        Integer              Reorder range minimum value
+  RANGE_TO          Integer              Reorder range maximum value
+  (see examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_jumbo_reorder</strong> on &lt;alias_name&gt; line &lt;line&gt; and profile &lt;profile&gt;
+         has following parameters:
+  [INFO]      enable          = &lt;true|false&gt;
+  [INFO]      distribution    = &lt;periodic|poisson|gaussian|uniform&gt; (** If enable = true)
+  [INFO]      select_cnt      = &lt;select cnt&gt;           
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      interval        = &lt;select duration&gt; 
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      probability     = &lt;probability&gt;                
+                   (** Printed if enable = true and distribution is uniform)
+  [INFO]      burst_duration = &lt;select repeat count&gt; (** If enabled = true
+  [INFO]      std_deviation = &lt;% stdev&gt;              (** If enabled = true
+  and distribution is gaussian)
+  [INFO]      reorder_range   = &lt;from&gt; - &lt;to&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array set retval [<strong>get_profile_jumbo_reorder</strong> -conn $my_conn -line 1 -p 0]
+  % set enabled $retval[ENABLED]
+  % set range_from $retval[RANGE_FROM]
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo36">set_profile_jumbo_reorder</a>
+</pre>
+<a name="robo36">
+<a name="xgem2fset5fprofile5fjumbo5freorder">
+<h2>set_profile_jumbo_reorder  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the jumbo packet reorder configuration
+
+  NOTE: Normal and jumbo reorder cannot be enabled simultaneously on a profile.
+  If the <strong>set_profile_jumbo_reorder</strong> command is executed with -enable true on a profile
+  that already has normal reorder enabled, normal reorder will be disabled.
+  This command does not take effect until <a href="#robo8">apply_profiles</a> is executed.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_profile_jumbo_reorder</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -select_cnt &lt;select cnt&gt; 
+                  -interval &lt;interval&gt; -distribution periodic
+                  -burst_duration &lt;repeat-count&gt;
+                  -range_from &lt;from_val&gt; -range_to &lt;to_range&gt;
+  <a href="#robo34">set_profile_reorder</a> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -select_cnt &lt;select cnt&gt; 
+                  -interval &lt;interval&gt; -distribution gaussian
+                  -burst_duration &lt;repeat-count&gt; -std_deviation &lt;stdev %&gt;
+                  -range_from &lt;from_val&gt; -range_to &lt;to_range&gt;
+  <strong>set_profile_jumbo_reorder</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable true -prob &lt;probability&gt; 
+                  -distribution uniform
+                  -range_from &lt;from_val&gt; -range_to &lt;to_range&gt;
+  <strong>set_profile_jumbo_reorder</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] [-p &lt;profile&gt;] 
+                  -enable false
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -enable
+     (true|false) Enable or Disable packet reorder
+  -distribution
+     (string) periodic/poisson/gaussianuniform distribution
+  -select_cnt
+     (Integer) Number of frames selcted for impairment in interval.
+     Required if enable = true and distribution is periodic.
+  -interval
+     (Integer) Interval size in frames. Required if enable = true and
+     distribution is periodic.
+  -prob
+     (Float) A floating point value &lt;=1 representing probability of error.
+     Required if enable = true and distribution is uniform.
+  -burst_duration
+     (Integer) 1-65535. Number of times to repeat, 65535 means repeat forever.
+  -std_deviation
+     (FLoat) Valid only for gaussian distributions this is a floating point value
+     (0.0 &lt; value &lt;= 100.0). This is the percentage of the mean time between errors.
+  -range_from 
+     (Integer) reorder range starting value
+  -range_to
+     (Integer) reorder range ending value.
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_profile_jumbo_reorder</strong> on &lt;alias_name&gt; line &lt;line&gt; and 
+         profile &lt;profile&gt; to:
+  [INFO]      enable          = &lt;true|false&gt;
+  [INFO]      distribution    = &lt;periodic|poisson|gaussian|uniform&gt;   (** Printed if enable = true)
+  [INFO]      select_cnt      = &lt;select cnt&gt;           
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      interval        = &lt;select duration&gt; 
+                   (** Printed if enable = true and distribution is periodic)
+  [INFO]      probability     = &lt;probability&gt;                
+                   (** Printed if enable = true and distribution is uniform)
+  [INFO]      burst_duration = &lt;select repeat count&gt; (** Printed if enabled = true
+  [INFO]      std_deviation = &lt;% stdev&gt;           (**Printed if enabled = true
+  and distribution is gaussian)
+  [INFO]      reorder_range   = &lt;from&gt; - &lt;to&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a> )
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_profile_jumbo_reorder</strong> -conn $my_conn -line 1 -p 0 
+                   -enable true -select_cnt 5 -interval 10 -distribution periodic
+                   -range_from 2 -range_to 30
+  % <strong>set_profile_jumbo_reorder</strong> -conn $my_conn -line 1 -p 0 
+                   -enable true -select_cnt 5 -interval 10 -distribution gaussian
+                   -burst_duration 3 -std_deviation 30.0
+                   -range_from 2 -range_to 30
+  % <strong>set_profile_jumbo_reorder</strong> -conn $my_conn -line 1 -p 0 
+                   -enable true -prob 0.6  -distribution uniform
+                   -range_from 2 -range_to 30
+  % <strong>set_profile_jumbo_reorder</strong> -conn $my_conn -line 1 -p 0 
+                   -enable false 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo35">get_profile_jumbo_reorder</a>, <a href="#robo8">apply_profiles</a>, <a href="#robo34">set_profile_reorder</a>
+</pre>
+<a name="robo37">
+<a name="xgem2fget5fprofile5falarms">
+<h2>get_profile_alarms  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Fetch all the alarms from the profile.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_alarms</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                     [-line &lt;line&gt;] [-p &lt;profile&gt;] [-auto_clear &lt;true|false&gt;]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -nowarn
+     If not specified, the command alerts of a changed status an any alarm
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+  -auto_clear
+      If true, this command will reset all profile alarms after fetching their
+      current values.  If false (default), alarms will not be reset
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of alarms. To index an individual alarm, use the
+  predefined tags below.
+
+  Element Name          Returned Value             Definition
+  DELAY_OVERFLOW        &lt;red|green|yellow&gt;         Delay overflow alarm status
+  MEMORY_OVERFLOW       &lt;red|green|yellow&gt;         Memory overflow alarm status
+  JUMBO_REORDER_DROPPED &lt;red|green|yellow&gt;         Jumbo reorder dropped packets alarm status
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_alarms</strong> on &lt;alias_name&gt; line &lt;line&gt; profile &lt;profile&gt;
+  [INFO]    DELAY_OVERFLOW      State = &lt;red|green|yellow&gt;
+  - or -
+  [<a href="#robo62">WARNING</a>] DELAY_OVERFLOW      State = &lt;red|green|yellow&gt; changed from
+  Previous State =  &lt;red|green|yellow&gt; 
+  (** Warning is printed if nowarn option is not specified and a state change
+  is detected)
+  [INFO]    MEMORY_OVERFLOW     State = &lt;red|green|yellow&gt;  
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % set retval [<strong>get_profile_alarms</strong> -conn $my_conn -line 1 -p 0 ]
+  % set delay_overflow $retval(DELAY_OVERFLOW)
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo38">reset_profile_alarms</a>, <a href="#robo57">reset_all_alarms</a>
+</pre>
+<a name="robo38">
+<a name="xgem2freset5fprofile5falarms">
+<h2>reset_profile_alarms  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Reset all profile alarms for a given profile
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>reset_profile_alarms</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                       [-p &lt;profile&gt;]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>reset_profile_alarms</strong> on &lt;alias_name&gt; line &lt;line&gt; profile &lt;profile&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>reset_profile_alarms</strong> -line 1 -conn $my_conn -p 0 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo57">reset_all_alarms</a>
+</pre>
+<a name="robo39">
+<a name="xgem2fget5fprofile5fstats">
+<h2>get_profile_stats  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Fetch all the stats from the profile as an associative array
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_profile_stats</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                    [-p &lt;profile&gt;]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of statistics. To index an individual stat, use the
+  predefined tags below appending "_CURRENT" or "_CUMULATIVE" for the current
+  or cumulative statistic respectively.
+  See the example for more information
+
+  The type of each value is shown below.  Note that when doing arthmetic on
+  UInt64 values, it may be necessary to use the wide(arg) function of the expr
+  command.
+
+                            Current  Cumulative
+  Element Name              Type     Type         Definition
+  ----------------------------------------------------------------------------
+  RX_MAC_BYTES              UInt64   UInt64       Rx Side MAC Bytes 
+  RX_MAC_FRAMES             UInt32   UInt64       Rx Side MAC Frames
+  RX_MAC_CRC_ERR            UInt32   UInt64       Rx Side MAC CRC Errors
+  RX_MAC_BYTES_PER_SEC      Float    Float        Rx Side MAC Bytes per second
+  RX_MAC_FRAMES_PER_SEC     Float    Float        Rx Side MAC Frames per second#
+  TX_MAC_BYTES              UInt64   UInt64       Tx Side MAC Bytes 
+  TX_MAC_FRAMES             UInt32   UInt64       Tx Side MAC Frames
+  TX_MAC_CRC_ERR            UInt32   UInt64       Tx Side MAC CRC Errors
+  TX_MAC_BYTES_PER_SEC      Float    Float        Tx Side MAC Bytes per second
+  TX_MAC_FRAMES_PER_SEC     Float    Float        Tx Side MAC Frames per second#
+  DROPPED_BYTES             UInt64   UInt64       Number of Bytes Dropped
+  DROPPED_FRAMES            UInt32   UInt64       Number of Frames Dropped
+  CORRUPTED_CRCS            UInt32   UInt64       Number of CRCs Corrupted
+  CORRUPTED_BYTES           UInt64   UInt64       Number of Bytes Corrupted
+  CORRUPTED_FRAMES          UInt32   UInt64       Number of Frames Corrupted
+  DUP_FRAMES                UInt32   UInt64       Number of Frames Duplicated
+  REORDER_FRAMES            UInt32   UInt64       Number of Frames Reordered
+  DUP_JUMBO_FRAMES          UInt32   UInt64       Number of Jumbo Frames Duplicated
+  REORDER_JUMBO_FRAMES      UInt32   UInt64       Number of Jumbo Frames Reordered
+  MODIFIED_BYTES            UInt64   UInt64       Number of Bytes Modified
+  MODIFIED_FRAMES           UInt32   UInt64       Number of Frames Modified
+  AVG_FRAME_DELAY           UInt32   Float        Average Frame Delay (in ms)
+  MIN_FRAME_DELAY           UInt32   UInt32       Minimum Frame Delay (in ms)
+  MAX_FRAME_DELAY           UInt32   UInt32       Maximum Frame Delay (in ms)
+  PROF_POL_GREEN_BYTES      UInt64   UInt64       Policer green bytes (passed)
+  PROF_POL_GREEN_FRAMES     UInt32   UInt64       Policer green frames (passed)
+  PROF_POL_YELLOW_BYTES     UInt64   UInt64       Policer yellow bytes (passed)
+  PROF_POL_YELLOW_FRAMES    UInt32   UInt64       Policer yellow frames (passed)
+  PROF_POL_RED_BYTES        UInt64   UInt64       Policer red bytes (dropped)
+  PROF_POL_RED_FRAMES       UInt32   UInt64       Policer red frames (dropped)
+  PROF_SHAPED_FRAMES        UInt32   UInt64       Shaper shaped frames
+  PROF_SHAPING_DELAY        Float    Float        Shaper shaping delay
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_profile_stats</strong> on &lt;alias_name&gt; line &lt;line&gt;  profile &lt;profile&gt;
+  [INFO]    RX_MAC_BYTES          Current = &lt;current_stats&gt;  Cumulative =
+  &lt;cumulative_stats&gt;
+  [INFO]    ...
+  [INFO]    DUP_FRAMES            Current = &lt;current_stats&gt;  Cumulative = 
+  &lt;cumulative_stats&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array set retval [<strong>get_profile_stats</strong> -conn $my_conn -line 1 -p 1]
+  % set current_rx_mac_bytes        $retval(RX_MAC_BYTES_CURRENT)
+  % set cumulative_rx_mac_bytes     $retval(RX_MAC_BYTES_CUMULATIVE)
+  % set cumulative_impaired_frames  [expr wide($retval(DROPPED_FRAMES_CUMULATIVE)) + wide($retval(DUP_FRAMES_CUMULATIVE))]
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo40">reset_profile_stats</a>, <a href="#robo58">reset_all_stats</a>
+</pre>
+<a name="robo40">
+<a name="xgem2freset5fprofile5fstats">
+<h2>reset_profile_stats  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Reset all cumulative profile stats for a given profile
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>reset_profile_stats</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;]
+                      [-p &lt;profile&gt;]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number containing the profile to use for this command, indexed
+     from 1
+  -p 
+     (Int) Profile number to use for this command, where the default profile is
+     0 and other profiles are indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>reset_profile_stats</strong> on &lt;alias_name&gt; line &lt;line&gt; profile &lt;profile&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>reset_profile_stats</strong> -line 1 -conn $my_conn -p 0
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo58">reset_all_stats</a>
+</pre>
+<a name="robo41">
+<a name="xgem2fget5fline5fbandwidth5fcontrol">
+<h2>get_line_bandwidth_control  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Line Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the line bandwidth control parameters
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_line_bandwidth_control</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                             [-line &lt;line&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of line bandwidth control parameters.  To index an
+  individual parameter, use the predefined tags below.
+
+  Element Name             Returned Value     Definition
+  ENABLE_POLICER           true|false         Policer enabled
+  DROP_THRESH              Integer            Policer Drop Threshold (if
+                                              policer is enabled)
+  POLICER_RATE             Integer            Policer rate in kbps (if
+                                              policer is enabled)
+  ENABLE_PAUSE             true|false         Enable Pause 
+  XON_THRESH               Integer            XON Threshold (if pause is
+                                              enabled)
+  XOFF_THRESH              Integer            XOFF Threshold (if pause is
+                                              enabled)
+  ENABLE_SHAPER            true|false         Shaper enabled
+  SHAPER_BURST             Integer            Shaper burst tolerance in bytes
+                                              (if shaper is enabled)
+  SHAPER_RATE              Integer            Shaper rate in kbps (if shaper
+                                              is enabled)
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_line_bandwidth_control</strong> on &lt;alias_name&gt; line &lt;line&gt; :
+  [INFO]      policer_enable      = &lt;true|false&gt;
+  [INFO]        drop threshold    = &lt;drop threshold&gt;       (** If
+  policer_enable = true)
+  [INFO]        policer rate      = &lt;policer rate in kbps&gt; (** If
+  policer_enable = true)
+  [INFO]      pause_enable        = &lt;true|false&gt;           (** If 
+  policer_enable = true)
+  [INFO]        xon_threshold     = &lt;xon_threshold&gt;        (** If
+  policer_enable = true &amp;&amp; pause_enable = true)
+  [INFO]        xoff_threshold    = &lt;xoff_threshold&gt;       (** If
+  policer_enable = true &amp;&amp; pause_enable = true)
+  [INFO]      shaper_enable       = &lt;shaper enable&gt;        (** If
+  shaper_enable = true)
+  [INFO]        shaper_burst      = &lt;burst tolerance&gt;      (** If
+  shaper_enable = true)
+  [INFO]        shaper_rate       = &lt;shaper rate&gt;          (** If
+  shaper_enable = true)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % set retval [<strong>get_line_bandwidth_control</strong> -conn $my_conn -line 1 ]
+  % set policer_enabled $retval(ENABLE_POLICER)
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo42">set_line_bandwidth_control</a>
+</pre>
+<a name="robo42">
+<a name="xgem2fset5fline5fbandwidth5fcontrol">
+<h2>set_line_bandwidth_control  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Line Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the Line Bandwidth parameters. If policer/shaper is turned off, its
+  respective parameters are not required to complete the command. If the
+  policer/shaper is on, then all the required parameters for that section must
+  be completely specified, e.g. if policer is turned on, then the
+  drop_threshold, policer_rate must be specified. If pause is enabled in
+  addition, then XON/XOFF thresholds must be specidied too. 
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_line_bandwidth_control</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] 
+                  -enable_policer true -drop_thresh &lt;drop_threshold in bytes&gt;
+                  -policer_rate &lt;rate kbps&gt;
+                  -enable_pause true -xoff_thresh &lt;xoff threshold bytes&gt;
+                  -xon_thresh &lt;xon threshod bytes&gt;
+                  -enable_shaper true 
+                  -shaper_burst &lt;burst tolerance bytes&gt;
+                  -shaper_rate &lt;shaper rate kbps&gt;
+  <strong>set_line_bandwidth_control</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] 
+                  -enable_policer true -drop_thresh &lt;drop_threshold in bytes&gt;
+                  -policer_rate &lt;rate kbps&gt;
+                  -enable_pause true -xoff_thresh &lt;xoff threshold bytes&gt;
+                  -xon_thresh &lt;xon threshod bytes&gt;
+                  -enable_shaper false 
+  <strong>set_line_bandwidth_control</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] 
+                  -enable_policer true -drop_thresh &lt;drop_threshold in bytes&gt;
+                  -policer_rate &lt;rate kbps&gt;
+                  -enable_pause false 
+                  -enable_shaper true
+                  -shaper_burst &lt;burst tolerance bytes&gt;
+                  -shaper_rate &lt;shaper rate kbps&gt;
+  <strong>set_line_bandwidth_control</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] 
+                  -enable_policer true -drop_thresh &lt;drop_threshold in bytes&gt;
+                  -policer_rate &lt;rate kbps&gt;
+                  -enable_pause false 
+                  -enable_shaper false 
+  <strong>set_line_bandwidth_control</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] 
+                  -enable_policer false 
+                  -enable_shaper true
+                  -shaper_burst &lt;burst tolerance bytes&gt;
+                  -shaper_rate &lt;shaper rate kbps&gt;
+  <strong>set_line_bandwidth_control</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] 
+                  -enable_policer false 
+                  -enable_shaper false 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -nowarn
+     Suppress warnings for this command (overrides defaults)
+  -conn
+     Object reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+  -enable_policer
+     (true|false) Enable the line policer
+  -drop_thresh
+     (Integer) Drop threshold in bytes above which packets are dropped.
+     (** Required if enable_policer = true)
+  -policer_rate
+     (Integer) Policer Rate in kbps (** Required if enable_policer = true)
+  -enable_pause
+     (true|false) Enable the pause frame generation
+  -xoff_thresh
+     XOFF threshold above which the pause frame is generated to stop far side
+     from sending more data. 
+     (** Required if enable_policer = true &amp;&amp; enable_pause = true)
+  -xon_thresh
+     XON threshold below which the pause cancel frame is generated to
+     re-enable far end transmission.
+     (** Required if enable_policer = true &amp;&amp; enable_pause = true)
+  -enable_shaper
+     (true|false) Enable shaper 
+  -shaper_burst
+     (Integer) Burst tolerance in bytes. (** Required if enable_shaper = true)
+  -shaper_rate
+     (Integer) Shaper Rate in kbps (** Required if enable_shaper = true)
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_line_bandwidth_control</strong> on &lt;alias_name&gt; line &lt;line&gt; to :
+  [INFO]      enable_policer   = &lt;true|false&gt;
+  [INFO]        drop_thresh    = &lt;drop threshold in bytes&gt;    (** Printed if
+  enable_policer = true)
+  [INFO]        policer_rate   = &lt;policer_rate in kbps&gt;       (** Printed if
+  enable_policer = true)
+  [INFO]      enable_pause     = &lt;true|false&gt;
+  [INFO]        xon_thresh     = &lt;XON threshold in bytes&gt;     (** Printed if
+  enable_policer = true &amp;&amp; enable_pause = true)
+  [INFO]        xoff_thresh    = &lt;XOFF threshold in bytes&gt;    (** Printed if
+  enable_policer = true &amp;&amp; enable_pause = true)
+  [INFO]      enable_shaper    = &lt;true|false&gt;
+  [INFO]        shaper_burst   = &lt;tolerance in bytes&gt; (** Printed if
+  enable_shaper = true)
+  [INFO]        shaper_rate    = &lt;shaper_rate in kbps&gt;        (** Printed if
+  enable_shaper = true)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  LINE_THROTTLE_WARNING (Refer to <a href="#robo62">WARNING</a>)
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_line_bandwidth_control</strong>  -line 1 -conn $my_conn
+                  -enable_policer true -drop_thresh 10000 -policer_rate 100000 
+                  -enable_pause true -xon_thresh 100 -xoff_thresh 200 
+                  -enable_shaper true -shaper_burst 0 
+                  -shaper_rate 101000
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo41">get_line_bandwidth_control</a>
+</pre>
+<a name="robo43">
+<a name="xgem2fget5fline5fber">
+<h2>get_line_ber  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Line Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the line bit error rate configuration from the device.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_line_ber</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of line bit error rate parameters. To index an individual
+  parameter, use the predefined tags below.
+
+  Element Name      Returned Value       Definition
+  ENABLED           true|false           Whether or not line bit error rate is
+                                         enabled
+  ERROR_RATE        Float                Error rate specification
+  PATTERN           zero|one|invert      Pattern for replacement
+  MIN_BURST_LEN     Integer              Minimum burst length
+  BURST_LEN_VAR     Integer              Burst Length Variation
+  ITER_COUNT        Integer|infinite     Iteration Count
+  ITER_REM          Integer              # Iterations Remaining
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_line_ber</strong> on &lt;alias_name&gt; line &lt;line&gt; :
+  [INFO]      enabled        = &lt;true|false&gt;
+  [INFO]      error rate     = &lt;rate&gt;                   (** If enabled = true)
+  [INFO]      pattern        = &lt;zero|one|invert&gt;        (** If enabled = true)
+  [INFO]      min_burst_len  = &lt;min burst len&gt;          (** If enabled = true)
+  [INFO]      burst_len_var  = &lt;burst_len_var&gt;          (** If enabled = true)
+  [INFO]      iter_count     = &lt;# interations setting&gt;  (** If enabled = true)
+  [INFO]      iter_rem       = &lt;# remaining iterations&gt; 
+              (** If enabled = true and iter_count is not infinite)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % set retval [<strong>get_line_ber</strong> -conn $my_conn -line 1 ]
+  % set ber_enabled $retval(ENABLED)
+  % set ber_pattern $retval(ERROR_RATE)
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo44">set_line_ber</a>
+</pre>
+<a name="robo44">
+<a name="xgem2fset5fline5fber">
+<h2>set_line_ber  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Line Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the Line Bit Error Rate. If Enabled, all parameters must be specified.  
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_line_ber</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+                  -enable true -error_rate &lt;error_rate&gt;  
+                  -pattern &lt;zero/one/invert&gt; -min_burst_len &lt;min burst length&gt;
+                  -burst_len_var &lt;burst len variation&gt;
+                  -iter_count &lt;1-65534 | infinite&gt; 
+  <strong>set_line_ber</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+                  -enable false 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Object reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+  -enable
+     (true|false) Enable the line ber
+  -error_rate
+     (Float) Error Rate Value e.g. 1.5e-6. (** Required if enable = true)
+  -pattern
+     (zero|one|invert) zero - insert zeroes in place of data bits, one -
+     insert ones in plcae of data bits, invert - invert incoming data bits.
+     (** Required if enable = true)
+  -min_burst_len
+     Burst length = Min Burst Length + Random number(0,burst_len_variation).
+     This parameter provides the minimum burst length in bits.
+     (** Required if enable = true)
+  -burst_len_var
+     Burst length variation provides randomness in the burst length as defined
+     above. This value is rounded to nearest as 2**n-1 where n is in range
+     0-15.
+     (** Required if enable = true)
+  -iter_count
+     (1-65534 | infinite) The number of iterations of a BER cycle (one
+     cycle indicates a burst of bit errors followed by a gap where no bit
+     errors are inserted).
+     (** Required if enable = true)
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_line_ber</strong> on &lt;alias_name&gt; line &lt;line&gt; to :
+  [INFO]      enabled = &lt;true|false&gt;
+  [INFO]      error_rate = &lt;error_rate&gt;                (** Printed if
+  enable = true)
+  [INFO]      pattern = &lt;zero|one|invert&gt;              (** Printed if
+  enable = true)
+  [INFO]      min_burst_len = &lt;min_burst_len&gt; bits     (** Printed if
+  enable = true)
+  [INFO]      burst_len_var = &lt;burst length variation&gt; bits   (** Printed if
+  enable = true)
+  [INFO]      iter_count    = &lt;iter_count&gt;             (** Printed if
+  enable = true )
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_line_ber</strong> -line 1 -conn $my_conn 
+                          -enable true -error_rate 1.5e-6 
+                          -pattern invert -min_burst_len 100 -burst_len_var 7 
+                          -iter_count 1000 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo43">get_line_ber</a>
+</pre>
+<a name="robo45">
+<a name="xgem2fget5fline5fminimum5fipg">
+<h2>get_line_minimum_ipg  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Module ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the line minimum IPG setting.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_line_minimum_ipg</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of line minimum ipg parameters. To index an individual
+  parameter, use the predefined tags below.
+
+  Element Name      Returned Value       Definition
+  VALUE             Integer              Minimum IPG set value
+  EST_VALUE         Integer              Minimum IPG estimated value
+  DIC_ENABLED       (true|false)         Whether or not the IPG value causes
+                                         DIC to be enabled
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_line_minimum_ipg</strong> on &lt;alias_name&gt; line &lt;line&gt;:
+  [INFO]      set value         = &lt;set minimum ipg value&gt;      
+  [INFO]      estimated value   = &lt;estimated minimum ipg value&gt;  
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array_set retval [<strong>get_line_minimum_ipg</strong> -conn $my_conn -line 1]
+  % set val $retval(VALUE)
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo46">set_line_minimum_ipg</a>
+</pre>
+<a name="robo46">
+<a name="xgem2fset5fline5fminimum5fipg">
+<h2>set_line_minimum_ipg  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Module ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the minimum IPG setting for the DIC Control. The DIC controller is
+  automatically engaged if the minimum IPG setting is between 9-11. If the
+  minimum IPG is set between 12 and 31 then the DIC controller is disabled.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_line_minimum_ipg</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+                       -value &lt;minimum ipg value&gt;  
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Object reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+  -value
+     (Integer) Minimum IPG [9-31]. Below 12 the DIC control is engaged
+     automatically
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_line_minimum_ipg</strong> on &lt;alias_name&gt; line &lt;line&gt; to :
+  [INFO]        minimum_ipg           = &lt;minimum IPG set value&gt;    
+  [INFO]        minimum_ipg_estimated = &lt;minimum IPG estimated value&gt; 
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_line_minimum_ipg</strong> -conn $my_conn -line 1 -value 9 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo45">get_line_minimum_ipg</a>
+</pre>
+<a name="robo47">
+<a name="xgem2fget5fline5frepeater5femulation">
+<h2>get_line_repeater_emulation  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Module ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Gets the line repeater emulation setting.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_line_repeater_emulation</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                              [-line &lt;line&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of line repeater emulation parameters. To index an
+  individual parameter, use the predefined tags below.
+
+  Element Name      Returned Value       Definition
+  ENABLED           true|false           Whether or not repeater emulation is
+                                         enabled
+  CLK_PPM           Integer              Clock ppm difference setting
+  ONE_SHOT_PENDING  true|false           One shot is pending
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_line_repeater_emulation</strong> on &lt;alias_name&gt; line &lt;line&gt; :
+  [INFO]      one_shot_pending  = &lt;true|false&gt;   
+  [INFO]      enable            = &lt;true|false&gt;
+  [INFO]      clock ppm         = &lt;clock frequency difference&gt;
+              (** If enable = true)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array_set retval [<strong>get_line_repeater_emulation</strong> -conn $my_conn -line 1]
+  % set enabled $retval(ENABLED)
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo48">set_line_repeater_emulation</a>
+</pre>
+<a name="robo48">
+<a name="xgem2fset5fline5frepeater5femulation">
+<h2>set_line_repeater_emulation  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Module ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Sets the Line Repeater Emulation setting. This feature emulates the effect
+  of clock rate mismatch between network equipment and signal repeater devices. 
+  It allows for one shot mode that enables removal of IPG only one time. The
+  one shot mode setting does not require enabling the ppm difference. If ppm
+  difference is desired then both enable and ppm setting must be specified.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>set_line_repeater_emulation</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] -enable true 
+                  -clock_ppm &lt;ppm difference desired&gt;  
+  <strong>set_line_repeater_emulation</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] -enable false 
+  <strong>set_line_repeater_emulation</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] 
+                  -one_shot 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Object reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+  -enable
+     (true|false) Enable the repeater emulation in ppm mode 
+  -clock_ppm
+     (Integer) This specifies a clock frequency difference between 1 and 400
+     ppm (inclusive)
+  -one_shot
+     Enable the one shot mode that removes IPG only 1 time (does not require
+     ppm and enable to be specified)
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>set_line_repeater_emulation</strong> on &lt;alias_name&gt; line &lt;line&gt; to :
+  [INFO]      enable = &lt;true|false&gt; (** printed if ppm mode is selected)
+  [INFO]      clock_ppm = &lt;clock frequency ppm difference&gt; 
+              (** Printed if enable = true)
+  [INFO]      one_shot  = &lt;true|false&gt; 
+              (** Printed if one shot mode is selected)
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, BOUND_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>set_line_repeater_emulation</strong> -line 0 -conn $my_conn 
+                                -enable true -clock_ppm 400 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo47">get_line_repeater_emulation</a>
+</pre>
+<a name="robo49">
+<a name="xgem2fget5fline5falarms">
+<h2>get_line_alarms  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Line Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Fetch all the alarms from the line.
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_line_alarms</strong> [-v|q] [-nowarn] [-conn &lt;connection_reference&gt;]
+                  [-line &lt;line&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -nowarn
+     If not specified, the command alerts of a changed status an any alarm
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+  -auto_clear
+      If true, this command will reset all line alarms after fetching their
+      current values.  If false (default), alarms will not be reset
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of alarms. To index an individual alarm, use the
+  predefined tags below.
+
+  Element Name      Returned Value       Definition
+  RX_LOS            &lt;red|green|yellow&gt;   Rx Side loss of signal status
+  RX_LOL            &lt;red|green|yellow&gt;   Rx Side loss of lock status
+  RX_LOF            &lt;red|green|yellow&gt;   Rx Side loss of frame status
+  RX_MAC_PCS_ERR    &lt;red|green|yellow&gt;   Rx Side MAC/PCS Alarm status
+  TX_LOL            &lt;red|green|yellow&gt;   Tx Side loss of lock status
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_line_alarms</strong> on &lt;alias_name&gt; line &lt;line&gt; 
+  [INFO]    RX_LOS      State = &lt;red|green|yellow&gt;  
+  - or -
+  [<a href="#robo62">WARNING</a>] RX_LOS      State = &lt;red|green|yellow&gt;  changed from Previous
+  State =  &lt;red|green|yellow&gt; 
+  (** Warning is printed if nowarn option is not specified and a state change
+  is detected)
+  [INFO]    ...
+  [INFO]    TX_LOL      State = &lt;red|green|yellow&gt;  
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % set retval [<strong>get_line_alarms</strong> -conn $my_conn -line 1 ]
+  % set rx_los $retval(RX_LOS)
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo50">reset_line_alarms</a>, <a href="#robo57">reset_all_alarms</a>
+</pre>
+<a name="robo50">
+<a name="xgem2freset5fline5falarms">
+<h2>reset_line_alarms  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Line Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Reset all line alarms for a given line
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>reset_line_alarms</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>reset_line_alarms</strong> on &lt;alias_name&gt; line &lt;line&gt; 
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>reset_line_alarms</strong> -line 1 -conn $my_conn 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo57">reset_all_alarms</a>
+</pre>
+<a name="robo51">
+<a name="xgem2fget5fipg5fstats">
+<h2>get_ipg_stats  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Line Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Fetch all the IPG stats from the line as an associative array
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_ipg_stats</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of statistics.  To index an individual stat, combine "RX_"
+  or "TX_" for receive or transmit statistic respectively, the IPG value of
+  interest (from 5 to 31), and "_CURRENT" or "_CUMULATIVE" for the current or
+  cumulative statistic respectively.  For example:
+     RX_5_CURRENT, TX_31_CUMULATIVE
+  Note that the 31 value represents all packets with an IPG of 31 or greater.
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_ipg_stats</strong> on &lt;alias_name&gt; line &lt;line&gt;
+  [INFO] IPG   Rx Current     Rx Cumulative      Tx Current     Tx Cumulative
+  [INFO] ----  -------------  ---------------    -------------  ---------------
+  [INFO]    5  &lt;current rx&gt;   &lt;cumulative rx&gt;    &lt;current tx&gt;   &lt;cumulative tx&gt;
+  [INFO] ...
+  [INFO] &gt;=31  &lt;current rx&gt;   &lt;cumulative rx&gt;    &lt;current tx&gt;   &lt;cumulative tx&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array set retval [<strong>get_ipg_stats</strong> -conn $my_conn -line 1]
+  % set current_rx_ipg7     $retval(RX_7_CURRENT)
+  % set cumulative_rx_ipg31 $retval(RX_31_CUMULATIVE)
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo52">reset_ipg_stats</a>, <a href="#robo58">reset_all_stats</a>
+</pre>
+<a name="robo52">
+<a name="xgem2freset5fipg5fstats">
+<h2>reset_ipg_stats  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Line Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Reset all cumulative IPG stats for a given line
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>reset_ipg_stats</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>reset_ipg_stats</strong> on &lt;alias_name&gt; line &lt;line&gt; 
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>reset_ipg_stats</strong> -line 1 -conn $my_conn 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo58">reset_all_stats</a>
+</pre>
+<a name="robo53">
+<a name="xgem2fget5fline5fstats">
+<h2>get_line_stats  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Line Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Fetch all the stats from the line as an associative array
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>get_line_stats</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  Associative array of statistics. To index an individual stat, use the
+  predefined tags below appending "_CURRENT" or "_CUMULATIVE" for the current
+  or cumulative statistic respectively.
+  See the example for more information
+
+  The type of each value is shown below.  Note that when doing arthmetic on
+  UInt64 values, it may be necessary to use the wide(arg) function of the expr
+  command.
+
+                            Current  Cumulative
+  Element Name              Type     Type         Definition
+  ----------------------------------------------------------------------------
+  RX_STAT_SYNC_HDR          UInt32   UInt64       Rx Side Sync Header Error
+                                                  Stats
+  RX_STAT_INV_BLK           UInt32   UInt64       Rx Side Invalid Blocks
+  RX_STAT_INV_CTRL_CODES    UInt32   UInt64       Rx Side Invalid Control Codes
+  RX_STAT_PCS_MALFORMED     UInt32   UInt64       Rx Side PCS malformed frame
+                                                  count
+  TX_STAT_SYNC_HDR          UInt32   UInt64       Tx Side Sync Header Error
+                                                  Stats
+  TX_STAT_INV_BLK           UInt32   UInt64       Tx Side Invalid Blocks
+  TX_STAT_INV_CTRL_CODES    UInt32   UInt64       Tx Side Invalid Control Codes
+  TX_STAT_PCS_MALFORMED     UInt32   UInt64       Tx Side PCS malformed frame
+                                                  count
+  RX_MAC_INV_PREAMBLE       UInt32   UInt64       Rx Side Invalid Preamble Count
+  RX_MAC_IPG_ERR            UInt32   UInt64       Rx Side Short IPG Errors
+  TX_MAC_INV_PREAMBLE       UInt32   UInt64       Tx Side Invalid Preamble Count
+  TX_MAC_IPG_ERR            UInt32   UInt64       Tx Side Short IPG Errors
+  RX_MAC_BYTES              UInt64   UInt64       Rx Side MAC Bytes 
+  RX_MAC_FRAMES             UInt32   UInt64       Rx Side MAC Frames
+  RX_MAC_CRC_ERR            UInt32   UInt64       Rx Side MAC CRC Errors
+  RX_MAC_BYTES_PER_SEC      Float    Float        Rx Side MAC Bytes per second
+  RX_MAC_FRAMES_PER_SEC     Float    Float        Rx Side MAC Frames per second
+  TX_MAC_BYTES              UInt64   UInt64       Tx Side MAC Bytes 
+  TX_MAC_FRAMES             UInt32   UInt64       Tx Side MAC Frames
+  TX_MAC_CRC_ERR            UInt32   UInt64       Tx Side MAC CRC Errors
+  TX_MAC_BYTES_PER_SEC      Float    Float        Tx Side MAC Bytes per second
+  TX_MAC_FRAMES_PER_SEC     Float    Float        Tx Side MAC Frames per second
+  DROPPED_BYTES             UInt64   UInt64       Number of Bytes Dropped
+  DROPPED_FRAMES            UInt32   UInt64       Number of Frames Dropped
+  CORRUPTED_BYTES           UInt64   UInt64       Number of Bytes Corrupted
+  CORRUPTED_FRAMES          UInt32   UInt64       Number of Frames Corrupted
+  DUP_FRAMES                UInt32   UInt64       Number of Frames Duplicated
+  REORDER_FRAMES            UInt32   UInt64       Number of Frames Reordered
+  MODIFIED_BYTES            UInt64   UInt64       Number of Bytes Modified
+  MODIFIED_FRAMES           UInt32   UInt64       Number of Frames Modified
+  XON_FRAMES                UInt32   UInt64       Number of frames sent to
+                                                  enable Transmission
+  XOFF_FRAMES               UInt32   UInt64       Number of frames sent to
+                                                  disable Transmission (Pause)
+  PAUSE_TIME                Float    Float        Duration of Pause (in
+                                                  milliseconds)
+  POLICER_PASS_BYTES        UInt64   UInt64       Line bandwidth policer passed
+                                                  bytes
+  POLICER_PASS_FRAMES       UInt32   UInt64       Line bandwidth policer passed
+                                                  frames
+  POLICER_DROP_BYTES        UInt64   UInt64       Line bandwidth policer
+                                                  dropped bytes
+  POLICER_DROP_FRAMES       UInt32   UInt64       Line bandwidth policer
+                                                  dropped frames
+  PROF_POL_GREEN_BYTES      UInt64   UInt64       Total profile bandwidth
+                                                  policer green bytes
+  PROF_POL_GREEN_FRAMES     UInt32   UInt64       Total profile bandwidth
+                                                  policer green frames
+  PROF_POL_YELLOW_BYTES     UInt64   UInt64       Total profile bandwidth
+                                                  policer yellow bytes
+  PROF_POL_YELLOW_FRAMES    UInt32   UInt64       Total profile bandwidth
+                                                  policer yellow frames
+  PROF_POL_RED_BYTES        UInt64   UInt64       Total profile bandwidth
+                                                  policer red bytes
+  PROF_POL_RED_FRAMES       UInt32   UInt64       Total profile bandwidth
+                                                  policer red frames
+  PROF_SHAPED_FRAMES        UInt32   UInt64       Total profile bandwidth
+                                                  shaped frames
+  PROF_SHAPING_DELAY        Float    Float        Total profile bandwidth
+                                                  shaping delay (in ms)
+  FRAME_LEN_UNDERSIZED      UInt32   UInt64       Frame length history, &lt; 64
+  FRAME_LEN_64              UInt64   UInt64       Frame length history, 64
+  FRAME_LEN_65              UInt64   UInt64       Frame length history, 65-127
+  FRAME_LEN_128             UInt64   UInt64       Frame length history, 128-255
+  FRAME_LEN_256             UInt64   UInt64       Frame length history, 256-511
+  FRAME_LEN_512             UInt64   UInt64       Frame length history, 512-1023
+  FRAME_LEN_1024            UInt64   UInt64       Frame length history, 1024-1518
+  FRAME_LEN_OVERSIZED       UInt64   UInt64       Frame length history, &gt; 1518
+  (Please look at examples for usage)
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>get_line_stats</strong> on &lt;alias_name&gt; line &lt;line&gt; 
+  [INFO]    RX_STAT_SYNC_HDR      Current = &lt;current_stats&gt;  Cumulative = 
+  &lt;cumulative_stats&gt;
+  [INFO]    ...
+  [INFO]    PAUSE_TIME            Current = &lt;current_stats&gt;  Cumulative = 
+  &lt;cumulative_stats&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR 
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % array set retval [<strong>get_line_stats</strong> -conn $my_conn -line 1]
+  % set current_rx_stat_sync_hdr     $retval(RX_STAT_SYNC_HDR_CURRENT)
+  % set cumulative_rx_stat_sync_hdr  $retval(RX_STAT_SYNC_HDR_CUMULATIVE)
+  % set cumulative_pause_diff        [expr wide($retval(XOFF_FRAMES_CUMULATIVE)) - wide($retval(XON_FRAMES_CUMULATIVE))]
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo54">reset_line_stats</a>, <a href="#robo58">reset_all_stats</a>
+</pre>
+<a name="robo54">
+<a name="xgem2freset5fline5fstats">
+<h2>reset_line_stats  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Line Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Reset all cumulative line stats for a given line
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>reset_line_stats</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>reset_line_stats</strong> on &lt;alias_name&gt; line &lt;line&gt; 
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>reset_line_stats</strong> -line 1 -conn $my_conn 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo58">reset_all_stats</a>
+</pre>
+<a name="robo55">
+<a name="xgem2freset5falarms">
+<h2>reset_alarms  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Line Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Reset all alarms (line and profile) for a given line
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>reset_alarms</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>reset_alarms</strong> on &lt;alias_name&gt; line &lt;line&gt; 
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>reset_alarms</strong> -line 1 -conn $my_conn 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo50">reset_line_alarms</a>
+</pre>
+<a name="robo56">
+<a name="xgem2freset5fstats">
+<h2>reset_stats  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Line Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Reset all cumulative stats (line, IPG, and profile) for a given line
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>reset_stats</strong> [-v|q] [-conn &lt;connection_reference&gt;] [-line &lt;line&gt;] 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+  -line 
+     (Int) Line number to use for this command, indexed from 1
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>reset_stats</strong> on &lt;alias_name&gt; line &lt;line&gt; 
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>reset_stats</strong> -line 1 -conn $my_conn 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo54">reset_line_stats</a>, <a href="#robo40">reset_profile_stats</a>
+</pre>
+<a name="robo57">
+<a name="xgem2freset5fall5falarms">
+<h2>reset_all_alarms  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Line and Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Reset all alarms on all lines and profiles
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <strong>reset_all_alarms</strong> [-v|q] [-conn &lt;connection_reference&gt;]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>reset_all_alarms</strong> on &lt;alias_name&gt;
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>reset_all_alarms</strong> -conn $my_conn 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo50">reset_line_alarms</a>, <a href="#robo38">reset_profile_alarms</a>, <a href="#robo55">reset_alarms</a>
+</pre>
+<a name="robo58">
+<a name="xgem2freset5fall5fstats">
+<h2>reset_all_stats  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Line and Profile Operations ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>  Reset all cumulative stats on all lines and profiles
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>  <a href="#robo56">reset_stats</a> [-v|q] [-conn &lt;connection_reference&gt;]
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   -v 
+     Display INFO messages
+   -q
+     Suppress INFO messages
+  -conn
+     Connection reference to send this command to
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>  None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>  [INFO] <strong>reset_all_stats</strong> on &lt;alias_name&gt; 
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>  None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre> ARG_ERR, CMD_AUTH_ERR (Refer to <a href="#robo61">ERROR</a>)
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>  % <strong>reset_all_stats</strong> -conn $my_conn 
+</pre>
+<p class="item_name">SEE ALSO</p>
+<pre>  <a href="#robo54">reset_line_stats</a>, <a href="#robo40">reset_profile_stats</a>, <a href="#robo56">reset_stats</a>
+</pre>
+<a name="robo59">
+<a name="xgem2flist5fall5fcommands">
+<h2>list_all_commands  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Help ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>   This command lists all available XGEM commands
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>   <strong>list_all_commands</strong>
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   None
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>   None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>   A list of all available XGEM commands
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre>   None
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>   % <strong>list_all_commands</strong>
+</pre>
+<a name="robo60">
+<a name="xgem2fgenerate5ftcl5fscript">
+<h2>generate_tcl_script  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Help ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>   This command generates a Tcl script representing the current settings on
+   the XGEM box
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>   <strong>generate_tcl_script</strong> [-conn &lt;connection_reference&gt;] -file &lt;filename&gt;
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>  -conn
+     Connection reference to send this command to
+  -file
+     The filename to save the Tcl script to
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>   None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>   None
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre>   FILE_ERROR
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>   % <strong>generate_tcl_script</strong> -file restore.tcl
+</pre>
+<a name="robo61">
+<a name="xgem2fERROR">
+<h2>ERROR  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Help ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>   This command describes the various error codes that tcl can throw
+   under error conditions
+
+   Error Tag                    Description 
+   ARG_ERR                 Incorrect Argument Specification
+   BOUND_ERR               Bounds Check Failed on Arguments
+   SOCK_ERR                Socket/Comm Error
+   WRONG_FW_ERR            Incorrect Firmware Load on XGEM Chassis
+   PROTOCOL_ERR            Comm Protocol Version Mismatch
+   CMD_AUTH_ERR            Command Not Authorized
+   TOO_MANY_CONN_ERR       Too many connections to the server
+   CLASSIFIER_ERR          Error trying to set the classifier
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>   <strong>ERROR</strong> 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   None
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>   None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>   [INFO] Error Tag                    Description 
+   [INFO] ARG_ERR                 Incorrect Argument Specification
+   [INFO] BOUND_ERR               Bounds Check Failed on Arguments
+   [INFO] SOCK_ERR                Socket/Comm Error
+   [INFO] WRONG_FW_ERR            Incorrect Firmware Load on XGEM Chassis
+   [INFO] PROTOCOL_ERR            Comm Protocol Version Mismatch
+   [INFO] CMD_AUTH_ERR            Command Not Authorized
+   [INFO] TOO_MANY_CONN_ERR       Too many connections to the server
+   [INFO] CLASSIFIER_ERR          Error trying to set the classifier
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre>   None
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>   % <strong>ERROR</strong>
+</pre>
+<a name="robo62">
+<a name="xgem2fWARNING">
+<h2>WARNING  </h2>
+<p>[ <a href="#robo_top_of_doc">Top</a> ] [ <a href="#robo0">xgem</a> ] [ Help ]</p>
+<p class="item_name">FUNCTION</p>
+<pre>   This command describes the various warning codes that tcl can generate
+
+   Warning Tag                    Description 
+   SOCKET_RECONNECT               Socket was reconnected automatically after 
+                                  timeout
+   LINE_THROTTLE_WARNING          Line policer/shaper settings can lead to
+                                  delay/buffer overflow
+   PROFILE_THROTTLE_WARNING       Profile policer/shaper settings can lead to
+                                  delay/buffer overflow
+   DUPLICATION_WARNING            Profile duplication settings can lead to
+                                  delay/buffer overflow
+   PROFILE_NOCHANGES_WARNING      Profiles were applied when no outstanding
+                                  profile changes existed
+   CLASSIFIER_WARNING             Classifier may not filtering packets
+                                  as intended
+</pre>
+<p class="item_name">SYNOPSIS</p>
+<pre>   <strong>WARNING</strong> 
+</pre>
+<p class="item_name">ARGUMENTS</p>
+<pre>   None
+</pre>
+<p class="item_name">RETURN VALUE</p>
+<pre>   None
+</pre>
+<p class="item_name">OUTPUT</p>
+<pre>   [INFO] Warning Tag                      Description 
+   [INFO] SOCKET_RECONNECT               Socket was reconnected automatically
+                                         after timeout
+   [INFO] LINE_THROTTLE_WARNING          Line policer/shaper settings can lead
+                                         to delay/buffer overflow
+   [INFO] PROFILE_THROTTLE_WARNING       Profile policer/shaper settings can
+                                         lead to delay/buffer overflow
+   [INFO] DUPLICATION_WARNING            Profile duplication settings can lead
+                                         to delay/buffer overflow
+   [INFO] PROFILE_NOCHANGES_WARNING      Profiles were applied when no outstanding
+                                         profile changes existed
+   [INFO] CLASSIFIER_WARNING             Classifier may not be filtering packets
+                                         as intended
+</pre>
+<p class="item_name">WARNINGS</p>
+<pre>   None
+</pre>
+<p class="item_name">ERRORS</p>
+<pre>   None
+</pre>
+<p class="item_name">EXAMPLE</p>
+<pre>   % <strong>WARNING</strong>
+</pre>
+<div id="footer">
+<p>Generated from ./ with <a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">ROBODoc</a> V4.99.34 on Wed Jun 10 2009 16:59:22
+</p>
+</div> <!-- footer -->
+</body>
+</html>
