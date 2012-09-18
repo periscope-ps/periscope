@@ -1,0 +1,57 @@
+
+
+MongoDB:
+Please note that Periscope uses mongodb
+
+You can find instructions how to download mongodb here:
+
+For Debian based distros:
+http://docs.mongodb.org/manual/tutorial/install-mongodb-on-debian-or-ubuntu-linux/
+
+For Redhat based distros:
+http://docs.mongodb.org/manual/tutorial/install-mongodb-on-redhat-centos-or-fedora-linux/
+
+If your server is located on host other than localhost, please edit settings.py
+
+
+
+Required Packages:
+- tornado>=2.3
+- pymongo==2.1.1  # Won't work the newer versions
+- asyncmongo  # see notes below
+- unittest2
+- netlogger==4.3.0  # see notes below
+- validictory>=0.8.1
+- mock==0.8.0   # Won't work the newer versions
+- jsonpointer
+- argparse
+- httplib2
+- jsonpath    # see notes below
+
+
+Installation notes:
+
+Netlogger
+If you're using pip then only the old version of netlogger will be installed.
+Make sure to use easy_install.
+
+           sudo easy_install netlogger
+           
+
+Asyncmongo:
+Tailable cursors support is not merge to the main branch yet.
+You need to download the development branch
+
+    git clone git://github.com/ahassany/asyncmongo.git
+    sudo python setup.py install
+    
+JSONPath
+This package has a bug that have been reported and confirmed by the author.
+Unfortunatlly the author didn't release new version yet. You need to change one
+line in jsonpath source code.
+
+open the jsonpath.py file usually located at /usr/local/lib/python2.6/dist-packages/jsonpath-0.53-py2.6.egg/ or /usr/local/lib/python2.7/dist-packages/jsonpath-0.53-py2.6.egg/
+Comment out line #277 that says loc = re.sub(r'(?<!=)(=)(?!=)', '==', loc)
+
+
+

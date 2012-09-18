@@ -1,0 +1,10 @@
+*.pyc
+*~
+build/
+/dist/
+MANIFEST
+/periscope.egg-info/
+.tox/
+.coverage
+.cache
+htmlcov/

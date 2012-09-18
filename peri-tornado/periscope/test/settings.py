@@ -21,3 +21,33 @@ SYNC_DB = {
     'host': DB_HOST,
     'port': DB_PORT,
 }
+
+
+NETLOGGER_NAMESPACE = "periscope"
+import logging
+from netlogger import nllog
+def config_logger():
+    """Configures netlogger"""
+    nllog.PROJECT_NAMESPACE = NETLOGGER_NAMESPACE
+    #logging.setLoggerClass(nllog.PrettyBPLogger)
+    logging.setLoggerClass(nllog.BPLogger)
+    log = logging.getLogger(nllog.PROJECT_NAMESPACE)
+    handler = logging.StreamHandler()
+    handler.setFormatter(logging.Formatter("%(message)s"))
+    log.addHandler(handler)
+    # set level
+    
+    log_level = (logging.WARN, logging.INFO, logging.DEBUG,
+             nllog.TRACE)[3]
+    
+    log.setLevel(10)
+
+
+def get_logger(namespace=NETLOGGER_NAMESPACE):
+    """Return logger object"""
+    # Test if netlloger is initialized
+    if nllog.PROJECT_NAMESPACE != NETLOGGER_NAMESPACE:
+        config_logger()
+    return nllog.get_logger(namespace)
+
+config_logger()
