@@ -1,0 +1,54 @@
+define which probes you'd like to run in the list PROBES in settings.py. Their
+names are just their filenames without the ".py".
+
+you need to install my version of python-ethtool which just adds a get_speed
+function so that the capacity of each interface can be reported. I added a dummy
+ethtool.py that just returns -42 in case its too annoying to get working for
+testing purposes. For now I'm just going to include the code for the function and
+you can insert it into the python-ethtool code yourself and reinstall it. I'll
+have to play around with a way to make this work more easily or out of the box.
+
+Directions:
+** python-ethtool
+needed to sudo apt-get install libnl-dev
+http://dsommers.fedorapeople.org/python-ethtool/python-ethtool-0.7.tar.bz2
+http://dsommers.fedorapeople.org/python-ethtool/python-ethtool-libnl-1.0-support.patch
+from the python-ethtool dir: $ patch -p1 < ../python-ethtool-libnl-1.0-support.patch
+*** add in get_speed function to ethtool.c
+#+BEGIN_SRC
+static PyObject *get_speed(PyObject *self __unused, PyObject *args)
+{
+	struct ifreq ifr;
+	int fd, err;
+	struct ethtool_cmd edata;
+	char *devname;
+	if (!PyArg_ParseTuple(args, "s", &devname))
+		return NULL;
+
+	/* Setup our control structures. */
+	memset(&ifr, 0, sizeof(ifr));
+	strncpy(&ifr.ifr_name[0], devname, IFNAMSIZ);
+	ifr.ifr_name[IFNAMSIZ - 1] = 0;
+	ifr.ifr_data = &edata;
+	edata.cmd = ETHTOOL_GSET;
+
+
+	/* Open control socket. */
+	fd = socket(AF_INET, SOCK_DGRAM, 0);
+	if (fd < 0) {
+          PyErr_SetString(PyExc_OSError, strerror(errno));
+          return NULL;
+	}
+
+	/* Get current settings. */
+	err = ioctl(fd, SIOCETHTOOL, &ifr);
+        if (err < 0) {
+          PyErr_SetString(PyExc_OSError, strerror(errno));
+          return NULL;
+        }
+	
+	close(fd);
+        return PyInt_FromLong((long) edata.speed);
+}
+#+END_SRC
+setup.py install
