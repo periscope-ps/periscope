@@ -1,4 +1,10 @@
 
+Periscope can be easily install by:
+    sudo python setup.py install
+    
+If you're planning to manually install Periscope by other methods, see the
+following sections for required packages.
+
 
 MongoDB:
 Please note that Periscope uses mongodb
@@ -15,7 +21,7 @@ If your server is located on host other than localhost, please edit settings.py
 
 
 
-Required Packages:
+Required Packages (Note ):
 - tornado>=2.3
 - pymongo==2.1.1  # Won't work the newer versions
 - asyncmongo  # see notes below
@@ -44,14 +50,7 @@ You need to download the development branch
 
     git clone git://github.com/ahassany/asyncmongo.git
     sudo python setup.py install
-    
-JSONPath
-This package has a bug that have been reported and confirmed by the author.
-Unfortunatlly the author didn't release new version yet. You need to change one
-line in jsonpath source code.
 
-open the jsonpath.py file usually located at /usr/local/lib/python2.6/dist-packages/jsonpath-0.53-py2.6.egg/ or /usr/local/lib/python2.7/dist-packages/jsonpath-0.53-py2.6.egg/
-Comment out line #277 that says loc = re.sub(r'(?<!=)(=)(?!=)', '==', loc)
 
 
 

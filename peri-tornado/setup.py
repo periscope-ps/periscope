@@ -22,7 +22,10 @@ setup(
     packages=["periscope", "periscope.test"],
     package_data={},
     author="Ahmed El-Hassany",
+    author_email="ahassany@indiana.edu",
     license="http://www.apache.org/licenses/LICENSE-2.0",
+    url="https://github.com/periscope-ps/periscope",
+    description="Periscope is the implementation of both Unified Network Informatin Service (UNIS) and Measurement Store (MS).",
     include_package_data = True,
     
     install_requires=[
@@ -30,10 +33,10 @@ setup(
         "pymongo==2.1.1",
         "asyncmongo",
         "unittest2",
-        "netlogger==4.3.0",
+        "netlogger>=4.3.0",
         "validictory>=validictory-0.8.1",
         "mock==0.8.0",
-        "jsonpointer",
+        "jsonpointer==0.2",
         "argparse",
         "httplib2",
         "jsonpath",
@@ -41,4 +44,9 @@ setup(
     dependency_links=[
         "http://github.com/ahassany/asyncmongo/tarball/getmore_ioloop#egg=asyncmongo-1.2.1",
     ],
+    entry_points = {
+        'console_scripts': [
+            'periscoped = periscope.app:main',
+        ]
+    },
 )
