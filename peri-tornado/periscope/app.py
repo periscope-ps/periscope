@@ -5,8 +5,13 @@ import asyncmongo
 import pymongo
 import tornado.web
 import tornado.ioloop
+import json
+import functools
+
 from tornado.options import define
 from tornado.options import options
+
+from tornado.httpclient import AsyncHTTPClient
 
 # before this import 'periscope' path name is NOT as defined!
 import settings
@@ -160,7 +165,15 @@ class PeriscopeApplication(tornado.web.Application):
             )
         )
         return main_handler
-        
+
+    def MS_registered(self,response):
+        if response.error:
+            self.send_error(400, message="metadata is not found '%s'." % response.error)
+        else:
+            body=json.loads(response.body)
+            print body
+            
+                
     def __init__(self):
         self._async_db = None
         self._sync_db = None
@@ -172,6 +185,54 @@ class PeriscopeApplication(tornado.web.Application):
         handlers.append(self._make_main_handler(**settings.main_handler_settings))
         tornado.web.Application.__init__(self, handlers,
                     default_host="localhost", **settings.APP_SETTINGS)
+        
+        
+        if settings.MS_ENABLE :   
+            callback = functools.partial(self.MS_registered)
+            service = {
+                       u"\$schema": unicode(SCHEMAS["service"]),
+                       u"accessPoint": u"http://example.com:111/ms1/",
+                       u"name": u"service1",
+                       u"status": u"ON",
+                       u"serviceType": u"http://some_schema_domain/measurement_store",
+                       u"ttl": 1000,
+                       u"description": u"sample MS service",
+                       u"runningOn": {
+                                      u"href": u"http://unis/nodes/1",
+                                      u"rel": u"full"
+                                      },
+                       u"properties": {
+                                       u"configurations": {
+                                                           u"default_collection_size": 10000,
+                                                           u"max_collection_size": 20000
+                                                           },
+                                       u"summary": {
+                                                    u"metadata": [
+                                                                  u"http://unis/metadata/1",
+                                                                  u"http://unis/metadata/3"
+                                                                  ]
+                                                    }
+                                       }                  
+                       } 
+            
+            if 'localhost' in settings.UNIS_URL or "127.0.0.1" in settings.UNIS_URL:
+                self.sync_db["services"].insert(service)
+            else: 
+                service_url = settings.UNIS_URL+'/services'
+       
+                http_client = AsyncHTTPClient()
+  
+                content_type = MIME['PSJSON'] + '; profile=' + SCHEMAS['service']     
+                http_client.fetch(service_url,
+                                  method="POST",
+                                  body=json.dumps(service),
+                                  headers={
+                                           "Content-Type": content_type,
+                                           "Cache-Control": "no-cache",
+                                           "Accept": MIME['PSJSON'],
+                                           "Connection": "close"},
+                                  callback=callback)
+
     
     @property
     def async_db(self):

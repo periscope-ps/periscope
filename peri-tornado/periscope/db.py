@@ -5,8 +5,12 @@ Databases related classes
 import time
 from json import JSONEncoder
 from netlogger import nllog
-from pymongo.objectid import ObjectId
+import pymongo
 
+if pymongo.__dict__['version'] > '2.2' :
+    from bson.objectid import ObjectId
+else :
+    from pymongo.objectid import ObjectId
 
 class MongoEncoder(JSONEncoder):
     """Special JSON encoder that converts Mongo ObjectIDs to string"""

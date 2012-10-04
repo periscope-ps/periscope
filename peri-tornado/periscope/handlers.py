@@ -13,13 +13,20 @@ from netlogger import nllog
 import time
 import urllib2
 import traceback
-from pymongo.objectid import ObjectId
+import pymongo
+
+if pymongo.__dict__['version'] > '2.2' :
+    from bson.objectid import ObjectId
+else :
+    from pymongo.objectid import ObjectId
+    
 from tornado.ioloop import IOLoop
 import tornado.gen as gen
 import tornado.web
 from tornado.httpclient import HTTPError
 from tornado.httpclient import AsyncHTTPClient
 
+from urllib import urlencode
 
 from periscope.db import DBLayer
 from periscope.db import MongoEncoder
@@ -52,6 +59,7 @@ SCHEMAS = {
     'topology': 'http://unis.incntre.iu.edu/schema/20120709/topology#',
     'blipp': 'http://unis.incntre.iu.edu/schema/20120709/blipp#',
     'metadata': 'http://unis.incntre.iu.edu/schema/20120709/metadata#',
+    'service' : "http://unis.incntre.iu.edu/schema/20120709/service#"
 }
 
 # TODO (AH): cache common schemas locally
@@ -1206,8 +1214,27 @@ class EventsHandler(NetworkResourceHandler):
                 message="No POST method is implemented fot this content type")
             return
         return
-    
-    def verify_metadata(self,response, collection_size):
+
+    def on_post(self, request, error=None, res_refs=None, return_resources=True, last=True):
+        """
+        HTTP POST callback to send the results to the client.
+        """
+        
+        if error:
+            if isinstance(error, IntegrityError):
+                self.send_error(409,
+                    message="Could't process the POST request '%s'" % \
+                        str(error).replace("\"", "\\\""))
+            else:
+                self.send_error(500,
+                    message="Could't process the POST request '%s'" % \
+                        str(error).replace("\"", "\\\""))
+            return                
+        self.set_status(201)
+        self.finish()
+           
+                    
+    def verify_metadata(self,response, collection_size,post_body):
         if response.error:
             self.send_error(400, message="metadata is not found '%s'." % response.error)
         else:
@@ -1216,8 +1243,9 @@ class EventsHandler(NetworkResourceHandler):
                 self.application.get_db_layer(body["id"],"id","ts",True,collection_size)
                 self.set_header("Location",
                     "%s/data/%s" % (self.request.full_url(), body["id"]))
-                self.set_status(201)
-                self.finish()
+                callback = functools.partial(self.on_post,
+                                             res_refs=None, return_resources=True)
+                self.dblayer.insert(post_body, callback=callback)
             else:
                 self.send_error(401, message="event collection exists already")  
             
@@ -1236,10 +1264,10 @@ class EventsHandler(NetworkResourceHandler):
         
 
         callback = functools.partial(self.verify_metadata,
-                                     collection_size=body["collection_size"])
+                                     collection_size=body["collection_size"], post_body=body)
         
         http_client = AsyncHTTPClient()
-        http_client.fetch(body["metadata_URL"], callback)
+        http_client.fetch(body["metadata_URL"], callback)        
 
     def del_stat_fields(self,generic):
         del generic["ns"]
@@ -1309,24 +1337,43 @@ class EventsHandler(NetworkResourceHandler):
         fields = parsed["fields"]
         limit = parsed["limit"]
         is_list = not res_id
-        len=query['$and'].__len__()
-        index=-1
-        response=[]
-        for d in query["$and"]:
-            index=index+1
-            if 'mids' in d.keys():
-                if isinstance(d["mids"],dict):
-                    for m in d['mids']['$in']:
-                        self.generate_response(query,m,response,index)
-                else:
-                    self.generate_response(query,d['mids'],response,index)
-        try:
-            json_response = json.dumps(response,cls=MongoEncoder, indent=2)
-            self.write(json_response)
-            self.finish()
-        except Exception as exp:
-            self.send_error(400, message="1 At least one of the metadata ID is invalid.")
-            return                
+#        len=query['$and'].__len__()
+        if query.__len__() == 0:
+            print query;
+            cursor =  self.application.sync_db["events_cache"].find()
+            index = -1
+            response = []
+            obj = next(cursor,None)
+            while obj:
+                index = index+1
+                mid = obj["metadata_URL"].split('/')[obj["metadata_URL"].split('/').__len__() - 1]
+                self.generate_response(query,mid,response,index)
+                obj = next(cursor, None)
+            try:
+                json_response = json.dumps(response,cls=MongoEncoder, indent=2)
+                self.write(json_response)
+                self.finish()
+            except Exception as exp:
+                self.send_error(400, message="1 At least one of the metadata ID is invalid.")
+                return                
+        else:
+            index=-1
+            response=[]
+            for d in query["$and"]:
+                index=index+1
+                if 'mids' in d.keys():
+                    if isinstance(d["mids"],dict):
+                        for m in d['mids']['$in']:
+                            self.generate_response(query,m,response,index)
+                    else:
+                        self.generate_response(query,d['mids'],response,index)
+            try:
+                json_response = json.dumps(response,cls=MongoEncoder, indent=2)
+                self.write(json_response)
+                self.finish()
+            except Exception as exp:
+                self.send_error(400, message="1 At least one of the metadata ID is invalid.")
+                return                
         
 class DataHandler(NetworkResourceHandler):        
         

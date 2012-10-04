@@ -21,6 +21,13 @@ JSON_SCHEMAS_ROOT = PERISCOPE_ROOT + "/schemas"
 ######################################################################
 
 
+
+######################################################################
+# Measurement Store settings.
+######################################################################
+UNIS_URL = "http://nf10g:8888"
+MS_ENABLE = True
+
 ######################################################################
 # Periscope Application settings.
 ######################################################################
@@ -328,7 +335,7 @@ events = dict(default_resource_settings.items() + \
             "pattern": "/events$", 
             "handler_class" : "periscope.handlers.EventsHandler",
             "model_class": "periscope.models.Event",
-            "collection_name": None,
+            "collection_name": "events_cache",
             "schema": {MIME['PSJSON']: SCHEMAS["datum"]},
         }.items()
 )

@@ -5,7 +5,13 @@ Database models.
 import copy
 import time
 from json import JSONEncoder
-from pymongo.objectid import ObjectId
+import pymongo
+
+if pymongo.__dict__['version'] > '2.2' :
+    from bson.objectid import ObjectId
+else :
+    from pymongo.objectid import ObjectId
+
 import json
 import time
 import re
