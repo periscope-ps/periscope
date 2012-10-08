@@ -30,7 +30,7 @@ class Collector:
         self.do_print=do_print
 
     def insert(self, mid, ts, val):
-        item = dict({"ts":ts,
+        item = dict({"ts": ts * 1000000,
                      "value":val})
         if not self.datas.has_key(mid):
             self.datas[mid]=[]
