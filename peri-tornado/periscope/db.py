@@ -3,14 +3,10 @@
 Databases related classes
 """
 import time
+import functools
 from json import JSONEncoder
 from netlogger import nllog
-import pymongo
 
-if pymongo.__dict__['version'] > '2.2' :
-    from bson.objectid import ObjectId
-else :
-    from pymongo.objectid import ObjectId
 
 class MongoEncoder(JSONEncoder):
     """Special JSON encoder that converts Mongo ObjectIDs to string"""
@@ -20,6 +16,15 @@ class MongoEncoder(JSONEncoder):
         else:
             return JSONEncoder._iterencode(self, obj, markers)
 
+import pymongo
+if pymongo.version_tuple[1] > 1:
+    from bson.objectid import ObjectId
+    import bson.json_util
+    dumps_mongo = bson.json_util.dumps
+else:
+    from pymongo.objectid import ObjectId
+    import json
+    dumps_mongo = functools.partial(json.dumps, cls=MongoEncoder)
 
 class DBLayer(object, nllog.DoesLogging):
     """Thin layer asynchronous model to handle network objects.
@@ -82,5 +87,4 @@ class DBLayer(object, nllog.DoesLogging):
         """Remove objects from the database that matches a query."""
         self.log.info("remove")
         return self.collection.remove(query, callback=callback, **kwargs)
-
 

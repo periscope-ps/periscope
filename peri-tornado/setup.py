@@ -30,7 +30,7 @@ setup(
     
     install_requires=[
         "tornado",
-        "pymongo==2.1.1",
+        "pymongo",
         "asyncmongo",
         "unittest2",
         "netlogger>=4.3.0",

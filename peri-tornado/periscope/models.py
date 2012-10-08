@@ -5,13 +5,6 @@ Database models.
 import copy
 import time
 from json import JSONEncoder
-import pymongo
-
-if pymongo.__dict__['version'] > '2.2' :
-    from bson.objectid import ObjectId
-else :
-    from pymongo.objectid import ObjectId
-
 import json
 import time
 import re
@@ -20,6 +13,12 @@ import functools
 import httplib2
 from periscope.utils import json_schema_merge_extends
 from settings import JSON_SCHEMAS_ROOT
+
+import pymongo
+if pymongo.version_tuple[1] > 1:
+    from bson.objectid import ObjectId
+else:
+    from pymongo.objectid import ObjectId
 
 SCHEMAS = {
     'networkresource': 'http://unis.incntre.iu.edu/schema/20120709/networkresource#',

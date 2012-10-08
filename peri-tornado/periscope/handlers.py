@@ -13,23 +13,21 @@ from netlogger import nllog
 import time
 import urllib2
 import traceback
-import pymongo
-
-if pymongo.__dict__['version'] > '2.2' :
-    from bson.objectid import ObjectId
-else :
-    from pymongo.objectid import ObjectId
-    
 from tornado.ioloop import IOLoop
 import tornado.gen as gen
 import tornado.web
 from tornado.httpclient import HTTPError
 from tornado.httpclient import AsyncHTTPClient
+import pymongo
+if pymongo.version_tuple[1] > 1:
+    from bson.objectid import ObjectId
+else:
+    from pymongo.objectid import ObjectId
 
 from urllib import urlencode
 
 from periscope.db import DBLayer
-from periscope.db import MongoEncoder
+from periscope.db import dumps_mongo
 from periscope.models import ObjectDict
 from periscope.models import NetworkResource
 from periscope.models import HyperLink
@@ -659,8 +657,8 @@ class NetworkResourceHandler(SSEHandler, nllog.DoesLogging):
         self.set_header("Content-Type",
                     accept + "; profile=" + self.schemas_single[accept])
         if accept == MIME['PSJSON'] or accept == MIME['JSON']:
-            json_response = json.dumps(response,
-                            cls=MongoEncoder, indent=2).replace('\\\\$', '$').replace('$DOT$', '.')
+            json_response = dumps_mongo(response,
+                                indent=2).replace('\\\\$', '$').replace('$DOT$', '.')
             # Mongo sends each batch a separate list, this code fixes that
             # and makes all the batches as part of single list
             if is_list:
@@ -679,8 +677,8 @@ class NetworkResourceHandler(SSEHandler, nllog.DoesLogging):
             self.write(json_response)
         else:
             # TODO (AH): HANDLE HTML, SSE and other formats
-            json_response = json.dumps(response,
-                            cls=MongoEncoder, indent=2).replace('\\\\$', '$')
+            json_response = dumps_mongo(response,
+                                indent=2).replace('\\\\$', '$')
             # Mongo sends each batch a separate list, this code fixes that
             # and makes all the batches as part of single list
             if is_list:
@@ -847,9 +845,9 @@ class NetworkResourceHandler(SSEHandler, nllog.DoesLogging):
                 if not location.endswith(unescaped[0][self.Id]):
                     location = location + "/" + unescaped[0][self.Id]
                 self.set_header("Location", location)
-                self.write(json.dumps(unescaped[0], indent=2))
+                self.write(dumps_mongo(unescaped[0], indent=2))
             else:
-                self.write(json.dumps(unescaped, indent=2))
+                self.write(dumps_mongo(unescaped, indent=2))
         except Exception as exp:
             self.send_error(500,
                     message="Could't process the POST request '%s'" % \
@@ -1084,7 +1082,7 @@ class CollectionHandler(NetworkResourceHandler):
                     http_client.fetch,
                     "%s://%s%s" % (self.request.protocol, self.request.host, self.reverse_url(key)),
                     method = "POST",
-                    body = json.dumps(collection[key]),
+                    body = dumps_mongo(collection[key]),
                     headers = {
                         "Cache-Control": "no-cache",
                         "Content-Type": MIME['PSJSON'],

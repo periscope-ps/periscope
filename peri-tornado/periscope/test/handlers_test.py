@@ -4,13 +4,18 @@ import json
 import functools
 import time
 import tornado.web
-from pymongo.objectid import ObjectId
 from mock import Mock
 from mock import patch
 from tornado.httpclient import HTTPError
 from tornado.httpserver import HTTPRequest
+import pymongo
+if pymongo.version_tuple[1] > 1:
+    from bson.objectid import ObjectId
+else:
+    from pymongo.objectid import ObjectId
 
 from periscope.db import DBLayer
+from periscope.db import dumps_mongo
 from periscope.utils import load_class
 from periscope.handlers import CollectionHandler
 from periscope.handlers import NetworkResourceHandler
@@ -328,9 +333,9 @@ class NetworkResourceHandlerIntegrationTest(PeriscopeHTTPTestCase):
         # Assert
         self.assertEqual(response.code, 201)
         res_id = unicode(response.headers.get('Location', "").split('/')[-1])
-        result = self.sync_db[self.collection_name].find_one({'id': res_id})
+        result = self.sync_db[self.collection_name].find_one({'id': res_id}, fields={"_id": 0})
         # Unescape special chars
-        result = json.loads(json.dumps(result).replace("\\\\$", "$"))
+        result = json.loads(dumps_mongo(result).replace("\\\\$", "$"))
         result.pop("ts", None)
         result.pop("id", None)
         result.pop("selfRef", None)
