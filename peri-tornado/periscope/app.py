@@ -7,7 +7,7 @@ import tornado.web
 import tornado.ioloop
 import json
 import functools
-
+import socket
 from tornado.options import define
 from tornado.options import options
 
@@ -168,7 +168,9 @@ class PeriscopeApplication(tornado.web.Application):
 
     def MS_registered(self,response):
         if response.error:
-            self.send_error(400, message="metadata is not found '%s'." % response.error)
+            print "Couldn't start MS: ERROR", response.error
+            import sys
+            sys.exit()
         else:
             body=json.loads(response.body)
             print body
@@ -190,15 +192,16 @@ class PeriscopeApplication(tornado.web.Application):
         if settings.MS_ENABLE :   
             callback = functools.partial(self.MS_registered)
             service = {
+                       u"id": u"ms_" + socket.gethostname(),
                        u"\$schema": unicode(SCHEMAS["service"]),
-                       u"accessPoint": u"http://example.com:111/ms1/",
-                       u"name": u"service1",
+                       u"accessPoint": u"http://%s:8888/" % socket.gethostname(),
+                       u"name": u"ms_" + socket.gethostname(),
                        u"status": u"ON",
-                       u"serviceType": u"http://some_schema_domain/measurement_store",
+                       u"serviceType": u"ps:tools:ms",
                        u"ttl": 1000,
-                       u"description": u"sample MS service",
+                       #u"description": u"sample MS service",
                        u"runningOn": {
-                                      u"href": u"http://unis/nodes/1",
+                                      u"href": u"%s/nodes/%s" % (settings.UNIS_URL, socket.gethostname()),
                                       u"rel": u"full"
                                       },
                        u"properties": {
@@ -208,8 +211,6 @@ class PeriscopeApplication(tornado.web.Application):
                                                            },
                                        u"summary": {
                                                     u"metadata": [
-                                                                  u"http://unis/metadata/1",
-                                                                  u"http://unis/metadata/3"
                                                                   ]
                                                     }
                                        }                  
