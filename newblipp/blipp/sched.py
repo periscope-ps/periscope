@@ -15,7 +15,7 @@ from sched_obj import SchedObj, FakeDict
 import settings
 
 logger = settings.get_logger('sched')
-
+SETTINGS_FILE = os.path.dirname(__file__) + "/settings.py"
 if settings.DEBUG:
     for item in dir(settings):
         if ord(item[0])>=65 and ord(item[0])<=90:
@@ -46,17 +46,17 @@ class Scheduler():
         self.conns = {}
         self.mtimes = {}
         self.sched_objs = {}
-        self.settings_mtime = self._get_mtime("settings.py")
+        self.settings_mtime = self._get_mtime(SETTINGS_FILE)
         self.probes_reload = []
 
     def check_settings(self):
-        latest = self._get_mtime("settings.py")
+        latest = self._get_mtime(SETTINGS_FILE)
         if self.settings_mtime<latest:
             self.settings_mtime=latest
             settings = reload(settings)
             self.probes = settings.PROBES
         for name in self.probes:
-            latest = self._get_mtime(name + "_settings.py")
+            latest = self._get_mtime(os.path.dirname(__file__)+ "/" + name + "_settings.py")
             if not self.mtimes.has_key(name):
                 self.mtimes[name]=latest
             if self.mtimes.get(name, sys.maxint)<latest:
