@@ -628,6 +628,7 @@ class NetworkResourceHandler(SSEHandler, nllog.DoesLogging):
             is_list: If True listing is requered, for example /nodes,
                     otherwise it's a single object like /nodes/node_id
         """
+        print "#####RESPONSE", dumps_mongo(response)
         if error:
             self.send_error(500, message=error)
             return
@@ -1486,8 +1487,9 @@ class DataHandler(NetworkResourceHandler):
         parsed = self._parse_get_arguments()
         query = parsed["query"]
         fields = parsed["fields"]
+        fields["_id"] = 0
         limit = parsed["limit"]
-        is_list = not res_id
+        is_list = True #, not res_id
         if query:
             is_list = True
         callback = functools.partial(self._get_on_response,
@@ -1504,7 +1506,8 @@ class DataHandler(NetworkResourceHandler):
                 and `new` fields. `new` is going to be True.
         """
         keep_alive = self.supports_streaming or self.supports_sse()
-
+        if self._res_id:
+            query[self.Id] = self._res_id
         options = dict(query=query, callback=callback)#, await_data=True)
         # Makes it a tailable cursor
         if keep_alive and self._tailable:
@@ -1513,5 +1516,11 @@ class DataHandler(NetworkResourceHandler):
             options["fields"] = fields
         if limit:
             options["limit"] = limit
+        if "sort" not in options:
+            options["sort"] = []
+        options["sort"].append(("ts", -1))
         self._query = query
-        self._cursor = self.application.async_db[self._res_id].find(query,callback=callback)
+        db_layer = self.application.get_db_layer(self._res_id, "_id", "ts",
+                        True,  5000)
+        query.pop("id", None)
+        self._cursor = db_layer.find(**options)        
