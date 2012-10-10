@@ -11,8 +11,8 @@ COLLECTION_TIME=0
 SUBJECT="http://example.com/nodes/hikerbear"
 METADATA_CACHE="/home/jaffee/.blippmd"
 PROC_DIR="/proc"
-COLL_SIZE=30000
-COLL_TTL=15000
+COLLECTION_SIZE=20000000 # ~20 megabytes
+COLLECTION_TTL=1500000 # ~17 days
 UNIS_URL="http://127.0.0.1:8888"
 MS_URL="http://127.0.0.1:8855"
 
