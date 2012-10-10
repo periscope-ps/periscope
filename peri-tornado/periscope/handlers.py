@@ -1269,16 +1269,16 @@ class EventsHandler(NetworkResourceHandler):
         http_client.fetch(body["metadata_URL"], callback)        
 
     def del_stat_fields(self,generic):
-        del generic["ns"]
-        del generic["numExtents"]
-        del generic["nindexes"]
-        del generic["lastExtentSize"]
-        del generic["paddingFactor"]
-        del generic["flags"]
-        del generic["totalIndexSize"]
-        del generic["indexSizes"]
-        del generic["max"]
-        del generic["ok"]
+        generic.pop("ns",None)
+        generic.pop("numExtents",None)
+        generic.pop("nindexes",None)
+        generic.pop("lastExtentSize",None)
+        generic.pop("paddingFactor",None)
+        generic.pop("flags",None)
+        generic.pop("totalIndexSize",None)
+        generic.pop("indexSizes",None)
+        generic.pop("max",None)
+        generic.pop("ok",None)
         if generic["capped"] == 1:
             generic["capped"]="Yes"
         else:
