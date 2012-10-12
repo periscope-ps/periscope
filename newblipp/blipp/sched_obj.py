@@ -186,7 +186,8 @@ class SchedObj:
             try:
                 self.ms_url=nconf['ms_instance']
             except Exception as e:
-                print "Could not find ms_instance in node configuration"
+                logger.exc(e)
+                logger.error("read_settings", msg="Could not find ms_instance in node configuration")
                 return
             
         self.unis = UNISInstance(self.unis_url)

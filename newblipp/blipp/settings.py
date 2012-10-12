@@ -20,6 +20,7 @@ PROC_DIR="/proc"
 COLLECTION_SIZE=20000000 # ~20 megabytes
 COLLECTION_TTL=1500000 # ~17 days
 MS_URL=""
+# MS_URL="http://127.0.0.1:8855"
 GEMINI_NODE_INFO="/usr/local/etc/node.info"
 
 # UNIS settings
@@ -65,7 +66,7 @@ MIME = {
 import logging
 from netlogger import nllog
 
-DEBUG = False
+DEBUG = True
 TRACE = False
 NETLOGGER_NAMESPACE = "blipp"
 
