@@ -10,7 +10,7 @@ SLEEP_FACTOR=1
 
 # Probe stuff
 UNIS_URL="http://dev.incntre.iu.edu"
-# UNIS_URL="http://127.0.0.1:8888"
+#UNIS_URL="http://127.0.0.1:8888"
 COLLECTION_INTERVAL=1
 REPORTING_INTERVAL=10
 COLLECTION_TIME=0 # total time to continue collecting, 0 means forever
@@ -19,8 +19,8 @@ METADATA_CACHE="~/.blippmd"
 PROC_DIR="/proc"
 COLLECTION_SIZE=20000000 # ~20 megabytes
 COLLECTION_TTL=1500000 # ~17 days
-MS_URL="http://pc50.uky.emulab.net:8888"
-# MS_URL="http://127.0.0.1:8855"
+MS_URL=""
+GEMINI_NODE_INFO="/usr/local/etc/node.info"
 
 # UNIS settings
 try:
@@ -65,7 +65,7 @@ MIME = {
 import logging
 from netlogger import nllog
 
-DEBUG = True
+DEBUG = False
 TRACE = False
 NETLOGGER_NAMESPACE = "blipp"
 

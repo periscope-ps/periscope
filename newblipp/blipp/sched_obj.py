@@ -177,6 +177,18 @@ class SchedObj:
         else:
             self.probe=None
 
+        if (self.ms_url == None or len(self.ms_url) == 0):
+            nconf = {}
+            with open(self._get_setting("GEMINI_NODE_INFO", None)) as cfile:
+                for line in cfile:
+                    name, var = line.partition("=")[::2]
+                    nconf[name.strip()] = str(var).rstrip()
+            try:
+                self.ms_url=nconf['ms_instance']
+            except Exception as e:
+                print "Could not find ms_instance in node configuration"
+                return
+            
         self.unis = UNISInstance(self.unis_url)
         self.collector = Collector(self.ms_url, self.coll_size,
                                    self.coll_ttl, self.outfile)
