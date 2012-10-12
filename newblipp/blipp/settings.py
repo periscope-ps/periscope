@@ -28,7 +28,7 @@ try:
     DOMAIN = HOSTNAME.split('.', 1)[1]
 except Exception:
     DOMAIN = HOSTNAME
-URN_STRING = "urn:ogf:network:domain=" + DOMAIN + ":"
+URN_STRING = "urn:ogf:network:domain=" + DOMAIN + ":node=" + HOSTNAME.split('.', 1)[0] + ":"
 LOCATION = {"location":{"institution": "GENI"}}
 
 # Static stuff
