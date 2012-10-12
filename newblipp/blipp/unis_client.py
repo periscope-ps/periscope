@@ -17,21 +17,20 @@ class UNISInstance:
     ### still need to implement metadata storage and caching
     ### remember to think about multiple UNISInstance objs sharing one cache
     
-    def __init__(self, unis_url=None, md_cache="/tmp/blippmd",
-                 unis_consts="unis_consts"):
+    def __init__(self, unis_url=None, md_cache="/tmp/blippmd"):
         self.unis_url=unis_url
         self.md_cache=md_cache
-        self.consts=try__import__(unis_consts) #@UndefinedVariable
+
 
     def _def_headers(self, ctype):
         def_headers={'content-type':
-                          'application/perfsonar+json profile=' + self.consts.SCHEMAS[ctype],
+                          'application/perfsonar+json profile=' + settings.SCHEMAS[ctype],
                           'accept':settings.MIME['PSJSON']}
         return def_headers
     
     def register_service_to_unis(self):
         post_dict = dict()
-        post_dict.update({"$schema":self.consts.SCHEMAS["service"]})
+        post_dict.update({"$schema":settings.SCHEMAS["service"]})
         post_dict.update({"status": "ON"})
         post_dict.update({"serviceType": "http://unis.incntre.iu.edu/schema/blipp"})
         post_dict.update({"ttl": settings.COLLECTION_TTL})
@@ -71,6 +70,7 @@ class UNISInstance:
 
         h = self._handle_response(r)
         if h==409:
+            logger.warn("post_metadata", msg="Metadata conflict; getting metadata from unis")
             resp = self.get_metadata(post_dict['subject'], post_dict['event_type'], post_dict['parameters'])
             if isinstance(resp, list) and len(resp)>1:
                 logger.warn("post_metadata.conflict.multiple_responses", responses=str(resp))
@@ -98,12 +98,12 @@ class UNISInstance:
     def post_port(self, post_dict, headers=None):
         ### This should probably update the node to have these ports as well
         if "$schema" not in post_dict:
-            post_dict.update({"$schema":self.consts.SCHEMAS['port']})
+            post_dict.update({"$schema":settings.SCHEMAS['port']})
         if "urn" not in post_dict:
-            post_dict.update({"urn":self.consts.URN_STRING + "port=" + \
+            post_dict.update({"urn":settings.URN_STRING + "port=" + \
                               post_dict.get("name", "")})
         if "location" not in post_dict:
-            post_dict.update({"location":self.consts.LOCATION})
+            post_dict.update(settings.LOCATION)
         if not self.unis_url:
             self._add_unis_fields(post_dict)
             return post_dict
@@ -124,7 +124,7 @@ class UNISInstance:
     def get_metadata(self, subject, event_type, parameters):
         if not self.unis_url:
             return None
-        get = dict({"$schema":self.consts.SCHEMAS['metadata'],
+        get = dict({"$schema":settings.SCHEMAS['metadata'],
                     "subject": dict({"href":subject,
                                       "rel":"full"}),
                      "eventType":event_type,

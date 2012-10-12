@@ -1,5 +1,6 @@
 import socket
-HOSTNAME = socket.gethostname()
+HOSTNAME = socket.gethostname() # this needs to get the fqdn for DOMAIN to be right down below
+#                                 works for geni nodes, but may not for everything.
 
 # Scheduler Stuff
 PROBES=["cpu", "net", "mem"]
@@ -20,6 +21,14 @@ COLLECTION_SIZE=20000000 # ~20 megabytes
 COLLECTION_TTL=1500000 # ~17 days
 MS_URL="http://pc50.uky.emulab.net:8888"
 # MS_URL="http://127.0.0.1:8855"
+
+# UNIS settings
+try:
+    DOMAIN = HOSTNAME.split('.', 1)[1]
+except Exception:
+    DOMAIN = HOSTNAME
+URN_STRING = "urn:ogf:network:domain=" + DOMAIN + ":"
+LOCATION = {"location":{"institution": "GENI"}}
 
 # Static stuff
 SCHEMAS = {
