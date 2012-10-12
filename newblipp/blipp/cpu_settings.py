@@ -26,8 +26,8 @@
 # COLL_TTLS={"iowait":80000,
 #            "swirq":10000}
 
-# KWARGS={"proc_dir":"/proc"
-#         }
+KWARGS={"proc_dir":"/proc"
+         }
 
 EVENT_TYPES={
     'user':"ps:tools:blipp:linux:cpu:utilization:user",

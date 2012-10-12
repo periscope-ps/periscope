@@ -9,16 +9,17 @@ SLEEP_FACTOR=1
 
 # Probe stuff
 UNIS_URL="http://dev.incntre.iu.edu"
+# UNIS_URL="http://127.0.0.1:8888"
 COLLECTION_INTERVAL=1
 REPORTING_INTERVAL=10
 COLLECTION_TIME=0 # total time to continue collecting, 0 means forever
 SUBJECT="%s/nodes/%s" % (UNIS_URL, HOSTNAME)
-METADATA_CACHE="/home/jaffee/.blippmd"
+METADATA_CACHE="~/.blippmd"
 PROC_DIR="/proc"
 COLLECTION_SIZE=20000000 # ~20 megabytes
 COLLECTION_TTL=1500000 # ~17 days
-UNIS_URL="http://dev.incntre.iu.edu"
 MS_URL="http://pc50.uky.emulab.net:8888"
+# MS_URL="http://127.0.0.1:8855"
 
 # Static stuff
 SCHEMAS = {
@@ -56,6 +57,7 @@ import logging
 from netlogger import nllog
 
 DEBUG = True
+TRACE = False
 NETLOGGER_NAMESPACE = "blipp"
 
 def config_logger():
@@ -68,9 +70,13 @@ def config_logger():
     handler.setFormatter(logging.Formatter("%(message)s"))
     log.addHandler(handler)
     # set level
-    if DEBUG:
+    if TRACE:
         log_level = (logging.WARN, logging.INFO, logging.DEBUG,
                  nllog.TRACE)[3]
+    elif DEBUG:
+        log_level = (logging.WARN, logging.INFO, logging.DEBUG,
+                 nllog.TRACE)[2]
+    
     else:
         log_level = (logging.WARN, logging.INFO, logging.DEBUG,
                  nllog.TRACE)[0]

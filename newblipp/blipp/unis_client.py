@@ -42,9 +42,11 @@ class UNISInstance:
             self._add_unis_fields(post_dict)
             return post_dict
             
-        post_json = json.dumps(post_dict)
+        post_json = json.dumps(post_dict, indent=2)
         url = self.unis_url + '/metadata'
-
+        
+        logger.info('post_metadata')
+        logger.debug('post_metadata', post=post_json)
         try:
             r = requests.post(url, data=post_json, headers=headers)
         except Exception as e:
@@ -92,8 +94,10 @@ class UNISInstance:
         if not headers:
             headers=self._def_headers('port')
         
-        post_json = json.dumps(post_dict)
+        post_json = json.dumps(post_dict, indent=2)
         url = self.unis_url + '/ports'
+        logger.info('post_port')
+        logger.debug('post_port', post=post_json)
         try:
             r = requests.post(url, data=post_json, headers=headers)
         except Exception as e:
@@ -114,6 +118,7 @@ class UNISInstance:
         url += "&eventType=" + event_type
         url += "&parameters.collectionInterval=" +\
                str(parameters["collectionInterval"])
+        logger.info('get_metadata')
         logger.debug('get_metadata', query=url)
         r = requests.get(url)
         h = self._handle_response(r)

@@ -12,6 +12,7 @@ class MSInstance:
         self.def_headers={'content-type':
                           'application/perfsonar+json ;profile=' + settings.SCHEMAS['metadata'],
                           'accept':"*/*"}
+        self.post_events_cache = []
 
     def _def_headers(self, ctype):
         def_headers={'content-type':
@@ -24,7 +25,7 @@ class MSInstance:
                      "collection_size": size,
                      "ttl": ttl
                      })
-        post_json = json.dumps(post)
+        post_json = json.dumps(post, indent=2)
         post_url = self.ms_url + "/events"
         headers = self._def_headers("datum")
         logger.info("post_events", url=post_url)
@@ -34,6 +35,7 @@ class MSInstance:
             r = requests.post(post_url, data=post_json, headers=headers)
         except Exception as e:
             logger.exc('post_events', e)
+            self.post_events_cache.append(post)
             return None
         h = self._handle_response(r)
         return r.status_code
@@ -50,18 +52,25 @@ class MSInstance:
     def post_data(self, post):
         # takes a list/dict properly formatted as shown on
         # https://github.com/GENI-GEMINI/GEMINI/wiki/MS-REST-API
-        post_json = json.dumps(post)
+        post_json = json.dumps(post, indent=2)
         post_url = self.ms_url + "/data"
         headers = self._def_headers("data")
         logger.info("post_data", url=post_url)
-        logger.debug("post_data", headers=headers, data=post_json)
+        logger.trace("post_data", headers=headers, data=post_json)
         try:
             r = requests.post(post_url, data=post_json, headers=headers)
         except Exception as e:
             logger.exc('post_data', e)
             return None
         h = self._handle_response(r)
+        if h==400:
+            self._retry_post_events()
         return r.status_code
+    
+    def _retry_post_events(self):
+        logger.info("_retry_post_events")
+        for entry in self.post_events_cache:
+            self.post_events(entry["metadata_URL"], entry["collection_size"], entry["ttl"])
 
     def _handle_response(self, r):
         if r.status_code>=200 and r.status_code<300: # query OK, ACCEPTED, generally good
