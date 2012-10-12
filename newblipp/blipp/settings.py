@@ -1,20 +1,24 @@
+import socket
+HOSTNAME = socket.gethostname()
+
 # Scheduler Stuff
-PROBES=["cpu"]
+PROBES=["cpu", "net", "mem"]
 CHECK_INTERVAL=3 # number of seconds between checking the
-                 # settings files to see if anything changed
+#                  settings files to see if anything changed
 SLEEP_FACTOR=1
 
 # Probe stuff
+UNIS_URL="http://dev.incntre.iu.edu"
 COLLECTION_INTERVAL=1
 REPORTING_INTERVAL=10
-COLLECTION_TIME=0
-SUBJECT="http://example.com/nodes/hikerbear"
+COLLECTION_TIME=0 # total time to continue collecting, 0 means forever
+SUBJECT="%s/nodes/%s" % (UNIS_URL, HOSTNAME)
 METADATA_CACHE="/home/jaffee/.blippmd"
 PROC_DIR="/proc"
 COLLECTION_SIZE=20000000 # ~20 megabytes
 COLLECTION_TTL=1500000 # ~17 days
-UNIS_URL="http://127.0.0.1:8888"
-MS_URL="http://127.0.0.1:8855"
+UNIS_URL="http://dev.incntre.iu.edu"
+MS_URL="http://pc50.uky.emulab.net:8888"
 
 # Static stuff
 SCHEMAS = {

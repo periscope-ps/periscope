@@ -53,7 +53,7 @@ class UNISInstance:
 
         h = self._handle_response(r)
         if h==409:
-            resp = get_metadata(subject, event_type, parameters)
+            resp = self.get_metadata(post_dict['subject'], post_dict['event_type'], post_dict['parameters'])
             if isinstance(resp, list) and len(resp)>1:
                 logger.warn("post_metadata.conflict.multiple_responses", responses=str(resp))
                 latest_ts = 0
@@ -104,7 +104,7 @@ class UNISInstance:
     def get_metadata(self, subject, event_type, parameters):
         if not self.unis_url:
             return None
-        get = dict({"$schema":consts.SCHEMAS['metadata'],
+        get = dict({"$schema":self.consts.SCHEMAS['metadata'],
                     "subject": dict({"href":subject,
                                       "rel":"full"}),
                      "eventType":event_type,

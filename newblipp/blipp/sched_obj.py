@@ -11,6 +11,7 @@ logger = settings.get_logger('sched_obj')
 
 class SchedObj:
     def __init__(self, probe_name, settings_name="settings"):
+        self.probe_name = probe_name
         self.probe_settings=try__import__(probe_name+"_settings")
         self.settings=try__import__(settings_name)
         self.probe_module=try__import__(probe_name)
@@ -138,6 +139,7 @@ class SchedObj:
                 ret=self.settings.__getattribute__(setting_name)
             except AttributeError:
                 ret=def_val
+                logger.warn("_get_setting returning default value for " + setting_name + " probe:" + self.probe_name)
         return ret
     
     def reload_settings(self):
@@ -171,7 +173,7 @@ class SchedObj:
             self.ri=self.ci
 
         if self.probe_module is not None:
-            self.probe=self.probe_module.Probe(kwargs=self.kwargs)
+            self.probe=self.probe_module.Probe(**self.kwargs)
         else:
             self.probe=None
 

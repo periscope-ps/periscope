@@ -27,6 +27,9 @@ class MSInstance:
         post_json = json.dumps(post)
         post_url = self.ms_url + "/events"
         headers = self._def_headers("datum")
+        logger.info("post_events", url=post_url)
+        logger.debug("post_events", headers=str(headers), data=post_json)
+
         try:
             r = requests.post(post_url, data=post_json, headers=headers)
         except Exception as e:
@@ -38,6 +41,8 @@ class MSInstance:
     def get_events(self):
         get_url = self.ms_url + "/events"
         headers = {"accept": "application/perfsonar+json;"}
+        logger.info("get_events", url=get_url)
+        logger.debug("get_events", headers=str(headers))
         r = requests.get(get_url, headers=headers)
         h = self._handle_response(r)
         return r.status_code
@@ -48,6 +53,8 @@ class MSInstance:
         post_json = json.dumps(post)
         post_url = self.ms_url + "/data"
         headers = self._def_headers("data")
+        logger.info("post_data", url=post_url)
+        logger.debug("post_data", headers=headers, data=post_json)
         try:
             r = requests.post(post_url, data=post_json, headers=headers)
         except Exception as e:

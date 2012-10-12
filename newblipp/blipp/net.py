@@ -2,7 +2,10 @@ import os
 from pprint import pprint
 import ethtool
 from unis_client import UNISInstance
+import settings
 
+
+logger = settings.get_logger('net')
 class Proc:
     """Wrapper to opening files in /proc
     """
@@ -33,9 +36,11 @@ class Probe:
                       "carrier_out"]
     
     def __init__(self, **kwargs):
+        logger.debug('Probe.__init__', kwargs=str(kwargs))
         self._proc = Proc(kwargs.get("proc_dir", "/proc/"))
         self.unis_url=kwargs.get("unis_url", None)
         self.node_subject=kwargs.get("subject", "this_node")
+        logger.debug('Probe.__init__ ', subject=self.node_subject)
         self.subjects=self.get_interface_subjects()
 
 
