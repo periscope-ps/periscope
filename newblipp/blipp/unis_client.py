@@ -21,17 +21,32 @@ class UNISInstance:
                  unis_consts="unis_consts"):
         self.unis_url=unis_url
         self.md_cache=md_cache
-        self.consts=try__import__(unis_consts)
+        self.consts=try__import__(unis_consts) #@UndefinedVariable
 
     def _def_headers(self, ctype):
         def_headers={'content-type':
-                          'application/perfsonar+json profile=' + settings.SCHEMAS[ctype],
+                          'application/perfsonar+json profile=' + self.consts.SCHEMAS[ctype],
                           'accept':settings.MIME['PSJSON']}
         return def_headers
     
+    def register_service_to_unis(self):
+        post_dict = dict()
+        post_dict.update({"$schema":self.consts.SCHEMAS["service"]})
+        post_dict.update({"status": "ON"})
+        post_dict.update({"serviceType": "http://unis.incntre.iu.edu/schema/blipp"})
+        post_dict.update({"ttl": settings.COLLECTION_TTL})
+        post_dict.update({"description": "blipp service"})
+        post_dict.update({"runningOn": {"href": settings.SUBJECT,
+                                       "rel": "full"}})
+        headers = self._def_headers("service")
+        url = self.unis_url + '/services'
+        resp = requests.post(url, headers=headers, data=json.dumps(post_dict))
+        self._handle_response(resp)
+        
+    
     def post_metadata(self, post_dict, headers=None):
         '''Takes in a dict which will be converted to json
-        and posted to UNIS with UNISs response returned, or
+        and posted to UNIS with UNIS's response returned, or
         just returned with timestamp, id and selfRef added
         if no UNIS instance is specified. If 409 (conflict)
         is returned, UNIS is queried for the already existing
@@ -39,6 +54,7 @@ class UNISInstance:
         if headers==None:
             headers=self._def_headers('metadata')
         if not self.unis_url:
+            logger.warn('no unis instance specified')
             self._add_unis_fields(post_dict)
             return post_dict
             

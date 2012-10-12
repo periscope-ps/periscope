@@ -85,7 +85,7 @@ def config_logger():
 
 def get_logger(namespace=NETLOGGER_NAMESPACE):
     """Return logger object"""
-    # Test if netlloger is initialized
+    # Test if netlogger is initialized
     if nllog.PROJECT_NAMESPACE != NETLOGGER_NAMESPACE:
         config_logger()
     return nllog.get_logger(namespace)

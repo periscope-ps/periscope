@@ -21,7 +21,7 @@ if settings.DEBUG:
         if ord(item[0])>=65 and ord(item[0])<=90:
             logger.debug('settings',
                          item=item,
-                         value=str(settings.__getattribute__(item)))
+                         value=str(settings.__getattribute__(item))) #@UndefinedVariable
 
 
 # loop every check interval:
@@ -38,6 +38,8 @@ if settings.DEBUG:
 #            join/send stop/kill it.
 #        is it in probes_reload?
 #            send "reload"
+
+
 
 class Scheduler():
     def __init__(self):
@@ -135,6 +137,8 @@ class Scheduler():
 
 
 def main():
+    unis_client = UNISInstance(unis_url=settings.UNIS_URL)
+    unis_client.register_service_to_unis()
     s = Scheduler()
     while 1:
         start_time=time.time()

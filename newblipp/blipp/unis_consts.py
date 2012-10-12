@@ -1,17 +1,18 @@
 SCHEMAS = {
-    'networkresource': 'http://monitor.damslab.org/unis/networkresource#',
-    'node': 'http://monitor.damslab.org/unis/node#',
-    'domain': 'http://monitor.damslab.org/unis/domain#',
-    'port': 'http://monitor.damslab.org/unis/port#',
-    'link': 'http://monitor.damslab.org/unis/link#',
-    'network': 'http://monitor.damslab.org/unis/network#',
-    'topology': 'http://monitor.damslab.org/unis/topology#',
-    'service': 'http://monitor.damslab.org/unis/service#',
-    'path': 'http://monitor.damslab.org/unis/path#',
-    'blipp': 'http://monitor.damslab.org/unis/blipp#',
-    'metadata': 'http://monitor.damslab.org/unis/metadata#',
-    'datum': 'http://monitor.damslab.org/unis/datum#'
-    }
+    'networkresource': 'http://unis.incntre.iu.edu/schema/20120709/networkresource#',
+    'node': 'http://unis.incntre.iu.edu/schema/20120709/node#',
+    'domain': 'http://unis.incntre.iu.edu/schema/20120709/domain#',
+    'port': 'http://unis.incntre.iu.edu/schema/20120709/port#',
+    'link': 'http://unis.incntre.iu.edu/schema/20120709/link#',
+    'path': 'http://unis.incntre.iu.edu/schema/20120709/path#',
+    'network': 'http://unis.incntre.iu.edu/schema/20120709/network#',
+    'topology': 'http://unis.incntre.iu.edu/schema/20120709/topology#',
+    'service': 'http://unis.incntre.iu.edu/schema/20120709/service#',
+    'blipp': 'http://unis.incntre.iu.edu/schema/20120709/blipp#',
+    'metadata': 'http://unis.incntre.iu.edu/schema/20120709/metadata#',
+    'datum': 'http://unis.incntre.iu.edu/schema/20120709/datum#',
+    'data': 'http://unis.incntre.iu.edu/schema/20120709/data#'
+}
 
 MIME = {
     'HTML': 'text/html',
