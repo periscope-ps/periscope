@@ -1349,7 +1349,7 @@ class EventsHandler(NetworkResourceHandler):
                 self.generate_response(query,mid,response,index)
                 obj = next(cursor, None)
             try:
-                json_response = json.dumps(response,cls=MongoEncoder, indent=2)
+                json_response = dumps_mongo(response,indent=2)
                 self.write(json_response)
                 self.finish()
             except Exception as exp:
@@ -1367,7 +1367,7 @@ class EventsHandler(NetworkResourceHandler):
                     else:
                         self.generate_response(query,d['mids'],response,index)
             try:
-                json_response = json.dumps(response,cls=MongoEncoder, indent=2)
+                json_response = dumps_mongo(response,cls=MongoEncoder, indent=2)
                 self.write(json_response)
                 self.finish()
             except Exception as exp:
