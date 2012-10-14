@@ -173,9 +173,7 @@ class PeriscopeApplication(tornado.web.Application):
             sys.exit()
         else:
             body=json.loads(response.body)
-            print body
-            
-                
+
     def __init__(self):
         self._async_db = None
         self._sync_db = None

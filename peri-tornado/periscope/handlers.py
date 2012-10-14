@@ -628,7 +628,6 @@ class NetworkResourceHandler(SSEHandler, nllog.DoesLogging):
             is_list: If True listing is requered, for example /nodes,
                     otherwise it's a single object like /nodes/node_id
         """
-        print "#####RESPONSE", dumps_mongo(response)
         if error:
             self.send_error(500, message=error)
             return
@@ -1231,8 +1230,7 @@ class EventsHandler(NetworkResourceHandler):
             return                
         self.set_status(201)
         self.finish()
-           
-                    
+
     def verify_metadata(self,response, collection_size,post_body):
         if response.error:
             self.send_error(400, message="metadata is not found '%s'." % response.error)
@@ -1244,6 +1242,8 @@ class EventsHandler(NetworkResourceHandler):
                     "%s/data/%s" % (self.request.full_url(), body["id"]))
                 callback = functools.partial(self.on_post,
                                              res_refs=None, return_resources=True)
+                post_body["ts"] = int(time.time() * 1000000)
+                post_body["id"] = body["id"]
                 self.dblayer.insert(post_body, callback=callback)
             else:
                 self.send_error(401, message="event collection exists already")  
@@ -1331,15 +1331,17 @@ class EventsHandler(NetworkResourceHandler):
             self._res_id = None
             
         parsed = self._parse_get_arguments()
-        #print self.application.sync_db.command({"collStats":"4fdf07de1d41c82375000000","scale":1})
         query = parsed["query"]
         fields = parsed["fields"]
         limit = parsed["limit"]
         is_list = not res_id
-#        len=query['$and'].__len__()
+        self.set_header("Content-Type", "application/json")
         if query.__len__() == 0:
-            print query;
-            cursor =  self.application.sync_db["events_cache"].find()
+            if self._res_id is None:
+                q = {}
+            else:
+                q = {"id": self._res_id}
+            cursor =  self.application.sync_db["events_cache"].find(q)
             index = -1
             response = []
             obj = next(cursor,None)
@@ -1349,7 +1351,7 @@ class EventsHandler(NetworkResourceHandler):
                 self.generate_response(query,mid,response,index)
                 obj = next(cursor, None)
             try:
-                json_response = dumps_mongo(response,indent=2)
+                json_response = dumps_mongo(response, indent=2)
                 self.write(json_response)
                 self.finish()
             except Exception as exp:
@@ -1367,7 +1369,7 @@ class EventsHandler(NetworkResourceHandler):
                     else:
                         self.generate_response(query,d['mids'],response,index)
             try:
-                json_response = dumps_mongo(response,cls=MongoEncoder, indent=2)
+                json_response = dumps_mongo(response, indent=2)
                 self.write(json_response)
                 self.finish()
             except Exception as exp:
@@ -1520,7 +1522,7 @@ class DataHandler(NetworkResourceHandler):
             options["sort"] = []
         options["sort"].append(("ts", -1))
         self._query = query
-        db_layer = self.application.get_db_layer(self._res_id, "_id", "ts",
+        db_layer = self.application.get_db_layer(self._res_id, "ts", "ts",
                         True,  5000)
         query.pop("id", None)
         self._cursor = db_layer.find(**options)        

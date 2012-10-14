@@ -419,7 +419,7 @@ Resources = {
 
 main_handler_settings = {
     "resources": ["links", "ports", "nodes", "services", "paths",
-        "networks", "domains", "topologies"],
+        "networks", "domains", "topologies", "events", "datas", "metadatas"],
     "name": "main",
     "base_url": "",
     "pattern": "/$",
