@@ -25,7 +25,7 @@ JSON_SCHEMAS_ROOT = PERISCOPE_ROOT + "/schemas"
 ######################################################################
 # Measurement Store settings.
 ######################################################################
-UNIS_URL = "http://dev.incntre.iu.edu"
+UNIS_URL = "http://unis.incntre.iu.edu:8888"
 #UNIS_URL = "http://localhost:8888"
 MS_ENABLE = True
 
