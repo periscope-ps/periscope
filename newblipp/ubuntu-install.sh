@@ -20,6 +20,7 @@ tail -n +$SKIP $THIS | tar -xz
 DIR=newblipp
 ETC=/usr/local/etc
 
+apt-get -y install python-setuptools
 apt-get -y install libnl-dev
 cd ${DIR}
 python ./setup.py install 

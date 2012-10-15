@@ -23,14 +23,14 @@ GENSOURCES_FILE="/etc/apt/sources.list.d/10gen.list"
 GEN_REPO="deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen"
 echo ${GEN_REPO} >> ${GENSOURCES_FILE}
 sudo apt-get update
-sudo apt-get install mongodb-10gen
+sudo apt-get -y install mongodb-10gen
 
 #git clone git://github.com/ahassany/asyncmongo.git
 #cd asyncmongo
 #sudo python setup.py install
 #cd ..
 
-apt-get install libnl-dev
+apt-get -y install libnl-dev
 cd ${DIR}
 python ./setup.py install 
 
