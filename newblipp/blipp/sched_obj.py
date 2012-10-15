@@ -186,7 +186,7 @@ class SchedObj:
             try:
                 self.ms_url=nconf['ms_instance']
             except Exception as e:
-                logger.exc(e)
+                logger.exc('read_settings', e)
                 logger.error("read_settings", msg="Could not find ms_instance in node configuration")
                 return
             
