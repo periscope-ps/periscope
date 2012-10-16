@@ -4,6 +4,7 @@ import requests
 import settings
 logger = settings.get_logger('ms_client')
 
+
 from pprint import pprint
 
 class MSInstance:
@@ -59,9 +60,12 @@ class MSInstance:
         logger.trace("post_data", headers=headers, data=post_json)
         try:
             r = requests.post(post_url, data=post_json, headers=headers)
+        except requests.ConnectionError:
+            logger.error('post_data', msg="ConnectionError, could not connect to MS", url=post_url)
+            return
         except Exception as e:
             logger.exc('post_data', e)
-            return None
+            return
         h = self._handle_response(r)
         if h==400:
             self._retry_post_events()
