@@ -54,6 +54,10 @@ class Collector:
             pprint(data) 
             if not self.ms: # if there is an ms, save the data for it
                 self._clear_datas()
+                
+        ### The following line turns off all measurement caching... if the ms goes down
+        ### when blipp tries to report, that set of measurements will be lost
+        self._clear_datas()
 
     def _clear_datas(self):
         for mid in self.datas:
