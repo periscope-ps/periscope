@@ -1,0 +1,12 @@
+<div class="jumbotron text-center" ng-controller="NodeController">
+  <h2>Configured Nodes in UNIS</h2>
+
+  <div ng-repeat="node in nodes">
+    <ul>
+      <li> {{ node.name }} </li>
+      <li> {{ node.urn }} </li>
+      <li> {{ node.ts }} </li>
+    </ul>
+  </div>
+
+</div>

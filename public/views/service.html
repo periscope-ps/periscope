@@ -1,0 +1,12 @@
+<div class="jumbotron text-center" ng-controller="ServiceController">
+  <h2>Configured Services in UNIS</h2>
+
+  <div ng-repeat="service in services">
+    <ul>
+      <li> {{ service.name }} </li>
+      <li> {{ service.urn }} </li>
+      <li> {{ service.ts }} </li>
+    </ul>
+  </div>
+
+</div>
