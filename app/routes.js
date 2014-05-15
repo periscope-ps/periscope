@@ -41,7 +41,7 @@ module.exports = function(app) {
           }
         }
       }
-      console.log(store);
+      // console.log(store);
       res.json(store);
     });
   });
@@ -53,7 +53,7 @@ module.exports = function(app) {
       if (err)
         res.send(err);
 
-      console.log(nodes);
+      // console.log(nodes);
       res.json(nodes);
     });
   });
@@ -65,7 +65,7 @@ module.exports = function(app) {
       if (err)
         res.send(err);
 
-      console.log(services);
+      // console.log(services);
       res.json(services);
     });
   });

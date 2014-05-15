@@ -4,9 +4,16 @@
  * MainCtrl.js
  */
 
-angular.module('MainCtrl', []).controller('MainController', function($scope) {
+angular.module('MainCtrl', []).controller('MainController', function($scope, $http) {
 
-  $scope.slice = 'gui';
-  $scope.project = 'ch.geni.net+netlogistics';
-
+  $http.get('/slice')
+    .success(function(data) {
+      $scope.gn = data[0].gn_address;
+      $scope.slice = data[0].slice;
+      $scope.project = data[0].project;
+      console.log(data);
+    })
+    .error(function(data) {
+      console.log('Error: ' + data);
+    });
 });
