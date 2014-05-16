@@ -4,4 +4,4 @@
  * app.js
  */
 
-angular.module('measurementApp', ['ngRoute', 'ngAnimate', 'appRoutes', 'MainCtrl', 'NodeCtrl', 'NodeService', 'ServiceCtrl', 'ServiceService']);
+angular.module('measurementApp', ['ngRoute', 'ngAnimate', 'appRoutes', 'MainCtrl', 'NodeCtrl', 'NodeService', 'ServiceCtrl', 'ServiceService', 'BlippCtrl', 'BlippService']);

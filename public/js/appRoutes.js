@@ -20,7 +20,12 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
     .when('/services', {
       templateUrl: 'views/service.html',
-      controller: 'ServiceController'  
+      controller: 'ServiceController'
+    })
+
+    .when('/blipp', {
+      templateUrl: 'views/blipp.html',
+      controller: 'BlippController'
     });
 
   $locationProvider.html5Mode(true);

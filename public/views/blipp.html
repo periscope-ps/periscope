@@ -1,0 +1,22 @@
+<div ng-controller="BlippController">
+  <h2 class="text-center">Schedule BLiPP Test</h2>
+  <hr />
+
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <label ng-repeat="node in nodes | filter:filterNodes" class="checkbox-inline">
+          <input type="checkbox"> {{ node.name }}
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Throughput Test</button>
+        <button type="submit" class="btn btn-default">Ping Test</button>
+        <button type="submit" class="btn btn-default">Netlogger Probe</button>
+      </div>
+    </div>
+  </form>
+
+</div>
