@@ -8,6 +8,12 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
   $http.get('/nodes')
     .success(function(data) {
+
+      $scope.togglePing = function() {
+        $scope.btnPing = $scope.btnPing === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
+        $scope.addPing = $scope.addPing === true ? false: true;
+      };
+
       $scope.nodes = data;
       console.log(data);
 
