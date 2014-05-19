@@ -5,7 +5,7 @@
   <div ng-repeat="node in nodes">
     <dl class="lead">
       <dt> {{ node.name }} </dt>
-      <dd> {{ node.urn }} </dd>
+      <dd> <a ng-href="{{node.selfRef}}"> {{ node.selfRef }} </a> </dd>
       <dd> {{ node.ts }} </dd>
     </dl>
   </div>

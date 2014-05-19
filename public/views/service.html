@@ -5,7 +5,11 @@
   <div ng-repeat="service in services">
     <dl class="lead">
       <dt> {{ service.name }} </dt>
-      <dd> {{ service.urn }} </dd>
+      <dd> <button type="button" class="btn btn-success"> {{ service.status }} </button> </dd>
+      <dd> <a ng-href="{{service.selfRef}}"> {{ service.selfRef }} </a> </dd>
+      <dd> {{ service.serviceType }} </dd>
+      <dd> <a ng-href="{{service.runningOn.href}}"> {{ service.runningOn.href }} </a> </dd>
+      <dd> {{ service.ip }} </dd>
       <dd> {{ service.ts }} </dd>
     </dl>
   </div>
