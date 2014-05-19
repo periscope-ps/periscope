@@ -4,15 +4,16 @@
  * routes.js
  */
 
-var Node = require('./models/node')
-  , Service = require('./models/service')
-  , fs = require('fs')
-  , path = require('path');
+//var Node = require('./models/node')
+//  , Service = require('./models/service')
+var fs = require('fs')
+  , path = require('path')
+  , http = require('http');
 
 
-module.exports = function(app) {  
+module.exports = function(app) {
 
-  app.get('/slice', function(req, res) {     
+  app.get('/slice', function(req, res) {
 
     var store = [];
     var filePath = '/usr/local/etc/node.info';
@@ -23,13 +24,13 @@ module.exports = function(app) {
         res.send(err);
       } else {
         // console.log('received data: ' + data);
-        
+
         var fileData = data.toString().split('\n');
         var split, project, slice, gn;
 
         for(line in fileData) {
           split = fileData[line].split('=');
-          
+
           if (split[0] === 'gn_address')
             gn = split[1];
 
@@ -41,33 +42,91 @@ module.exports = function(app) {
           }
         }
       }
-      // console.log(store);
+      console.log(store);
       res.json(store);
     });
   });
 
   app.get('/nodes', function(req, res) {
-    
-    Node.find(function(err, nodes) {
+
+    /* HTTP Options */
+    var options = {
+        hostname: 'localhost',
+        port: 8888,
+        path: '/nodes',
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            'connection': 'keep-alive'
+        }
+    };
+
+    /* GET JSON and Render to our API */
+    http.get(options, function(http_res) {
+      var data = '';
+
+      http_res.on('data', function (chunk) {
+        data += chunk;
+      });
+
+      http_res.on('end',function() {
+        var obj = JSON.parse(data);
+        console.log( obj );
+        res.json( obj );
+      });
+
+    });
+
+    /* Access Model Created from Mongo */
+    /*Node.find(function(err, nodes) {
 
       if (err)
         res.send(err);
 
-      // console.log(nodes);
+      console.log(nodes);
       res.json(nodes);
-    });
+    });*/
   });
 
   app.get('/services', function(req, res) {
-    
-    Service.find(function(err, services) {
+
+    /* HTTP Options */
+    var options = {
+        hostname: 'localhost',
+        port: 8888,
+        path: '/services',
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            'connection': 'keep-alive'
+        }
+    };
+
+    /* GET JSON and Render to our API */
+    http.get(options, function(http_res) {
+      var data = '';
+
+      http_res.on('data', function (chunk) {
+        data += chunk;
+      });
+
+      http_res.on('end',function() {
+        var obj = JSON.parse(data);
+        console.log( obj );
+        res.json( obj );
+      });
+
+    });
+
+    /* Access Model Created from Mongo */
+    /*Service.find(function(err, services) {
 
       if (err)
         res.send(err);
 
-      // console.log(services);
+      console.log(services);
       res.json(services);
-    });
+    });*/
   });
 
   app.get('*', function(req, res) {
