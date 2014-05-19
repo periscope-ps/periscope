@@ -11,13 +11,19 @@
     </div>
 
     <div class="form-group">
-      <button type="submit" class="btn btn-default">Throughput Test</button>
+      <button ng-click="toggleIperf()" ng-class="btnIperf" class="btn btn-default">Throughput Test</button>
       <button ng-click="togglePing()" ng-class="btnPing" class="btn btn-default">Ping Test</button>
-      <button type="submit" class="btn btn-default">Netlogger Probe</button>
+      <button ng-click="toggleNetlogger()" ng-class="btnNetlogger" class="btn btn-default">Netlogger Probe</button>
     </div>
 
     <div ng-show="addPing">
       <div ng-include src="'views/partials/ping.html'"></div>
+    </div>
+    <div ng-show="addIperf">
+      <div ng-include src="'views/partials/iperf.html'"></div>
+    </div>
+    <div ng-show="addNetlogger">
+      <div ng-include src="'views/partials/netlogger.html'"></div>
     </div>
 
   </form>

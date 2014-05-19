@@ -1,0 +1,67 @@
+<div class="form-group row">
+  <label for="iperfDescription" class="col-md-2 control-label">Description</label>
+  <div class="col-md-10">
+      <input type="text" class="form-control" id="iperfDescription" placeholder="Test Description">
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="iperfTBT" class="col-md-2 control-label">Time Between Tests</label>
+  <div class="col-md-5">
+    <input type="text" class="form-control" id="iperfTBT" placeholder="Time Between Tests">
+  </div>
+  <div class="col-md-5">
+    <select class="form-control">
+      <option> Seconds </option>
+      <option> Minutes </option>
+      <option> Hours </option>
+      <option> Days </option>
+    </select>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="iperfDuration" class="col-md-2 control-label">Test Duration</label>
+  <div class="col-md-10">
+    <input type="text" class="form-control" id="iperfDuration" placeholder="Test Duration (seconds)">
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="iperfBandwidth" class="col-md-2 control-label">Bandwidth Tester</label>
+  <div class="col-md-10">
+    <select class="form-control">
+      <option> Iperf </option>
+    </select>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="iperfProtocol" class="col-md-2 control-label">Protocol</label>
+  <div class="col-md-10">
+    <select class="form-control">
+      <option> TCP </option>
+      <option> UDP </option>
+    </select>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="iperfAutotuning" class="col-md-2 control-label">Use Autotuning</label>
+  <div class="col-md-10">
+    <input type="checkbox" id="iperfAutotuning" value="iperfAutotuningOption">
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="iperfTarget" class="col-md-2 control-label">Target Host</label>
+  <div class="col-md-10">
+    <input type="text" class="form-control" id="iperfTarget" placeholder="Target Host">
+  </div>
+</div>
+
+<div class="form-group row">
+  <div class="col-md-offset-2 col-md-10">
+    <button type="submit" class="btn btn-primary">Submit Throughput Test</button>
+  </div>
+</div>

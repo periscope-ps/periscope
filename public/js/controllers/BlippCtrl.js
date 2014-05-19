@@ -10,8 +10,28 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     .success(function(data) {
 
       $scope.togglePing = function() {
+        $scope.addIperf = false;
+        $scope.btnIperf = "btn btn-default";
+        $scope.addNetlogger = false;
+        $scope.btnNetlogger = "btn btn-default";
         $scope.btnPing = $scope.btnPing === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
         $scope.addPing = $scope.addPing === true ? false: true;
+      };
+      $scope.toggleIperf = function() {
+        $scope.addPing = false;
+        $scope.btnPing = "btn btn-default";
+        $scope.addNetlogger = false;
+        $scope.btnNetlogger = "btn btn-default";
+        $scope.btnIperf = $scope.btnIperf === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
+        $scope.addIperf = $scope.addIperf === true ? false: true;
+      };
+      $scope.toggleNetlogger = function() {
+        $scope.addPing = false;
+        $scope.btnPing = "btn btn-default";
+        $scope.addIperf = false;
+        $scope.btnIperf = "btn btn-default";
+        $scope.btnNetlogger = $scope.btnNetlogger === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
+        $scope.addNetlogger = $scope.addNetlogger === true ? false: true;
       };
 
       $scope.nodes = data;
