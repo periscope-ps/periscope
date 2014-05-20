@@ -9,6 +9,15 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
   $http.get('/nodes')
     .success(function(data) {
 
+      $scope.pingForm = {};
+
+      $scope.submitPing = function() {
+
+        alert((JSON.stringify($scope.pingForm)));
+        $scope.pingSuccess = true;
+
+      };
+
       $scope.togglePing = function() {
         $scope.addIperf = false;
         $scope.btnIperf = "btn btn-default";
