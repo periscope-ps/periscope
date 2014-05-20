@@ -2,29 +2,20 @@
   <h2 class="text-center">Schedule BLiPP Test</h2>
   <hr />
 
-  <form role="form">
+  <div class="form-group">
+    <button ng-click="toggleIperf()" ng-class="btnIperf" class="btn btn-default">Throughput Test</button>
+    <button ng-click="togglePing()" ng-class="btnPing" class="btn btn-default">Ping Test</button>
+    <button ng-click="toggleNetlogger()" ng-class="btnNetlogger" class="btn btn-default">Netlogger Probe</button>
+  </div>
 
-    <div class="form-group">
-      <select class="form-control">
-        <option ng-repeat="node in nodes | filter:filterNodes"> {{ node.name }} </option>
-      </select>
-    </div>
+  <div ng-show="addPing">
+    <div ng-include src="'views/partials/ping.html'"></div>
+  </div>
+  <div ng-show="addIperf">
+    <div ng-include src="'views/partials/iperf.html'"></div>
+  </div>
+  <div ng-show="addNetlogger">
+    <div ng-include src="'views/partials/netlogger.html'"></div>
+  </div>
 
-    <div class="form-group">
-      <button ng-click="toggleIperf()" ng-class="btnIperf" class="btn btn-default">Throughput Test</button>
-      <button ng-click="togglePing()" ng-class="btnPing" class="btn btn-default">Ping Test</button>
-      <button ng-click="toggleNetlogger()" ng-class="btnNetlogger" class="btn btn-default">Netlogger Probe</button>
-    </div>
-
-    <div ng-show="addPing">
-      <div ng-include src="'views/partials/ping.html'"></div>
-    </div>
-    <div ng-show="addIperf">
-      <div ng-include src="'views/partials/iperf.html'"></div>
-    </div>
-    <div ng-show="addNetlogger">
-      <div ng-include src="'views/partials/netlogger.html'"></div>
-    </div>
-
-  </form>
 </div>

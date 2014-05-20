@@ -1,64 +1,79 @@
-<div class="form-group row">
-  <label for="pingDescription" class="col-md-2 control-label">Description</label>
-  <div class="col-md-10">
-      <input type="text" class="form-control" id="pingDescription" placeholder="Test Description">
-  </div>
-</div>
+<p>{{pingForm}}</p>
 
-<div class="form-group row">
-  <label for="pingTBT" class="col-md-2 control-label">Time Between Tests</label>
-  <div class="col-md-5">
-    <input type="text" class="form-control" id="pingTBT" placeholder="Time Between Tests">
-  </div>
-  <div class="col-md-5">
-    <select class="form-control">
-      <option> Seconds </option>
-      <option> Minutes </option>
-      <option> Hours </option>
-      <option> Days </option>
-    </select>
-  </div>
-</div>
+<form role="form">
 
-<div class="form-group row">
-  <label for="pingPacketsSent" class="col-md-2 control-label">Packets Sent Per Test</label>
-  <div class="col-md-10">
-    <input type="text" class="form-control" id="pingPacketsSent" placeholder="Packets Sent Per Test">
+  <div class="form-group row">
+    <label for="pingDescription" class="col-md-2 control-label">Node to Ping From</label>
+    <div class="col-md-10">
+      <select ng-model="pingForm.PingFrom" class="form-control">
+        <option ng-repeat="node in nodes | filter:filterNodes"> {{ node.name }} </option>
+      </select>
+    </div>
   </div>
-</div>
 
-<div class="form-group row">
-  <label for="pingTBP" class="col-md-2 control-label">Time Between Packets</label>
-  <div class="col-md-10">
-    <input type="text" class="form-control" id="pingTBP" placeholder="Time Between Packets (seconds)">
+  <div class="form-group row">
+    <label for="pingDescription" class="col-md-2 control-label">Description</label>
+    <div class="col-md-10">
+        <input ng-model="pingForm.PingDesc" type="text" class="form-control" id="pingDescription" placeholder="Test Description">
+    </div>
   </div>
-</div>
 
-<div class="form-group row">
-  <label for="pingPacketSize" class="col-md-2 control-label">Size of Test Packets</label>
-  <div class="col-md-10">
-    <input type="text" class="form-control" id="pingPacketSize" placeholder="Size of Test Packets (bytes)">
+  <div class="form-group row">
+    <label for="pingTBT" class="col-md-2 control-label">Time Between Tests</label>
+    <div class="col-md-5">
+      <input ng-model="pingForm.TBTvalue" type="text" class="form-control" id="pingTBT" placeholder="Time Between Tests">
+    </div>
+    <div class="col-md-5">
+      <select ng-model="pingForm.TBTtype" class="form-control">
+        <option> Seconds </option>
+        <option> Minutes </option>
+        <option> Hours </option>
+        <option> Days </option>
+      </select>
+    </div>
   </div>
-</div>
 
-<div class="form-group row">
-  <label for="pingReportMS" class="col-md-2 control-label">Report to MS Every</label>
-  <div class="col-md-10">
-    <input type="text" class="form-control" id="pingReportMS" placeholder="Report to MS Every (collections)">
+  <div class="form-group row">
+    <label for="pingPacketsSent" class="col-md-2 control-label">Packets Sent Per Test</label>
+    <div class="col-md-10">
+      <input ng-model="pingForm.PacketsSent" type="text" class="form-control" id="pingPacketsSent" placeholder="Packets Sent Per Test">
+    </div>
   </div>
-</div>
 
-<div class="form-group row">
-  <label for="selectPingNode" class="col-md-2 control-label">Select Node/s to Ping</label>
-  <div class="col-md-5">
-    <select multiple class="form-control">
-      <option ng-repeat="node in nodes"> {{ node.name }} </option>
-    </select>
+  <div class="form-group row">
+    <label for="pingTBP" class="col-md-2 control-label">Time Between Packets</label>
+    <div class="col-md-10">
+      <input ng-model="pingForm.TBP" type="text" class="form-control" id="pingTBP" placeholder="Time Between Packets (seconds)">
+    </div>
   </div>
-</div>
 
-<div class="form-group row">
-  <div class="col-md-offset-2 col-md-10">
-    <button type="submit" class="btn btn-primary">Submit Ping Test</button>
+  <div class="form-group row">
+    <label for="pingPacketSize" class="col-md-2 control-label">Size of Test Packets</label>
+    <div class="col-md-10">
+      <input ng-model="pingForm.PacketSize" type="text" class="form-control" id="pingPacketSize" placeholder="Size of Test Packets (bytes)">
+    </div>
   </div>
-</div>
+
+  <div class="form-group row">
+    <label for="pingReportMS" class="col-md-2 control-label">Report to MS Every</label>
+    <div class="col-md-10">
+      <input ng-model="pingForm.ReportMS" type="text" class="form-control" id="pingReportMS" placeholder="Report to MS Every (collections)">
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="selectPingNode" class="col-md-2 control-label">Node/s to Ping To</label>
+    <div class="col-md-5">
+      <select ng-model="pingForm.PingTo" multiple class="form-control">
+        <option ng-repeat="node in nodes"> {{ node.name }} </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-md-offset-2 col-md-10">
+      <button type="submit" class="btn btn-primary">Submit Ping Test</button>
+    </div>
+  </div>
+
+</form>
