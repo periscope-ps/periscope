@@ -14,7 +14,52 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       $scope.submitPing = function() {
 
         alert((JSON.stringify($scope.pingForm)));
-        $scope.pingSuccess = true;
+
+        var ping = {
+            "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+            "service": "http://localhost:8888/services/MXRRLAWJI94GMEDC",
+            "ts": 1398785926407953,
+            "eventTypes": [
+              "ps:tools:blipp:linux:net:ping:rtt",
+              "ps:tools:blipp:linux:net:ping:ttl"
+            ],
+            "configuration": {
+              "regex": "ttl=(?P<ttl>\\d+).*time=(?P<rtt>\\d+\\s|\\d+\\.\\d+)",
+              "reporting_params": 1,
+              "probe_module": "cmd_line_probe",
+              "schedule_params": {
+                "every": 5
+              },
+              "collection_schedule": "builtins.simple",
+              "command": "ping -c 1 156.56.5.10",
+              "collection_size": 10000000,
+              "ms_url": "http://localhost:8888",
+              "data_file": "/tmp/ops_ping.log",
+              "eventTypes": {
+                "rtt": "ps:tools:blipp:linux:net:ping:rtt",
+                "ttl": "ps:tools:blipp:linux:net:ping:ttl"
+              },
+              "collection_ttl": 1500000,
+              "name": "ops_ping"
+            }
+        };
+
+        alert(ping);
+
+        http({
+          method  : 'POST',
+          url     : 'http://localhost:8888/measurements',
+          data    : $.param(ping),
+          headers : { 'Content-Type': 'application/json' }
+        })
+        .success(function(data) {
+          if (!data.success) {
+            alert("error");
+          } else {
+            $scope.pingSuccess = true;
+            $scope.message = data.message;
+          }
+        });
 
       };
 

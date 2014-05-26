@@ -1,4 +1,8 @@
-<p>{{pingForm}}</p>
+<pre>{{pingForm}}</pre>
+
+<button ng-show="pingSuccess" type="text" class="btn btn-success btn-block">Pop a Bottle</button>
+<!-- <p ng-show="pingSuccess" class="bg-success">Pop a Bottle</p> -->
+<!-- <button type="button" class="close" aria-hidden="true">&times;</button> -->
 
 <form role="form">
 
@@ -15,6 +19,7 @@
     <label for="pingDescription" class="col-md-2 control-label">Description</label>
     <div class="col-md-10">
         <input ng-model="pingForm.PingDesc" type="text" class="form-control" id="pingDescription" placeholder="Test Description">
+        <span class="help-block"></span>
     </div>
   </div>
 
@@ -72,7 +77,7 @@
 
   <div class="form-group row">
     <div class="col-md-offset-2 col-md-10">
-      <button type="submit" class="btn btn-primary">Submit Ping Test</button>
+      <button ng-click="submitPing()" type="submit" class="btn btn-primary">Submit Ping Test</button>
     </div>
   </div>
 
