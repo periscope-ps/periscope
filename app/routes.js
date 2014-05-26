@@ -129,6 +129,47 @@ module.exports = function(app) {
     });*/
   });
 
+  app.get('/measurements', function(req, res) {
+
+    /* HTTP Options */
+    var options = {
+        hostname: 'localhost',
+        port: 8888,
+        path: '/measurements',
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            'connection': 'keep-alive'
+        }
+    };
+
+    /* GET JSON and Render to our API */
+    http.get(options, function(http_res) {
+      var data = '';
+
+      http_res.on('data', function (chunk) {
+        data += chunk;
+      });
+
+      http_res.on('end',function() {
+        var obj = JSON.parse(data);
+        console.log( obj );
+        res.json( obj );
+      });
+
+    });
+
+    /* Access Model Created from Mongo */
+    /*Service.find(function(err, services) {
+
+      if (err)
+        res.send(err);
+
+      console.log(services);
+      res.json(services);
+    });*/
+  });
+
   app.get('*', function(req, res) {
     res.sendfile('./public/index.html');
   });
