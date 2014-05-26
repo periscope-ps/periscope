@@ -8,7 +8,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
   $routeProvider.
     when('/', {
-      templateUrl: 'views/home.html',
+      templateUrl: 'views/main.html',
       controller: 'MainController'
     }).
     when('/nodes', {
@@ -22,6 +22,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
     when('/blipp', {
       templateUrl: 'views/blipp.html',
       controller: 'BlippController'
+    }).
+    when('/measurements', {
+      templateUrl: 'views/measurement.html',
+      controller: 'MeasurementController'
     }).
     otherwise({redirectTo: '/'});
 
