@@ -1,6 +1,8 @@
 <div ng-controller="BlippController">
   <h2 class="text-center">Schedule BLiPP Test</h2>
   <hr />
+  <div ng-include src="'views/partials/measurement_list.html'"></div>
+  <hr />
 
   <div class="form-group">
     <button ng-click="toggleIperf()" ng-class="btnIperf" class="btn btn-default">Throughput Test</button>

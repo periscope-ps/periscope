@@ -1,0 +1,11 @@
+<h2>Running Measurements</h2>
+
+<div ng-controller="MeasurementController">
+  <div ng-repeat="measurement in measurements">
+    <dl class="lead">
+      <dd> {{ measurement.configuration.name }} </dd>
+      <dd> <a ng-href="{{measurement.selfRef}}"> {{ measurement.selfRef }} </a> </dd>
+      <dd> {{ measurement.ts }} </dd>
+    </dl>
+  </div>
+</div>

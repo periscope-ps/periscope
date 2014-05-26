@@ -1,0 +1,9 @@
+<div ng-controller="MeasurementController">
+  <div ng-repeat="measurement in measurements">
+    <ul class="list-inline">
+      <li> {{ measurement.configuration.name }} </li>
+      <li><a ng-href="{{measurement.selfRef}}"> {{ measurement.selfRef }} </a></li>
+      <li> {{ measurement.ts }} </li>
+    </ul>
+  </div>
+</div>
