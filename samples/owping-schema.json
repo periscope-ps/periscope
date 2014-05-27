@@ -1,0 +1,84 @@
+{
+    "$schema": "http://json-schema.org/draft-03/hyper-schema#",
+    "id": "http://unis.incntre.iu.edu/schema/blippmeasurements/20130429/owping#",
+    "name": "owping",
+    "title": "BLiPP owping probe configuration",
+    "description": "A schema defining configuration to run owping within BLiPP using the cmd_line_probe",
+    "type": "object",
+    "properties": {
+	"$schema": {
+	    "default": "http://unis.incntre.iu.edu/schema/blippmeasurements/20130429/owping#",
+	    "type": "string",
+	    "required": false
+	},
+	"probe_module": {
+	    "default": "cmd_line_probe",
+	    "type": "string",
+	    "required": false
+	},
+	"regex": {
+	    "default": "min/median/max = (?P<fmin>\\d[^/]*)/(?P<fmedian>\\d[^/]*)/(?P<fmax>\\d[^ ]*) ms, \\(err=(?P<ferr>\\d[^ ]*) ms\\)\\none-way jitter = (?P<fjitter>\\d[^ ]*).*min/median/max = (?P<rmin>\\d[^/]*)/(?P<rmedian>\\d[^/]*)/(?P<rmax>\\d[^ ]*) ms, \\(err=(?P<rerr>\\d[^ ]*) ms\\)\\none-way jitter = (?P<rjitter>\\d[^ ]*)",
+	    "type": "string",
+	    "required": false
+	},
+	"eventTypes": {
+	    "required": false,
+	    "default": {
+		"fmin": "ps:tools:blipp:linux:net:owping:forward-minimum-delay",
+		"fmedian": "ps:tools:blipp:linux:net:owping:forward-median-delay",
+		"fmax": "ps:tools:blipp:linux:net:owping:forward-max-delay",
+		"ferr": "ps:tools:blipp:linux:net:owping:forward-err",
+		"fjitter": "ps:tools:blipp:linux:net:owping:forward-jitter",
+		"rmin": "ps:tools:blipp:linux:net:owping:reverse-minimum-delay",
+		"rmedian": "ps:tools:blipp:linux:net:owping:reverse-median-delay",
+		"rmax": "ps:tools:blipp:linux:net:owping:reverse-max-delay",
+		"rerr": "ps:tools:blipp:linux:net:owping:reverse-err",
+		"rjitter": "ps:tools:blipp:linux:net:owping:reverse-jitter"
+	    },
+	    "type": "object",
+	    "additionalProperties": true
+	},
+	"command": {
+	    "default": "owping $-c $-s $-i $-L $testpeer $server",
+	    "type": "string",
+	    "required": false
+	},
+	"testpeer": {
+	    "title": "Host/Interface to test against",
+	    "type": "string",
+	    "required": true
+	},
+	"-c": {
+	    "title": "Packets to send",
+	    "type": "integer",
+	    "minimum": 1,
+	    "default": 100,
+	    "required": false
+	},
+	"-s": {
+	    "title": "Padding size",
+	    "default": 0,
+	    "type": "integer",
+	    "min": 0,
+	    "required": false
+	},
+	"-i": {
+	    "title": "Send schedule",
+	    "type": "string",
+	    "default": "0.1e",
+	    "required": false
+	},
+	"-L": {
+	    "title": "Timeout",
+	    "type": "number",
+	    "default": 2,
+	    "exclusiveMinimum": 0,
+	    "required": false
+	},
+	"server": {
+	    "title": "Optional server (if different from testpeer)",
+	    "type": "string",
+	    "required": false
+	}
+    }
+}

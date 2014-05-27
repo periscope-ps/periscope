@@ -1,0 +1,18 @@
+{
+    "properties": {
+	"configurations": {
+	    "unis_url": "http://localhost:8888",
+	    "probe_defaults": {
+		"ms_url": "http://localhost:8888",
+		"collection_schedule": "builtins.simple",
+		"schedule_params": {"every": 10}
+	    },
+	    "probes":{
+		"owping_probe": {
+		    "$schema": "http://unis.incntre.iu.edu/schema/blippmeasurements/20130429/owping",
+                    "testpeer": "127.0.0.1"
+		}
+	    }
+	}
+    }
+}
