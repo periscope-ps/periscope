@@ -10,6 +10,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     .success(function(data) {
 
       $scope.pingData = {};
+      $scope.alerts = [];
       $scope.timeTypes = [
         {type:'Seconds'},
         {type:'Minutes'},
@@ -17,18 +18,25 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         {type:'Days'}
       ];
 
+      $scope.addAlert = function(msg, type) {
+        $scope.alerts.push({type: type, msg: msg});
+      };
+      $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+      };
       $scope.pingSubmit = function(ping) {
 
         if (ping.$invalid) {
           // If form is invalid, return and let AngularJS show validation errors.
-          $scope.submitDanger = true;
-          $scope.messages = 'Invalid form submitted.';
+          $scope.addAlert('Invalid form submitted.', 'danger');
+          $scope.alert = true;
           return;
         } else {
-          // Trigger success flag
-          $scope.submitSuccess = true;
-          $scope.messages = 'Success, have a beer!';
+          // Trigger success alert
+          $scope.addAlert('Successfully submitted form!', 'success');
+          $scope.alert = true;
 
+          // copy data submitted by form
           $scope.pingData = angular.copy(ping);
 
         }
@@ -66,6 +74,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         $scope.ping.tbp = 1;
         $scope.ping.packetSize = 1000;
         $scope.ping.reportMS = 10;
+        $scope.alert = false;
       };
       $scope.toggleIperf = function() {
         $scope.addPing = false;

@@ -1,8 +1,7 @@
-<pre>pingForm = {{ping | json}}</pre>
-<pre>pingData = {{pingData | json}}</pre>
+<!-- <pre>pingForm = {{ping | json}}</pre> -->
+<!-- <pre>pingData = {{pingData | json}}</pre> -->
 
-<div class="alert alert-success" ng-show="submitSuccess" ng-bind="messages"></div>
-<div class="alert alert-danger" ng-show="submitDanger" ng-bind="messages"></div>
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 
 <form name="pingForm" novalidate>
 
@@ -81,7 +80,7 @@
   <div class="form-group row">
     <div class="col-md-offset-2 col-md-10">
       <button ng-click="pingSubmit(ping)" ng-disabled="pingForm.$invalid || pingUnchanged(ping)" class="btn btn-primary">Submit Ping Test</button>
-      <button ng-click="pingReset()" class="btn btn-danger pull-right">Reset Defaults</button>
+      <button ng-click="pingReset()" class="btn btn-danger pull-right">Restore Defaults</button>
     </div>
   </div>
 
