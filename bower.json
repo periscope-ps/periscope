@@ -7,6 +7,7 @@
     "animate.css": "latest",
     "angular": "latest",
     "angular-route": "latest",
-    "angular-mocks": "latest"
+    "angular-mocks": "latest",
+    "angular-bootstrap": "latest"
   }
 }
