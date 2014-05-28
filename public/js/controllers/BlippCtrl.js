@@ -9,26 +9,28 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
   $http.get('/nodes')
     .success(function(data) {
 
-      $scope.pingSubmit = {};
+      $scope.pingData = {};
 
-      $scope.submit = function(ping) {
-        $scope.pingSubmit = angular.copy(ping);
-        // alert(JSON.stringify($scope.pingSubmit));
+      $scope.pingSubmit = function(ping) {
+        $scope.pingData = angular.copy(ping);
+
+        // process and submit data below
+        //
       };
-      $scope.reset = function() {
+      $scope.pingReset = function() {
         // clear client and server side form
-        // $scope.pingSubmit = {};
-        // $scope.ping = angular.copy($scope.pingSubmit);
+        // $scope.pingData = {};
+        // $scope.ping = angular.copy($scope.pingData);
 
         // clear client side form and reset defaults
         $scope.ping = angular.copy({});
         $scope.ping.packetsSent = 1;
       };
-      $scope.isUnchanged = function(ping) {
-        return angular.equals(ping, $scope.pingSubmit);
+      $scope.pingUnchanged = function(ping) {
+        return angular.equals(ping, $scope.pingData);
       };
 
-      $scope.reset();
+      $scope.pingReset();
 
       // $scope.submitPing = function(ping) {
 
