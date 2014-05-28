@@ -9,13 +9,30 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
   $http.get('/nodes')
     .success(function(data) {
 
-      $scope.pingForm = {};
+      $scope.pingSubmit = {};
 
-      $scope.submitPing = function() {
+      $scope.submit = function(ping) {
+        $scope.pingSubmit = angular.copy(ping);
+        // alert(JSON.stringify($scope.pingSubmit));
+      };
+      $scope.reset = function() {
+        // clear client and server side form
+        // $scope.pingSubmit = {};
+        // $scope.ping = angular.copy($scope.pingSubmit);
 
-        alert((JSON.stringify($scope.pingForm)));
+        // clear client side form and reset defaults
+        $scope.ping = angular.copy({});
+        $scope.ping.packetsSent = 1;
+      };
+      $scope.isUnchanged = function(ping) {
+        return angular.equals(ping, $scope.pingSubmit);
+      };
 
-        var ping = {
+      $scope.reset();
+
+      // $scope.submitPing = function(ping) {
+
+        /*var ping = {
             "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
             "service": "http://localhost:8888/services/MXRRLAWJI94GMEDC",
             "ts": 1398785926407953,
@@ -42,11 +59,11 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
               "collection_ttl": 1500000,
               "name": "ops_ping"
             }
-        };
+        };*/
 
-        alert(ping);
+        // alert(ping);
 
-        http({
+        /*http({
           method  : 'POST',
           url     : 'http://localhost:8888/measurements',
           data    : $.param(ping),
@@ -59,9 +76,9 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
             $scope.pingSuccess = true;
             $scope.message = data.message;
           }
-        });
+        });*/
 
-      };
+      // };
 
       $scope.togglePing = function() {
         $scope.addIperf = false;
@@ -70,6 +87,9 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         $scope.btnNetlogger = "btn btn-default";
         $scope.btnPing = $scope.btnPing === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
         $scope.addPing = $scope.addPing === true ? false: true;
+
+        // default form values
+        $scope.ping.packetsSent = 1;
       };
       $scope.toggleIperf = function() {
         $scope.addPing = false;
