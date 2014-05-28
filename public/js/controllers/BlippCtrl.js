@@ -10,12 +10,28 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     .success(function(data) {
 
       $scope.pingData = {};
+      $scope.timeTypes = [
+        {type:'Seconds'},
+        {type:'Minutes'},
+        {type:'Hours'},
+        {type:'Days'}
+      ];
 
       $scope.pingSubmit = function(ping) {
-        $scope.pingData = angular.copy(ping);
 
-        // process and submit data below
-        //
+        if (ping.$invalid) {
+          // If form is invalid, return and let AngularJS show validation errors.
+          $scope.submitDanger = true;
+          $scope.messages = 'Invalid form submitted.';
+          return;
+        } else {
+          // Trigger success flag
+          $scope.submitSuccess = true;
+          $scope.messages = 'Success, have a beer!';
+
+          $scope.pingData = angular.copy(ping);
+
+        }
       };
       $scope.pingReset = function() {
         // clear client and server side form
@@ -24,64 +40,17 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
         // clear client side form and reset defaults
         $scope.ping = angular.copy({});
+        $scope.ping.tbtValue = 5;
+        $scope.ping.tbtType = $scope.timeTypes[1];
         $scope.ping.packetsSent = 1;
+        $scope.ping.tbp = 1;
+        $scope.ping.packetSize = 1000;
+        $scope.ping.reportMS = 10;
       };
+      $scope.pingReset();
       $scope.pingUnchanged = function(ping) {
         return angular.equals(ping, $scope.pingData);
       };
-
-      $scope.pingReset();
-
-      // $scope.submitPing = function(ping) {
-
-        /*var ping = {
-            "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-            "service": "http://localhost:8888/services/MXRRLAWJI94GMEDC",
-            "ts": 1398785926407953,
-            "eventTypes": [
-              "ps:tools:blipp:linux:net:ping:rtt",
-              "ps:tools:blipp:linux:net:ping:ttl"
-            ],
-            "configuration": {
-              "regex": "ttl=(?P<ttl>\\d+).*time=(?P<rtt>\\d+\\s|\\d+\\.\\d+)",
-              "reporting_params": 1,
-              "probe_module": "cmd_line_probe",
-              "schedule_params": {
-                "every": 5
-              },
-              "collection_schedule": "builtins.simple",
-              "command": "ping -c 1 156.56.5.10",
-              "collection_size": 10000000,
-              "ms_url": "http://localhost:8888",
-              "data_file": "/tmp/ops_ping.log",
-              "eventTypes": {
-                "rtt": "ps:tools:blipp:linux:net:ping:rtt",
-                "ttl": "ps:tools:blipp:linux:net:ping:ttl"
-              },
-              "collection_ttl": 1500000,
-              "name": "ops_ping"
-            }
-        };*/
-
-        // alert(ping);
-
-        /*http({
-          method  : 'POST',
-          url     : 'http://localhost:8888/measurements',
-          data    : $.param(ping),
-          headers : { 'Content-Type': 'application/json' }
-        })
-        .success(function(data) {
-          if (!data.success) {
-            alert("error");
-          } else {
-            $scope.pingSuccess = true;
-            $scope.message = data.message;
-          }
-        });*/
-
-      // };
-
       $scope.togglePing = function() {
         $scope.addIperf = false;
         $scope.btnIperf = "btn btn-default";
@@ -91,7 +60,12 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         $scope.addPing = $scope.addPing === true ? false: true;
 
         // default form values
+        $scope.ping.tbtValue = 5;
+        $scope.ping.tbtType = $scope.timeTypes[1];
         $scope.ping.packetsSent = 1;
+        $scope.ping.tbp = 1;
+        $scope.ping.packetSize = 1000;
+        $scope.ping.reportMS = 10;
       };
       $scope.toggleIperf = function() {
         $scope.addPing = false;
@@ -109,10 +83,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         $scope.btnNetlogger = $scope.btnNetlogger === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
         $scope.addNetlogger = $scope.addNetlogger === true ? false: true;
       };
-
       $scope.nodes = data;
-      console.log(data);
-
       $scope.filterNodes = function(node)
       {
           if(node.name != 'GN0')
