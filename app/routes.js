@@ -189,6 +189,8 @@ module.exports = function(app) {
     // store result
     var post_data = JSON.stringify(req.body);
 
+    console.log("post length: " + post_data.length);
+
     /* HTTP Options */
     var post_options = {
         hostname: 'localhost',
@@ -203,11 +205,20 @@ module.exports = function(app) {
 
     /* POST form measurement data to UNIS */
     var post_req = http.request(post_options, function(http_res) {
+      // used to gather chunks
+      var data = '';
+
       console.log('STATUS: ' + http_res.statusCode);
       console.log('HEADERS: ' + JSON.stringify(http_res.headers));
       http_res.setEncoding('utf8');
       http_res.on('data', function (chunk) {
         console.log('BODY: ' + chunk);
+        data += chunk;
+      });
+      http_res.on('end',function() {
+        var obj = JSON.parse(data);
+        console.log("return obj: " + JSON.stringify(obj));
+        res.json( obj );
       });
     });
 
@@ -216,7 +227,7 @@ module.exports = function(app) {
     });
 
     // write data to request body
-    console.log(post_data);
+    console.log("post_data: " + post_data);
     post_req.write(post_data);
     post_req.end();
   });

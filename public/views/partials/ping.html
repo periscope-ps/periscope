@@ -68,12 +68,12 @@
   </div>
 
   <div class="form-group row" ng-class="{ 'has-error' : pingForm.pTo.$invalid && !pingForm.pTo.$pristine }">
-    <label for="selectPingNode" class="col-md-2 control-label">Node/s to Ping To</label>
-    <div class="col-md-5">
-      <select ng-model="ping.to" name="pTo" multiple class="form-control" required>
+    <label for="selectPingNode" class="col-md-2 control-label">Node to Ping To</label>
+    <div class="col-md-10">
+      <select ng-model="ping.to" name="pTo" class="form-control" required>
         <option ng-repeat="node in nodes"> {{ node.name }} </option>
       </select>
-      <p ng-show="pingForm.pTo.$invalid && !pingForm.pTo.$pristine" class="help-block">Please select a node or nodes</p>
+      <p ng-show="pingForm.pTo.$invalid && !pingForm.pTo.$pristine" class="help-block">Please select a node</p>
     </div>
   </div>
 

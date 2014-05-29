@@ -4,7 +4,7 @@
  * BlippCtrl.js
  */
 
-angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http) {
+angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http, $location) {
 
   $http.get('/api/nodes')
     .success(function(data) {
@@ -17,7 +17,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         {type:'Hours'},
         {type:'Days'}
       ];
-      var ping_measurement = {
+
+      /*var ping_measurement = {
         "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
         "service": "http://localhost:8888/services/MXRRLAWJI94GMEDC",
         "ts": 1398785926407953,
@@ -42,9 +43,9 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
             "ttl": "ps:tools:blipp:linux:net:ping:ttl"
           },
           "collection_ttl": 1500000,
-          "name": "ops_ping"
+          "name": "ping"
         }
-      };
+      };*/
 
       $scope.addAlert = function(msg, type) {
         $scope.alerts.push({type: type, msg: msg});
@@ -67,6 +68,35 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
           // copy data submitted by form
           $scope.pingData = angular.copy(ping);
 
+          var ping_measurement = {
+            "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+            "service": "http://localhost:8888/services/MXRRLAWJI94GMEDC",
+            "ts": 1398785926407953,
+            "eventTypes": [
+              "ps:tools:blipp:linux:net:ping:rtt",
+              "ps:tools:blipp:linux:net:ping:ttl"
+            ],
+            "configuration": {
+              "regex": "ttl=(?P<ttl>\\d+).*time=(?P<rtt>\\d+\\s|\\d+\\.\\d+)",
+              "reporting_params": $scope.pingData.reportMS,
+              "probe_module": "cmd_line_probe",
+              "schedule_params": {
+                "every": $scope.pingData.tbtValue
+              },
+              "collection_schedule": "builtins.simple",
+              "command": "ping -c " + $scope.pingData.to,
+              "collection_size": $scope.pingData.packetSize,
+              "ms_url": "http://localhost:8888",
+              "data_file": "/tmp/ops_ping.log",
+              "eventTypes": {
+                "rtt": "ps:tools:blipp:linux:net:ping:rtt",
+                "ttl": "ps:tools:blipp:linux:net:ping:ttl"
+              },
+              "collection_ttl": 1500000,
+              "name": $scope.pingData.desc
+            }
+          };
+
           $http({
             method: 'POST',
             url: '/api/measurements',
@@ -74,19 +104,23 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
             headers: {'Content-type': 'application/perfsonar+json'}
           }).
           success(function(data, status, headers, config) {
-            alert("success");
-            $scope.addAlert(data, 'success');
-            $scope.addAlert(status, 'success');
-            $scope.addAlert(headers, 'success');
-            $scope.addAlert(config, 'success');
+            // $scope.addAlert(data, 'success');
+            // $scope.addAlert(status, 'success');
+            // $scope.addAlert(headers, 'success');
+            // $scope.addAlert(config, 'success');
+            var measurement = data;
+            $scope.addAlert('Status: ' + status.toString() + ', ' + 'Test: ' + measurement.configuration.name + ' submitted to UNIS', 'success');
             $scope.alert = true;
+
+            $location.url('/blipp/:ping');
           }).
           error(function(data, status, headers, config) {
-            alert("error");
-            $scope.addAlert(data, 'danger');
-            $scope.addAlert(status, 'danger');
-            $scope.addAlert(headers, 'danger');
-            $scope.addAlert(config, 'danger');
+            // $scope.addAlert(data, 'danger');
+            // $scope.addAlert(status, 'danger');
+            // $scope.addAlert(headers, 'danger');
+            // $scope.addAlert(config, 'danger');
+            var measurement = data;
+            $scope.addAlert('Status: ' + status.toString() + ', ' + 'Error: ' + measurement.error.message, 'danger');
             $scope.alert = true;
           });
         }

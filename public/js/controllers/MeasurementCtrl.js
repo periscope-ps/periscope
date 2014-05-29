@@ -9,15 +9,6 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
   $http.get('/api/measurements')
     .success(function(data) {
       var measurements = data;
-      /*var length = measurements.length();
-
-      for(int i; i < length; i++) {
-        $scope.name = measurements[i].configuration.name
-        $scope.selfRef = measurements[i].
-        $scope.ts = measurements[i].ts
-      }*/
-
-
       $scope.measurements = measurements;
 
       console.log(data);
