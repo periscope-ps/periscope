@@ -8,12 +8,26 @@
 //  , Service = require('./models/service')
 var fs = require('fs')
   , path = require('path')
-  , http = require('http');
+  , http = require('http')
+  , url = require('url');
 
 
 module.exports = function(app) {
 
-  app.get('/slice', function(req, res) {
+  app.get('/api', function(req, res) {
+    var routes = [];
+    var hostname = req.headers.host;
+    var pathname = url.parse(req.url).pathname;
+
+    routes.push('http://' + hostname + pathname + '/slice');
+    routes.push('http://' + hostname + pathname + '/nodes');
+    routes.push('http://' + hostname + pathname + '/services');
+    routes.push('http://' + hostname + pathname + '/measurements');
+
+    res.json(routes);
+  });
+
+  app.get('/api/slice', function(req, res) {
 
     var store = [];
     var filePath = '/usr/local/etc/node.info';
@@ -47,7 +61,7 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/nodes', function(req, res) {
+  app.get('/api/nodes', function(req, res) {
 
     /* HTTP Options */
     var options = {
@@ -88,7 +102,7 @@ module.exports = function(app) {
     });*/
   });
 
-  app.get('/services', function(req, res) {
+  app.get('/api/services', function(req, res) {
 
     /* HTTP Options */
     var options = {
@@ -129,7 +143,7 @@ module.exports = function(app) {
     });*/
   });
 
-  app.get('/measurements', function(req, res) {
+  app.get('/api/measurements', function(req, res) {
 
     /* HTTP Options */
     var options = {

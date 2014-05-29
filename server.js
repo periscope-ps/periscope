@@ -6,23 +6,23 @@
 /* Include Modules */
 var express = require('express')
   , http = require('http')
-//  , mongoose = require('mongoose')
+  , mongoose = require('mongoose')
   , database = require('./config/db');
 
 /* Create App */
 var app = express();
 
 /* Database Connection */
-//var db = mongoose.connection;
+var db = mongoose.connection;
 
 /* Check db connection */
-/*db.on('error', console.error);
+db.on('error', console.error);
 db.once('open', function() {
   console.log('Connected to ' + database.url)
-});*/
+});
 
 /* Connect to db */
-//mongoose.connect(database.url);
+mongoose.connect(database.url);
 
 /* App Configuration */
 app.configure(function() {
