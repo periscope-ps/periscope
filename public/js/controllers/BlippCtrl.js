@@ -4,7 +4,7 @@
  * BlippCtrl.js
  */
 
-angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http) {
+angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http, $location) {
 
   $http.get('/api/nodes')
     .success(function(data) {
@@ -62,8 +62,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
           return;
         } else {
           // Tell user form has been sent
-          $scope.addAlert('Data sent to UNIS. Please wait for confirmation.', 'info');
-          $scope.alert = true;
+          // $scope.addAlert('Data sent to UNIS. Please wait for confirmation.', 'info');
+          // $scope.alert = true;
 
           // copy data submitted by form
           $scope.pingData = angular.copy(ping);
@@ -109,7 +109,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
             // $scope.addAlert(headers, 'success');
             // $scope.addAlert(config, 'success');
             var measurement = data;
-            $scope.addAlert('Status: ' + status.toString() + ', ' + 'Test: ' + measurement.configuration.name + ' submitted to UNIS', 'success');
+            $scope.addAlert('BLiPP Test: ' + measurement.configuration.name + ' submitted to UNIS', 'success');
             $scope.alert = true;
           }).
           error(function(data, status, headers, config) {
@@ -136,6 +136,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         $scope.ping.tbp = 1;
         $scope.ping.packetSize = 1000;
         $scope.ping.reportMS = 10;
+        $scope.closeAlert(0);
       };
       $scope.pingReset();
       $scope.pingUnchanged = function(ping) {
