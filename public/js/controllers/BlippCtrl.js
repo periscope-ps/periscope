@@ -4,7 +4,7 @@
  * BlippCtrl.js
  */
 
-angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http, $location) {
+angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http) {
 
   $http.get('/api/nodes')
     .success(function(data) {
@@ -111,8 +111,6 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
             var measurement = data;
             $scope.addAlert('Status: ' + status.toString() + ', ' + 'Test: ' + measurement.configuration.name + ' submitted to UNIS', 'success');
             $scope.alert = true;
-
-            $location.url('/blipp/:ping');
           }).
           error(function(data, status, headers, config) {
             // $scope.addAlert(data, 'danger');
