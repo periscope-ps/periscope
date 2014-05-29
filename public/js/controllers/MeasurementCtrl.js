@@ -6,7 +6,7 @@
 
 angular.module('MeasurementCtrl', []).controller('MeasurementController', function($scope, $http) {
 
-  $http.get('/measurements')
+  $http.get('/api/measurements')
     .success(function(data) {
       var measurements = data;
       /*var length = measurements.length();

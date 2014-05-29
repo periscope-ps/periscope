@@ -7,9 +7,9 @@
 angular.module('ServiceService', []).factory('Service', ['$http', function($http) {
 
   return {
-   
+
     get : function() {
-      return $http.get('/services');
+      return $http.get('/api/services');
     }//,
 
     /*create : function(serviceData) {
@@ -21,5 +21,5 @@ angular.module('ServiceService', []).factory('Service', ['$http', function($http
     }*/
 
   }
-  
+
 }]);

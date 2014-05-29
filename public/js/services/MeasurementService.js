@@ -9,7 +9,7 @@ angular.module('MeasurementService', []).factory('Measurement', ['$http', functi
   return {
 
     get : function() {
-      return $http.get('/measurements');
+      return $http.get('/api/measurements');
     }//,
 
     /*create : function(nodeData) {

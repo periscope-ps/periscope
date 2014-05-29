@@ -6,7 +6,7 @@
 
 angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http) {
 
-  $http.get('/nodes')
+  $http.get('/api/nodes')
     .success(function(data) {
 
       $scope.pingData = {};
@@ -17,6 +17,34 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         {type:'Hours'},
         {type:'Days'}
       ];
+      var ping_measurement = {
+        "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+        "service": "http://localhost:8888/services/MXRRLAWJI94GMEDC",
+        "ts": 1398785926407953,
+        "eventTypes": [
+          "ps:tools:blipp:linux:net:ping:rtt",
+          "ps:tools:blipp:linux:net:ping:ttl"
+        ],
+        "configuration": {
+          "regex": "ttl=(?P<ttl>\\d+).*time=(?P<rtt>\\d+\\s|\\d+\\.\\d+)",
+          "reporting_params": 1,
+          "probe_module": "cmd_line_probe",
+          "schedule_params": {
+            "every": 5
+          },
+          "collection_schedule": "builtins.simple",
+          "command": "ping -c 1 156.56.5.10",
+          "collection_size": 10000000,
+          "ms_url": "http://localhost:8888",
+          "data_file": "/tmp/ops_ping.log",
+          "eventTypes": {
+            "rtt": "ps:tools:blipp:linux:net:ping:rtt",
+            "ttl": "ps:tools:blipp:linux:net:ping:ttl"
+          },
+          "collection_ttl": 1500000,
+          "name": "ops_ping"
+        }
+      };
 
       $scope.addAlert = function(msg, type) {
         $scope.alerts.push({type: type, msg: msg});
@@ -28,17 +56,37 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
         if (ping.$invalid) {
           // If form is invalid, return and let AngularJS show validation errors.
-          $scope.addAlert('Invalid form submitted.', 'danger');
+          $scope.addAlert('Invalid form, cannot be submitted', 'danger');
           $scope.alert = true;
           return;
         } else {
-          // Trigger success alert
-          $scope.addAlert('Successfully submitted form!', 'success');
+          // Tell user form has been sent
+          $scope.addAlert('Data sent to UNIS', 'success');
           $scope.alert = true;
-
           // copy data submitted by form
           $scope.pingData = angular.copy(ping);
 
+          $http({
+            method: 'POST',
+            url: 'http://129.79.241.85:8888/measurements',
+            data: JSON.stringify(ping_measurement),
+            headers: {'Content-type': 'application/perfsonar+json'}
+          }).
+          success(function(data, status, headers, config) {
+            // this callback will be called asynchronously
+            // when the response is available
+            $scope.addAlert('response from unis', 'success');
+            $scope.alert = true;
+          }).
+          error(function(data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            $scope.addAlert(data, 'danger');
+            $scope.addAlert(status, 'danger');
+            $scope.addAlert(headers, 'danger');
+            $scope.addAlert(config, 'danger');
+            $scope.alert = true;
+          });
         }
       };
       $scope.pingReset = function() {

@@ -6,7 +6,7 @@
 
 angular.module('MainCtrl', []).controller('MainController', function($scope, $http) {
 
-  $http.get('/slice')
+  $http.get('/api/slice')
     .success(function(data) {
       $scope.gn = data[0].gn_address;
       $scope.slice = data[0].slice;

@@ -9,7 +9,7 @@ angular.module('NodeService', []).factory('Node', ['$http', function($http) {
   return {
 
     get : function() {
-      return $http.get('/nodes');
+      return $http.get('/api/nodes');
     }//,
 
     /*create : function(nodeData) {
@@ -20,6 +20,6 @@ angular.module('NodeService', []).factory('Node', ['$http', function($http) {
       return $http.delete('/nodes/' + id);
     }*/
 
-  }   
+  }
 
 }]);

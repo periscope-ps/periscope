@@ -6,7 +6,7 @@
 
 angular.module('ServiceCtrl', []).controller('ServiceController', function($scope, $http) {
 
-  $http.get('/services')
+  $http.get('/api/services')
     .success(function(data) {
       $scope.services = data;
       console.log(data);

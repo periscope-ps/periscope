@@ -9,7 +9,7 @@ angular.module('BlippService', []).factory('Blipp', ['$http', function($http) {
   return {
 
     get : function() {
-      return $http.get('/nodes');
+      return $http.get('/api/nodes');
     }//,
 
     /*create : function(nodeData) {

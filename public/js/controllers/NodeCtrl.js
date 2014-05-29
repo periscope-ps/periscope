@@ -6,7 +6,7 @@
 
 angular.module('NodeCtrl', []).controller('NodeController', function($scope, $http) {
 
-  $http.get('/nodes')
+  $http.get('/api/nodes')
     .success(function(data) {
       $scope.nodes = data;
       console.log(data);
