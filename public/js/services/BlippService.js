@@ -6,11 +6,11 @@
 
 angular.module('BlippService', []).factory('Blipp', ['$http', function($http) {
 
-  return {
+  //return {
 
-    get : function() {
+    /*get : function() {
       return $http.get('/api/nodes');
-    }//,
+    },*/
 
     /*create : function(nodeData) {
       return $http.post('/nodes', nodeData);
@@ -20,6 +20,6 @@ angular.module('BlippService', []).factory('Blipp', ['$http', function($http) {
       return $http.delete('/nodes/' + id);
     }*/
 
-  }
+  //}
 
 }]);

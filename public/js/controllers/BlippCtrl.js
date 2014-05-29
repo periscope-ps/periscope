@@ -61,26 +61,28 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
           return;
         } else {
           // Tell user form has been sent
-          $scope.addAlert('Data sent to UNIS', 'success');
+          $scope.addAlert('Data sent to UNIS. Please wait for confirmation.', 'info');
           $scope.alert = true;
+
           // copy data submitted by form
           $scope.pingData = angular.copy(ping);
 
           $http({
             method: 'POST',
-            url: 'http://129.79.241.85:8888/measurements',
-            data: JSON.stringify(ping_measurement),
+            url: '/api/measurements',
+            data: ping_measurement,
             headers: {'Content-type': 'application/perfsonar+json'}
           }).
           success(function(data, status, headers, config) {
-            // this callback will be called asynchronously
-            // when the response is available
-            $scope.addAlert('response from unis', 'success');
+            alert("success");
+            $scope.addAlert(data, 'success');
+            $scope.addAlert(status, 'success');
+            $scope.addAlert(headers, 'success');
+            $scope.addAlert(config, 'success');
             $scope.alert = true;
           }).
           error(function(data, status, headers, config) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert("error");
             $scope.addAlert(data, 'danger');
             $scope.addAlert(status, 'danger');
             $scope.addAlert(headers, 'danger');

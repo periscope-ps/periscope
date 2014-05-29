@@ -4,12 +4,13 @@
  * routes.js
  */
 
-//var Node = require('./models/node')
-//  , Service = require('./models/service')
+// var Node = require('./models/node')
+// , Service = require('./models/service');
 var fs = require('fs')
   , path = require('path')
   , http = require('http')
   , url = require('url');
+  //, querystring = require('querystring');
 
 
 module.exports = function(app) {
@@ -182,6 +183,42 @@ module.exports = function(app) {
       console.log(services);
       res.json(services);
     });*/
+  });
+
+  app.post('/api/measurements', function(req, res) {
+    // store result
+    var post_data = JSON.stringify(req.body);
+
+    /* HTTP Options */
+    var post_options = {
+        hostname: 'localhost',
+        port: 8888,
+        path: '/measurements',
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'Content-Length': post_data.length
+        }
+    };
+
+    /* POST form measurement data to UNIS */
+    var post_req = http.request(post_options, function(http_res) {
+      console.log('STATUS: ' + http_res.statusCode);
+      console.log('HEADERS: ' + JSON.stringify(http_res.headers));
+      http_res.setEncoding('utf8');
+      http_res.on('data', function (chunk) {
+        console.log('BODY: ' + chunk);
+      });
+    });
+
+    post_req.on('error', function(e) {
+      console.log('problem with request: ' + e.message);
+    });
+
+    // write data to request body
+    console.log(post_data);
+    post_req.write(post_data);
+    post_req.end();
   });
 
   app.get('*', function(req, res) {
