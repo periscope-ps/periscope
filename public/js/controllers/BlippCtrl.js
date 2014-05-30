@@ -11,6 +11,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
       $scope.pingData = {};
       $scope.perfData = {};
+      $scope.netlogData = {};
       $scope.alerts = [];
       $scope.timeTypes = [
         {type:'Seconds'},
@@ -49,8 +50,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
           var ping_measurement = {
             "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-            "service": "http://localhost:8888/services/MXRRLAWJI94GMEDC",
-            "ts": 1398785926407953,
+            "service": "http://localhost:8888/services/5388c07995558f0c9cce5321",
+            "ts": Math.round(new Date().getTime() / 1000),
             "eventTypes": [
               "ps:tools:blipp:linux:net:ping:rtt",
               "ps:tools:blipp:linux:net:ping:ttl"
@@ -119,8 +120,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
           var perf_measurement = {
             "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-            "service": "http://localhost:8888/services/MXRRLAWJI94GMEDC",
-            "ts": 1398785926407953,
+            "service": "http://localhost:8888/services/5388c07995558f0c9cce5321",
+            "ts": Math.round(new Date().getTime() / 1000),
             "eventTypes": [
               "ps:tools:blipp:linux:net:iperf:bandwidth"
             ],
@@ -142,6 +143,73 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
             method: 'POST',
             url: '/api/measurements',
             data: perf_measurement,
+            headers: {'Content-type': 'application/perfsonar+json'}
+          }).
+          success(function(data, status, headers, config) {
+            // $scope.addAlert(data, 'success');
+            // $scope.addAlert(status, 'success');
+            // $scope.addAlert(headers, 'success');
+            // $scope.addAlert(config, 'success');
+            var measurement = data;
+            $scope.addAlert('BLiPP Test: ' + measurement.configuration.name + ' submitted to UNIS', 'success');
+            $scope.alert = true;
+          }).
+          error(function(data, status, headers, config) {
+            // $scope.addAlert(data, 'danger');
+            // $scope.addAlert(status, 'danger');
+            // $scope.addAlert(headers, 'danger');
+            // $scope.addAlert(config, 'danger');
+            var measurement = data;
+            $scope.addAlert('Status: ' + status.toString() + ', ' + 'Error: ' + measurement.error.message, 'danger');
+            $scope.alert = true;
+          });
+        }
+      };
+      $scope.netlogSubmit = function(netlog) {
+
+        if (netlog.$invalid) {
+          // If form is invalid, return and let AngularJS show validation errors.
+          $scope.addAlert('Invalid form, cannot be submitted', 'danger');
+          $scope.alert = true;
+          return;
+        } else {
+          // Tell user form has been sent
+          // $scope.addAlert('Data sent to UNIS. Please wait for confirmation.', 'info');
+          // $scope.alert = true;
+
+          // copy data submitted by form
+          $scope.netlogData = angular.copy(netlog);
+
+          var netlog_measurement = {
+            "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+            "service": "http://localhost:8888/services/5388c07995558f0c9cce5321",
+            "ts": Math.round(new Date().getTime() / 1000),
+            "eventTypes": [
+              "ps:tools:blipp:linux:net:netlogger:probe"
+            ],
+            "configuration": {
+              "unis_url": "http://localhost:8888",
+              "probe_defaults": {
+                "ms_url": "http://localhost:8888",
+                "collection_schedule": "builtins.simple",
+                "schedule_params": {"every": $scope.netlogData.tbrValue}
+              },
+              "probes":{
+                "nl_probe": {
+                  "probe_module": "netlogger_probe",
+                  "data_file": $scope.netlog.file,
+                  "logfile": "/tmp/nl.log",
+                  "reporting_params": $scope.netlogData.reportMS
+                }
+              },
+              "name": $scope.netlogData.desc
+            }
+          };
+
+          $http({
+            method: 'POST',
+            url: '/api/measurements',
+            data: netlog_measurement,
             headers: {'Content-type': 'application/perfsonar+json'}
           }).
           success(function(data, status, headers, config) {
@@ -193,6 +261,18 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         $scope.perf.proto = $scope.protos[0];
         $scope.closeAlert(0);
       };
+      $scope.netlogReset = function() {
+        // clear client and server side form
+        // $scope.netlogData = {};
+        // $scope.netlog = angular.copy($scope.netlogData);
+
+        // clear client side form and reset defaults
+        $scope.netlog = angular.copy({});
+        $scope.netlog.tbrValue = 5;
+        $scope.netlog.tbrType = $scope.timeTypes[0];
+        $scope.netlog.reportMS = 10;
+        $scope.closeAlert(0);
+      };
       $scope.pingReset();
       $scope.pingUnchanged = function(ping) {
         return angular.equals(ping, $scope.pingData);
@@ -200,6 +280,10 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       $scope.perfReset();
       $scope.perfUnchanged = function(perf) {
         return angular.equals(perf, $scope.perfData);
+      };
+      $scope.netlogReset();
+      $scope.netlogUnchanged = function(netlog) {
+        return angular.equals(netlog, $scope.netlogData);
       };
       $scope.togglePing = function() {
         $scope.addIperf = false;
@@ -242,6 +326,13 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         $scope.btnIperf = "btn btn-default";
         $scope.btnNetlogger = $scope.btnNetlogger === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
         $scope.addNetlogger = $scope.addNetlogger === true ? false: true;
+
+        // default form values
+        $scope.netlog = angular.copy({});
+        $scope.netlog.tbrValue = 5;
+        $scope.netlog.tbrType = $scope.timeTypes[0];
+        $scope.netlog.reportMS = 10;
+        $scope.alert = false;
       };
       $scope.nodes = data;
       $scope.filterNodes = function(node) {
