@@ -8,8 +8,8 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
   $routeProvider.
     when('/', {
-      templateUrl: 'views/main.html',
-      controller: 'MainController'
+      templateUrl: 'views/slice.html',
+      controller: 'SliceController'
     }).
     when('/nodes', {
       templateUrl: 'views/node.html',

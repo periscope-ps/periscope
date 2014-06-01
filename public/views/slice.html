@@ -1,0 +1,9 @@
+<div class="jumbotron text-center">
+  <h2>Active Measurements Configuration</h2>
+
+  <div ng-repeat="(key, value) in geniSlice">
+    <p><i>{{key}}</i>: {{value}}</p>
+  </div>
+
+  <div ng-include src="'views/partials/measurements.html'"></div>
+</div>
