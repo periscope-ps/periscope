@@ -1,9 +1,13 @@
 <div class="jumbotron text-center" ng-controller="MainController">
   <h2>Active Measurements Configuration</h2>
 
-  <p>global node: <b>{{ gn }}</b></p>
-  <p>slice: <b>{{ slice }}</b></p>
-  <p>project: <b>{{ project }}</b></p>
+  <p><i>external address</i>: {{ exAddy }}</p>
+  <p><i>global node</i>: {{ gn }}</p>
+  <p><i>unis instance</i>: {{ unis }}</p>
+  <p><i>measurement store</i>: {{ ms }}</p>
+  <p><i>slice</i>: {{ slice }}</p>
+  <p><i>project</i>: {{ project }}</p>
+  <p><i>slice uuid</i>: {{ uuid }}</p>
 
   <div ng-include src="'views/partials/measurements.html'"></div>
 </div>
