@@ -451,14 +451,17 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       };
       $scope.nodes = data;
       $scope.filterNodes = function(node) {
-          if(node.name != 'GN0')
-          {
-              return true; // this will be listed in the results
-          }
-          return false; // otherwise it won't be within the results
+        if(node.name != 'GN0')
+        {
+          return true;
+        }
+        return false;
       };
     })
-    .error(function(data) {
+    .error(function(data, status) {
       console.log('Error: ' + data);
+      var error = data;
+      $scope.addAlert('Status: ' + status.toString() + ', ' + 'Error: ' + error.error.message, 'danger');
+      $scope.alert = true;
     });
 });
