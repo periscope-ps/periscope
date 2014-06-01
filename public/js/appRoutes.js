@@ -23,6 +23,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
       templateUrl: 'views/blipp.html',
       controller: 'BlippController'
     }).
+    when('/helm', {
+      templateUrl: 'views/helm.html',
+      controller: 'HelmController'
+    }).
     when('/measurements', {
       templateUrl: 'views/measurement.html',
       controller: 'MeasurementController'

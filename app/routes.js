@@ -24,6 +24,7 @@ module.exports = function(app) {
     routes.push('http://' + hostname + pathname + '/nodes');
     routes.push('http://' + hostname + pathname + '/services');
     routes.push('http://' + hostname + pathname + '/measurements');
+    routes.push('http://' + hostname + pathname + '/helm');
 
     res.json(routes);
   });
@@ -230,6 +231,61 @@ module.exports = function(app) {
     console.log("post_data: " + post_data);
     post_req.write(post_data);
     post_req.end();
+  });
+
+  app.get('/api/helm', function(req, res) {
+
+    var filePath = '/Users/MarksMacMachine/research/UNISrt/samples/HELM/helm.conf';
+
+    fs.readFile(filePath, {encoding: 'utf-8'}, function(err, data) {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        var conf = JSON.parse(data);
+        console.log(conf);
+        res.json(conf);
+      }
+    });
+  });
+
+  app.post('/api/helm', function(req, res) {
+    // store result
+    var post_data = JSON.stringify(req.body);
+    var filePath = '/Users/MarksMacMachine/research/UNISrt/samples/HELM/helm.conf';
+
+    /*function run_cmd(cmd, args, callBack ) {
+
+      var child = exec(cmd, args);
+      var resp = "";
+
+      child.stdout.on('data', function (buffer) { resp += buffer.toString() });
+      child.stdout.on('end', function() { callBack (resp) });
+    };*/
+
+    console.log("post length: " + post_data.length);
+    console.log("post data: " + post_data);
+
+    fs.writeFile(filePath, post_data, function(err) {
+      if(err) {
+        console.log(err);
+      } else {
+        console.log("The file was saved!");
+        var exec = require('child_process').exec;
+        var child;
+
+        // run_cmd( "cat /Users/MarksMacMachine/research/UNISrt/samples/HELM/helm.conf", [], function(text) { console.log ("command output: " + text) });
+        // run_cmd( "python /Users/MarksMacMachine/research/UNISrt/samples/HELM/helm.py", [], function(text) { console.log ("command output: " + text) });
+        child = exec('python /Users/MarksMacMachine/research/UNISrt/samples/HELM/helm.py',
+          function (error, stdout, stderr) {
+            console.log('stdout: ' + stdout);
+            console.log('stderr: ' + stderr);
+            if (error !== null) {
+              console.log('exec error: ' + error);
+            }
+        });
+      }
+    });
   });
 
   app.get('*', function(req, res) {
