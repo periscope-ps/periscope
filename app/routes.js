@@ -25,6 +25,7 @@ module.exports = function(app) {
     routes.push('http://' + hostname + pathname + '/services');
     routes.push('http://' + hostname + pathname + '/measurements');
     routes.push('http://' + hostname + pathname + '/helm');
+    routes.push('http://' + hostname + pathname + '/help');
 
     res.json(routes);
   });
@@ -297,6 +298,14 @@ module.exports = function(app) {
         });
       }
     });
+  });
+
+  app.get('/api/help', function(req, res) {
+    var helpMe = [];
+
+    helpMe.push('http://www.google.com');
+
+    res.json(helpMe);
   });
 
   app.get('*', function(req, res) {

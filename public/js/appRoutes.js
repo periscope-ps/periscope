@@ -31,6 +31,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
       templateUrl: 'views/measurement.html',
       controller: 'MeasurementController'
     }).
+    when('/help', {
+      templateUrl: 'views/help.html',
+      controller: 'HelpController'
+    }).
     otherwise({redirectTo: '/'});
 
   $locationProvider.html5Mode(true);
