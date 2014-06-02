@@ -1,25 +1,20 @@
 /*
- * Rest Services for a Node
+ * Rest Services for a Measurement
  * public/js/services/
- * NodeService.js
+ * MeasurementService.js
  */
 
-angular.module('MeasurementService', []).factory('Measurement', ['$http', function($http) {
+angular.module('MeasurementService', []).service('Measurement', function($http) {
 
-  return {
+  this.getMeasurements = function(measurements) {
+    $http.get('/api/measurements')
+      .success(function(data) {
+        console.log('Request: ' + data);
+        measurements(data);
+      })
+      .error(function(data) {
+        console.log('Error: ' + data);
+      });
+  };
 
-    get : function() {
-      return $http.get('/api/measurements');
-    }//,
-
-    /*create : function(nodeData) {
-      return $http.post('/nodes', nodeData);
-    },*/
-
-    /*delete : function(id) {
-      return $http.delete('/nodes/' + id);
-    }*/
-
-  }
-
-}]);
+});
