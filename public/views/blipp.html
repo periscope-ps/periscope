@@ -1,5 +1,5 @@
 <div ng-controller="BlippController">
-  <h2 class="text-center">Schedule BLiPP Test</h2>
+  <h2 class="lead text-center">Schedule BLiPP Test</h2>
 
   <div class="form-group">
     <button ng-click="toggleIperf()" ng-class="btnIperf" class="btn btn-default">Throughput Test</button>
@@ -12,8 +12,5 @@
   <div ng-show="addOWPing" ng-include src="'views/partials/owping.html'"></div>
   <div ng-show="addIperf" ng-include src="'views/partials/iperf.html'"></div>
   <div ng-show="addNetlogger" ng-include src="'views/partials/netlogger.html'"></div>
-
-  <!-- <hr /> -->
-  <!-- <div ng-include src="'views/partials/measurement_list.html'"></div> -->
 
 </div>

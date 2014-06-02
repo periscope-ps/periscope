@@ -4,22 +4,8 @@
  * BlippService.js
  */
 
-angular.module('BlippService', []).factory('Blipp', ['$http', function($http) {
+angular.module('BlippService', []).service('Blipp', function($http) {
 
-  //return {
 
-    /*get : function() {
-      return $http.get('/api/nodes');
-    },*/
 
-    /*create : function(nodeData) {
-      return $http.post('/nodes', nodeData);
-    },*/
-
-    /*delete : function(id) {
-      return $http.delete('/nodes/' + id);
-    }*/
-
-  //}
-
-}]);
+});
