@@ -4,7 +4,7 @@
  * BlippCtrl.js
  */
 
-angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http, $location) {
+angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http) {
 
   $http.get('/api/nodes')
     .success(function(data) {
@@ -124,7 +124,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
             "service": "http://localhost:8888/services/5388c07995558f0c9cce5321",
             "ts": Math.round(new Date().getTime() / 1000),
             "eventTypes": [
-              // "ps:tools:blipp:linux:net:ping:rtt",
+              // "ps:tools:blipp:linux:net:ping:owt",
               // "ps:tools:blipp:linux:net:ping:ttl"
             ],
             "configuration": {
