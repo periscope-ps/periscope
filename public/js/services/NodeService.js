@@ -4,22 +4,17 @@
  * NodeService.js
  */
 
-angular.module('NodeService', []).factory('Node', ['$http', function($http) {
+angular.module('NodeService', []).service('Node', function($http) {
 
-  return {
+  this.getNodes = function(nodes) {
+    $http.get('/api/nodes')
+      .success(function(data) {
+        console.log('Request: ' + data);
+        nodes(data);
+      })
+      .error(function(data) {
+        console.log('Error: ' + data);
+      });
+  };
 
-    get : function() {
-      return $http.get('/api/nodes');
-    }//,
-
-    /*create : function(nodeData) {
-      return $http.post('/nodes', nodeData);
-    },*/
-
-    /*delete : function(id) {
-      return $http.delete('/nodes/' + id);
-    }*/
-
-  }
-
-}]);
+});
