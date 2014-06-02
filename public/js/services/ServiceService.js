@@ -4,22 +4,17 @@
  * ServiceService.js
  */
 
-angular.module('ServiceService', []).factory('Service', ['$http', function($http) {
+angular.module('ServiceService', []).service('Service', function($http) {
 
-  return {
+  this.getServices = function(services) {
+    $http.get('/api/services')
+      .success(function(data) {
+        console.log('Request: ' + data);
+        services(data);
+      })
+      .error(function(data) {
+        console.log('Error: ' + data);
+      });
+  };
 
-    get : function() {
-      return $http.get('/api/services');
-    }//,
-
-    /*create : function(serviceData) {
-      return $http.post('/services', serviceData);
-    },*/
-
-    /*delete : function(id) {
-      return $http.delete('/services/' + id);
-    }*/
-
-  }
-
-}]);
+});

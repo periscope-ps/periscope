@@ -4,15 +4,10 @@
  * ServiceCtrl.js
  */
 
-angular.module('ServiceCtrl', []).controller('ServiceController', function($scope, $http) {
+angular.module('ServiceCtrl', []).controller('ServiceController', function($scope, Service) {
 
-  $http.get('/api/services')
-    .success(function(data) {
-      $scope.services = data;
-      console.log(data);
-    })
-    .error(function(data) {
-      console.log('Error: ' + data);
-    });
+  Service.getServices(function(services) {
+    $scope.services = services;
+  });
 
 });
