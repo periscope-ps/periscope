@@ -198,6 +198,41 @@ module.exports = function(app) {
     });*/
   });
 
+  app.get('/api/measurements/:id', function(req, res) {
+
+    var measurement = req.params.id;
+    console.log("id: " + measurement);
+
+    /* HTTP Options */
+    var options = {
+        hostname: 'localhost',
+        port: 8888,
+        path: '/measurements/' + measurement,
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            'connection': 'keep-alive'
+        }
+    };
+
+    /* GET JSON and Render to our API */
+    http.get(options, function(http_res) {
+      var data = '';
+
+      http_res.on('data', function (chunk) {
+        data += chunk;
+      });
+
+      http_res.on('end',function() {
+        var obj = JSON.parse(data);
+        console.log( obj );
+        console.log("holy pancakes batman!");
+        res.json( obj );
+      });
+
+    });
+  });
+
   app.post('/api/measurements', function(req, res) {
     // store result
     var post_data = JSON.stringify(req.body);
