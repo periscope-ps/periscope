@@ -12,7 +12,7 @@
 
 ## App
 
-[GUI](localhost:3000)
+[GUI](http://localhost:3000)
 
-[API](localhost:3000/api)
+[API](http://localhost:3000/api)
 
