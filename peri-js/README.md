@@ -2,13 +2,13 @@
 
 ## Install
 
-$ cd peri-js/
-$ npm install
-$ bower install
+`$ cd peri-js/`
+`$ npm install`
+`$ bower install`
 
 ## Start
 
-$ npm start
+`$ npm start`
 
 ## Views
 
