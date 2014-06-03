@@ -3,7 +3,9 @@
 ## Install
 
 `$ cd peri-js/`
+
 `$ npm install`
+
 `$ bower install`
 
 ## Start
