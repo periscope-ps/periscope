@@ -1,10 +1,10 @@
 {
-  "name": "measurements",
+  "name": "peri-js",
   "version": "0.0.1",
-  "description": "front end application for network measurements",
+  "description": "front end application for periscope",
   "author": "Mark Keele <mkeele@indiana.edu>",
   "main": "server.js",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "nodemon server.js",
     "test": "karma start test/karma.conf.js"
@@ -19,6 +19,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.crest.iu.edu:mkeele/measurements.git"
+    "url": "git@github.com:periscope-ps/periscope.git"
   }
 }
