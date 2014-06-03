@@ -10,8 +10,9 @@
 
 `$ npm start`
 
-## Views
+## App
 
-localhost:3000
-localhost:3000/api
+[GUI](localhost:3000)
+
+[API](localhost:3000/api)
 
