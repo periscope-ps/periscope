@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<unis:topology id="dcn.internet2.edu-1225652886" 
+  xmlns:unis="http://ogf.org/schema/network/topology/unis/20100528/"
+  xmlns:ctrlplane="http://ogf.org/schema/network/topology/ctrlPlane/20080828/">
+  
+  <unis:domain id="urn:ogf:network:domain=dcn.internet2.edu">
+    <unis:node id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY">
+      <unis:address>10.100.80.201</unis:address>
+      
+      <unis:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL129">
+        
+        <unis:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL129:link=10.100.90.33">
+          
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL129</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL129</unis:portIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+      
+      <unis:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S29183">
+        
+        <unis:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S29183:link=10.100.81.9">
+          
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S29183</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=*:node=*:port=*:link=*</unis:portIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+      
+      <unis:port id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S29439">
+        
+        <unis:link id="urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S29439:link=10.100.91.13">
+          
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=S29439</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=uva.nl:node=uva-node2:port=pizza2:link=pizza2</unis:portIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+    </unis:node>
+    
+    <unis:node id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST">
+      <unis:address>10.100.80.201</unis:address>
+      
+      <unis:port id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL129">
+        
+        <unis:link id="urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL129:link=10.100.90.34">
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=BOST:port=DTL129</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=dcn.internet2.edu:node=NEWY:port=DTL129</unis:portIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+    </unis:node>
+  </unis:domain>
+</unis:topology>

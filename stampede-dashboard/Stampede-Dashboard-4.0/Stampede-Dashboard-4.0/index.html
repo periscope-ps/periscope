@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <META NAME="Author" CONTENT="Ahmad Zakaria">
+    <META NAME="Version" CONTENT="4.0">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Stampede Dashboard 4.0</title>
+    <!--[if lt IE 9]><script type="text/javascript" src="./jqplotSrc/excanvas.js"></script><![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="./jqplotSrc/jquery.jqplot.css" />
+
+    <!-- BEGIN: load jquery -->
+    <!--    <script type="text/javascript" src="./jqplotSrc/jquery.js"></script>-->
+    <script type="text/javascript" src="./jqplotSrc/jquery.js"></script>
+    <!-- END: load jquery -->
+
+    <!-- BEGIN: load jqplot -->
+    <script type="text/javascript" src="./jqplotSrc/jquery.jqplot.js"></script>
+    <script type="text/javascript" src="./jqplotSrc/plugins/jqplot.barRenderer.js"></script>
+    <script type="text/javascript" src="./jqplotSrc/plugins/jqplot.canvasTextRenderer.js"></script>
+    <script type="text/javascript" src="./jqplotSrc/plugins/jqplot.canvasAxisTickRenderer.js"></script>
+    <script type="text/javascript" src="./jqplotSrc/plugins/jqplot.canvasAxisLabelRenderer.js"></script>
+    <script type="text/javascript" src="./jqplotSrc/plugins/jqplot.categoryAxisRenderer.js"></script>
+    <script type="text/javascript" src="./jqplotSrc/plugins/jqplot.canvasOverlay.js"></script>
+    <script type="text/javascript" src="./jqplotSrc/plugins/jqplot.dateAxisRenderer.js"></script>
+    <script type="text/javascript" src="./jqplotSrc/plugins/jqplot.enhancedLegendRenderer.js"></script>
+    <script type="text/javascript" src="./jqplotSrc/plugins/jqplot.pointLabels.js"></script>
+
+    <!-- END: load jqplot -->
+
+    <!-- BEGIN: load my custom functions -->
+    <script type="text/javascript" src="dashboard.js"></script>
+    <!-- END: load my custom functions -->
+
+    <!-- BEGIN: load stylesheet -->
+    <link rel="stylesheet" type="text/css" href="dashboard.css"/>
+    <!-- END: load stylesheet -->
+  </head>
+
+  <body>
+    <div id="wrapper" >
+      <h1>STAMPEDE Dashboard 4.0</h1>
+
+      <!-- START: Database Selection Form-->
+      Please choose the database source.<br>
+      <input class="dbRadoi" type="radio" name="source" value="local" checked>Streaming AMQP<br>
+      <input class="dbRadoi" type="radio" name="source" value="remote">From Database<br>
+      <!-- END: Database Selection Form-->
+
+
+      <!-- START: Search-->
+      <div id="searchDiv">
+        <!-- START: Search Form-->
+        <form action="#" id="getWFs" >
+          <input type="text" class="dbName" id="dbName" placeholder="Database Name" />
+          <input type="submit" id="getwfsbutt" class="searchButt" value="Get Workflows"/>
+        </form>
+        <form action="#" id="search" >
+          <select name="searchKey" id="searchKey" class="searchField">
+            <option>Select Workflow UUID</option>
+          </select>
+          <input type="submit" class="searchButt" value="  Search  "/>
+          <input id="clear" type="button" class="searchButt" value="  Clear Results  "/>
+        </form>
+        <!-- END: Search Form-->
+
+      </div>
+      <!-- END: Search-->
+
+      <!-- START: Average duration-->
+      <div id="aveDur" style="width: 960px; display: table-row;">
+        Loading...
+      </div>
+      <!-- END: Average duration-->
+
+      <div id="runningJobs"></div>
+
+      <!-- START: Interval choosing-->
+      <div id="intervalDiv">
+        <label>Update Interval: </label>
+        <input type="text" id="interval" value="1000" style="width: 50px"/>
+        <label>milliseconds.</label>
+      </div>
+      <!-- END: Interval choosing-->
+
+      <!-- START: The Plots-->
+      <div style="display: table-row;" >
+
+        <div id="barPlotDiv" class="plotCell3">
+          <div id="barPlot" style="margin-top:20px;"></div>
+        </div>
+        <div id="durHisDiv"  class="plotCell3">
+          <div id="durationLine" style="margin-top:20px;">
+            <img alt="Loading..." src="./ajax-loader.gif" class="loadImg" />
+          </div>
+        </div>
+
+        <div id="runHisDiv"  class="plotCell3">
+          <div id="runningLine" style="margin-top:20px;">
+            <img alt="Loading..." src="./ajax-loader.gif" class="loadImg" />
+          </div>
+        </div>
+        <div class="plotRow" id="jobsBarPlotDiv">
+          <div id="jobsBarPlot" style="margin-top:20px;"></div>
+        </div>
+        <div class="plotCell3" id="customPlot"></div>
+        <div class="plotCell2thirds" id="workflowTimeSeries"></div>
+
+      </div>
+      <!-- END: The Plots-->
+
+      <!-- START: Search Results-->
+      <div id="searchResults"></div>
+      <!-- END: Search Results-->
+    </div>
+  </body>
+</html>
+

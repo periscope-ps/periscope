@@ -1,0 +1,476 @@
+<?xml version='1.0' encoding='utf-8'?>
+<unis:topology id="start-trek"
+	xmlns:unis="http://ogf.org/schema/network/topology/unis/20100528/"
+	xmlns:nmtl3="http://ogf.org/schema/network/topology/l3/20070828/">
+	<unis:domain id="urn:ogf:network:domain=damsl.cis.udel.edu">
+
+		<unis:node id="urn:ogf:network:domain=damsl.cis.udel.edu:node=crusher">
+			<unis:name>crusher</unis:name>
+			<unis:address type="hostname">crusher</unis:address>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=crusher:port=eth6">
+				<unis:capacity>10000</unis:capacity>
+
+				<unis:link
+					id="urn:ogf:network:domain=damsl.cis.udel.edu:node=crusher:port=eth6:link=crusher2data"
+					directed="true">
+					<unis:name>crusher2data</unis:name>
+					<unis:relation type="source">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=crusher:port=eth6
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="sink">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=data:port=eth4
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="pair">
+						<unis:linkIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=data:port=eth4:link=data2crusher
+						</unis:linkIdRef>
+					</unis:relation>
+				</unis:link>
+
+			</unis:port>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=crusher:port=10.10.10.1">
+				<unis:address type="ipv4">10.10.10.1</unis:address>
+				<unis:relation type="over">
+					<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=crusher:port=eth6
+					</unis:portIdRef>
+				</unis:relation>
+				<unis:portPropertiesBag>
+					<nmtl3:portProperties>
+						<nmtl3:netmask>255.255.255.0</nmtl3:netmask>
+					</nmtl3:portProperties>
+				</unis:portPropertiesBag>
+			</unis:port>
+		</unis:node>
+
+		<unis:node id="urn:ogf:network:domain=damsl.cis.udel.edu:node=data">
+			<unis:name>data</unis:name>
+			<unis:address type="hostname">data</unis:address>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=data:port=eth4">
+				<unis:capacity>10000</unis:capacity>
+
+				<unis:link
+					id="urn:ogf:network:domain=damsl.cis.udel.edu:node=data:port=eth4:link=data2crusher"
+					directed="true">
+					<unis:name>data2crusher</unis:name>
+					<unis:relation type="source">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=data:port=eth4
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="sink">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=crusher:port=eth6
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="pair">
+						<unis:linkIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=crusher:port=eth6:link=crusher2data
+						</unis:linkIdRef>
+					</unis:relation>
+				</unis:link>
+			</unis:port>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=data:port=10.10.10.2">
+				<unis:address type="ipv4">10.10.10.2</unis:address>
+				<unis:relation type="over">
+					<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=data:port=eth4
+					</unis:portIdRef>
+				</unis:relation>
+				<unis:portPropertiesBag>
+					<nmtl3:portProperties>
+						<nmtl3:netmask>255.255.255.0</nmtl3:netmask>
+					</nmtl3:portProperties>
+				</unis:portPropertiesBag>
+			</unis:port>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=data:port=eth5">
+				<unis:capacity>10000</unis:capacity>
+
+				<unis:link
+					id="urn:ogf:network:domain=damsl.cis.udel.edu:node=data:port=eth4:link=data2kirk"
+					directed="true">
+					<unis:name>data2kirk</unis:name>
+					<unis:relation type="source">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=data:port=eth5
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="sink">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth2
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="pair">
+						<unis:linkIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth2:link=kirk2data
+						</unis:linkIdRef>
+					</unis:relation>
+				</unis:link>
+			</unis:port>
+
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=data:port=10.10.20.1">
+				<unis:address type="ipv4">10.10.20.1</unis:address>
+				<unis:relation type="over">
+					<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=data:port=eth5
+					</unis:portIdRef>
+				</unis:relation>
+				<unis:portPropertiesBag>
+					<nmtl3:portProperties>
+						<nmtl3:netmask>255.255.255.0</nmtl3:netmask>
+					</nmtl3:portProperties>
+				</unis:portPropertiesBag>
+			</unis:port>
+		</unis:node>
+
+		<unis:node id="urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk">
+			<unis:name>kirk</unis:name>
+			<unis:address type="hostname">kirk</unis:address>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth2">
+				<unis:capacity>10000</unis:capacity>
+
+				<unis:link
+					id="urn:urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth2:link=kirk2data"
+					directed="true">
+					<unis:name>kirk2data</unis:name>
+					<unis:relation type="source">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth2
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="sink">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=data:port=eth5
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="pair">
+						<unis:linkIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=data:port=eth4:link=data2kirk
+						</unis:linkIdRef>
+					</unis:relation>
+				</unis:link>
+
+			</unis:port>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=10.10.20.2">
+				<unis:address type="ipv4">10.10.20.2</unis:address>
+				<unis:relation type="over">
+					<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth2
+					</unis:portIdRef>
+				</unis:relation>
+				<unis:portPropertiesBag>
+					<nmtl3:portProperties>
+						<nmtl3:netmask>255.255.255.0</nmtl3:netmask>
+					</nmtl3:portProperties>
+				</unis:portPropertiesBag>
+			</unis:port>
+
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth1">
+				<unis:capacity>10000</unis:capacity>
+
+				<unis:link
+					id="urn:urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth1:link=kirk2laforge"
+					directed="true">
+					<unis:name>kirk2laforge</unis:name>
+					<unis:relation type="source">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth1
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="sink">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=laforge:port=eth2
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="pair">
+						<unis:linkIdRef>urn:urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth1:link=laforge2kirk
+						</unis:linkIdRef>
+					</unis:relation>
+				</unis:link>
+			</unis:port>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=10.10.30.1">
+				<unis:address type="ipv4">10.10.30.1</unis:address>
+				<unis:relation type="over">
+					<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth1
+					</unis:portIdRef>
+				</unis:relation>
+				<unis:portPropertiesBag>
+					<nmtl3:portProperties>
+						<nmtl3:netmask>255.255.255.0</nmtl3:netmask>
+					</nmtl3:portProperties>
+				</unis:portPropertiesBag>
+			</unis:port>
+		</unis:node>
+
+		<unis:node id="urn:ogf:network:domain=damsl.cis.udel.edu:node=laforge">
+			<unis:name>laforge</unis:name>
+			<unis:address type="hostname">laforge</unis:address>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=laforge:port=eth2">
+				<unis:capacity>10000</unis:capacity>
+
+				<unis:link
+					id="urn:urn:ogf:network:domain=damsl.cis.udel.edu:node=laforge:port=eth2:link=laforge2kirk"
+					directed="true">
+					<unis:name>laforge2kirk</unis:name>
+					<unis:relation type="source">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=laforge:port=eth2
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="sink">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth1
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="pair">
+						<unis:linkIdRef>urn:urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth1:link=kirk2laforge
+						</unis:linkIdRef>
+					</unis:relation>
+				</unis:link>
+			</unis:port>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=laforge:port=10.10.30.2">
+				<unis:address type="ipv4">10.10.30.2</unis:address>
+				<unis:relation type="over">
+					<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=laforge:port=eth2
+					</unis:portIdRef>
+				</unis:relation>
+				<unis:portPropertiesBag>
+					<nmtl3:portProperties>
+						<nmtl3:netmask>255.255.255.0</nmtl3:netmask>
+					</nmtl3:portProperties>
+				</unis:portPropertiesBag>
+			</unis:port>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=laforge:port=eth3">
+				<unis:capacity>10000</unis:capacity>
+
+				<unis:link
+					id="urn:urn:ogf:network:domain=damsl.cis.udel.edu:node=laforge:port=eth3:link=laforge2picard"
+					directed="true">
+					<unis:name>laforge2picard</unis:name>
+					<unis:relation type="source">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=laforge:port=eth3
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="sink">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=picard:port=eth2
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="pair">
+						<unis:linkIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=picard:port=eth2:link=picard2laforge
+						</unis:linkIdRef>
+					</unis:relation>
+				</unis:link>
+
+			</unis:port>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=laforge:port=10.10.40.1">
+				<unis:address type="ipv4">10.10.40.1</unis:address>
+				<unis:relation type="over">
+					<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=laforge:port=eth3
+					</unis:portIdRef>
+				</unis:relation>
+				<unis:portPropertiesBag>
+					<nmtl3:portProperties>
+						<nmtl3:netmask>255.255.255.0</nmtl3:netmask>
+					</nmtl3:portProperties>
+				</unis:portPropertiesBag>
+			</unis:port>
+		</unis:node>
+
+		<unis:node id="urn:ogf:network:domain=damsl.cis.udel.edu:node=picard">
+			<unis:name>picard</unis:name>
+			<unis:address type="hostname">picard</unis:address>
+
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=picard:port=eth2">
+				<unis:capacity>10000</unis:capacity>
+
+				<unis:link
+					id="urn:urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth1:link=picard2laforge"
+					directed="true">
+					<unis:name>picard2laforge</unis:name>
+					<unis:relation type="source">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=picard:port=eth2
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="sink">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=laforge:port=eth3
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="pair">
+						<unis:linkIdRef>urn:urn:ogf:network:domain=damsl.cis.udel.edu:node=kirk:port=eth1:link=laforge2picard
+						</unis:linkIdRef>
+					</unis:relation>
+				</unis:link>
+
+			</unis:port>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=picard:port=10.10.40.2">
+				<unis:address type="ipv4">10.10.40.2</unis:address>
+				<unis:relation type="over">
+					<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=picard:port=eth2
+					</unis:portIdRef>
+				</unis:relation>
+				<unis:portPropertiesBag>
+					<nmtl3:portProperties>
+						<nmtl3:netmask>255.255.255.0</nmtl3:netmask>
+					</nmtl3:portProperties>
+				</unis:portPropertiesBag>
+			</unis:port>
+
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=picard:port=eth1">
+				<unis:capacity>10000</unis:capacity>
+
+				<unis:link
+					id="urn:urn:ogf:network:domain=damsl.cis.udel.edu:node=picard:port=eth1:link=picard2troi"
+					directed="true">
+					<unis:name>picard2troi</unis:name>
+					<unis:relation type="source">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=picard:port=eth1
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="sink">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=troi:port=eth3
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="pair">
+						<unis:linkIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=troi:port=eth3:link=troi2picard
+						</unis:linkIdRef>
+					</unis:relation>
+				</unis:link>
+
+			</unis:port>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=picard:port=10.10.50.1">
+				<unis:address type="ipv4">10.10.50.1</unis:address>
+				<unis:relation type="over">
+					<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=picard:port=eth1
+					</unis:portIdRef>
+				</unis:relation>
+				<unis:portPropertiesBag>
+					<nmtl3:portProperties>
+						<nmtl3:netmask>255.255.255.0</nmtl3:netmask>
+					</nmtl3:portProperties>
+				</unis:portPropertiesBag>
+			</unis:port>
+
+		</unis:node>
+
+		<unis:node id="urn:ogf:network:domain=damsl.cis.udel.edu:node=troi">
+			<unis:name>troi</unis:name>
+			<unis:address type="hostname">troi</unis:address>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=troi:port=eth3">
+				<unis:capacity>10000</unis:capacity>
+
+				<unis:link
+					id="urn:ogf:network:domain=damsl.cis.udel.edu:node=troi:port=eth3:link=troi2picard"
+					directed="true">
+					<unis:name>troi2picard</unis:name>
+					<unis:relation type="source">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=troi:port=eth3
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="sink">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=picard:port=eth1
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="pair">
+						<unis:linkIdRef>urn:urn:ogf:network:domain=damsl.cis.udel.edu:node=picard:port=eth1:link=picard2troi
+						</unis:linkIdRef>
+					</unis:relation>
+				</unis:link>
+			</unis:port>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=troi:port=10.10.50.2">
+				<unis:address type="ipv4">10.10.50.2</unis:address>
+				<unis:relation type="over">
+					<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=troi:port=eth3
+					</unis:portIdRef>
+				</unis:relation>
+				<unis:portPropertiesBag>
+					<nmtl3:portProperties>
+						<nmtl3:netmask>255.255.255.0</nmtl3:netmask>
+					</nmtl3:portProperties>
+				</unis:portPropertiesBag>
+			</unis:port>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=troi:port=eth5">
+				<unis:capacity>10000</unis:capacity>
+
+
+				<unis:link
+					id="urn:ogf:network:domain=damsl.cis.udel.edu:node=troi:port=eth5:link=troi2worf"
+					directed="true">
+					<unis:name>troi2worf</unis:name>
+					<unis:relation type="source">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=troi:port=eth5
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="sink">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=worf:port=eth2
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="pair">
+						<unis:linkIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=worf:port=eth2:link=worf2troi
+						</unis:linkIdRef>
+					</unis:relation>
+				</unis:link>
+			</unis:port>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=troi:port=10.10.60.1">
+				<unis:address type="ipv4">10.10.60.1</unis:address>
+				<unis:relation type="over">
+					<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=troi:port=eth5
+					</unis:portIdRef>
+				</unis:relation>
+				<unis:portPropertiesBag>
+					<nmtl3:portProperties>
+						<nmtl3:netmask>255.255.255.0</nmtl3:netmask>
+					</nmtl3:portProperties>
+				</unis:portPropertiesBag>
+			</unis:port>
+		</unis:node>
+
+		<unis:node id="urn:ogf:network:domain=damsl.cis.udel.edu:node=worf">
+			<unis:name>worf</unis:name>
+			<unis:address type="hostname">worf</unis:address>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=worf:port=eth2">
+				<unis:capacity>10000</unis:capacity>
+
+				<unis:link
+					id="urn:ogf:network:domain=damsl.cis.udel.edu:node=worf:port=eth2:link=worf2troi"
+					directed="true">
+					<unis:name>worf2troi</unis:name>
+					<unis:relation type="source">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=worf:port=eth2
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="sink">
+						<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=troi:port=eth5
+						</unis:portIdRef>
+					</unis:relation>
+					<unis:relation type="pair">
+						<unis:linkIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=troi:port=eth5:link=troi2worf
+						</unis:linkIdRef>
+					</unis:relation>
+				</unis:link>
+
+			</unis:port>
+			<unis:port
+				id="urn:ogf:network:domain=damsl.cis.udel.edu:node=worf:port=10.10.60.2">
+				<unis:address type="ipv4">10.10.60.2</unis:address>
+				<unis:relation type="over">
+					<unis:portIdRef>urn:ogf:network:domain=damsl.cis.udel.edu:node=worf:port=eth2
+					</unis:portIdRef>
+				</unis:relation>
+				<unis:portPropertiesBag>
+					<nmtl3:portProperties>
+						<nmtl3:netmask>255.255.255.0</nmtl3:netmask>
+					</nmtl3:portProperties>
+				</unis:portPropertiesBag>
+			</unis:port>
+		</unis:node>
+
+	</unis:domain>
+</unis:topology>
+

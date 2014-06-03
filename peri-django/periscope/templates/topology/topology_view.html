@@ -1,0 +1,36 @@
+
+    <link href="../static_media/css/ui-darkness/jquery-ui-1.8.1.custom.css" rel="stylesheet" type="text/css"/>
+    <script src="../static_media/js/jquery-1.4.2.min.js"></script>
+    <script src="../static_media/js/jquery-ui-1.8.1.custom.min.js"></script>
+    
+    <script>
+  // increase the default animation speed to exaggerate the effect
+	$.fx.speeds._default = 1000;
+	$(function() {
+	    $("#dialog").dialog("destroy"); 
+	    
+		$('#dialog').dialog({
+			autoOpen: false,
+			show: 'blind',
+			hide: 'explode'
+		}).load('http://www.google.com', 'a');
+		
+		$('#opener').click(function() {
+			$('#dialog').dialog('open');
+			return false;
+		});
+	});
+  </script>
+  
+  
+  <div id="dialog" title="Basic dialog"> 
+	<p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p> 
+</div> 
+ 
+<button id="opener">Open Dialog</button> 
+    
+<h2>Topology preview</h2>
+   
+<embed src="get" width="1000px" height="2000px"
+type="image/svg+xml"
+pluginspage="http://www.adobe.com/svg/viewer/install/" /> 

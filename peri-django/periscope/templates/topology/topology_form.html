@@ -1,0 +1,13 @@
+<h1>Enter a Topology XML</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="/topology/create" method="post">
+{% csrf_token %}
+<textarea rows="50" cols="100" id="topology" name="topology">
+</textarea>
+<label for="topology">Topology XML</label><br />
+<input type="submit" value="Send" />
+</form>
+
+

@@ -1,0 +1,1216 @@
+<?xml version="1.0"?>
+<unis:topology xmlns:unis="http://ogf.org/schema/network/topology/unis/20100528/" xmlns:ctrlplane="http://ogf.org/schema/network/topology/ctrlPlane/20080828/" xmlns:nmtl3="http://ogf.org/schema/network/topology/l3/20070828/" id="ANI testbed topology">
+  <unis:domain id="urn:ogf:network:domain=testbed.es.net">
+    <unis:node id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1">
+      <unis:address type="ipv4">172.31.255.17</unis:address>
+      <unis:description>os=,kernel=,memory=,cpu=,cores=,blob=Juniper MX80</unis:description>
+      <!-- Port to newy-app (Application host virtual machines tb-vm-1 to tb-vm-28) -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=ge-1/0/1">
+        <unis:capacity>1000000000</unis:capacity>
+        <unis:description>Port to newy-app (Application host virtual machines tb-vm-1 to tb-vm-28)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=ge-1/0/1:link=ge-1/0/1.0##192.168.100.97" directed="true">
+          <unis:name>ge-1/0/1.0##192.168.100.97</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=ge-1/0/1</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-app:port=eth2</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-app:port=eth2:link=eth2##192.168.100.98</linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Open Flow -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/3">
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Open Flow</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/3:link=xe-0/0/3.0##192.168.100.81" directed="true">
+          <unis:name>xe-0/0/3.0##192.168.100.81</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/3</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26##192.168.100.82</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Diskpt-1 (I/O tester) - 1 of 3 -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/0">
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Diskpt-1 (I/O tester) - 1 of 3</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/0:link=xe-0/0/0.0##192.168.100.81" directed="true">
+          <unis:name>xe-0/0/0.0##192.168.100.81</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/0</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth4</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth4:link=eth4##192.168.100.86</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Diskpt-1 (I/O tester) - 2 of 3 -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/1">
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Diskpt-1 (I/O tester) - 2 of 3</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/1:link=xe-0/0/1.0##192.168.100.85" directed="true">
+          <unis:name>xe-0/0/1.0##192.168.100.85</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/1</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth8</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/1:link=xe-0/0/1.0##192.168.100.85</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Diskpt-1 (I/O tester) - 3 of 3 -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/2">
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Diskpt-1 (I/O tester) - 3 of 3</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/2:link=xe-0/0/2.0##192.168.100.93" directed="true">
+          <unis:name>xe-0/0/2.0##192.168.100.93</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/2</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth9</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth9:link=eth9##192.168.100.94</unis:linkIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+      <!-- Port to bnl-tb-rt-2 (1 of 2) -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-1/2/0">
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to bnl-tb-rt-2 (1 of 2)</unis:description>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-1/2/0:link=xe-1/2/0.0##192.168.100.1" directed="true">
+          <unis:name>xe-1/2/0.0##192.168.100.1</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-1/2/0</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-0/0/0</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-0/0/0:link=xe-0/0/0.0##192.168.100.18</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to bnl-tb-rt-2 (2 of 2) -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-1/3/0">
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to bnl-tb-rt-2 (2 of 2)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-1/3/0:link=xe-1/3/0.0##192.168.100.21" directed="true">
+          <unis:name>xe-1/3/0.0##192.168.100.21</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-1/3/0</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-0/0/1</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-0/0/1:link=xe-0/0/1.0##192.168.100.22</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+    </unis:node>
+    <unis:node id="urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1">
+      <unis:name type="hostname">newy-diskpt-1.testbed.es.net</unis:name>
+      <unis:name>ANI-ANI-newy-diskpt-1.testbed.es.net</unis:name>
+      <unis:description>os=CentOS 5.5,kernel=2.6.18-194.el5,memory=24GB,cpu=Intel(R) Xeon(R) CPU E5530  @ 2.40GHz,cores=16,blob=NEWY diskpt-1</unis:description>
+      <!-- Port to Diskpt-1 (I/O tester) - 1 of 3 -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth4">
+        <unis:name type="ifName">eth4</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Diskpt-1 (I/O tester) - 1 of 3</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth4:link=eth4##192.168.100.86" directed="true">
+          <unis:name>eth4##192.168.100.86</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth4</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/0</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/0:link=xe-0/0/0.0##192.168.100.81</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Diskpt-1 (I/O tester) - 2 of 3 -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth8">
+        <unis:name type="ifName">eth8</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Diskpt-1 (I/O tester) - 2 of 3</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth8:link=eth8##192.168.100.90" directed="true">
+          <unis:name>eth8##192.168.100.90</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth8</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/1</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth8:link=eth8##192.168.100.90</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Diskpt-1 (I/O tester) - 3 of 3 -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth9">
+        <unis:name type="ifName">eth9</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Diskpt-1 (I/O tester) - 3 of 3</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth9:link=eth9##192.168.100.94" directed="true">
+          <unis:name>xe-0/0/2.0##192.168.100.93</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth9</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/2</unis:portIdRef>
+          </unis:relation>
+        </unis:link>
+        <unis:relation type="pair">
+          <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/2:link=xe-0/0/2.0##192.168.100.93</unis:linkIdRef>
+        </unis:relation>
+      </unis:port>
+      <!-- 10G port to newy-tb-of-1 -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth5">
+        <unis:name type="ifName">eth5</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <!-- AH: Figure out the IP address -->
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth5:link=eth5##192.168.100.82" directed="true">
+          <unis:name>eth5##192.168.100.82</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth5</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/25</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/25:link=10GBE0/25##192.168.100.82</unis:linkIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+      <!-- 1G port to newy-tb-of-1 -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth1">
+        <unis:name type="ifName">eth1</unis:name>
+        <unis:capacity>1000000000</unis:capacity>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth1:link=eth1##192.168.100.50" directed="true">
+          <unis:name>eth1##192.168.100.50</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth1</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Gi0/8</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Gi0/8:link=Gi0/8##192.168.100.82</unis:linkIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+    </unis:node>
+    <unis:node id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1">
+      <unis:description>os=,kernel=,memory=,cpu=,cores=,blob=NEC IP8800</unis:description>
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26">
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26:link=10GBE0/26##192.168.100.82" directed="true">
+          <unis:name>10GBE0/26##192.168.100.82</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/26</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/3</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-0/0/3:link=xe-0/0/3.0##192.168.100.81</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/25">
+        <unis:capacity>10000000000</unis:capacity>
+        <!-- AH: Figure out the IP address -->
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/25:link=10GBE0/25##192.168.100.82" directed="true">
+          <unis:name>10GBE0/25##192.168.100.82</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=10GBE0/25</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth5</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth5:link=eth5##192.168.100.82</unis:linkIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Gi0/8">
+        <unis:capacity>1000000000</unis:capacity>
+        <!-- AH: Figure out the IP address -->
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Gi0/8:link=Gi0/8##192.168.100.82" directed="true">
+          <unis:name>Gi0/8##192.168.100.82</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Gi0/8</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth1</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-diskpt-1:port=eth1:link=eth5##192.168.100.50</unis:linkIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Gi0/6">
+        <unis:capacity>1000000000</unis:capacity>
+        <!-- AH: Figure out the IP address -->
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Gi0/6:link=Gi0/6##192.168.100.82" directed="true">
+          <unis:name>Gi0/6##192.168.100.82</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Gi0/6</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-app:port=eth1</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-app:port=eth1:link=eth1##192.168.100.100</unis:linkIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+    </unis:node>
+    <unis:node id="urn:ogf:network:domain=testbed.es.net:node=newy-app">
+      <unis:description>Virtual Machines Host</unis:description>
+      <!-- Port to newy-app (Application host virtual machines tb-vm-1 to tb-vm-28) -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-app:port=eth2">
+        <unis:name type="ifName">eth2</unis:name>
+        <unis:capacity>1000000000</unis:capacity>
+        <unis:description>Port to newy-app (Application host virtual machines tb-vm-1 to tb-vm-28)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-app:port=eth2:link=eth2##192.168.100.98" directed="true">
+          <unis:name>ge-1/0/1.0##192.168.100.97</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-app:port=eth2</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=ge-1/0/1</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=ge-1/0/1:link=ge-1/0/1.0##192.168.100.97</linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=newy-app:port=eth1">
+          <unis:name type="ifName">eth1</unis:name>
+        <unis:capacity>1000000000</unis:capacity>
+        <!-- AH: Figure out the IP address -->
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=newy-app:port=eth1:link=eth1##192.168.100.100" directed="true">
+          <unis:name>eth1##192.168.100.100</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-app:port=eth1</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Gi0/6</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-of-1:port=Gi0/6:link=Gi0/6##192.168.100.82</unis:linkIdRef>
+          </unis:relation>
+        </unis:link>
+      </unis:port>
+    </unis:node>
+    <unis:node id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2">
+      <unis:address type="ipv4">172.31.255.18</unis:address>
+      <unis:description>os=,kernel=,memory=,cpu=,cores=,blob=Juniper MX80</unis:description>
+      <!-- Port to bnl-app (Application host virtual machines bnl-app-vm-1 to bnl-app-vm-28) -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=ge-1/0/1">
+        <unis:name type="ifName">ge-1/0/1</unis:name>
+        <unis:capacity>1000000000</unis:capacity>
+        <unis:description>Port to bnl-app (Application host virtual machines bnl-app-vm-1 to bnl-app-vm-28)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=ge-1/0/1:link=ge-1/0/1.0##192.168.100.193" directed="true">
+          <unis:name>ge-1/0/1.0##192.168.100.193</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=ge-1/0/1</unis:portIdRef>
+          </unis:relation>
+          <!-- AH: How to define sink of urn:ogf:network:*:*:*:* -->
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:*:*:*:*</unis:portIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Mon-2 (Monitoring Host) -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=ge-1/0/0">
+        <unis:name type="ifName">ge-1/0/0</unis:name>
+        <unis:capacity>1000000000</unis:capacity>
+        <unis:description>Port to Mon-2 (Monitoring Host)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>1000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>1000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=ge-1/0/0:link=ge-1/0/0.0##192.168.100.162" directed="true">
+          <unis:name>ge-1/0/0.0##192.168.100.162</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=ge-1/0/0</unis:portIdRef>
+          </unis:relation>
+          <!-- AH: How to define sink of urn:ogf:network:*:*:*:* -->
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:*:*:*:*</unis:portIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Open Flow/Diskpt-1 -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-1/3/0">
+        <unis:name type="ifName">xe-1/3/0</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Open Flow/Diskpt-1</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-1/3/0:link=xe-1/3/0.0##192.168.100.181" directed="true">
+          <unis:name>xe-1/3/0.0##192.168.100.181</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-1/3/0</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/25</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/25:link=10GBE0/25##192.168.100.182</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Diskpt-2 (I/O tester) -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-1/2/0">
+        <unis:name type="ifName">xe-1/2/0</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Diskpt-2 (I/O tester)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-1/2/0:link=xe-1/2/0.0##192.168.100.61" directed="true">
+          <unis:name>xe-1/2/0.0##192.168.100.61</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-1/2/0</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth4</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth4:link=eth4##192.168.100.178</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to newy-tb-rt-1 (1 of 2) -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-0/0/0">
+        <unis:name type="ifName">xe-0/0/0</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to newy-tb-rt-1 (1 of 2)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-0/0/0:link=xe-0/0/0.0##192.168.100.18" directed="true">
+          <unis:name>xe-0/0/0.0##192.168.100.18</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-0/0/0</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-1/2/0</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-1/2/0:link=xe-1/2/0.0##192.168.100.1</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to newy-tb-rt-1 (2 of 2) -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-0/0/1">
+        <unis:name type="ifName">xe-0/0/1</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to newy-tb-rt-1 (2 of 2)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-0/0/1:link=xe-0/0/1.0##192.168.100.22" directed="true">
+          <unis:name>xe-0/0/1.0##192.168.100.22</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-0/0/1</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-1/3/0</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=newy-tb-rt-1:port=xe-1/3/0:link=xe-1/3/0.0##192.168.100.21</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+    </unis:node>
+    <unis:node id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2">
+      <unis:description>os=,kernel=,memory=,cpu=,cores=,blob=NEC IP8800</unis:description>
+      <!-- Port to Open Flow/Diskpt-1 -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/25">
+        <unis:name type="ifName">10GBE0/25</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Open Flow/Diskpt-1</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/25:link=10GBE0/25##192.168.100.182" directed="true">
+          <unis:name>10GBE0/25##192.168.100.182</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/25</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-1/3/0</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-1/3/0:link=xe-1/3/0.0##192.168.100.181</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Open Flow/Diskpt-1 -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/26">
+        <unis:name type="ifName">10GBE0/26</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Open Flow/Diskpt-1</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/26:link=10GBE0/26##192.168.100.182" directed="true">
+          <unis:name>10GBE0/26##192.168.100.182</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/26</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth5</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth5:link=eth5##192.168.100.58</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+    </unis:node>
+    <unis:node id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2">
+      <unis:name type="hostname">bnl-diskpt-2.testbed.es.net</unis:name>
+      <unis:name>ANI-ANI-bnl-diskpt-2.testbed.es.net</unis:name>
+      <unis:description>os=CentOS 5.5,kernel=2.6.18-194.el5,memory=24GB,cpu=Intel(R) Xeon(R) CPU E5530  @ 2.40GHz,cores=16,blob=BNL diskpt-2</unis:description>
+      <!-- Port to Diskpt-2 (I/O tester) -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth4">
+        <unis:name type="ifName">eth4</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Diskpt-2 (I/O tester)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth4:link=eth4##192.168.100.178" directed="true">
+          <unis:name>eth4##192.168.100.178</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth4</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-1/2/0</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-rt-2:port=xe-1/2/0:link=xe-1/2/0.0##192.168.100.61</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Diskpt-1 (1 of 3)-->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth7">
+        <unis:name type="ifName">eth7</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Diskpt-1 (1 of 3)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth7:link=eth7##192.168.100.178" directed="true">
+          <unis:name>eth7##192.168.100.178</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth7</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth4</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth4:link=eth4##192.168.100.58</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Diskpt-1 (2 of 3)-->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth8">
+        <unis:name type="ifName">eth8</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Diskpt-1 (2 of 3)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth8:link=eth8##192.168.100.178" directed="true">
+          <unis:name>eth8##192.168.100.178</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth8</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth8</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth8:link=eth4##192.168.100.58</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Diskpt-1 (3 of 3)-->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth9">
+        <unis:name type="ifName">eth9</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Diskpt-1 (3 of 3)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth9:link=eth9##192.168.100.178" directed="true">
+          <unis:name>eth9##192.168.100.178</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth9</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth10</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth10:link=eth4##192.168.100.58</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+    </unis:node>
+    <unis:node id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1">
+      <unis:name type="hostname">bnl-diskpt-1.testbed.es.net</unis:name>
+      <unis:name>ANI-ANI-bnl-diskpt-1.testbed.es.net</unis:name>
+      <unis:description>os=CentOS 5.5,kernel=2.6.18-194.el5,memory=24GB,cpu=Intel(R) Xeon(R) CPU E5530  @ 2.40GHz,cores=16,blob=BNL diskpt-1</unis:description>
+      <!-- Port to Open Flow/Diskpt-1 -->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth5">
+        <unis:name type="ifName">eth5</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Open Flow/Diskpt-1</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth5:link=eth5##192.168.100.58" directed="true">
+          <unis:name>eth5##192.168.100.58</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth5</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/26</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-2:port=10GBE0/26:link=10GBE0/26##192.168.100.182</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Diskpt-2 (1 of 3)-->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth4">
+        <unis:name type="ifName">eth4</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Diskpt-2 (1 of 3)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth4:link=eth4##192.168.100.58" directed="true">
+          <unis:name>eth4##192.168.100.58</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth4</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth7</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth7:link=eth7##192.168.100.178</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Diskpt-2 (2 of 3)-->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth8">
+        <unis:name type="ifName">eth8</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Diskpt-2 (2 of 3)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth8:link=eth8##192.168.100.58" directed="true">
+          <unis:name>eth8##192.168.100.58</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth8</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth8</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth8:link=eth8##192.168.100.178</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+      <!-- Port to Diskpt-2 (3 of 3)-->
+      <unis:port id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth10">
+        <unis:name type="ifName">eth10</unis:name>
+        <unis:capacity>10000000000</unis:capacity>
+        <unis:description>Port to Diskpt-2 (3 of 3)</unis:description>
+        <unis:portPropertiesBag>
+          <ctrlplane:portProperties>
+            <ctrlplane:capacity>10000000000</ctrlplane:capacity>
+            <ctrlplane:maximumReservableCapacity>10000000000</ctrlplane:maximumReservableCapacity>
+            <ctrlplane:minimumReservableCapacity>1000000</ctrlplane:minimumReservableCapacity>
+            <ctrlplane:granularity>1000000</ctrlplane:granularity>
+          </ctrlplane:portProperties>
+        </unis:portPropertiesBag>
+        <unis:link id="urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth10:link=eth10##192.168.100.58" directed="true">
+          <unis:name>eth10##192.168.100.58</unis:name>
+          <unis:relation type="source">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-1:port=eth10</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="sink">
+            <unis:portIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth9</unis:portIdRef>
+          </unis:relation>
+          <unis:relation type="pair">
+            <unis:linkIdRef>urn:ogf:network:domain=testbed.es.net:node=bnl-diskpt-2:port=eth9:link=eth9##192.168.100.178</unis:linkIdRef>
+          </unis:relation>
+          <unis:linkPropertiesBag>
+            <ctrlplane:linkProperties>
+              <ctrlplane:trafficEngineeringMetric>100</ctrlplane:trafficEngineeringMetric>
+              <ctrlplane:SwitchingCapabilityDescriptors>
+                <ctrlplane:switchingcapType>tdm</ctrlplane:switchingcapType>
+                <ctrlplane:encodingType>packet</ctrlplane:encodingType>
+                <ctrlplane:switchingCapabilitySpecificInfo>
+                  <ctrlplane:capability/>
+                  <ctrlplane:interfaceMTU>9000</ctrlplane:interfaceMTU>
+                  <ctrlplane:vlanRangeAvailability>3000-4000</ctrlplane:vlanRangeAvailability>
+                </ctrlplane:switchingCapabilitySpecificInfo>
+              </ctrlplane:SwitchingCapabilityDescriptors>
+            </ctrlplane:linkProperties>
+          </unis:linkPropertiesBag>
+        </unis:link>
+      </unis:port>
+    </unis:node>
+    <!--
+    <unis:node id="urn:ogf:network:domain=testbed.es.net:node=bnl-app">
+    </unis:node>
+    <unis:node id="urn:ogf:network:domain=testbed.es.net:node=bnl-mon">
+    </unis:node>
+    <unis:node id="urn:ogf:network:domain=testbed.es.net:node=bnl-tb-of-3">
+      <unis:description>NEC switch</unis:description>
+    </unis:node>
+    -->
+  </unis:domain>
+</unis:topology>

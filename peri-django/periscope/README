@@ -1,0 +1,85 @@
+Dependencies:
+- python-mysqldb : if the mysql backend is used
+- lxml: for xml processing
+- (python 2.5) simplejson: python2.6 comes by defualt with 'json' package
+- python-radix
+- python-django-piston
+
+
+MySQL Settings:
+ - Create periscope db:
+	$ mysql -u root -p < database/sql/periscopedb.sql
+ - python manage.py syncdb
+ - python manage.py loaddata initdata
+
+
+Settings need to configured on the installation
+- Django database configuration, then use "python manage.py syncdb"
+- MEDIA_ROOT: location the contain all static javascript and css files
+- TEMPLATE_DIRS
+- TOPOLOGY_SVG location to save the generated SVG topology
+
+
+Logging Settings:
+By defualt periscope logs events to '/tmp/periscope' to make periscope
+installation easier.
+It's strongly recommended to create /var/log/periscope folder with proper
+security settings for periscope.
+
+
+Import ESnet's Topology:
+ - run: python manage.py shell
+ - import the script from: example/esnet-2-shapes.py
+ - Note if you are planing to run esnet-2-shapes.py multiple time, make sure
+   to disable the unis import part, or delete topology before running the
+   script.
+
+Preparing the Environment for SC10 demo:
+    For sc10 demo we are only interested on getting information about ESnet.
+    Follow the previous installation steps:
+        1- MySQL Settings
+        2- Settings need to configured on the installation.
+        3- Logging Settings
+        4- Import ESnet's Topology
+        
+    After these steps, collecting information about perfSONAR services is 
+    required>
+         1- Run python manage.py shell
+         2- Load the code from examples/fill_esnet_services.py
+     
+    Now, loading griFTP sites information for SC10 is needed,
+        1- Run python manage.py shell
+        2- Load the code from examples/create_cloud_nodes.py
+    
+
+
+Collecting perfSONAR information from the cloud:
+    This collection is different from ESnet, because it's collect everything and takes time!
+    1- Collect root servers
+        from periscope.measurements.lib.CollectGLS import *
+        populate_roots()
+
+    2- Collect hLSes:
+        from periscope.measurements.lib.CollectHLS import *
+        collect_all_hlses()
+
+    3- Collects Services:
+        from periscope.measurements.lib.CollectPSServices import *
+        collect_all_services()
+
+
+
+Ezra's quick howto for testing ahmeds changes
+1. syncdb
+2. manage.py loaddata initdata
+3. manage.py shell
+- from periscope.measurements.lib.SNMPRequest import get_all
+- get_all("packrat.internet2.edu", "2010", "/perfSONAR_PS/services/snmp/ESCPSMA",360);
+//important: 360 is the how many seconds you want to store the MA data in the database. for the testing perposes it should be small
+//finally it needs to be 12*3600 which is 12 hours
+4. runserver and use link ahmed gave in svn commit msg
+
+http://127.0.0.1:8000/measurements/view?urn=urn1&event=http://ggf.org/ns/nmwg/characteristic/utilization/2.0
+
+right now it loads all data in the db and graphs all the data too, so it's pretty heavyweight at the moment
+but the charts look nice

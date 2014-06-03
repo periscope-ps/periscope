@@ -1,0 +1,606 @@
+[
+    {
+        "pk": 0, 
+        "model": "measurements.eventtypes", 
+        "fields": {
+            "event_type": "http://ggf.org/ns/nmwg/characteristic/utilization/2.0"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "measurements.eventtypes", 
+        "fields": {
+            "event_type": "http://ggf.org/ns/nmwg/tools/ciscossh/2.0/"
+        }
+    },     
+    {
+        "pk": 0, 
+        "model": "measurements.units", 
+        "fields": {
+            "unit": "bps"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "measurements.units", 
+        "fields": {
+            "unit": "bytes"
+        }
+    },
+    {
+        "pk": 1, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "Port-channel5", 
+            "ifIndex": "ifHCInOctets.74", 
+            "urn": "qtr1-port-channel5-in", 
+            "ifHost": "qtr1", 
+            "ifAddress": "198.124.220.2",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "Port-channel5", 
+            "ifIndex": "ifHCOutOctets.74", 
+            "urn": "qtr1-port-channel5-out",
+            "ifHost": "qtr1", 
+            "ifAddress": "198.124.220.2",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 3, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "Port-channel5", 
+            "ifIndex": "ifHCInOctets.80", 
+            "urn": "qtr2-port-channel5-in", 
+            "ifHost": "qtr2", 
+            "ifAddress": "198.124.220.3",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 4, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "Port-channel5", 
+            "ifIndex": "ifHCOutOctets.80", 
+            "urn": "qtr2-port-channel5-out", 
+            "ifHost": "qtr2", 
+            "ifAddress": "198.124.220.3",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 5, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "GigabitEthernet9/23",
+            "ifIndex": "ifHCInOctets.25", 
+            "urn": "qtr2-Ge9/23-in", 
+            "ifHost": "qtr2", 
+            "ifAddress": "198.124.220.3",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 6, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "GigabitEthernet9/23",
+            "ifIndex": "ifHCOutOctets.25", 
+            "urn": "qtr2-Ge9/23-out", 
+            "ifHost": "qtr2", 
+            "ifAddress": "198.124.220.3",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 7, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "GigabitEthernet9/37",
+            "ifIndex": "ifHCInOctets.39", 
+            "urn": "qtr2-Ge9/37-in", 
+            "ifHost": "qtr2", 
+            "ifAddress": "198.124.220.3",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 8, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "GigabitEthernet9/37",
+            "ifIndex": "ifHCOutOctets.39", 
+            "urn": "qtr2-Ge9/37-out", 
+            "ifHost": "qtr2", 
+            "ifAddress": "198.124.220.3",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 9, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "TenGigabitEthernet2/1",
+            "ifIndex": "ifHCInOctets.1", 
+            "urn": "nile-Te2/1-in", 
+            "ifHost": "nile", 
+            "ifAddress": "192.84.86.252",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 10, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "TenGigabitEthernet2/1",
+            "ifIndex": "ifHCOutOctets.1", 
+            "urn": "nile-Te2/1-out", 
+            "ifHost": "nile", 
+            "ifAddress": "192.84.86.252",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 11, 
+        "model": "measurements.urnstub",	
+        "fields": {
+            "ifName": "unrouted-VLAN-3561",
+            "ifIndex": "ifInOctets.94", 
+            "urn": "qtr1-vlan-3561-in", 
+            "ifHost": "qtr1", 
+            "ifAddress": "198.124.220.2",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 12, 
+        "model": "measurements.urnstub",	
+        "fields": {
+            "ifName": "unrouted-VLAN-3561",
+            "ifIndex": "ifOutOctets.94", 
+            "urn": "qtr1-vlan-3561-out", 
+            "ifHost": "qtr1", 
+            "ifAddress": "198.124.220.2",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 13, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "unrouted-VLAN-3562",
+            "ifIndex": "ifInOctets.95", 
+            "urn": "qtr1-vlan-3562-in", 
+            "ifHost": "qtr1", 
+            "ifAddress": "198.124.220.2",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 14, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "unrouted-VLAN-3562",
+            "ifIndex": "ifOutOctets.95", 
+            "urn": "qtr1-vlan-3562-out", 
+            "ifHost": "qtr1", 
+            "ifAddress": "198.124.220.2",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 15, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "unrouted-VLAN-3563",
+            "ifIndex": "ifInOctets.96", 
+            "urn": "qtr1-vlan-3563-in", 
+            "ifHost": "qtr1", 
+            "ifAddress": "198.124.220.2",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 16, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "unrouted-VLAN-3563",
+            "ifIndex": "ifOutOctets.96", 
+            "urn": "qtr1-vlan-3563-out", 
+            "ifHost": "qtr1", 
+            "ifAddress": "198.124.220.2",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 17, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "unrouted-VLAN-3561",
+            "ifIndex": "ifInOctets.115", 
+            "urn": "nile-vlan-3561-in", 
+            "ifHost": "nile", 
+            "ifAddress": "192.84.86.252",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 18, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "unrouted-VLAN-3561",
+            "ifIndex": "ifOutOctets.115", 
+            "urn": "nile-vlan-3561-out", 
+            "ifHost": "nile", 
+            "ifAddress": "192.84.86.252",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 19, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "unrouted-VLAN-3562",
+            "ifIndex": "ifInOctets.116", 
+            "urn": "nile-vlan-3562-in", 
+            "ifHost": "nile", 
+            "ifAddress": "192.84.86.252",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 20, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "unrouted-VLAN-3562",
+            "ifIndex": "ifOutOctets.116", 
+            "urn": "nile-vlan-3562-out", 
+            "ifHost": "nile", 
+            "ifAddress": "192.84.86.252",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 21, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "unrouted-VLAN-3563",
+            "ifIndex": "ifInOctets.117", 
+            "urn": "nile-vlan-3563-in", 
+            "ifHost": "nile", 
+            "ifAddress": "192.84.86.252",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 22, 
+        "model": "measurements.urnstub", 
+        "fields": {
+            "ifName": "unrouted-VLAN-3563",
+            "ifIndex": "ifOutOctets.117", 
+            "urn": "nile-vlan-3563-out", 
+            "ifHost": "nile", 
+            "ifAddress": "192.84.86.252",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 23,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "TenGigabitEthernet7/4",
+            "ifIndex": "ifHCInOctets.58",
+            "urn": "nile-Te7/4-in",
+            "ifHost": "nile",
+            "ifAddress": "192.84.86.252",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 24,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "TenGigabitEthernet7/4",
+            "ifIndex": "ifHCOutOctets.58",
+            "urn": "nile-Te7/4-out",
+            "ifHost": "nile",
+            "ifAddress": "192.84.86.252",
+	    "source": "MA"
+        }
+    },
+    {
+        "pk": 25,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "eth2",
+            "ifIndex": "",
+            "urn": "2262596806-in",
+            "ifHost": "netqos02",
+            "ifAddress": "198.124.220.134",
+            "source": "PSED"
+        }
+    },
+    {
+        "pk": 26,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "eth2",
+            "ifIndex": "",
+            "urn": "2262596806-out",
+            "ifHost": "netqos02",
+            "ifAddress": "198.124.220.134",
+            "source": "PSED"
+        }
+    },
+    {
+        "pk": 27,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "",
+            "ifIndex": "",
+            "urn": "2262596806-cpu",
+            "ifHost": "netqos02",
+            "ifAddress": "198.124.220.134",
+            "source": "PSED"
+        }
+    },
+    {
+        "pk": 28,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "",
+            "ifIndex": "",
+            "urn": "2262596806-mem",
+            "ifHost": "netqos02",
+            "ifAddress": "198.124.220.134",
+            "source": "PSED"
+        }
+    },
+    {
+        "pk": 29,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "eth0",
+            "ifIndex": "",
+            "urn": "475419840-in",
+            "ifHost": "tera03",
+            "ifAddress": "192.84.86.28",
+            "source": "PSED"
+        }
+    },
+    {
+        "pk": 30,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "eth0",
+            "ifIndex": "",
+            "urn": "475419840-out",
+            "ifHost": "tera03",
+            "ifAddress": "192.84.86.28",
+            "source": "PSED"
+        }
+    },
+    {
+        "pk": 31,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "",
+            "ifIndex": "",
+            "urn": "475419840-cpu",
+            "ifHost": "tera03",
+            "ifAddress": "192.84.86.28",
+            "source": "PSED"
+        }
+    },
+    {
+        "pk": 32,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "",
+            "ifIndex": "",
+            "urn": "475419840-mem",
+            "ifHost": "tera03",
+            "ifAddress": "192.84.86.28",
+            "source": "PSED"
+        }
+    },
+    {
+        "pk": 33,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "eth0",
+            "ifIndex": "",
+            "urn": "2279374022-in",
+            "ifHost": "netqos01",
+            "ifAddress": "198.124.220.135",
+            "source": "PSED"
+        }
+    },
+    {
+        "pk": 34,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "eth0",
+            "ifIndex": "",
+            "urn": "2279374022-out",
+            "ifHost": "netqos01",
+            "ifAddress": "198.124.220.135",
+            "source": "PSED"
+        }
+    },
+    {
+        "pk": 35,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "",
+            "ifIndex": "",
+            "urn": "2279374022-cpu",
+            "ifHost": "netqos01",
+            "ifAddress": "198.124.220.135",
+            "source": "PSED"
+        }
+    },
+    {
+        "pk": 36,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "",
+            "ifIndex": "",
+            "urn": "2279374022-mem",
+            "ifHost": "netqos01",
+            "ifAddress": "198.124.220.135",
+            "source": "PSED"
+        }
+    },
+    {
+        "pk": 37,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "TenGigabitEthernet9/4",
+            "ifIndex": "ifHCInOctets.70",
+            "urn": "qtr1-Te9/4-in",
+            "ifHost": "qtr1",
+            "ifAddress": "198.124.220.2",
+            "source": "MA"
+        }
+    },
+    {
+        "pk": 38,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "TenGigabitEthernet9/4",
+            "ifIndex": "ifHCOutOctets.70",
+            "urn": "qtr1-Te9/4-out",
+            "ifHost": "qtr1",
+            "ifAddress": "198.124.220.2",
+            "source": "MA"
+        }
+    },
+    {
+        "pk": 39,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "TenGigabitEthernet2/2",
+            "ifIndex": "ifHCInOctets.2",
+            "urn": "nile-Te2/2-in",
+            "ifHost": "nile",
+            "ifAddress": "192.84.86.252",
+            "source": "MA"
+        }
+    },
+    {
+        "pk": 40,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "TenGigabitEthernet2/2",
+            "ifIndex": "ifHCOutOctets.2",
+            "urn": "nile-Te2/2-out",
+            "ifHost": "nile",
+            "ifAddress": "192.84.86.252",
+            "source": "MA"
+        }
+    },
+    {
+        "pk": 41,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "TenGigabitEthernet2/3",
+            "ifIndex": "ifHCInOctets.3",
+            "urn": "nile-Te2/3-in",
+            "ifHost": "nile",
+            "ifAddress": "192.84.86.252",
+            "source": "MA"
+        }
+    },
+    {
+        "pk": 42,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "TenGigabitEthernet2/3",
+            "ifIndex": "ifHCOutOctets.3",
+            "urn": "nile-Te2/3-out",
+            "ifHost": "nile",
+            "ifAddress": "192.84.86.252",
+            "source": "MA"
+        }
+    },
+    {
+        "pk": 43,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "GigabitEthernet9/24",
+            "ifIndex": "ifHCInOctets.26",
+            "urn": "qtr2-Ge9/24-in",
+            "ifHost": "qtr2",
+            "ifAddress": "198.124.220.3",
+            "source": "MA"
+        }
+    },
+    {
+        "pk": 44,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "GigabitEthernet9/24",
+            "ifIndex": "ifHCOutOctets.26",
+            "urn": "qtr2-Ge9/24-out",
+            "ifHost": "qtr2",
+            "ifAddress": "198.124.220.3",
+            "source": "MA"
+        }
+    },
+    {
+        "pk": 45,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "GigabitEthernet9/25",
+            "ifIndex": "ifHCInOctets.27",
+            "urn": "qtr2-Ge9/25-in",
+            "ifHost": "qtr2",
+            "ifAddress": "198.124.220.3",
+            "source": "MA"
+        }
+    },
+    {
+        "pk": 46,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "GigabitEthernet9/25",
+            "ifIndex": "ifHCOutOctets.27",
+            "urn": "qtr2-Ge9/25-out",
+            "ifHost": "qtr2",
+            "ifAddress": "198.124.220.3",
+            "source": "MA"
+        }
+    },
+    {
+        "pk": 47,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "TenGigabitEthernet9/1",
+            "ifIndex": "ifHCInOctets.67",
+            "urn": "qtr1-Te9/1-in",
+            "ifHost": "qtr1",
+            "ifAddress": "198.124.220.2",
+            "source": "MA"
+        }
+    },
+    {
+        "pk": 48,
+        "model": "measurements.urnstub",
+        "fields": {
+            "ifName": "TenGigabitEthernet9/1",
+            "ifIndex": "ifHCOutOctets.67",
+            "urn": "qtr1-Te9/1-out",
+            "ifHost": "qtr1",
+            "ifAddress": "198.124.220.2",
+            "source": "MA"
+        }
+    }
+]

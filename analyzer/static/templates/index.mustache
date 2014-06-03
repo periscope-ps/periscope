@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> 
+    {{> head}}
+    <body>
+        <!--span id="credits">Stampede is funded by the NSF and DOE</span-->
+        <div class="header">
+            <span id="logo">
+                <a href="https://confluence.pegasus.isi.edu/display/stampede/Home" target="_blank">
+		<img src="{{img_path}}/stampede-logo.png"/>
+                </a>
+            </span>
+            <span id="page_title">Workflow Analyzer</span>
+        </div>
+	<div class="top">
+	    <div class="topLeft">
+	        <a href="#" id="root_wfs"></a>
+	        <span id="sep1"></span>
+	        <a href="#" id="workflow"></a>
+	        <span id="sep2"></span>
+                <a href="#" id="subworkflow_list"></a>
+	        <span id="sep3"></span>
+                <a href="#" id="subworkflow"></a>
+	    </div>
+	    <div class="topRight">
+                <input type="button" id="refresh" value="REFRESH"></input>
+	    </div>
+	    <div style="clear:both;"></div>
+	  	<a id="terminology" href="#terminology_help">Terminology</a>
+	</div>
+	<div style="clear:both;"></div>
+	<div class="main">
+            <input type="hidden" id="dax_label"></input>
+            <input type="hidden" id="uuid"></input>
+            <input type="hidden" id="sub_uuid"></input>
+            <input type="hidden" id="root_view" value="set"></input>
+            <input type="hidden" id="workflow_view"></input>
+            <input type="hidden" id="subworkflow_list_view"></input>
+            <input type="hidden" id="subworkflow_view"></input>
+	    <div id="errorDiv"></div>
+            <div id="topLevel"></div>
+            <br />
+	    <div id="rootContainer">
+            <table id="rootTable">
+            </table>
+            </div> 
+	    <div id="subContainer" style="display:none">
+                <div id="subChartScroll"></div>
+	    </div>
+	    <br />
+
+	    <!-- <div><a href="#" id="selectWorkflow">[?]</a></div> -->
+	    <div id="accordion_wf">
+		    <h3 id="accordion_wf_header"><a href="#" id="accordion_wf_title">Select a workflow </a></h3>
+		<div id="summaryChartDiv">
+		    <div id="summaryChartEmpty">No workflow selected</div>
+	            <div id="summaryChartScroll0" class="barLegendScroll"></div>
+	            <div id="summaryChartScroll1" class="barLegendScroll"></div>
+	            <div id="summaryChartScroll2" class="barLegendScroll"></div>
+	            <div id="summaryChartScroll3" class="barLegendScroll"></div>
+                    <div id="subcontrols" style="display:none">
+                        <input type="button" id="showsub" value="Show sub-workflows">
+			<input type="checkbox" id="subtotals">Include sub-workflow statistics and transformations
+                    </div>
+		</div>
+	    </div>
+            <div id="accordion_xform" style="display:none">
+                <h3 id="accordion_xform_header"><a href="#" id="accordion_xform_title">Transformations</a></h3>
+                <div id="xformChartDiv">
+	            <div id="xformChartScroll" class="barLegendScroll"></div>
+                </div>
+            </div>
+	<br /><br />
+        <div id="credits" >
+            <img src="{{img_path}}/logos/LBL.png">
+            <img src="{{img_path}}/logos/ISI.gif">
+            <img src="{{img_path}}/logos/USF.png">
+            <img src="{{img_path}}/logos/UDEL.png">
+        </div>
+	<br />
+
+        <div style="font-size: small">This page is copyright (2012) Lawrence Berkeley National Laboratory</div>
+        </div>
+    </div>
+        <div id="selectWorkflowHelp" title="Help" style="display:none;">A workflow is a container for an entire compution.  Select a root workflow by clicking on a row in the above table.</div>
+        <div id="selectSubWorkflowHelp" title="Help" style="display:none;">A sub-workflow is a smaller item of work within an entire compution.  Select a sub-workflow by clicking on a bar in the above chart.</div>
+	<div id="summaryWorkflowHelp" title="Help" style="display:none;">A workflow is a container for an entire computation.  In the following, definitions for entities which are not displayed are provided to better understand tasks, transforms, jobs, and sub-workflows.  Each bar provides a summary of the successful, failed, and incomplete instances for them.<br/>
+	<ul>
+	<li>Abstract workflow graph (AW): Input graph of tasks and dependencies, independent of a given run on specific resources.  We assume AW to be a directed acylic graph.
+	</li>
+	<li>Executable workflow (EW):  Result of mapping an AW to a specific set of resources.  The cardinality of the AW task to EW job mapping is many-to-many.
+	</li>
+	<li>Task: Representation of a computation in the AW.</li>
+	<li>Transform: The name the user gives to what is done by a given type of task.</li>
+	<li>Job: Node in the EW.  May represent part of a task (e.g. a stage-in/out), one task or many tasks.
+	</li>
+	<li>Sub-workflow: A workflow that is contained in another workflow.  Clicking on "Show sub-workflows" will bring up a view with job statistics for all the children of this workflow.  Checking "Include sub-workflow totals" will include statistics for this workflow and all its child sub-workflows.
+	</ul>
+        </div>
+		<div style="display:none">
+			<style type="text/css"><!--
+			#terminology_help {
+			padding: 5px;
+			background-color: #f5f5f5;
+			color: #fff;
+			}
+			#terminology_help h2 {
+				color: #339;
+				font-size: 110%;
+			}
+			ul { margin-left: 0; padding: 0;}
+			ul li  { list-style-type: none; color: #33f;}
+			dl dt { color: black; font-weight: 900;}
+			dl dd { color: black;}
+			--></style>
+		<div id="terminology_help">
+			<h2>Terminology</h2>
+		<ul>
+		<li>Objects
+		<dl>
+		<dt>workflow</dt><dd>Container for an entire computation</dd>
+		<dt>sub-workflow</dt><dd>Workflow launched within a workflow</dd>
+		<dt>task</dt><dd>Representation of a computation</dd>
+		<dt>transform</dt><dd>The name the user gives to what is done by a given type of task</dd>
+		<dt>job</dt><dd>Unit of execution by the scheduler (e.g., Condor). May represent part of a task (e.g. a stage-in/out), one task or many tasks
+		</dl>
+		</li>
+		<li>Metrics
+			<dl>
+		<dt>failed</dt><dd>Completed with an error</dd>
+		<dt>incomplete</dt><dd>Started, but did not complete</dd>
+		<dt>successful</dt><dd>Completed with no errors</dd>
+		</dl>
+		</li>
+		</ul>
+		<a class="cbclose" href="#" onclick="$.colorbox.close()">Close</a>
+		</div></div>
+    </body>
+</html>

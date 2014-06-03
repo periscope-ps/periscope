@@ -1,0 +1,106 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<style type="text/css">
+  @import "/static_media/js/dojox/grid/resources/Grid.css";
+  @import "/static_media/js/dojox/grid/resources/{{ theme }}Grid.css";
+  @import "/static_media/js/dojox/layout/resources/FloatingPane.css";
+  @import "/static_media/js/dojox/layout/resources/ResizeHandle.css";
+  @import "/static_media/css/periscope.css";
+  @import "/static_media/js/dojo/resources/dojo.css";
+  @import "/static_media/js/dijit/themes/tundra/tundra.css";
+</style>
+
+<script type="text/javascript" src="/static_media/js/dojo/dojo.js" djConfig="parseOnLoad:true, isDebug: true"></script>
+<script type="text/javascript" src="/static_media/js/dojox/gfx.js"></script>
+<script type="text/javascript" src="/static_media/js/periscope/main.js"></script>
+
+{% include "topology/js_template.html" %}
+
+<script type="text/javascript">
+
+createUNISTopoStore({{json_topology|safe}});
+
+var gfxOpts = {
+               width: 1100,
+               height: 500,
+               level: "node",
+               spring: "true",
+               movePorts: "false",
+               background: "/static_media/images/escps_bg.png"
+              };
+
+dojo.addOnLoad(function() { initGfx(gfxOpts) });
+dojo.addOnLoad(initCircuitGrid);
+dojo.addOnLoad(initGenericPerfometer);
+
+//var events_t = new dojox.timing.Timer();
+//events_t.setInterval(1000);
+//events_t.onTick = updateEvents;
+//events_t.start();
+
+//updatePerfometer;
+//var perf_t = new dojox.timing.Timer();
+//perf_t.setInterval(5000);
+//perf_t.onTick = updatePerfometer;
+//perf_t.start();
+
+</script>
+</head>
+
+<body class="tundra">
+
+<div style="width: 100%">
+	<br>
+  <div id="top-text"><font color="red">Periscope</font> Testbed Monitoring</div>
+</div>
+
+<div><p> </div>
+
+<div id="mtable">
+  <div id="row">
+    <div id="col" style="width: 150; vertical-align: top; padding: 10px;">
+      <div id="side-text">Topologies</div>
+      <hr >
+      <ul>
+        {% for topo in topologies %}
+        <li><a href="{% url topology.views.topology_generic %}{{topo.id}}/">{{topo.unis_id}}</a></li>
+        {% endfor %}
+      </ul>
+        <div><p></div>
+      <div id="side-text">Misc</div>
+      <hr >
+      Transfer Rate (Gb/s)<br />
+       <div dojoType="dojox.widget.AnalogGauge" id='GenericPerfometer' width="140" height="90"
+	    cx="70" cy="80" radius="60" startAngle="-90" endAngle="90" useRangeStyles="0"
+	    hideValues="true" color: "white" majorTicks="{length: 5, offset: 30, interval: 2.5, color: 'gray'}"
+	    minorTicks="{length: 1, offset: 30, interval: 1, color: 'gray'}" background="{'color': 'white'}">
+            <div dojoType="dojox.widget.gauge.Range" low="0" high="5" color="{'color': 'black'}">
+            </div>
+            <div dojoType="dojox.widget.gauge.Range" low="5" high="10" color="{'color': 'black'}">
+            </div>
+	    </div>
+       <br />
+      <br>
+      <hr>
+      <br>
+    </div>
+    <div id="col" style="width: 1080; text-align: center;">
+      <div id="topo"></div>     
+    </div>
+  </div>
+</div>
+
+<div id="canvas"></div>
+<span style="vertical-align: middle">
+  <a href="javascript:delete_ESCPS_paths()">
+    <img style="vertical-align:middle" width="30px" src="/static_media/images/del_x.png"></a>
+  Delete selected paths</span>
+<span style="vertical-align: middle">
+  <a href="javascript:update_topology_locations()">
+    <img style="vertical-align:middle" width="25px" src="/static_media/images/save.jpg"></a>
+  Save topology locations</span>
+<div id="gridContainer" style="width: 1255; height: 100%;"></div>
+</body>
+</html>

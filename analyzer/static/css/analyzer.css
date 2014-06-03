@@ -1,0 +1,93 @@
+/*
+ * Stylesheet for Stampede workflow analyzer. 
+ */
+body { font-family: Myriad, Univers, Helvetica, sans-serif;
+       font-size: 0.9em; }
+
+.header { 
+    position: absolute;
+    float: left;
+    left: 0;
+    top: 0;
+    width: 30%;
+    height: 50px;
+    background-color: #69c;
+}
+#logo img { position: absolute; left: 2px; top: 2px; width: 100px; border-width: 0}
+
+#page_title { 
+    position: absolute;
+    left: 130px;
+    top: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 900;
+    color: #fff;
+}
+
+.main { 
+    position: absolute;
+    float: right;
+    top: 50px;
+    width: 95%;
+    padding: 10px 10px 0 20px;
+}
+
+.top {
+    float: right;
+    width: 65%;
+}
+
+.topLeft {
+    float: left;
+}
+
+.topRight {
+    float: right;
+}
+
+.footer { 
+    float: left;
+    /*position: absolute;*/
+    bottom: 0px;
+    /*margin-top: 10px; */
+    background-color: grey; 
+}
+
+#wf h2 { font-size: 1.1em; font-weight: 500; }
+
+/* .subwf { display: none; }*/
+
+table.subwf { 
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+#subContainer {
+    height: 215px;
+}
+
+#subChartScroll {
+    height: 215px;
+}
+
+#summaryChartDiv {
+    height: 250px;
+}
+
+#xformChartDiv {
+    height: 160px;
+}
+
+/* Plotting charts */
+.barLegendScroll {
+    width: 90%;
+}
+
+a:link {text-decoration:none;}    /* unvisited link */
+a:visited {text-decoration:none;} /* visited link */
+a:hover {text-decoration:none;}   /* mouse over link */
+a:active {text-decoration:none;}  /* selected link */
+
+#credits img {width:50px; height:40px;}
+

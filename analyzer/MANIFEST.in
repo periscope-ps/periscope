@@ -1,0 +1,6 @@
+include *.py
+include test/*.py
+recursive-include static *
+
+exclude static/js/jquery*
+prune static/css/ui-lightness

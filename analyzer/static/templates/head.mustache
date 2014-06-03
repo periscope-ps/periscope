@@ -1,0 +1,36 @@
+    <head>
+        <title>Stampede Workflow Analyzer</title>
+        <link rel="stylesheet" type="text/css" href="{{css_path}}/analyzer.css" />
+        <link rel="stylesheet" type="text/css" href="{{css_path}}/flexigrid/flexigrid.pack.css" />
+        <link rel="stylesheet" type="text/css" href="{{css_path}}/ui-lightness/jquery-ui.custom.css" />
+        <link rel="stylesheet" type="text/css" href="{{css_path}}/colorbox.css" />
+		
+        <script src="{{js_path}}/jquery.min.js"></script>
+        <script src="{{js_path}}/jquery-ui.custom.min.js"></script>
+        <script src="{{js_path}}/flexigrid.js"></script>
+        <script src="{{js_path}}/stringformat.js"></script>
+        <script src="{{js_path}}/analyzer.js"></script>
+        <script src="{{js_path}}/Highcharts/highcharts.js"></script>
+        <script src="{{js_path}}/jquery.colorbox-min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#rootTable').flexigrid({
+                    method: 'GET',
+                    url: '/wf/list',
+                    dataType: 'json',
+                    height:'auto',
+                    colModel: [
+                    {display: 'Name', name: 'name', width:160, sortable: true, process: get_job_task_stats},
+                    {display: 'Submit date', name: 'submitDate', width:110, sortable:true, process: get_job_task_stats},
+                    {display: 'Status', name: 'status', width:80, sortable: true, process: get_job_task_stats},
+                    {display: 'Status date', name: 'statusDate', width:110, sortable:true, process: get_job_task_stats}
+                    ],
+                    sortname: 'name',
+                    sortorder: 'asc',
+                    onError: function(data) {
+                        $('#errorDiv').html('<p>There was an error connecting to the server with: /wf/list.</p>');
+                    }
+                });
+            });
+        </script>
+    </head>
