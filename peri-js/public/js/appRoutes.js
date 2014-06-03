@@ -28,6 +28,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
       controller: 'HelmController'
     }).
     when('/measurements', {
+      templateUrl: 'views/measurements.html',
+      controller: 'MeasurementController'
+    }).
+    when('/measurements/:id', {
       templateUrl: 'views/measurement.html',
       controller: 'MeasurementController'
     }).
