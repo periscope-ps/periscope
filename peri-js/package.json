@@ -1,0 +1,24 @@
+{
+  "name": "measurements",
+  "version": "0.0.1",
+  "description": "front end application for network measurements",
+  "author": "Mark Keele <mkeele@indiana.edu>",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "karma start test/karma.conf.js"
+  },
+  "dependencies": {
+    "express": "3.5.1",
+    "bower": "*",
+    "jade": "*",
+    "nodemon": "*",
+    "mongoose": "*",
+    "karma": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.crest.iu.edu:mkeele/measurements.git"
+  }
+}

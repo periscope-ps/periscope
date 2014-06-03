@@ -1,0 +1,151 @@
+{
+    "$schema": "http://json-schema.org/draft-03/hyper-schema#",
+    "id": "http://unis.incntre.iu.edu/schema/blippmeasurements/20130429/iperf#",
+    "name": "iperf",
+    "title": "BLiPP iperf probe configuration",
+    "description": "A schema defining configuration to run iperf within BLiPP using the cmd_line_probe",
+    "type": "object",
+    "properties": {
+	"$schema": {
+	    "default": "http://unis.incntre.iu.edu/schema/blippmeasurements/20130429/iperf#",
+	    "type": "string",
+	    "required": false
+	},
+	"probe_module": {
+	    "default": "cmd_line_probe",
+	    "type": "string",
+	    "required": false
+	},
+	"regex": {
+	    "title": "Regular expression to search output",
+	    "default": ",(?P<bandwidth>\\d+)$",
+	    "required": false
+	},
+	"eventTypes": {
+	    "required": false,
+	    "default": {
+		"bandwidth": "ps:tools:blipp:linux:net:iperf:bandwidth"
+	    },
+	    "type": "object",
+	    "additionalProperties": true
+	},
+	"command": {
+	    "default": "iperf $--client $--port $--udp $--len $--window $--bind $--mss $--nodelay $--IPv6Version $--bandwidth $--dualtest $--num $--tradeoff $--time $--fileinput $--listenport $--parallel $--ttl $--linux-congestion -y C",
+	    "type": "string",
+	    "required": false
+	},
+	"--port": {
+	    "title": "Port",
+	    "default": 5001,
+	    "type": "number",
+	    "required": false
+	},
+	"--udp": {
+	    "title": "UDP",
+	    "description": "use UDP instead of TCP",
+	    "type": "boolean",
+	    "required": false
+	},
+	"--len": {
+	    "title": "Length of read/write buffer",
+	    "default": "8K",
+	    "type": "string",
+	    "pattern": "^[0-9]+[KM]?$",
+	    "required": false
+	},
+	"--window": {
+	    "title": "TCP window size",
+	    "type": "string",
+	    "pattern": "^(([0-9]+[KM]?)|())$",
+	    "required": false
+	},
+	"$--bind": {
+	    "title": "Bind to an interface",
+	    "type": "string",
+	    "pattern": "^.+$",
+	    "required": false
+	},
+	"--mss": {
+	    "title": "TCP maximum segment size",
+	    "default": 40,
+	    "type": "integer",
+	    "min": 0,
+	    "required": false
+	},
+	"--nodelay": {
+	    "title": "Disable Nagle's Algorithm",
+	    "type": "boolean",
+	    "default": false,
+	    "required": false
+	},
+	"--IPv6Version": {
+	    "title": "Set domain to IPv6",
+	    "type": "boolean",
+	    "default": false,
+	    "required": false
+	},
+	"--bandwidth": {
+	    "title": "Target bandwidth for UDP transfers n[KM]",
+	    "type": "string",
+	    "pattern": "^((-b [0-9]+[KM]?)|())$",
+	    "required": false
+	},
+	"--client": {
+	    "title": "Host to connect to",
+	    "type": "string",
+	    "required": true
+	},
+	"--dualtest": {
+	    "title": "Enable simultaneous bidirectional test",
+	    "type": "string",
+	    "enum": ["", "--dualtest"],
+	    "required": false
+	},
+	"--num": {
+	    "title": "Number of bytes to transmit",
+	    "type": "string",
+	    "pattern": "^(([0-9]+[KM]?)|())$",
+	    "required": false
+	},
+	"--tradeoff": {
+	    "title": "Do a bidirectional test individually",
+	    "type": "boolean",
+	    "default": false,
+	    "required": false
+	},
+	"--time": {
+	    "title": "Time to transmit (s)",
+	    "type": "number",
+	    "min": 0,
+	    "required": false
+	},
+	"--fileinput": {
+	    "title": "Input file for data",
+	    "type": "string",
+	    "required": false
+	},
+	"--listenport": {
+	    "title": "Port to receive bidirectional tests",
+	    "type": "integer",
+	    "min": 0,
+	    "required": false
+	},
+	"--parallel": {
+	    "title": "Number of parallel client threads to run",
+	    "type": "integer",
+	    "min": 0,
+	    "required": false
+	},
+	"--ttl": {
+	    "title": "time-to-live for multicast",
+	    "type": "integer",
+	    "min": 0,
+	    "required": false
+	},
+	"--linux-congestion": {
+	    "title": "set TCP congestion control algorithm",
+	    "type": "string",
+	    "required": false
+	}
+    }
+}
