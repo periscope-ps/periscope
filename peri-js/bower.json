@@ -2,13 +2,13 @@
   "name": "peri-js",
   "version": "0.0.1",
   "dependencies": {
-    "bootstrap": "latest",
-    "font-awesome": "latest",
-    "animate.css": "latest",
-    "angular": "latest",
-    "angular-route": "latest",
-    "angular-mocks": "latest",
-    "angular-bootstrap": "latest",
-    "angular-animate": "latest"
+    "bootstrap": "3.1.1",
+    "font-awesome": "4.1.0",
+    "animate.css": "3.1.1",
+    "angular": "1.2.16",
+    "angular-route": "1.2.16",
+    "angular-mocks": "1.2.16",
+    "angular-bootstrap": "0.11.0",
+    "angular-animate": "1.2.16"
   }
 }
