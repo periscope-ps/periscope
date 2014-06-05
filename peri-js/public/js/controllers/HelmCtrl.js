@@ -37,9 +37,9 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
             "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
             "ts": Math.round(new Date().getTime() / 1000),
             "services": [
-              "http://localhost:8888/services/5388c07995558f0c9cce5321",
-              "http://localhost:8888/services/5388c07995558f0c9cce5322",
-              "http://localhost:8888/services/5388c07995558f0c9cce5323"
+              "http://dev.incntre.iu.edu:8888/services/538fce2be7798940fc000117",
+              "http://dev.incntre.iu.edu:8888/services/538fc810e7798940fc000091",
+              "http://dev.incntre.iu.edu:8888/services/538fc350e7798940fc000003"
             ],
             "eventTypes": [
               "ps:tools:helm"

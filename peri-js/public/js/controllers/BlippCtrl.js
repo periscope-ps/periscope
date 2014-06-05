@@ -51,7 +51,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
           var ping_measurement = {
             "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-            "service": "http://localhost:8888/services/5388c07995558f0c9cce5321",
+            "service": "http://dev.incntre.iu.edu:8888/services/538fce2be7798940fc000117",
             "ts": Math.round(new Date().getTime() / 1000),
             "eventTypes": [
               "ps:tools:blipp:linux:net:ping:rtt",
@@ -121,7 +121,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
           var owp_measurement = {
             "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-            "service": "http://localhost:8888/services/5388c07995558f0c9cce5321",
+            "service": "http://dev.incntre.iu.edu:8888/services/538fc810e7798940fc000091",
             "ts": Math.round(new Date().getTime() / 1000),
             "eventTypes": [
               // "ps:tools:blipp:linux:net:ping:owt",
@@ -191,7 +191,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
           var perf_measurement = {
             "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-            "service": "http://localhost:8888/services/5388c07995558f0c9cce5321",
+            "service": "http://dev.incntre.iu.edu:8888/services/538fc810e7798940fc000091",
             "ts": Math.round(new Date().getTime()),
             "eventTypes": [
               "ps:tools:blipp:linux:net:iperf:bandwidth"
@@ -253,7 +253,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
           var netlog_measurement = {
             "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-            "service": "http://localhost:8888/services/5388c07995558f0c9cce5321",
+            "service": "http://dev.incntre.iu.edu:8888/services/538fc350e7798940fc000003",
             "ts": Math.round(new Date().getTime() / 1000),
             "eventTypes": [
               "ps:tools:blipp:linux:net:netlogger:probe"
