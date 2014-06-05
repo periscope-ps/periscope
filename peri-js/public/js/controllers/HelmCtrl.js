@@ -33,34 +33,42 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
           // copy data submitted by form
           $scope.helmData = angular.copy(helm);
 
-          /*angular.forEach($scope.nodes,function(value,index){
-            "name":value.name;
-          })*/
-
           var helm_measurement = {
-            "vnodes": {
-              "domain_ion.internet2.edu_node_rtr.seat": "52:e4:00:3c:13:44",
-              "domain_ion.internet2.edu_node_rtr.salt": "a3:54:00:00:b7:5b",
-              "domain_ion.internet2.edu_node_rtr.losa": "64:e3:87:90:ff:e2"
-            },
-            "probes":{
-              "iperf":{
-                "probe_defaults":{
-                  "collection_schedule":"adaptive.silent_lamb",
-                    "schedule_params": {"every": $scope.helm.every, "duration":$scope.helm.duration, "num_to_schedule":$scope.helm.num},
-                    "reporting_params": $scope.helm.report,
-                    "collection_size":$scope.helm.size,
-                    "collection_ttl":$scope.helm.ttl,
-                    "ms_url": "http://localhost:8888",
-                    "name":$scope.helm.desc
-                }
-              }
+            "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+            "ts": Math.round(new Date().getTime() / 1000),
+            "services": [
+              "http://localhost:8888/services/5388c07995558f0c9cce5321",
+              "http://localhost:8888/services/5388c07995558f0c9cce5322",
+              "http://localhost:8888/services/5388c07995558f0c9cce5323"
+            ],
+            "eventTypes": [
+              "ps:tools:helm"
+            ],
+            "configuration": {
+              "schedule_params": {
+                "every": $scope.helm.every,
+                "duration":$scope.helm.duration,
+                "num_to_schedule":$scope.helm.num
+              },
+              "reporting_params": $scope.helm.report,
+              "collection_size":$scope.helm.size,
+              "collection_ttl":$scope.helm.ttl,
+              "regex": ",(?P<bandwidth>\\d+)$",
+              "probe_module": "cmd_line_probe",
+              "collection_schedule":"adaptive.silent_lamb",
+              "command": "iperf blah blah",
+              "ms_url": "http://localhost:8888",
+              "data_file": "/tmp/ops_iperf.log",
+              "eventTypes": {
+                "bandwidth": "ps:tools:blipp:linux:net:iperf:bandwidth"
+              },
+              "name": $scope.helm.desc
             }
           };
 
           $http({
             method: 'POST',
-            url: '/api/helm',
+            url: '/api/measurements',
             data: helm_measurement,
             headers: {'Content-type': 'application/perfsonar+json'}
           }).
