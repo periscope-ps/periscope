@@ -38,6 +38,22 @@ else
 
 `$ make install`
 
+#### Fedora 15
+
+`$ cd /usr/src`
+
+`$ sudo wget http://nodejs.org/dist/v0.10.28/node-v0.10.28.tar.gz`
+
+`$ sudo tar -xvzf node-v0.10.28.tar.gz`
+
+`$ cd node-v0.10.28`
+
+`$ sudo ./configure`
+
+`$ sudo make`
+
+`$ sudo make install`
+
 ## Test Installation
 
 `$ node -v`
@@ -47,6 +63,8 @@ else
 ## Install Libs
 
 `$ npm install`
+
+`$ npm install -g bower`
 
 `$ bower install`
 
