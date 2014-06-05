@@ -13,7 +13,7 @@
     <label for="owpFrom" class="col-md-2 control-label">Select a Node</label>
     <div class="col-md-10">
       <select ng-model="owp.from" name="owpFrom" id="owpFrom" class="form-control" required>
-        <option ng-repeat="node in nodes | filter:filterNodes"> {{ node.name }} </option>
+        <option ng-repeat="node in nodes | unique:'id'"> {{ node.name }} </option>
       </select>
       <p ng-show="owpForm.owpFrom.$invalid && !owpForm.owpFrom.$pristine" class="help-block">Please select a node</p>
     </div>
@@ -75,7 +75,7 @@
     <label for="selectowpNode" class="col-md-2 control-label">Select a Node to Ping</label>
     <div class="col-md-10">
       <select ng-model="owp.to" name="owpTo" class="form-control" required>
-        <option ng-repeat="node in nodes"> {{ node.name }} </option>
+        <option ng-repeat="node in nodes | unique:'id'"> {{ node.name }} </option>
       </select>
       <p ng-show="owpForm.owpTo.$invalid && !owpForm.owpTo.$pristine" class="help-block">Please select a node</p>
     </div>

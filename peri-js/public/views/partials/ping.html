@@ -13,7 +13,7 @@
     <label for="pingFrom" class="col-md-2 control-label">Node to Ping From</label>
     <div class="col-md-10">
       <select ng-model="ping.from" name="pFrom" id="pingFrom" class="form-control" required>
-        <option ng-repeat="node in nodes | filter:filterNodes"> {{ node.name }} </option>
+        <option ng-repeat="node in nodes | unique:'id'"> {{ node.name }} </option>
       </select>
       <p ng-show="pingForm.pFrom.$invalid && !pingForm.pFrom.$pristine" class="help-block">Please select a node</p>
     </div>
@@ -75,7 +75,7 @@
     <label for="selectPingNode" class="col-md-2 control-label">Node to Ping To</label>
     <div class="col-md-10">
       <select ng-model="ping.to" name="pTo" class="form-control" required>
-        <option ng-repeat="node in nodes"> {{ node.name }} </option>
+        <option ng-repeat="node in nodes | unique:'id'"> {{ node.name }} </option>
       </select>
       <p ng-show="pingForm.pTo.$invalid && !pingForm.pTo.$pristine" class="help-block">Please select a node</p>
     </div>

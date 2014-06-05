@@ -13,7 +13,7 @@
     <label for="netlogFrom" class="col-md-2 control-label">Select a Node</label>
     <div class="col-md-10">
       <select ng-model="netlog.from" name="nFrom" id="netlogFrom" class="form-control" required>
-        <option ng-repeat="node in nodes | filter:filterNodes"> {{ node.name }} </option>
+        <option ng-repeat="node in nodes | unique:'id'"> {{ node.name }} </option>
       </select>
       <p ng-show="netlogForm.nFrom.$invalid && !netlogForm.nFrom.$pristine" class="help-block">Please select a node</p>
     </div>

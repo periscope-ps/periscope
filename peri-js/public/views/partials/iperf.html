@@ -13,7 +13,7 @@
     <label for="perfFrom" class="col-md-2 control-label">Node to iPerf From</label>
     <div class="col-md-10">
       <select ng-model="perf.from" name="pFrom" id="perfFrom" class="form-control" required>
-        <option ng-repeat="node in nodes | filter:filterNodes"> {{ node.name }} </option>
+        <option ng-repeat="node in nodes  | unique:'id'"> {{ node.name }} </option>
       </select>
       <p ng-show="perfForm.pFrom.$invalid && !perfForm.pFrom.$pristine" class="help-block">Please select a node</p>
     </div>

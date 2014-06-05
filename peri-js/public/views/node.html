@@ -1,7 +1,7 @@
 <div>
   <h2 class="lead text-center">Configured Nodes in UNIS</h2>
 
-  <div ng-repeat="node in nodes">
+  <div ng-repeat="node in nodes | unique:'id'">
     <table class="table table-hover table-condensed">
       <colgroup>
         <col span="1" style="width: 40%;">
