@@ -1,8 +1,8 @@
 <div ng-controller="HelmController">
   <h2 class="lead text-center">Schedule HELM Test</h2>
 
-  <pre>helmForm = {{helm | json}}</pre>
-  <pre>helmData = {{helmData | json}}</pre>
+  <!-- <pre>helmForm = {{helm | json}}</pre> -->
+  <!-- <pre>helmData = {{helmData | json}}</pre> -->
 
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
     <b>{{alert.msg}}</b>
@@ -16,7 +16,7 @@
       <label for="helmNodes" class="col-md-2 control-label">Select Nodes for Test</label>
       <div class="col-md-10">
         <select ng-model="helm.nodes" name="hNodes" class="form-control" id="helmNodes" multiple required>
-          <option ng-repeat="node in nodes"> {{ node.name }} </option>
+          <option ng-repeat="node in nodes | unique:'id'"> {{ node.name }} </option>
         </select>
         <p ng-show="helmForm.hNodes.$invalid && !helmForm.hNodes.$pristine" class="help-block">Please select a node</p>
       </div>

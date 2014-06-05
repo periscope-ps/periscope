@@ -1,23 +1,23 @@
 <div>
   <h2 class="lead text-center">Configured Measurements in UNIS</h2>
 
-  <div ng-repeat="measurement in measurements">
+  <div ng-repeat="measurement in measurements | unique:'id'">
     <table class="table table-hover table-condensed">
       <colgroup>
-        <col span="1" style="width: 20%;">
-        <col span="1" style="width: 25%;">
         <col span="1" style="width: 30%;">
-        <col span="1" style="width: 10%;">
-        <col span="1" style="width: 5%;">
-        <col span="1" style="width: 10%;">
+        <col span="1" style="width: 30%;">
+        <col span="1" style="width: 40%;">
+        <!-- <col span="1" style="width: 10%;"> -->
+        <!-- <col span="1" style="width: 5%;"> -->
+        <!-- <col span="1" style="width: 10%;"> -->
       </colgroup>
       <tr>
         <td> {{ measurement.configuration.name }} </td>
         <td><a ng-href="{{measurement.selfRef}}"> View Measurement in UNIS </a></td>
         <td> {{ measurement.ts | date:'yyyy-MM-d (EEE) @ h:m:s.sss a Z'}} </td>
-        <td><button ng-click="showDetails(measurement.id)" class="btn btn-info">Details</button></td>
-        <td><button class="btn btn-primary">Edit</button></td>
-        <td><button class="btn btn-danger">Delete</button></td>
+        <!-- <td><button ng-click="showDetails(measurement.id)" class="btn btn-info">Details</button></td> -->
+        <!-- <td><button class="btn btn-primary">Edit</button></td> -->
+        <!-- <td><button class="btn btn-danger">Delete</button></td> -->
       </tr>
     </table>
   </div>
