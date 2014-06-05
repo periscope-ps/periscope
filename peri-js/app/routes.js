@@ -12,6 +12,8 @@ var fs = require('fs')
   , url = require('url');
   //, querystring = require('querystring');
 
+var unis_host = 'dev.incntre.iu.edu';
+var unis_port = '8888';
 
 module.exports = function(app) {
 
@@ -24,7 +26,7 @@ module.exports = function(app) {
     routes.push('http://' + hostname + pathname + '/nodes');
     routes.push('http://' + hostname + pathname + '/services');
     routes.push('http://' + hostname + pathname + '/measurements');
-    routes.push('http://' + hostname + pathname + '/helm');
+    // routes.push('http://' + hostname + pathname + '/helm');
     routes.push('http://' + hostname + pathname + '/help');
 
     res.json(routes);
@@ -79,8 +81,8 @@ module.exports = function(app) {
 
     /* HTTP Options */
     var options = {
-        hostname: 'localhost',
-        port: 8888,
+        hostname: unis_host,
+        port: unis_port,
         path: '/nodes',
         method: 'GET',
         headers: {
@@ -120,8 +122,8 @@ module.exports = function(app) {
 
     /* HTTP Options */
     var options = {
-        hostname: 'localhost',
-        port: 8888,
+        hostname: unis_host,
+        port: unis_port,
         path: '/services',
         method: 'GET',
         headers: {
@@ -161,8 +163,8 @@ module.exports = function(app) {
 
     /* HTTP Options */
     var options = {
-        hostname: 'localhost',
-        port: 8888,
+        hostname: unis_host,
+        port: unis_port,
         path: '/measurements',
         method: 'GET',
         headers: {
@@ -205,8 +207,8 @@ module.exports = function(app) {
 
     /* HTTP Options */
     var options = {
-        hostname: 'localhost',
-        port: 8888,
+        hostname: unis_host,
+        port: unis_port,
         path: '/measurements/' + measurement,
         method: 'GET',
         headers: {
@@ -239,10 +241,10 @@ module.exports = function(app) {
 
     console.log("post length: " + post_data.length);
 
-    /* HTTP Options */
+    // HTTP Options
     var post_options = {
-        hostname: 'localhost',
-        port: 8888,
+        hostname: unis_host,
+        port: unis_port,
         path: '/measurements',
         method: 'POST',
         headers: {
@@ -251,7 +253,7 @@ module.exports = function(app) {
         }
     };
 
-    /* POST form measurement data to UNIS */
+    // POST form measurement data to UNIS
     var post_req = http.request(post_options, function(http_res) {
       // used to gather chunks
       var data = '';
@@ -280,8 +282,37 @@ module.exports = function(app) {
     post_req.end();
   });
 
-  app.get('/api/helm', function(req, res) {
+  /*app.get('/api/helm', function(req, res) {
 
+    // HTTP Options
+    var options = {
+        hostname: 'localhost',
+        port: 8888,
+        path: '/measurements',
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            'connection': 'keep-alive'
+        }
+    };
+
+    // GET JSON and Render to our API
+    http.get(options, function(http_res) {
+      var data = '';
+
+      http_res.on('data', function (chunk) {
+        data += chunk;
+      });
+
+      http_res.on('end',function() {
+        var obj = JSON.parse(data);
+        console.log( obj );
+        res.json( obj );
+      });
+
+    });
+
+    // Manually invoke helm approach
     var filePath = '/Users/MarksMacMachine/research/UNISrt/samples/HELM/helm.conf';
 
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err, data) {
@@ -294,21 +325,14 @@ module.exports = function(app) {
         res.json(conf);
       }
     });
-  });
+  });*/
 
-  app.post('/api/helm', function(req, res) {
+  /*app.post('/api/helm', function(req, res) {
     // store result
-    var post_data = JSON.stringify(req.body);
+    // var post_data = JSON.stringify(req.body);
+
+    // Manually invoke helm approach
     var filePath = '/Users/MarksMacMachine/research/UNISrt/samples/HELM/helm.conf';
-
-    /*function run_cmd(cmd, args, callBack ) {
-
-      var child = exec(cmd, args);
-      var resp = "";
-
-      child.stdout.on('data', function (buffer) { resp += buffer.toString() });
-      child.stdout.on('end', function() { callBack (resp) });
-    };*/
 
     console.log("post length: " + post_data.length);
     console.log("post data: " + post_data);
@@ -321,8 +345,6 @@ module.exports = function(app) {
         var exec = require('child_process').exec;
         var child;
 
-        // run_cmd( "cat /Users/MarksMacMachine/research/UNISrt/samples/HELM/helm.conf", [], function(text) { console.log ("command output: " + text) });
-        // run_cmd( "python /Users/MarksMacMachine/research/UNISrt/samples/HELM/helm.py", [], function(text) { console.log ("command output: " + text) });
         child = exec('python /Users/MarksMacMachine/research/UNISrt/samples/HELM/helm.py',
           function (error, stdout, stderr) {
             console.log('stdout: ' + stdout);
@@ -333,7 +355,7 @@ module.exports = function(app) {
         });
       }
     });
-  });
+  });*/
 
   app.get('/api/help', function(req, res) {
     var helpMe = [];
