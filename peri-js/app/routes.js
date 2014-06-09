@@ -350,6 +350,99 @@ module.exports = function(app) {
     post_req.end();
   });
 
+  app.put('/api/measurements/:id', function(req, res) {
+    // store result
+    var put_data = JSON.stringify(req.body);
+
+    console.log("put id: " + req.params.id);
+    console.log("put length: " + put_data.length);
+
+    // HTTP Options
+    var put_options = {
+        hostname: unis_host,
+        port: unis_port,
+        path: '/measurements/' + req.params.id,
+        method: 'PUT',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'Content-Length': put_data.length
+        }
+    };
+
+    // POST form measurement data to UNIS
+    var put_req = http.request(put_options, function(http_res) {
+      // used to gather chunks
+      var data = '';
+
+      console.log('STATUS: ' + http_res.statusCode);
+      console.log('HEADERS: ' + JSON.stringify(http_res.headers));
+      http_res.setEncoding('utf8');
+      http_res.on('data', function (chunk) {
+        console.log('BODY: ' + chunk);
+        data += chunk;
+      });
+      http_res.on('end',function() {
+        var obj = JSON.parse(data);
+        console.log("return obj: " + JSON.stringify(obj));
+        res.json( obj );
+      });
+    });
+
+    put_req.on('error', function(e) {
+      console.log('problem with request: ' + e.message);
+    });
+
+    // write data to request body
+    console.log("put_data: " + put_data);
+    put_req.write(put_data);
+    put_req.end();
+  });
+
+  app.delete('/api/measurements/:id', function(req, res) {
+    // store result
+    var delete_data = JSON.stringify(req.body);
+    console.log("delete id: " + req.params.id);
+
+    /* HTTP Options */
+    var delete_options = {
+        hostname: unis_host,
+        port: unis_port,
+        path: '/measurements/' + req.params.id,
+        method: 'DELETE',
+        headers: {
+            'Content-type': 'application/perfsonar+json'
+        }
+    };
+
+    // DELETE measurement from UNIS
+    var delete_req = http.request(delete_options, function(http_res) {
+      // used to gather chunks
+      var data = '';
+
+      console.log('STATUS: ' + http_res.statusCode);
+      console.log('HEADERS: ' + JSON.stringify(http_res.headers));
+      http_res.setEncoding('utf8');
+      http_res.on('data', function (chunk) {
+        console.log('BODY: ' + chunk);
+        data += chunk;
+      });
+      http_res.on('end',function() {
+        var obj = JSON.parse(data);
+        console.log("return obj: " + JSON.stringify(obj));
+        res.send( 200 );
+      });
+    });
+
+    delete_req.on('error', function(e) {
+      console.log('problem with request: ' + e.message);
+      res.send( 404 );
+    });
+
+    console.log("delete_data: " + delete_data);
+    delete_req.write(post_data);
+    delete_req.end();
+  });
+
   /*app.get('/api/helm', function(req, res) {
 
     // HTTP Options
