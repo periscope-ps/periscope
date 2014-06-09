@@ -10,7 +10,7 @@
 <form name="pingForm" novalidate>
 
   <div class="form-group row" ng-class="{ 'has-error' : pingForm.pFrom.$invalid && !pingForm.pFrom.$pristine }">
-    <label for="pingFrom" class="col-md-2 control-label">Node to Ping From</label>
+    <label for="pingFrom" class="col-md-2 control-label">Source</label>
     <div class="col-md-10">
       <select ng-model="ping.from" name="pFrom" id="pingFrom" class="form-control" required>
         <option ng-repeat="node in nodes | unique:'id'"> {{ node.name }} </option>
@@ -72,7 +72,7 @@
   </div>
 
   <div class="form-group row" ng-class="{ 'has-error' : pingForm.pTo.$invalid && !pingForm.pTo.$pristine }">
-    <label for="selectPingNode" class="col-md-2 control-label">Node to Ping To</label>
+    <label for="selectPingNode" class="col-md-2 control-label">Destination</label>
     <div class="col-md-10">
       <select ng-model="ping.to" name="pTo" class="form-control" required>
         <option ng-repeat="node in nodes | unique:'id'"> {{ node.name }} </option>

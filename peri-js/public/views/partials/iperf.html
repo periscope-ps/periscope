@@ -10,7 +10,7 @@
 <form name="perfForm" novalidate>
 
 <div class="form-group row" ng-class="{ 'has-error' : perfForm.pFrom.$invalid && !perfForm.pFrom.$pristine }">
-    <label for="perfFrom" class="col-md-2 control-label">Node to iPerf From</label>
+    <label for="perfFrom" class="col-md-2 control-label">Source</label>
     <div class="col-md-10">
       <select ng-model="perf.from" name="pFrom" id="perfFrom" class="form-control" required>
         <option ng-repeat="node in nodes  | unique:'id'"> {{ node.name }} </option>

@@ -12,8 +12,8 @@ var fs = require('fs')
   , url = require('url');
   //, querystring = require('querystring');
 
-// var unis_host = 'dev.incntre.iu.edu';
-var unis_host = 'localhost';
+var unis_host = 'dev.incntre.iu.edu';
+// var unis_host = 'localhost';
 var unis_port = '8888';
 
 module.exports = function(app) {

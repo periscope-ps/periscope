@@ -13,7 +13,7 @@
   <form name="helmForm" novalidate>
 
     <div class="form-group row" ng-class="{ 'has-error' : helmForm.hNodes.$invalid && !helmForm.hNodes.$pristine }">
-      <label for="helmNodes" class="col-md-2 control-label">Select Nodes for Test</label>
+      <label for="helmNodes" class="col-md-2 control-label">Select Nodes</label>
       <div class="col-md-10">
         <select ng-model="helm.nodes" name="hNodes" class="form-control" id="helmNodes" multiple required>
           <option ng-repeat="node in nodes | unique:'id'"> {{ node.name }} </option>

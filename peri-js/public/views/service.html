@@ -7,17 +7,18 @@
         <col span="1" style="width: 30%;">
         <col span="1" style="width: 5%;">
         <col span="1" style="width: 20%;">
-        <col span="1" style="width: 15%;">
         <col span="1" style="width: 20%;">
-        <col span="1" style="width: 10%;">
+        <col span="1" style="width: 20%;">
+        <col span="1" style="width: 5%;">
       </colgroup>
       <tr>
-        <td> {{ service.name }} </td>
-        <td> <button type="button" class="btn btn-success disabled"> {{ service.status }} </button> </td>
-        <td> <a ng-href="{{service.selfRef}}"> View Service in UNIS </a> </td>
-        <td> {{ service.serviceType }} </td>
-        <td> <a ng-href="{{service.runningOn.href}}"> View Node in UNIS </a> </td>
-        <td> {{ service.ts }} </td>
+        <td>{{ service.name }}</td>
+        <td><button type="button" class="btn btn-success disabled"> {{ service.status }}</button></td>
+        <td><a ng-href="{{service.selfRef}}">UNIS Instance</a></td>
+        <td><a ng-href="{{service.runningOn.href}}">UNIS Node</a></td>
+        <td>{{ service.serviceType }}</td>
+        <td>{{ service.ts | date:'yyyy-MM-d (EEE) @ h:m:s.sss a Z'}}</td>
+        <!-- <td>{{ service.ts * 1000 | date:'yyyy-MM-d (EEE) @ h:m:s.sss a Z'}}</td> -->
       </tr>
     </table>
   <!-- </div> -->
