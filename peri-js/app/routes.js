@@ -12,7 +12,8 @@ var fs = require('fs')
   , url = require('url');
   //, querystring = require('querystring');
 
-var unis_host = 'dev.incntre.iu.edu';
+// var unis_host = 'dev.incntre.iu.edu';
+var unis_host = 'localhost';
 var unis_port = '8888';
 
 module.exports = function(app) {
@@ -118,6 +119,40 @@ module.exports = function(app) {
     });*/
   });
 
+  app.get('/api/nodes/:id', function(req, res) {
+
+    var nodes = req.params.id;
+    console.log("id: " + nodes);
+
+    /* HTTP Options */
+    var options = {
+        hostname: unis_host,
+        port: unis_port,
+        path: '/nodes/' + nodes,
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            'connection': 'keep-alive'
+        }
+    };
+
+    /* GET JSON and Render to our API */
+    http.get(options, function(http_res) {
+      var data = '';
+
+      http_res.on('data', function (chunk) {
+        data += chunk;
+      });
+
+      http_res.on('end',function() {
+        var obj = JSON.parse(data);
+        console.log( obj );
+        res.json( obj );
+      });
+
+    });
+  });
+
   app.get('/api/services', function(req, res) {
 
     /* HTTP Options */
@@ -157,6 +192,40 @@ module.exports = function(app) {
       console.log(services);
       res.json(services);
     });*/
+  });
+
+  app.get('/api/services/:id', function(req, res) {
+
+    var services = req.params.id;
+    console.log("id: " + services);
+
+    /* HTTP Options */
+    var options = {
+        hostname: unis_host,
+        port: unis_port,
+        path: '/services/' + services,
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            'connection': 'keep-alive'
+        }
+    };
+
+    /* GET JSON and Render to our API */
+    http.get(options, function(http_res) {
+      var data = '';
+
+      http_res.on('data', function (chunk) {
+        data += chunk;
+      });
+
+      http_res.on('end',function() {
+        var obj = JSON.parse(data);
+        console.log( obj );
+        res.json( obj );
+      });
+
+    });
   });
 
   app.get('/api/measurements', function(req, res) {
@@ -228,7 +297,6 @@ module.exports = function(app) {
       http_res.on('end',function() {
         var obj = JSON.parse(data);
         console.log( obj );
-        console.log("holy pancakes batman!");
         res.json( obj );
       });
 

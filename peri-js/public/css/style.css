@@ -28,7 +28,7 @@ a.header:hover {
   text-align: center;
 }
 
-td,.jumbotron {
+.jumbotron {
   word-wrap: break-word;
 }
 
