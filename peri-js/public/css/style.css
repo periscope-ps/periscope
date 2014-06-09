@@ -1,5 +1,35 @@
-body { 
-  padding-top:30px; 
+body {
+  padding-top: 70px;
+}
+
+.navbar {
+  font-size: 14px;
+  background: #990000;
+}
+
+a.navbar-brand {
+  color: #f5f4ec;
+}
+
+a.navbar-brand:hover {
+  color: white;
+}
+
+a.header {
+  color: #f5f4ec;
+}
+
+a.header:hover {
+  color: #990000;
+  background: #f5f4ec;
+}
+
+#footer {
+  text-align: center;
+}
+
+td,.jumbotron {
+  word-wrap: break-word;
 }
 
 li {
@@ -28,7 +58,7 @@ li {
 /**
  * Post animation -> enter
  */
-.mainview-animation.ng-enter.ng-enter-active { 
+.mainview-animation.ng-enter.ng-enter-active {
   /* The animation code itself */
   opacity: 1;
 }
