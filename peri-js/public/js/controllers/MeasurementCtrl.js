@@ -12,7 +12,6 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
 
   if ($routeParams.id) {
     Measurement.getMeasurement(function(measurement) {
-      alert(measurement.eventTypes);
       $scope.measDetails = measurement;
     });
   }
