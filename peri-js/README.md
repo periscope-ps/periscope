@@ -74,7 +74,7 @@ else
 
 ## App Routes
 
-[GUI](http://localhost:3000)
+[GUI localhost:42424](http://localhost:42424)
 
-[API](http://localhost:3000/api)
+[API localhost:42424/api](http://localhost:42424/api)
 

@@ -58,6 +58,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
               "ps:tools:blipp:linux:net:ping:ttl"
             ],
             "configuration": {
+              "status": "ON",
               "regex": "ttl=(?P<ttl>\\d+).*time=(?P<rtt>\\d+\\s|\\d+\\.\\d+)",
               "reporting_params": $scope.pingData.reportMS,
               "probe_module": "cmd_line_probe",

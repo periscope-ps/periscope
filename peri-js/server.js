@@ -7,7 +7,7 @@
 var express = require('express')
   , http = require('http');
   // , mongoose = require('mongoose')
-  // , database = require('./config/db');
+  // , database = require('./app/config/db');
 
 /* Create App */
 var app = express();

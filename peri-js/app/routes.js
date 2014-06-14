@@ -11,7 +11,6 @@ var fs = require('fs')
   , http = require('http')
   , https = require('https')
   , url = require('url');
-  //, querystring = require('querystring');
 
 // production
 // var production = true;
@@ -40,9 +39,8 @@ module.exports = function(app) {
 
   child1 = exec('uname -s',
     function (error, stdout, stderr) {
-      // console.log('stdout: ' + stdout);
       os_name = stdout;
-      console.log(os_name);
+      console.log('os_name: ' + os_name);
       if (error !== null) {
         console.log('exec error: ' + error);
       }
@@ -50,9 +48,8 @@ module.exports = function(app) {
 
   child2 = exec('head -1 /etc/issue',
     function (error, stdout, stderr) {
-      // console.log('stdout: ' + stdout);
       distro = stdout;
-      console.log(distro);
+      console.log('distro: ' + distro);
       if (error !== null) {
         console.log('exec error: ' + error);
       }
@@ -141,7 +138,7 @@ module.exports = function(app) {
         path: '/nodes',
         method: 'GET',
         headers: {
-            'content-type': 'application/json',
+            'Content-type': 'application/perfsonar+json',
             'connection': 'keep-alive'
         }
       };

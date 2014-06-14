@@ -4,5 +4,5 @@
  */
 
 module.exports = {
-  url : 'mongodb://localhost/measurements'
+  url : 'mongodb://localhost/peri-js-db'
 };
