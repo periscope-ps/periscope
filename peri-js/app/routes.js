@@ -29,9 +29,34 @@ var unis_port = '8888';
 
 var slice_info = [];
 var filePath = '/usr/local/etc/node.info';
-var slice_uuid;
+var slice_uuid = '';
+var os_name = '';
+var distro = '';
 
 module.exports = function(app) {
+
+  var exec = require('child_process').exec;
+  var child1, child2;
+
+  child1 = exec('uname -s',
+    function (error, stdout, stderr) {
+      // console.log('stdout: ' + stdout);
+      os_name = stdout;
+      console.log(os_name);
+      if (error !== null) {
+        console.log('exec error: ' + error);
+      }
+  });
+
+  child2 = exec('head -1 /etc/issue',
+    function (error, stdout, stderr) {
+      // console.log('stdout: ' + stdout);
+      distro = stdout;
+      console.log(distro);
+      if (error !== null) {
+        console.log('exec error: ' + error);
+      }
+  });
 
   fs.readFile(filePath, {encoding: 'utf-8'}, function(err, data) {
     if (err) {
@@ -63,7 +88,7 @@ module.exports = function(app) {
         if(split[0] === 'auth_uuid')
           slice_uuid = split[1];
       }
-      slice_info.push({'external_address': exAddy, 'gn_address': gn, 'unis_instance': unis, 'ms_url': ms, 'project': project[1], 'slice': slice[0], 'slice_uuid': slice_uuid});
+      slice_info.push({'external_address': exAddy, 'gn_address': gn, 'unis_instance': unis, 'ms_url': ms, 'project': project[1], 'slice': slice[0], 'slice_uuid': slice_uuid, 'os_name': os_name, 'distro': distro});
       console.log(slice_info);
     }
   });
