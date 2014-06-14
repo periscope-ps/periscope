@@ -13,18 +13,18 @@ var fs = require('fs')
   , url = require('url');
 
 // production
-// var production = true;
-// var unis_host = 'unis.incntre.iu.edu';
-// var unis_port = '8443';
-// var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
-// var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
+var production = true;
+var unis_host = 'unis.incntre.iu.edu';
+var unis_port = '8443';
+var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
+var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
 // var slice_uuid = '9a50388d-eb98-4562-8aec-3a08af35ba97';
 
 // development
-var production = false;
+// var production = false;
 // var unis_host = 'dev.incntre.iu.edu';
-var unis_host = 'localhost';
-var unis_port = '8888';
+// var unis_host = 'localhost';
+// var unis_port = '8888';
 
 var slice_info = [];
 var filePath = '/usr/local/etc/node.info';
@@ -134,8 +134,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/nodes?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/nodes',
+        path: '/nodes?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/nodes',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -219,8 +219,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/nodes/' + node_id + '?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/nodes/' + node_id,
+        path: '/nodes/' + node_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/nodes/' + node_id,
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -292,8 +292,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/services?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/services',
+        path: '/services?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/services',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -377,8 +377,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/services/' + service_id + '?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/services/' + service_id,
+        path: '/services/' + service_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/services/' + service_id,
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -450,8 +450,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/measurements?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/measurements',
+        path: '/measurements?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/measurements',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -526,8 +526,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/measurements/' + measurement_id + '?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/measurements/' + measurement_id,
+        path: '/measurements/' + measurement_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/measurements/' + measurement_id,
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -603,8 +603,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/measurements?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/measurements',
+        path: '/measurements?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/measurements',
         method: 'POST',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -715,8 +715,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/measurements/' + measurement_id + '?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/measurements/' + measurement_id,
+        path: '/measurements/' + measurement_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/measurements/' + measurement_id,
         method: 'PUT',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -831,8 +831,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/measurements/' + measurement_id + '?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/measurements/' + measurement_id,
+        path: '/measurements/' + measurement_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/measurements/' + measurement_id,
         method: 'DELETE',
         headers: {
             'Content-type': 'application/perfsonar+json',
