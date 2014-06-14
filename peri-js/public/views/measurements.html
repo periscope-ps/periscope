@@ -1,23 +1,26 @@
 <h2 class="lead text-center">Configured Measurements in UNIS</h2>
-
-<div ng-repeat="measurement in measurements | unique:'id'">
-  <!-- <div class="table-responsive"> -->
-    <table class="table table-hover table-condensed">
-      <colgroup>
-        <col span="1" style="width: 30%;">
-        <col span="1" style="width: 20%;">
-        <col span="1" style="width: 20%;">
-        <col span="1" style="width: 20%;">
-        <col span="1" style="width: 10%;">
-      </colgroup>
-      <tr>
-        <td>{{ measurement.configuration.name }}</td>
-        <td><a ng-href="{{measurement.selfRef}}">UNIS Instance</a></td>
-        <td><a ng-href="{{measurement.service}}">UNIS Service</a></td>
-        <td>{{ measurement.ts | date:'yyyy-MM-d (EEE) @ h:m:s.sss a Z'}}</td>
-        <!-- <td>{{ measurement.ts * 1000 | date:'yyyy-MM-d (EEE) @ h:m:s.sss a Z'}}</td> -->
-        <td><button ng-click="showDetails(measurement.id)" class="btn btn-info">Details</button></td>
-      </tr>
-    </table>
-  <!-- </div> -->
+<div class="table-responsive">
+  <table class="table table-hover table-condensed">
+    <colgroup>
+      <col span="1" style="width: 30%;">
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 4r0%;">
+    </colgroup>
+    <tr>
+      <th>Name</th>
+      <th>Details</th>
+      <th>UNIS</th>
+      <th>Service</th>
+      <th>Timestamp</th>
+    </tr>
+    <tr ng-repeat="measurement in measurements | unique:'id' | orderBy:'-ts'">
+      <td>{{ measurement.configuration.name }}</td>
+      <td><button ng-click="showDetails(measurement.id)" class="btn btn-info">Details</button></td>
+      <td><a ng-href="{{measurement.selfRef}}">UNIS Instance</a></td>
+      <td><a ng-href="{{measurement.service}}">UNIS Service</a></td>
+      <td>{{ measurement.ts / 1000 | date:'yyyy-MM-d (EEE) @ h:m:s.sss a Z'}}</td>
+    </tr>
+  </table>
 </div>
