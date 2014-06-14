@@ -1,8 +1,10 @@
 <div class="jumbotron text-center">
-  <h2>Configuration</h2>
+  <h2>Network Configuration</h2>
 
   <div ng-repeat="(key, value) in geniSlice">
-    <p><i>{{key}}</i>: {{value}}</p>
+    <span ng-show='value.length > 0'>
+      <p><b><i>{{key}}</i></b>: {{value}}</p>
+    </span>
   </div>
 
   <div ng-include src="'views/partials/active_measurements.html'"></div>

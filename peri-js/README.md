@@ -64,7 +64,7 @@ else
 
 `$ npm install`
 
-`$ npm install -g bower`
+`$ sudo npm install -g bower`
 
 `$ bower install`
 
