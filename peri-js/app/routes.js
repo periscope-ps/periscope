@@ -103,6 +103,7 @@ module.exports = function(app) {
     routes.push('http://' + hostname + pathname + '/nodes');
     routes.push('http://' + hostname + pathname + '/services');
     routes.push('http://' + hostname + pathname + '/measurements');
+    routes.push('http://' + hostname + pathname + '/metadata');
     // routes.push('http://' + hostname + pathname + '/helm');
     // routes.push('http://' + hostname + pathname + '/help');
 
@@ -919,6 +920,79 @@ module.exports = function(app) {
       console.log("delete_data: " + delete_data);
       delete_req.write(delete_data);
       delete_req.end();
+    }
+  });
+
+  app.get('/api/metadata', function(req, res) {
+    console.log('STATUS: ' + res.statusCode);
+    console.log('HEADERS: ' + JSON.stringify(res.headers));
+    console.log('BODY: ' + JSON.stringify(res.body));
+
+    if (production) {
+      console.log('running in production');
+
+      /* HTTPS Options */
+      var https_get_options = {
+        hostname: unis_host,
+        port: unis_port,
+        key: fs.readFileSync(unis_key),
+        cert: fs.readFileSync(unis_cert),
+        requestCert: true,
+        rejectUnauthorized: false,
+        path: '/metadata?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/metadata',
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      /* GET JSON and Render to our API */
+      https.get(https_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    } else {
+      /* HTTP Options */
+      var http_get_options = {
+          hostname: unis_host,
+          port: unis_port,
+          path: '/metadata',
+          method: 'GET',
+          headers: {
+              'Content-type': 'application/perfsonar+json',
+              'connection': 'keep-alive'
+          }
+      };
+      /* GET JSON and Render to our API */
+      http.get(http_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
     }
   });
 
