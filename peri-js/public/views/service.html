@@ -1,25 +1,29 @@
 <h2 class="lead text-center">Configured Services in UNIS</h2>
-
-<div ng-repeat="service in services | unique:'id'">
-  <!-- <div class="table-responsive"> -->
-    <table class="table table-hover table-condensed">
-      <colgroup>
-        <col span="1" style="width: 30%;">
-        <col span="1" style="width: 5%;">
-        <col span="1" style="width: 20%;">
-        <col span="1" style="width: 20%;">
-        <col span="1" style="width: 20%;">
-        <col span="1" style="width: 5%;">
-      </colgroup>
-      <tr>
-        <td>{{ service.name }}</td>
-        <td><button type="button" class="btn btn-success disabled"> {{ service.status }}</button></td>
-        <td><a ng-href="{{service.selfRef}}">UNIS Instance</a></td>
-        <td><a ng-href="{{service.runningOn.href}}">UNIS Node</a></td>
-        <td>{{ service.serviceType }}</td>
-        <td>{{ service.ts | date:'yyyy-MM-d (EEE) @ h:m:s.sss a Z'}}</td>
-        <!-- <td>{{ service.ts * 1000 | date:'yyyy-MM-d (EEE) @ h:m:s.sss a Z'}}</td> -->
-      </tr>
-    </table>
-  <!-- </div> -->
+<div class="table-responsive">
+  <table class="table table-hover table-condensed">
+    <colgroup>
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 30%;">
+    </colgroup>
+    <tr>
+      <th>Name</th>
+      <th>Status</th>
+      <th>UNIS</th>
+      <th>Running On</th>
+      <th>Type</th>
+      <th>Timestamp</th>
+    </tr>
+    <tr ng-repeat="service in services | unique:'id' | orderBy:'-ts'">
+      <td>{{ service.name }}</td>
+      <td><button type="button" class="btn btn-info disabled"> {{ service.status }}</button></td>
+      <td><a ng-href="{{service.selfRef}}">UNIS Instance</a></td>
+      <td><a ng-href="{{service.runningOn.href}}">UNIS Node</a></td>
+      <td>{{ service.serviceType }}</td>
+      <td>{{ service.ts / 1000 | date:'yyyy-MM-d (EEE) @ h:m:s a Z'}}</td>
+    </tr>
+  </table>
 </div>
