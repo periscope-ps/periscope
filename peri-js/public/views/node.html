@@ -2,21 +2,24 @@
 <div class="table-responsive">
   <table class="table table-hover table-condensed">
     <colgroup>
-      <col span="1" style="width: 20%;">
-      <col span="1" style="width: 20%;">
-      <col span="1" style="width: 30%;">
-      <col span="1" style="width: 30%;">
+      <col span="1" style="width: 25%;">
+      <!-- <col span="1" style="width: 20%;"> -->
+      <col span="1" style="width: 50%;">
+      <!-- <col span="1" style="width: 20%;"> -->
+      <col span="1" style="width: 25%;">
     </colgroup>
     <tr>
       <th>Name</th>
-      <th>UNIS</th>
+      <!-- <th>UNIS</th> -->
       <th>URN</th>
+      <!-- <th>Ports</th> -->
       <th>Timestamp</th>
     </tr>
     <tr ng-repeat="node in nodes | unique:'id' | orderBy:'-ts'">
       <td>{{ node.name }}</td>
-      <td><a ng-href="{{node.selfRef}}">UNIS Instance</a></td>
+      <!-- <td><a ng-href="{{node.selfRef}}">UNIS Instance</a></td> -->
       <td>{{ node.urn }}</td>
+      <!-- <td>{{ node.ports }}</td> -->
       <td>{{ node.ts / 1000 | date:'yyyy-MM-d (EEE) @ h:m:s a Z'}}</td>
     </tr>
   </table>

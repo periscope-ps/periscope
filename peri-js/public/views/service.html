@@ -4,7 +4,7 @@
     <colgroup>
       <col span="1" style="width: 20%;">
       <col span="1" style="width: 10%;">
-      <col span="1" style="width: 10%;">
+      <!-- <col span="1" style="width: 10%;"> -->
       <col span="1" style="width: 10%;">
       <col span="1" style="width: 20%;">
       <col span="1" style="width: 30%;">
@@ -12,16 +12,16 @@
     <tr>
       <th>Name</th>
       <th>Status</th>
-      <th>UNIS</th>
-      <th>Running On</th>
+      <!-- <th>UNIS</th> -->
+      <th>Running On Node</th>
       <th>Type</th>
       <th>Timestamp</th>
     </tr>
     <tr ng-repeat="service in services | unique:'id' | orderBy:'-ts'">
       <td>{{ service.name }}</td>
       <td><button type="button" class="btn btn-info disabled"> {{ service.status }}</button></td>
-      <td><a ng-href="{{service.selfRef}}">UNIS Instance</a></td>
-      <td><a ng-href="{{service.runningOn.href}}">UNIS Node</a></td>
+      <!-- <td><a ng-href="{{service.selfRef}}">UNIS Instance</a></td> -->
+      <td>{{ getServiceNode(service.runningOn.href) }}</td>
       <td>{{ service.serviceType }}</td>
       <td>{{ service.ts / 1000 | date:'yyyy-MM-d (EEE) @ h:m:s a Z'}}</td>
     </tr>
