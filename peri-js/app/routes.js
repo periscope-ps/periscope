@@ -22,10 +22,10 @@ var fs = require('fs')
 
 // development
 var production = false;
-var unis_host = 'dev.incntre.iu.edu';
-// var unis_host = 'localhost';
-// var unis_port = '8888';
-var unis_port = '9001';
+// var unis_host = 'dev.incntre.iu.edu';
+var unis_host = 'localhost';
+var unis_port = '8888';
+// var unis_port = '9001';
 
 var slice_info = [];
 var filePath = '/usr/local/etc/node.info';
@@ -587,12 +587,12 @@ module.exports = function(app) {
 
   app.post('/api/measurements', function(req, res) {
     console.log('STATUS: ' + res.statusCode);
+    console.log("post length: " + req.body.length);
     console.log('HEADERS: ' + JSON.stringify(res.headers));
     console.log('BODY: ' + JSON.stringify(res.body));
 
     // store result
     var post_data = JSON.stringify(req.body);
-    console.log("post length: " + post_data.length);
 
     if (production) {
       console.log('running in production');
@@ -696,7 +696,7 @@ module.exports = function(app) {
 
   app.put('/api/measurements/:id', function(req, res) {
     console.log("measurement id: " + req.params.id);
-    console.log("put length: " + put_data.length);
+    console.log("put length: " + req.body.length);
     console.log('STATUS: ' + res.statusCode);
     console.log('HEADERS: ' + JSON.stringify(res.headers));
     console.log('BODY: ' + JSON.stringify(res.body));
@@ -812,6 +812,7 @@ module.exports = function(app) {
 
   app.delete('/api/measurements/:id', function(req, res) {
     console.log("measurement id: " + req.params.id);
+    console.log("delete length: " + req.body.length);
     console.log('STATUS: ' + res.statusCode);
     console.log('HEADERS: ' + JSON.stringify(res.headers));
     console.log('BODY: ' + JSON.stringify(res.body));
@@ -819,8 +820,6 @@ module.exports = function(app) {
     // store result
     var measurement_id = req.params.id;
     var delete_data = JSON.stringify(req.body);
-    console.log("delete length: " + delete_data.length);
-
 
     if (production) {
       console.log('running in production');
