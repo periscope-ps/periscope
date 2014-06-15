@@ -19,7 +19,6 @@ angular.module('ServiceCtrl', []).controller('ServiceController', function($scop
 
     for(var i = 0; $scope.nodes.length; i++) {
       if ($scope.nodes[i].id == node_id) {
-        $scope.node_id = $scope.nodes[i].id;
         return $scope.nodes[i].name;
       }
     }
