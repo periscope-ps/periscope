@@ -13,17 +13,17 @@ var fs = require('fs')
   , url = require('url');
 
 // production
-var production = true;
-var unis_host = 'unis.incntre.iu.edu';
-var unis_port = '8443';
-var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
-var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
+// var production = true;
+// var unis_host = 'unis.incntre.iu.edu';
+// var unis_port = '8443';
+// var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
+// var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
 
 // development
-// var production = false;
+var production = false;
 // var unis_host = 'dev.incntre.iu.edu';
-// var unis_host = 'localhost';
-// var unis_port = '8888';
+var unis_host = 'localhost';
+var unis_port = '8888';
 // var unis_port = '9001';
 
 var slice_info = [];
@@ -31,8 +31,8 @@ var filePath = '/usr/local/etc/node.info';
 var slice_uuid = '';
 var os_name = '';
 var distro = '';
-var ms_host;
-var ms_port;
+var ms_host = "pcvm2-1.geni.kettering.edu";
+var ms_port = "42424";
 
 module.exports = function(app) {
 
@@ -80,9 +80,9 @@ module.exports = function(app) {
 
         if(split[0] === 'ms_instance') {
           ms_url = split[1];
-          ms_port = ms_url.split(":")[2];
+          // ms_port = ms_url.split(":")[2];
           console.log("ms_port: " + ms_port);
-          ms_host = ms_url.split("//")[1].split(":")[0];
+          // ms_host = ms_url.split("//")[1].split(":")[0];
           console.log("ms_host: " + ms_host);
         }
 
@@ -113,6 +113,7 @@ module.exports = function(app) {
     routes.push('http://' + hostname + pathname + '/services');
     routes.push('http://' + hostname + pathname + '/measurements');
     routes.push('http://' + hostname + pathname + '/metadata');
+    routes.push('http://' + hostname + pathname + '/data');
     // routes.push('http://' + hostname + pathname + '/helm');
     // routes.push('http://' + hostname + pathname + '/help');
 
@@ -1080,13 +1081,87 @@ module.exports = function(app) {
     }
   });
 
+  app.get('/api/data', function(req, res) {
+    console.log('STATUS: ' + res.statusCode);
+    console.log('HEADERS: ' + JSON.stringify(res.headers));
+    console.log('BODY: ' + JSON.stringify(res.body));
+
+    if (production) {
+      console.log('running in production');
+
+      // HTTPS Options
+      var https_get_options = {
+        hostname: ms_host,
+        port: ms_port,
+        key: fs.readFileSync(unis_key),
+        cert: fs.readFileSync(unis_cert),
+        requestCert: true,
+        rejectUnauthorized: false,
+        // path: '/data?properties.geni.slice_uuid=' + slice_uuid,
+        path: '/data',
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      // GET JSON and Render to our API
+      https.get(https_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    } else {
+      // HTTP Options
+      var http_get_options = {
+          hostname: ms_host,
+          port: ms_port,
+          path: '/data',
+          method: 'GET',
+          headers: {
+              'Content-type': 'application/perfsonar+json',
+              'connection': 'keep-alive'
+          }
+      };
+      // GET JSON and Render to our API
+      http.get(http_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    }
+  });
+
   app.get('/api/data/:id', function(req, res) {
     console.log("data id: " + req.params.id);
     console.log('STATUS: ' + res.statusCode);
     console.log('HEADERS: ' + JSON.stringify(res.headers));
     console.log('BODY: ' + JSON.stringify(res.body));
 
-    var data_id = req.params.id;
+    // var data_id = req.params.id;
+    var data_id = '539cc241377f972d2e1aa4fb';
 
     if (production) {
       console.log('running in production');
@@ -1129,7 +1204,7 @@ module.exports = function(app) {
       var http_get_options = {
         hostname: ms_host,
         port: ms_port,
-        path: '/data/' + data_id,
+        path: '/api/data/' + data_id,
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
