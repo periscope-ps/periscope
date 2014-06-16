@@ -1,51 +1,51 @@
-  <div class="form-group row" ng-class="{ 'has-error' : helmFullForm.pDesc.$invalid && !helmFullForm.pDesc.$pristine }">
-    <label for="pingDescription" class="col-md-2 control-label">Description</label>
-    <div class="col-md-10">
-        <input ng-model="helmFull.desc" name="pDesc" type="text" class="form-control" id="pingDescription" placeholder="Describe test here..." ng-minlength="3" ng-maxlength="30" required>
-        <p ng-show="helmFullForm.pDesc.$invalid && !helmFullForm.pDesc.$pristine" class="help-block">Please describe test</p>
-        <p ng-show="helmFullForm.pDesc.$error.minlength" class="help-block">Description must be at least 3 characters</p>
-        <p ng-show="helmFullForm.pDesc.$error.maxlength" class="help-block">Description cannot exceed 30 characters</p>
-    </div>
+<div class="form-group row" ng-class="{ 'has-error' : helmFullForm.pDesc.$invalid && !helmFullForm.pDesc.$pristine }">
+  <label for="pingDescription" class="col-md-2 control-label">Description</label>
+  <div class="col-md-10">
+      <input ng-model="helmFull.desc" name="pDesc" type="text" class="form-control" id="pingDescription" placeholder="Describe test here..." ng-minlength="3" ng-maxlength="30" required>
+      <p ng-show="helmFullForm.pDesc.$invalid && !helmFullForm.pDesc.$pristine" class="help-block">Please describe test</p>
+      <p ng-show="helmFullForm.pDesc.$error.minlength" class="help-block">Description must be at least 3 characters</p>
+      <p ng-show="helmFullForm.pDesc.$error.maxlength" class="help-block">Description cannot exceed 30 characters</p>
   </div>
+</div>
 
-  <div class="form-group row" ng-class="{ 'has-error' : helmFullForm.pTBT.$invalid && !helmFullForm.pTBT.$pristine }">
-    <label for="pingTBT" class="col-md-2 control-label">Time Between Tests</label>
-    <div class="col-md-5">
-      <input ng-model="helmFull.tbtValue" name="pTBT" type="text" class="form-control" id="pingTBT" placeholder="Integer Value" required>
-      <p ng-show="helmFullForm.pTBT.$invalid && !helmFullForm.pTBT.$pristine" class="help-block">Please enter a value for time</p>
-    </div>
-    <div class="col-md-5">
-      <select ng-model="helmFull.tbtType" ng-options="timeType.type for timeType in timeTypes" class="form-control" required></select>
-    </div>
+<div class="form-group row" ng-class="{ 'has-error' : helmFullForm.pTBT.$invalid && !helmFullForm.pTBT.$pristine }">
+  <label for="pingTBT" class="col-md-2 control-label">Time Between Tests</label>
+  <div class="col-md-5">
+    <input ng-model="helmFull.tbtValue" name="pTBT" type="text" class="form-control" id="pingTBT" placeholder="Integer Value" required>
+    <p ng-show="helmFullForm.pTBT.$invalid && !helmFullForm.pTBT.$pristine" class="help-block">Please enter a value for time</p>
   </div>
+  <div class="col-md-5">
+    <select ng-model="helmFull.tbtType" ng-options="timeType.type for timeType in timeTypes" class="form-control" required></select>
+  </div>
+</div>
 
-  <div class="form-group row">
-    <label for="pingPacketsSent" class="col-md-2 control-label">Packets Sent Per Test</label>
-    <div class="col-md-10">
-      <input ng-model="helmFull.packetsSent" name="pPacketsSent" type="text" class="form-control" id="pingPacketsSent" disabled>
-    </div>
+<div class="form-group row">
+  <label for="pingPacketsSent" class="col-md-2 control-label">Packets Sent Per Test</label>
+  <div class="col-md-10">
+    <input ng-model="helmFull.packetsSent" name="pPacketsSent" type="text" class="form-control" id="pingPacketsSent" disabled>
   </div>
+</div>
 
-  <div class="form-group row" ng-class="{ 'has-error' : helmFullForm.pTBP.$invalid && !helmFullForm.pTBP.$pristine }">
-    <label for="pingTBP" class="col-md-2 control-label">Time Between Packets</label>
-    <div class="col-md-10">
-      <input ng-model="helmFull.tbp" name="pTBP" type="text" class="form-control" id="pingTBP" placeholder="Time Between Packets (in seconds)" required>
-      <p ng-show="helmFullForm.pTBP.$invalid && !helmFullForm.pTBP.$pristine" class="help-block">Please enter a value for time</p>
-    </div>
+<div class="form-group row" ng-class="{ 'has-error' : helmFullForm.pTBP.$invalid && !helmFullForm.pTBP.$pristine }">
+  <label for="pingTBP" class="col-md-2 control-label">Time Between Packets</label>
+  <div class="col-md-10">
+    <input ng-model="helmFull.tbp" name="pTBP" type="text" class="form-control" id="pingTBP" placeholder="Time Between Packets (in seconds)" required>
+    <p ng-show="helmFullForm.pTBP.$invalid && !helmFullForm.pTBP.$pristine" class="help-block">Please enter a value for time</p>
   </div>
+</div>
 
-  <div class="form-group row" ng-class="{ 'has-error' : helmFullForm.pPS.$invalid && !helmFullForm.pPS.$pristine }">
-    <label for="pingPacketSize" class="col-md-2 control-label">Size of Test Packets</label>
-    <div class="col-md-10">
-      <input ng-model="helmFull.packetSize" name="pPS" type="text" class="form-control" id="pingPacketSize" placeholder="Size of Test Packets (in bytes)" required>
-      <p ng-show="helmFullForm.pPS.$invalid && !helmFullForm.pPS.$pristine" class="help-block">Please enter a packet size</p>
-    </div>
+<div class="form-group row" ng-class="{ 'has-error' : helmFullForm.pPS.$invalid && !helmFullForm.pPS.$pristine }">
+  <label for="pingPacketSize" class="col-md-2 control-label">Size of Test Packets</label>
+  <div class="col-md-10">
+    <input ng-model="helmFull.packetSize" name="pPS" type="text" class="form-control" id="pingPacketSize" placeholder="Size of Test Packets (in bytes)" required>
+    <p ng-show="helmFullForm.pPS.$invalid && !helmFullForm.pPS.$pristine" class="help-block">Please enter a packet size</p>
   </div>
+</div>
 
-  <div class="form-group row" ng-class="{ 'has-error' : helmFullForm.pReportMS.$invalid && !helmFullForm.pReportMS.$pristine }">
-    <label for="pingReportMS" class="col-md-2 control-label">Report to MS Every</label>
-    <div class="col-md-10">
-      <input ng-model="helmFull.reportMS" name="pReportMS" type="text" class="form-control" id="pingReportMS" placeholder="Report to MS Every (collections)" required>
-      <p ng-show="helmFullForm.pReportMS.$invalid && !helmFullForm.pReportMS.$pristine" class="help-block">Please enter a report value</p>
-    </div>
+<div class="form-group row" ng-class="{ 'has-error' : helmFullForm.pReportMS.$invalid && !helmFullForm.pReportMS.$pristine }">
+  <label for="pingReportMS" class="col-md-2 control-label">Report to MS Every</label>
+  <div class="col-md-10">
+    <input ng-model="helmFull.reportMS" name="pReportMS" type="text" class="form-control" id="pingReportMS" placeholder="Report to MS Every (collections)" required>
+    <p ng-show="helmFullForm.pReportMS.$invalid && !helmFullForm.pReportMS.$pristine" class="help-block">Please enter a report value</p>
   </div>
+</div>

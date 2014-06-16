@@ -15,20 +15,22 @@
 <form name="helmFullForm" novalidate>
 
   <div class="form-group row" ng-class="{ 'has-error' : helmFullForm.hNodes.$invalid && !helmFullForm.hNodes.$pristine }">
-    <label for="helmNodes" class="col-md-2 control-label">Select Nodes</label>
-    <div class="col-md-10" ng-repeat="node in nodes | unique:'id'">
-      <input ng-model="helmFull.nodes" value="{{node.name}}" name="hNodes" type="checkbox" id="helmNodes" required>{{node.name}}
+    <label for="helmFullNodes" class="col-md-2 control-label">Select Nodes</label>
+    <div class="col-md-10">
+      <select ng-model="helmFull.nodes" name="hNodes" id="helmFullNodes" class="form-control" required>
+        <option ng-repeat="node in nodes | unique:'id'">{{ node.name }} {{ node.selfRef }}</option>
+      </select>
       <p ng-show="helmFullForm.hNodes.$invalid && !helmFullForm.hNodes.$pristine" class="help-block">Please select a node</p>
     </div>
   </div>
 
-  <!-- <div ng-show="addPing" ng-include src="'views/partials/helm_full_ping.html'"></div> -->
+  <div ng-show="addPing" ng-include src="'views/partials/helm_full_ping.html'"></div>
   <div ng-show="addIperf" ng-include src="'views/partials/helm_full_iperf.html'"></div>
 
   <div class="form-group row">
     <div class="col-md-offset-2 col-md-10">
-      <button ng-click="helmSubmit(helmFull)" ng-disabled="helmFullForm.$invalid || helmUnchanged(helmFull)" class="btn btn-primary">Submit HELM Test</button>
-      <!-- <button ng-click="helmReset()" class="btn btn-danger pull-right">Restore Defaults</button> -->
+      <button ng-click="helmFullSubmit(helmFull)" class="btn btn-primary">Submit HELM Test</button>
+      <button ng-click="helmReset()" class="btn btn-danger pull-right">Restore Defaults</button>
     </div>
   </div>
 

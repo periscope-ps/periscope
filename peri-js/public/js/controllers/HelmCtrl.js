@@ -7,10 +7,8 @@
 angular.module('HelmCtrl', []).controller('HelmController', function($scope, $http, Node, Service, Slice) {
 
   // scope variables
-  $scope.helmData = {};
+  $scope.helmFullData = {};
   $scope.alerts = [];
-  $scope.pingData = {};
-  $scope.perfData = {};
   $scope.timeTypes = [
     {type:'Seconds'},
     {type:'Minutes'},
@@ -87,13 +85,28 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
     $scope.btnPing = $scope.btnPing === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
     $scope.addPing = $scope.addPing === true ? false: true;
 
-    // default form values
-    // $scope.ping.tbtValue = 5;
-    // $scope.ping.tbtType = $scope.timeTypes[1];
-    // $scope.ping.packetsSent = 1;
-    // $scope.ping.tbp = 1;
-    // $scope.ping.packetSize = 1000;
-    // $scope.ping.reportMS = 10;
+    if ($scope.addFull === true) {
+      // default form values
+      $scope.helmFull = angular.copy({});
+      $scope.helmFull.tbtValue = 5;
+      $scope.helmFull.tbtType = $scope.timeTypes[1];
+      $scope.helmFull.packetsSent = 1;
+      $scope.helmFull.tbp = 1;
+      $scope.helmFull.packetSize = 1000;
+      $scope.helmFull.reportMS = 10;
+    } else if ($scope.addPartial === true) {
+      // default form values
+      // $scope.helmPartial = angular.copy({});
+      // $scope.helmPartial.tbtValue = 5;
+      // $scope.helmPartial.tbtType = $scope.timeTypes[1];
+      // $scope.helmPartial.packetsSent = 1;
+      // $scope.helmPartial.tbp = 1;
+      // $scope.helmPartial.packetSize = 1000;
+      // $scope.helmPartial.reportMS = 10;
+    } else {
+      return;
+    }
+
     $scope.alert = false;
   };
   $scope.toggleIperf = function() {
@@ -102,13 +115,26 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
     $scope.btnIperf = $scope.btnIperf === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
     $scope.addIperf = $scope.addIperf === true ? false: true;
 
-    // default form values
-    // $scope.perf = angular.copy({});
-    // $scope.perf.tbtValue = 4;
-    // $scope.perf.tbtType = $scope.timeTypes[2];
-    // $scope.perf.td = 20;
-    // $scope.perf.bt = $scope.bandTesters[0];
-    // $scope.perf.proto = $scope.protos[0];
+    if ($scope.addFull === true) {
+      // default form values
+      $scope.helmFull = angular.copy({});
+      $scope.helmFull.tbtValue = 4;
+      $scope.helmFull.tbtType = $scope.timeTypes[2];
+      $scope.helmFull.td = 20;
+      $scope.helmFull.bt = $scope.bandTesters[0];
+      $scope.helmFull.proto = $scope.protos[0];
+    } else if ($scope.addPartial === true) {
+      // default form values
+      // $scope.helmPartial = angular.copy({});
+      // $scope.helmPartial.tbtValue = 4;
+      // $scope.helmPartial.tbtType = $scope.timeTypes[2];
+      // $scope.helmPartial.td = 20;
+      // $scope.helmPartial.bt = $scope.bandTesters[0];
+      // $scope.helmPartial.proto = $scope.protos[0];
+    } else {
+      return;
+    }
+
     $scope.alert = false;
   };
 
@@ -118,25 +144,44 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
     // $scope.helmData = {};
     // $scope.helm = angular.copy($scope.helmData);
 
-    // clear client side form and reset defaults
-    $scope.helm = angular.copy({});
-    $scope.helm.every = 28800;
-    $scope.helm.duration = 28799;
-    $scope.helm.num = 1;
-    $scope.helm.report = 1;
-    $scope.helm.size = 10000000;
-    $scope.helm.ttl = 1500000;
+    if ($scope.addFull === true) {
+      if ($scope.addIperf === true) {
+        // default form values
+        $scope.helmFull = angular.copy({});
+        $scope.helmFull.tbtValue = 4;
+        $scope.helmFull.tbtType = $scope.timeTypes[2];
+        $scope.helmFull.td = 20;
+        $scope.helmFull.bt = $scope.bandTesters[0];
+        $scope.helmFull.proto = $scope.protos[0];
+      } else if ($scope.addPing === true) {
+        // default form values
+        $scope.helmFull = angular.copy({});
+        $scope.helmFull.tbtValue = 5;
+        $scope.helmFull.tbtType = $scope.timeTypes[1];
+        $scope.helmFull.packetsSent = 1;
+        $scope.helmFull.tbp = 1;
+        $scope.helmFull.packetSize = 1000;
+        $scope.helmFull.reportMS = 10;
+      } else {
+        return;
+      }
+    } else if ($scope.addPartial === true) {
+      alert("reset partial");
+    } else {
+      return;
+    }
+
     $scope.closeAlert(0);
   };
 
   // compare form data with in memory data
   $scope.helmReset();
-  $scope.helmUnchanged = function(helm) {
-    return angular.equals(helm, $scope.helmData);
+  $scope.helmFullUnchanged = function(helmFull) {
+    return angular.equals(helmFull, $scope.helmFullData);
   };
 
-  $scope.helmSubmit = function(helm) {
-    if (helm.$invalid) {
+  $scope.helmFullSubmit = function(helmFull) {
+    if (helmFull.$invalid) {
       // If form is invalid, return and let AngularJS show validation errors.
       $scope.addAlert('Invalid form, cannot be submitted', 'danger');
       $scope.alert = true;
@@ -147,42 +192,113 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
       // $scope.alert = true;
 
       // copy data submitted by form
-      $scope.helmData = angular.copy(helm);
+      $scope.helmFullData = angular.copy(helmFull);
 
-      /*var helm_measurement = {
-        "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-        "ts": Math.round(new Date().getTime() / 1000),
-        "services": [
-          "http://dev.incntre.iu.edu:8888/services/538fce2be7798940fc000117",
-          "http://dev.incntre.iu.edu:8888/services/538fc810e7798940fc000091",
-          "http://dev.incntre.iu.edu:8888/services/538fc350e7798940fc000003"
-        ],
-        "eventTypes": [
-          "ps:tools:helm"
-        ],
-        "configuration": {
-          "schedule_params": {
-            "every": $scope.helm.every,
-            "duration":$scope.helm.duration,
-            "num_to_schedule":$scope.helm.num
-          },
-          "reporting_params": $scope.helm.report,
-          "collection_size":$scope.helm.size,
-          "collection_ttl":$scope.helm.ttl,
-          "regex": ",(?P<bandwidth>\\d+)$",
-          "probe_module": "cmd_line_probe",
-          "collection_schedule":"adaptive.silent_lamb",
-          "command": "iperf blah blah",
-          "ms_url": "http://localhost:8888",
-          "data_file": "/tmp/ops_iperf.log",
-          "eventTypes": {
-            "bandwidth": "ps:tools:blipp:linux:net:iperf:bandwidth"
-          },
-          "name": $scope.helm.desc
+      if ($scope.addIperf === true) {
+        // build ping command from user options
+        if ($scope.helmFullData.proto.type == 'udp') {
+          var perf_command = "iperf -u -c " + $scope.helmFullData.th + " -t 20 -y C ";
+        } else {
+          var perf_command = "iperf -c " + $scope.helmFullData.th + " -t 20 -y C ";
         }
-      };*/
 
-      /*$http({
+        // lookup service running on given node
+        var nodeService = $scope.getNodeService($scope.helmFullData.nodes.split(" ")[1]);
+
+        var helm_measurement = {
+          $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+          service: nodeService,
+          ts: Math.round(new Date().getTime() * 1000),
+          participants: [
+            {from: "NYC", to: "LA"},
+            {from: "LA", to: "NYC"}
+          ],
+          properties: {
+            geni: {
+              slice_uuid: $scope.geniSlice.slice_uuid
+            }
+          },
+          eventTypes: [
+            "ps:tools:helm"
+          ],
+          configuration: {
+            status: "ON",
+            regex: ",(?P<bandwidth>\d+)$",
+            window_size: 0,
+            protocol: $scope.helmFullData.proto.type,
+            probe_module: "cmd_line_probe",
+            test_duration: $scope.helmFullData.td,
+            schedule_params: {
+              every: $scope.helmFullData.tbtValue
+            },
+            tool: "iperf",
+            reporting_params: 1,
+            client: null,
+            command: perf_command,
+            ms_url: $scope.geniSlice.ms_url,
+            eventTypes: {
+              bandwidth: "ps:tools:blipp:linux:net:iperf:bandwidth"
+            },
+            udp_bandwidth: 0,
+            collection_schedule: "builtins.simple",
+            name: $scope.helmFullData.desc
+          },
+          type: "iperf"
+        };
+      } else if ($scope.addPing === true) {
+        // build ping command from user options
+        var ping_command = "ping -c 1 -s " + $scope.helmFullData.packetSize + " -i " + $scope.helmFullData.tbp;
+
+        // lookup service running on given node
+        var nodeService = $scope.getNodeService($scope.helmFullData.nodes.split(" ")[1]);
+
+        // build ping measurement to submit
+        var helm_measurement = {
+          $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+          service: nodeService,
+          ts: Math.round(new Date().getTime() * 1000),
+          participants: [
+            {from: "ATL", to: "SF"},
+            {from: "SF", to: "ATL"}
+          ],
+          properties: {
+            geni: {
+              slice_uuid: $scope.geniSlice.slice_uuid
+            }
+          },
+          eventTypes: [
+            "ps:tools:helm"
+          ],
+          configuration: {
+            status: "ON",
+            regex: "ttl=(?P<ttl>\d+).*time=(?P<rtt>\d+\.\d+|\d+)",
+            reporting_params: $scope.helmFullData.reportMS,
+            probe_module: "cmd_line_probe",
+            packet_interval: $scope.helmFullData.pTBP,
+            collection_schedule: "builtins.simple",
+            packet_size: $scope.helmFullData.packetSize,
+            packet_count: 1,
+            command: ping_command,
+            schedule_params: {
+              every: $scope.helmFullData.tbtValue
+            },
+            collection_size: 100000,
+            ms_url: $scope.geniSlice.ms_url,
+            eventTypes: {
+              rtt: "ps:tools:blipp:linux:net:ping:rtt",
+              ttl: "ps:tools:blipp:linux:net:ping:ttl"
+            },
+            collection_ttl: 1500000,
+            name: $scope.helmFullData.desc
+          },
+          type: "ping"
+        };
+      } else {
+        alert("hit the highway");
+        return;
+      }
+
+      $http({
         method: 'POST',
         url: '/api/measurements',
         data: helm_measurement,
@@ -203,7 +319,7 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
         // $scope.addAlert(config, 'danger');
         $scope.addAlert('Status: ' + status.toString() + ', ' + 'Error: ' + data.error.message, 'danger');
         $scope.alert = true;
-      });*/
+      });
     }
   };
 }); // end controller
