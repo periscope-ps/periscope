@@ -3,8 +3,8 @@
   <button ng-click="togglePing()" ng-class="btnPing" class="btn btn-default">Ping Test</button>
 </div>
 
-<!-- <pre>helmForm = {{helm | json}}</pre> -->
-<!-- <pre>helmData = {{helmData | json}}</pre> -->
+<pre>helmPartialForm = {{helmPartial | json}}</pre>
+<pre>helmPartialData = {{helmPartialData | json}}</pre>
 
 <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
   <b>{{alert.msg}}</b>
@@ -12,81 +12,49 @@
   <a ng-href="/measurements">View measurements here</a>
 </alert>
 
-<form name="helmForm" novalidate>
+<form name="helmPartialForm" novalidate>
 
-  <div class="form-group row" ng-class="{ 'has-error' : helmForm.hNodes.$invalid && !helmForm.hNodes.$pristine }">
-    <label for="helmNodes" class="col-md-2 control-label">Select Nodes</label>
-    <div class="col-md-10" ng-repeat="node in nodes | unique:'id'">
-      <input ng-model="helm.nodes" value="{{node.name}}" name="hNodes" type="checkbox" id="helmNodes" required>{{node.name}}
-      <p ng-show="helmForm.hNodes.$invalid && !helmForm.hNodes.$pristine" class="help-block">Please select a node</p>
-    </div>
-  </div>
-
-  <div class="form-group row" ng-class="{ 'has-error' : helmForm.hDesc.$invalid && !helmForm.hDesc.$pristine }">
-    <label for="helmDescription" class="col-md-2 control-label">Description</label>
+  <div class="form-group row" ng-class="{ 'has-error' : helmPartialForm.hNodes.$invalid && !helmPartialForm.hNodes.$pristine }">
+    <label for="helmFullNodes" class="col-md-2 control-label">Select Nodes</label>
     <div class="col-md-10">
-      <input ng-model="helm.desc" name="hDesc" type="text" class="form-control" id="helmDescription" placeholder="Describe test here..." ng-minlength="3" ng-maxlength="30" required>
-      <p ng-show="helmForm.hDesc.$invalid && !helmForm.hDesc.$pristine" class="help-block">Please describe test</p>
-      <p ng-show="helmForm.hDesc.$error.minlength" class="help-block">Description must be at least 3 characters</p>
-      <p ng-show="helmForm.hDesc.$error.maxlength" class="help-block">Description cannot exceed 30 characters</p>
+      <select ng-model="helmPartial.nodes" name="hNodes" id="helmFullNodes" class="form-control" required>
+        <option ng-repeat="node in nodes | unique:'id'">{{ node.name }} {{ node.selfRef }}</option>
+      </select>
+      <p ng-show="helmPartialForm.hNodes.$invalid && !helmPartialForm.hNodes.$pristine" class="help-block">Please select a node</p>
     </div>
   </div>
 
-  <div class="form-group row" ng-class="{ 'has-error' : helmForm.hEvery.$invalid && !helmForm.hEvery.$pristine }">
-    <label for="helmEvery" class="col-md-2 control-label">Schedule Every</label>
-    <div class="col-md-10">
-      <input ng-model="helm.every" name="hEvery" type="text" class="form-control" id="helmEvery" required>
-      <p ng-show="helmForm.hEvery.$invalid && !helmForm.hEvery.$pristine" class="help-block">Please enter a value</p>
-    </div>
-  </div>
+  <!-- <div class="form-group row" ng-class="{ 'has-error' : helmPartialForm.hEvery.$invalid && !helmPartialForm.hEvery.$pristine }"> -->
+    <!-- <label for="helmEvery" class="col-md-2 control-label">Schedule Every</label> -->
+    <!-- <div class="col-md-10"> -->
+      <!-- <input ng-model="helmPartial.every" name="hEvery" type="text" class="form-control" id="helmEvery" required> -->
+      <!-- <p ng-show="helmPartialForm.hEvery.$invalid && !helmPartialForm.hEvery.$pristine" class="help-block">Please enter a value</p> -->
+    <!-- </div> -->
+  <!-- </div> -->
 
-  <div class="form-group row" ng-class="{ 'has-error' : helmForm.hDuration.$invalid && !helmForm.hDuration.$pristine }">
-    <label for="helmDuration" class="col-md-2 control-label">Schedule Duration</label>
-    <div class="col-md-10">
-      <input ng-model="helm.duration" name="hDuration" type="text" class="form-control" id="helmDuration" required>
-      <p ng-show="helmForm.hDuration.$invalid && !helmForm.hDuration.$pristine" class="help-block">Please enter a value</p>
-    </div>
-  </div>
+  <!-- <div class="form-group row" ng-class="{ 'has-error' : helmPartialForm.hDuration.$invalid && !helmPartialForm.hDuration.$pristine }"> -->
+    <!-- <label for="helmDuration" class="col-md-2 control-label">Schedule Duration</label> -->
+    <!-- <div class="col-md-10"> -->
+      <!-- <input ng-model="helmPartial.duration" name="hDuration" type="text" class="form-control" id="helmDuration" required> -->
+      <!-- <p ng-show="helmPartialForm.hDuration.$invalid && !helmPartialForm.hDuration.$pristine" class="help-block">Please enter a value</p> -->
+    <!-- </div> -->
+  <!-- </div> -->
 
-  <div class="form-group row" ng-class="{ 'has-error' : helmForm.hNum.$invalid && !helmForm.hNum.$pristine }">
-    <label for="helmNum" class="col-md-2 control-label">Number of Tests</label>
-    <div class="col-md-10">
-      <input ng-model="helm.num" name="hNum" type="text" class="form-control" id="helmNum" required>
-      <p ng-show="helmForm.hNum.$invalid && !helmForm.hNum.$pristine" class="help-block">Please enter a value</p>
-    </div>
-  </div>
+  <!-- <div class="form-group row" ng-class="{ 'has-error' : helmPartialForm.hNum.$invalid && !helmPartialForm.hNum.$pristine }"> -->
+    <!-- <label for="helmNum" class="col-md-2 control-label">Number of Tests</label> -->
+    <!-- <div class="col-md-10"> -->
+      <!-- <input ng-model="helmPartial.num" name="hNum" type="text" class="form-control" id="helmNum" required> -->
+      <!-- <p ng-show="helmPartialForm.hNum.$invalid && !helmPartialForm.hNum.$pristine" class="help-block">Please enter a value</p> -->
+    <!-- </div> -->
+  <!-- </div> -->
 
-  <div class="form-group row" ng-class="{ 'has-error' : helmForm.hReport.$invalid && !helmForm.hReport.$pristine }">
-    <label for="helmReport" class="col-md-2 control-label">Reporting Params</label>
-    <div class="col-md-10">
-      <input ng-model="helm.report" name="hReport" type="text" class="form-control" id="helmReport" required>
-      <p ng-show="helmForm.hReport.$invalid && !helmForm.hReport.$pristine" class="help-block">Please enter a value</p>
-    </div>
-  </div>
-
-  <div class="form-group row" ng-class="{ 'has-error' : helmForm.hSize.$invalid && !helmForm.hSize.$pristine }">
-    <label for="helmSize" class="col-md-2 control-label">Collection Size</label>
-    <div class="col-md-10">
-      <input ng-model="helm.size" name="hSize" type="text" class="form-control" id="helmSize" required>
-      <p ng-show="helmForm.hSize.$invalid && !helmForm.hSize.$pristine" class="help-block">Please enter a value</p>
-    </div>
-  </div>
-
-  <div class="form-group row" ng-class="{ 'has-error' : helmForm.hTTL.$invalid && !helmForm.hTTL.$pristine }">
-    <label for="helmTTL" class="col-md-2 control-label">Collection TTL</label>
-    <div class="col-md-10">
-      <input ng-model="helm.ttl" name="hTTL" type="text" class="form-control" id="helmTTL" required>
-      <p ng-show="helmForm.hTTL.$invalid && !helmForm.hTTL.$pristine" class="help-block">Please enter a value</p>
-    </div>
-  </div>
-
-  <div ng-show="addPing" ng-include src="'views/partials/helm_ping.html'"></div>
-  <div ng-show="addIperf" ng-include src="'views/partials/helm_iperf.html'"></div>
+  <div ng-show="addPing" ng-include src="'views/partials/helm_partial_ping.html'"></div>
+  <div ng-show="addIperf" ng-include src="'views/partials/helm_partial_iperf.html'"></div>
 
   <div class="form-group row">
     <div class="col-md-offset-2 col-md-10">
-      <button ng-click="helmSubmit(helm)" ng-disabled="helmForm.$invalid || helmUnchanged(helm)" class="btn btn-primary">Submit HELM Test</button>
-      <!-- <button ng-click="helmReset()" class="btn btn-danger pull-right">Restore Defaults</button> -->
+      <button ng-click="helmPartialSubmit(helmPartial)" class="btn btn-primary">Submit HELM Test</button>
+      <button ng-click="helmReset()" class="btn btn-danger pull-right">Restore Defaults</button>
     </div>
   </div>
 
