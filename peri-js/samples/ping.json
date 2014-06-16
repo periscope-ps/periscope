@@ -1,0 +1,40 @@
+{
+  $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+  selfRef: "https://unis.incntre.iu.edu:8443/measurements/3bb8f332f40c11e39a8402f2264ac13b",
+  service: "https://unis.incntre.iu.edu:8443/services/539bc631377f972d2e1a96a1",
+  ts: 1402781936469710,
+  properties: {
+    geni: {
+      slice_uuid: "0550d63c-ea71-4a12-a95f-8a558ec78fd7"
+    }
+  },
+  eventTypes: [
+    "ps:tools:blipp:linux:net:ping:ttl",
+    "ps:tools:blipp:linux:net:ping:rtt"
+  ],
+  configuration: {
+    status: "ON",
+    regex: "ttl=(?P<ttl>\d+).*time=(?P<rtt>\d+\.\d+|\d+)",
+    reporting_params: 10,
+    probe_module: "cmd_line_probe",
+    packet_interval: 1,
+    collection_schedule: "builtins.simple",
+    packet_size: 1000,
+    packet_count: 1,
+    command: "ping -c 1 -s 1000 -i 1 10.10.2.2",
+    schedule_params: {
+      every: 300
+    },
+    collection_size: 100000,
+    ms_url: "https://pcvm2-1.geni.kettering.edu:8888",
+    eventTypes: {
+      rtt: "ps:tools:blipp:linux:net:ping:rtt",
+      ttl: "ps:tools:blipp:linux:net:ping:ttl"
+    },
+    collection_ttl: 1500000,
+    address: "10.10.2.2",
+    name: "pinger"
+  },
+  type: "ping",
+  id: "3bb8f332f40c11e39a8402f2264ac13b"
+}

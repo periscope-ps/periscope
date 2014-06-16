@@ -1,0 +1,38 @@
+{
+  $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+  service: "https://unis.incntre.iu.edu:8443/services/539bc631377f972d2e1a96a1",
+  selfRef: "https://unis.incntre.iu.edu:8443/measurements/962d14c4f40c11e380de02f2264ac13b",
+  ts: 1402782066255616,
+  properties: {
+    geni: {
+      slice_uuid: "0550d63c-ea71-4a12-a95f-8a558ec78fd7"
+    }
+  },
+  eventTypes: [
+    "ps:tools:blipp:linux:net:iperf:bandwidth"
+  ],
+  configuration: {
+  status: "ON",
+  regex: ",(?P<bandwidth>\d+)$",
+  window_size: 0,
+  protocol: "tcp",
+  probe_module: "cmd_line_probe",
+  test_duration: 20,
+  schedule_params: {
+    every: 240
+  },
+  tool: "iperf",
+  reporting_params: 1,
+  client: null,
+  command: "iperf -c None -t 20 -y C",
+  ms_url: "https://pcvm2-1.geni.kettering.edu:8888",
+  eventTypes: {
+    bandwidth: "ps:tools:blipp:linux:net:iperf:bandwidth"
+  },
+  udp_bandwidth: 0,
+  collection_schedule: "builtins.simple",
+    name: "perfing"
+  },
+  type: "iperf",
+  id: "962d14c4f40c11e380de02f2264ac13b"
+}

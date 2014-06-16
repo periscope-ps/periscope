@@ -55,8 +55,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     {type:'Iperf'}
   ];
   $scope.protos = [
-    {type:'TCP'},
-    {type:'UDP'}
+    {type:'tcp'},
+    {type:'udp'}
   ];
 
   // alerts for this scope
@@ -387,25 +387,51 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       // copy data submitted by form
       $scope.perfData = angular.copy(perf);
 
+      // build ping command from user options
+      if ($scope.perfData.proto.type == 'udp') {
+        var perf_command = "iperf -u -c " + $scope.perfData.th + " -t 20 -y C ";
+      } else {
+        var perf_command = "iperf -c " + $scope.perfData.th + " -t 20 -y C ";
+      }
+
+      // lookup service running on given node
+      var nodeService = $scope.getNodeService($scope.perfData.from.split(" ")[1]);
+
       var perf_measurement = {
-        "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-        "service": "http://dev.incntre.iu.edu:8888/services/538fc810e7798940fc000091",
-        "ts": Math.round(new Date().getTime()),
-        "eventTypes": [
+        $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+        service: nodeService,
+        ts: Math.round(new Date().getTime() * 1000),
+        properties: {
+          geni: {
+            slice_uuid: $scope.geniSlice.slice_uuid
+          }
+        },
+        eventTypes: [
           "ps:tools:blipp:linux:net:iperf:bandwidth"
         ],
-        "configuration": {
-          "regex": ",(?P<bandwidth>\\d+)$",
-          "probe_module": "cmd_line_probe",
-          "collection_schedule": "builtins.simple",
-          "command": "iperf " + $scope.perfData.th,
-          "ms_url": "http://localhost:8888",
-          "data_file": "/tmp/ops_iperf.log",
-          "eventTypes": {
-            "bandwidth": "ps:tools:blipp:linux:net:iperf:bandwidth"
+        configuration: {
+          status: "ON",
+          regex: ",(?P<bandwidth>\d+)$",
+          window_size: 0,
+          protocol: $scope.perfData.proto.type,
+          probe_module: "cmd_line_probe",
+          test_duration: $scope.perfData.td,
+          schedule_params: {
+            every: $scope.perfData.tbtValue
           },
-          "name": $scope.perfData.desc
-        }
+          tool: "iperf",
+          reporting_params: 1,
+          client: null,
+          command: perf_command,
+          ms_url: $scope.geniSlice.ms_url,
+          eventTypes: {
+            bandwidth: "ps:tools:blipp:linux:net:iperf:bandwidth"
+          },
+          udp_bandwidth: 0,
+          collection_schedule: "builtins.simple",
+          name: $scope.perfData.desc
+        },
+        type: "iperf"
       };
 
       $http({
@@ -419,8 +445,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         // $scope.addAlert(status, 'success');
         // $scope.addAlert(headers, 'success');
         // $scope.addAlert(config, 'success');
-        var measurement = data;
-        $scope.addAlert('BLiPP Test: ' + measurement.configuration.name + ' submitted to UNIS', 'success');
+        $scope.addAlert('BLiPP Test: ' + data.configuration.name + ' submitted to UNIS', 'success');
+        $scope.addAlert('Command: ' + perf_command, 'success');
         $scope.alert = true;
       }).
       error(function(data, status, headers, config) {
@@ -428,8 +454,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         // $scope.addAlert(status, 'danger');
         // $scope.addAlert(headers, 'danger');
         // $scope.addAlert(config, 'danger');
-        var measurement = data;
-        $scope.addAlert('Status: ' + status.toString() + ', ' + 'Error: ' + measurement.error.message, 'danger');
+        $scope.addAlert('Status: ' + status.toString() + ', ' + 'Error: ' + data.error.message, 'danger');
         $scope.alert = true;
       });
     }
