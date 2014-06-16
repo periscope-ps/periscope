@@ -4,7 +4,7 @@
  * BlippCtrl.js
  */
 
-angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http, Node, Slice) {
+angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http, Node, Slice, Service) {
 
   // load default form
   $scope.btnIperf = $scope.btnIperf === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
@@ -17,6 +17,9 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
   Slice.getSlice(function(sliceInfo) {
     $scope.geniSlice = sliceInfo[0];
   });
+  Service.getServices(function(services) {
+    $scope.services = services;
+  });
 
   // global node shouldn't be selectable
   $scope.filterNodes = function(node) {
@@ -25,6 +28,15 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       return true;
     }
     return false;
+  };
+
+  // find the service running on a node
+  $scope.getNodeService = function(node_ref) {
+    for(var i = 0; $scope.services.length; i++) {
+      if ($scope.services[i].runningOn.href == node_ref) {
+        return $scope.services[i].selfRef;
+      }
+    }
   };
 
   // scope variables
@@ -220,34 +232,50 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       // copy data submitted by form
       $scope.pingData = angular.copy(ping);
 
+      // build ping command from user options
+      var ping_command = "ping -c 1 -s " + $scope.pingData.packetSize + " -i " + $scope.pingData.tbp + " " + $scope.pingData.to.split(" ")[0];
+
+      // lookup service running on given node
+      var nodeService = $scope.getNodeService($scope.pingData.from.split(" ")[1]);
+
+      // build ping measurement to submit
       var ping_measurement = {
-        "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-        "service": "http://dev.incntre.iu.edu:8888/services/538fce2be7798940fc000117",
-        "ts": Math.round(new Date().getTime() / 1000),
-        "eventTypes": [
-          "ps:tools:blipp:linux:net:ping:rtt",
-          "ps:tools:blipp:linux:net:ping:ttl"
+        $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+        service: nodeService,
+        ts: Math.round(new Date().getTime() * 1000),
+        properties: {
+          geni: {
+            slice_uuid: $scope.geniSlice.slice_uuid
+          }
+        },
+        eventTypes: [
+          "ps:tools:blipp:linux:net:ping:ttl",
+          "ps:tools:blipp:linux:net:ping:rtt"
         ],
-        "configuration": {
-          "status": "ON",
-          "regex": "ttl=(?P<ttl>\\d+).*time=(?P<rtt>\\d+\\s|\\d+\\.\\d+)",
-          "reporting_params": $scope.pingData.reportMS,
-          "probe_module": "cmd_line_probe",
-          "schedule_params": {
-            "every": $scope.pingData.tbtValue
+        configuration: {
+          status: "ON",
+          regex: "ttl=(?P<ttl>\d+).*time=(?P<rtt>\d+\.\d+|\d+)",
+          reporting_params: $scope.pingData.reportMS,
+          probe_module: "cmd_line_probe",
+          packet_interval: $scope.pingData.pTBP,
+          collection_schedule: "builtins.simple",
+          packet_size: $scope.pingData.packetSize,
+          packet_count: 1,
+          command: ping_command,
+          schedule_params: {
+            every: $scope.pingData.tbtValue
           },
-          "collection_schedule": "builtins.simple",
-          "command": "ping -c " + $scope.pingData.to,
-          "collection_size": $scope.pingData.packetSize,
-          "ms_url": "http://localhost:8888",
-          "data_file": "/tmp/ops_ping.log",
-          "eventTypes": {
-            "rtt": "ps:tools:blipp:linux:net:ping:rtt",
-            "ttl": "ps:tools:blipp:linux:net:ping:ttl"
+          collection_size: 100000,
+          ms_url: $scope.geniSlice.ms_url,
+          eventTypes: {
+            rtt: "ps:tools:blipp:linux:net:ping:rtt",
+            ttl: "ps:tools:blipp:linux:net:ping:ttl"
           },
-          "collection_ttl": 1500000,
-          "name": $scope.pingData.desc
-        }
+          collection_ttl: 1500000,
+          address: $scope.pingData.to.split(" ")[0],
+          name: $scope.pingData.desc
+        },
+        type: "ping"
       };
 
       $http({
@@ -261,8 +289,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         // $scope.addAlert(status, 'success');
         // $scope.addAlert(headers, 'success');
         // $scope.addAlert(config, 'success');
-        var measurement = data;
-        $scope.addAlert('BLiPP Test: ' + measurement.configuration.name + ' submitted to UNIS', 'success');
+        $scope.addAlert('BLiPP Test: ' + data.configuration.name + ' submitted to UNIS', 'success');
+        $scope.addAlert('Command: ' + ping_command, 'success');
         $scope.alert = true;
       }).
       error(function(data, status, headers, config) {
@@ -270,8 +298,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         // $scope.addAlert(status, 'danger');
         // $scope.addAlert(headers, 'danger');
         // $scope.addAlert(config, 'danger');
-        var measurement = data;
-        $scope.addAlert('Status: ' + status.toString() + ', ' + 'Error: ' + measurement.error.message, 'danger');
+        $scope.addAlert('Status: ' + status.toString() + ', ' + 'Error: ' + data.error.message, 'danger');
         $scope.alert = true;
       });
     }
