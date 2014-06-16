@@ -84,7 +84,7 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
   };*/
 
   $scope.measOFF = function() {
-    if ($scope.measDetails.status) {
+    if ($scope.measDetails.configuration.status === 'ON') {
       return false;
     } else {
       return true;
