@@ -6,6 +6,26 @@
 
 angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http, Node, Slice, Service) {
 
+  // scope variables
+  $scope.pingData = {};
+  $scope.owpData = {};
+  $scope.perfData = {};
+  $scope.netlogData = {};
+  $scope.alerts = [];
+  $scope.timeTypes = [
+    {type:'Seconds'},
+    {type:'Minutes'},
+    {type:'Hours'},
+    {type:'Days'}
+  ];
+  $scope.bandTesters = [
+    {type:'Iperf'}
+  ];
+  $scope.protos = [
+    {type:'tcp'},
+    {type:'udp'}
+  ];
+
   // load default form
   $scope.btnIperf = $scope.btnIperf === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
   $scope.addIperf = $scope.addIperf === true ? false: true;
@@ -38,26 +58,6 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       }
     }
   };
-
-  // scope variables
-  $scope.pingData = {};
-  $scope.owpData = {};
-  $scope.perfData = {};
-  $scope.netlogData = {};
-  $scope.alerts = [];
-  $scope.timeTypes = [
-    {type:'Seconds'},
-    {type:'Minutes'},
-    {type:'Hours'},
-    {type:'Days'}
-  ];
-  $scope.bandTesters = [
-    {type:'Iperf'}
-  ];
-  $scope.protos = [
-    {type:'tcp'},
-    {type:'udp'}
-  ];
 
   // alerts for this scope
   $scope.addAlert = function(msg, type) {
