@@ -13,26 +13,30 @@ var fs = require('fs')
   , url = require('url');
 
 // production
-var production = true;
-var unis_host = 'unis.incntre.iu.edu';
-var unis_port = '8443';
-var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
-var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
+// var production = true;
+// var unis_host = 'unis.incntre.iu.edu';
+// var unis_port = '8443';
+// var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
+// var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
 
 // development
-// var production = false;
-// var unis_host = 'dev.incntre.iu.edu';
+var production = false;
+var unis_host = 'dev.incntre.iu.edu';
 // var unis_host = 'localhost';
 // var unis_port = '8888';
-// var unis_port = '9001';
+var unis_port = '9001';
 
 var slice_info = [];
 var filePath = '/usr/local/etc/node.info';
 var slice_uuid = '';
 var os_name = '';
 var distro = '';
+var ms_host;
+var ms_port;
 
 module.exports = function(app) {
+
+  console.log("Connecting to: " + unis_host + "@" + unis_port);
 
   var exec = require('child_process').exec;
   var child1, child2;
@@ -60,7 +64,7 @@ module.exports = function(app) {
       console.log(err);
     } else {
       var fileData = data.toString().split('\n');
-      var split, project, slice, gn, exAddy, ms, unis;
+      var split, project, slice, gn, exAddy, ms_url, unis;
 
       for(line in fileData) {
         split = fileData[line].split('=');
@@ -74,8 +78,13 @@ module.exports = function(app) {
         if(split[0] === 'unis_instance')
           unis = split[1];
 
-        if(split[0] === 'ms_instance')
-          ms = split[1];
+        if(split[0] === 'ms_instance') {
+          ms_url = split[1];
+          ms_port = ms_url.split(":")[2];
+          console.log("ms_port: " + ms_port);
+          ms_host = ms_url.split("//")[1];
+          console.log("ms_host: " + ms_host);
+        }
 
         if (split[0] === 'node_id') {
           project = split[2].split('+');
@@ -85,7 +94,7 @@ module.exports = function(app) {
         if(split[0] === 'auth_uuid')
           slice_uuid = split[1];
       }
-      slice_info.push({'external_address': exAddy, 'gn_address': gn, 'unis_instance': unis, 'ms_url': ms, 'project': project[1], 'slice': slice[0], 'slice_uuid': slice_uuid, 'os_name': os_name, 'distro': distro});
+      slice_info.push({'external_address': exAddy, 'gn_address': gn, 'unis_instance': unis, 'ms_url': ms_url, 'project': project[1], 'slice': slice[0], 'slice_uuid': slice_uuid, 'os_name': os_name, 'distro': distro});
       console.log(slice_info);
     }
   });
@@ -995,13 +1004,13 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api/data/:id', function(req, res) {
+  app.get('/api/metadata/:id', function(req, res) {
     console.log("data id: " + req.params.id);
     console.log('STATUS: ' + res.statusCode);
     console.log('HEADERS: ' + JSON.stringify(res.headers));
     console.log('BODY: ' + JSON.stringify(res.body));
 
-    var data_id = req.params.id;
+    var metadata_id = req.params.id;
 
     if (production) {
       console.log('running in production');
@@ -1014,8 +1023,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/data/' + data_id + '?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/data/' + data_id,
+        // path: '/metadata/' + metadata_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        path: '/metadata/' + metadata_id,
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1044,7 +1053,7 @@ module.exports = function(app) {
       var http_get_options = {
         hostname: unis_host,
         port: unis_port,
-        path: '/data/' + data_id,
+        path: '/metadata/' + metadata_id,
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1069,6 +1078,82 @@ module.exports = function(app) {
         });
       });
     }
+  });
+
+  app.get('/api/data/:id', function(req, res) {
+    console.log("data id: " + req.params.id);
+    console.log('STATUS: ' + res.statusCode);
+    console.log('HEADERS: ' + JSON.stringify(res.headers));
+    console.log('BODY: ' + JSON.stringify(res.body));
+
+    var data_id = req.params.id;
+
+    /*if (production) {
+      console.log('running in production');
+
+      // HTTPS Options
+      var https_get_options = {
+        hostname: unis_host,
+        port: unis_port,
+        key: fs.readFileSync(unis_key),
+        cert: fs.readFileSync(unis_cert),
+        requestCert: true,
+        rejectUnauthorized: false,
+        // path: '/data/' + data_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        path: '/data/' + data_id,
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      // GET JSON and Render to our API
+      https.get(https_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    } else {*/
+      // HTTP Options
+      var http_get_options = {
+        hostname: ms_host,
+        port: ms_port,
+        path: '/data/' + data_id,
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      // GET JSON and Render to our API
+      http.get(http_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    //}
   });
 
   /*app.get('/api/helm', function(req, res) {
