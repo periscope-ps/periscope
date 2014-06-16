@@ -20,8 +20,8 @@
     <tr ng-repeat="measurement in measurements | unique:'id' | orderBy:'-ts'">
       <td>{{ measurement.configuration.name }}</td>
       <td>
-        <button ng-show="measurement.status === 'ON'" class="btn btn-success disabled">ON</button>
-        <button ng-show='measurement.status === undefined' class="btn btn-danger disabled">OFF</button>
+        <button ng-show="measurement.configuration.status === 'ON'" class="btn btn-success disabled">ON</button>
+        <button ng-show='measurement.configuration.status === undefined' class="btn btn-danger disabled">OFF</button>
       </td>
       <td><button ng-click="showDetails(measurement.id)" class="btn btn-info">Details</button></td>
       <!-- <td><a ng-href="{{measurement.selfRef}}">UNIS Instance</a></td> -->

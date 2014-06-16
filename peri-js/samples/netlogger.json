@@ -1,0 +1,26 @@
+{
+  $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+  service: "https://unis.incntre.iu.edu:8443/services/539bc631377f972d2e1a96a1",
+  selfRef: "https://unis.incntre.iu.edu:8443/measurements/c143a812f40c11e39e6b02f2264ac13b",
+  ts: 1402782138530610,
+  properties: {
+    geni: {
+      slice_uuid: "0550d63c-ea71-4a12-a95f-8a558ec78fd7"
+    }
+  },
+  eventTypes: [ ],
+  configuration: {
+    status: "ON",
+    reporting_params: 10,
+    name: "netlogging",
+    schedule_params: {
+      every: 5
+    },
+    collection_schedule: "builtins.simple",
+    ms_url: "https://pcvm2-1.geni.kettering.edu:8888",
+    logfile: "/tmp/probe.log",
+    probe_module: "netlogger_probe"
+  },
+  type: "netlogger",
+  id: "c143a812f40c11e39e6b02f2264ac13b"
+}

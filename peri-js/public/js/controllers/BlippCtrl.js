@@ -473,30 +473,32 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       // copy data submitted by form
       $scope.netlogData = angular.copy(netlog);
 
+      // lookup service running on given node
+      var nodeService = $scope.getNodeService($scope.netlogData.from.split(" ")[1]);
+
       var netlog_measurement = {
-        "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-        "service": "http://dev.incntre.iu.edu:8888/services/538fc350e7798940fc000003",
-        "ts": Math.round(new Date().getTime() / 1000),
-        "eventTypes": [
-          "ps:tools:blipp:linux:net:netlogger:probe"
-        ],
-        "configuration": {
-          "unis_url": "http://localhost:8888",
-          "probe_defaults": {
-            "ms_url": "http://localhost:8888",
-            "collection_schedule": "builtins.simple",
-            "schedule_params": {"every": $scope.netlogData.tbrValue}
+        $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+        service: nodeService,
+        ts: Math.round(new Date().getTime() * 1000),
+        properties: {
+          geni: {
+            slice_uuid: $scope.geniSlice.slice_uuid
+          }
+        },
+        eventTypes: [ ],
+        configuration: {
+          status: "ON",
+          reporting_params: $scope.netlogData.reportMS,
+          name: $scope.netlogData.desc,
+          schedule_params: {
+            every: $scope.netlogData.tbrValue
           },
-          "probes":{
-            "nl_probe": {
-              "probe_module": "netlogger_probe",
-              "data_file": $scope.netlog.file,
-              "logfile": "/tmp/nl.log",
-              "reporting_params": $scope.netlogData.reportMS
-            }
-          },
-          "name": $scope.netlogData.desc
-        }
+          collection_schedule: "builtins.simple",
+          ms_url: $scope.geniSlice.ms_url,
+          logfile: $scope.netlogData.file,
+          probe_module: "netlogger_probe"
+        },
+        type: "netlogger"
       };
 
       $http({
@@ -510,8 +512,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         // $scope.addAlert(status, 'success');
         // $scope.addAlert(headers, 'success');
         // $scope.addAlert(config, 'success');
-        var measurement = data;
-        $scope.addAlert('BLiPP Test: ' + measurement.configuration.name + ' submitted to UNIS', 'success');
+        $scope.addAlert('BLiPP Test: ' + data.configuration.name + ' submitted to UNIS', 'success');
         $scope.alert = true;
       }).
       error(function(data, status, headers, config) {
@@ -519,8 +520,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         // $scope.addAlert(status, 'danger');
         // $scope.addAlert(headers, 'danger');
         // $scope.addAlert(config, 'danger');
-        var measurement = data;
-        $scope.addAlert('Status: ' + status.toString() + ', ' + 'Error: ' + measurement.error.message, 'danger');
+        $scope.addAlert('Status: ' + status.toString() + ', ' + 'Error: ' + data.error.message, 'danger');
         $scope.alert = true;
       });
     }

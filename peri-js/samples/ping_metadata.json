@@ -1,0 +1,21 @@
+{
+  $schema: "http://unis.incntre.iu.edu/schema/20140214/metadata#",
+  selfRef: "https://unis.incntre.iu.edu:8443/metadata/539cc241377f972d2e1aa4fb",
+  parameters: {
+    measurement: {
+      href: "https://unis.incntre.iu.edu:8443/measurements/3bb8f332f40c11e39a8402f2264ac13b",
+      rel: "full"
+    },
+    datumSchema: "http://unis.incntre.iu.edu/schema/20140214/datum#",
+    geni: {
+      slice_uuid: "0550d63c-ea71-4a12-a95f-8a558ec78fd7"
+    }
+  },
+  eventType: "ps:tools:blipp:linux:net:ping:rtt",
+  ts: 1402782273116677,
+  id: "539cc241377f972d2e1aa4fb",
+  subject: {
+    href: "https://unis.incntre.iu.edu:8443/nodes/VM.samurai.ch-geni-net.geni.kettering.edu",
+    rel: "full"
+  }
+}
