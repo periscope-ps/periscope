@@ -13,18 +13,18 @@ var fs = require('fs')
   , url = require('url');
 
 // production
-// var production = true;
-// var unis_host = 'unis.incntre.iu.edu';
-// var unis_port = '8443';
-// var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
-// var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
+var production = true;
+var unis_host = 'unis.incntre.iu.edu';
+var unis_port = '8443';
+var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
+var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
 
 // development
-var production = false;
-var unis_host = 'dev.incntre.iu.edu';
+// var production = false;
+// var unis_host = 'dev.incntre.iu.edu';
 // var unis_host = 'localhost';
 // var unis_port = '8888';
-var unis_port = '9001';
+// var unis_port = '9001';
 
 var slice_info = [];
 var filePath = '/usr/local/etc/node.info';
@@ -82,7 +82,7 @@ module.exports = function(app) {
           ms_url = split[1];
           ms_port = ms_url.split(":")[2];
           console.log("ms_port: " + ms_port);
-          ms_host = ms_url.split("//")[1];
+          ms_host = ms_url.split("//")[1].split(":")[0];
           console.log("ms_host: " + ms_host);
         }
 
@@ -1088,13 +1088,13 @@ module.exports = function(app) {
 
     var data_id = req.params.id;
 
-    /*if (production) {
+    if (production) {
       console.log('running in production');
 
       // HTTPS Options
       var https_get_options = {
-        hostname: unis_host,
-        port: unis_port,
+        hostname: ms_host,
+        port: ms_port,
         key: fs.readFileSync(unis_key),
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
@@ -1124,7 +1124,7 @@ module.exports = function(app) {
           res.send( 404 );
         });
       });
-    } else {*/
+    } else {
       // HTTP Options
       var http_get_options = {
         hostname: ms_host,
@@ -1153,7 +1153,7 @@ module.exports = function(app) {
           res.send( 404 );
         });
       });
-    //}
+    }
   });
 
   /*app.get('/api/helm', function(req, res) {
@@ -1199,7 +1199,7 @@ module.exports = function(app) {
         res.json(conf);
       }
     });
-  });*/
+  });
 
   /*app.post('/api/helm', function(req, res) {
     // store result
