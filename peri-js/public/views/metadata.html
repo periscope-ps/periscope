@@ -15,8 +15,8 @@
     </tr>
     <tr ng-repeat="metadata in metadatas | unique:'id' | orderBy:'-ts'">
       <td>{{ metadata.eventType }}</td>
-      <td>{{ metadata.parameters.measurement.href }}</td>
-      <td>{{ metadata.subject.href }}</td>
+      <td><a href="/measurements/{{getMetadataMeasurementID(metadata.subject.href)}}">{{ getMetadataMeasurement(metadata.parameters.measurement.href) }}</a></td>
+      <td>{{ getMetadataNode(metadata.subject.href) }}</td>
       <td>{{ metadata.ts / 1000 | date:'yyyy-MM-d (EEE) @ h:m:s a Z'}}</td>
     </tr>
   </table>
