@@ -4,83 +4,57 @@
  * MeasurementCtrl.js
  */
 
-angular.module('MeasurementCtrl', []).controller('MeasurementController', function($scope, $http, $routeParams, $location, Measurement, Service) {
+angular.module('MeasurementCtrl', []).controller('MeasurementController', function($scope, $routeParams, $location, Measurement, Metadata, Service, Node) {
 
-  var meas_id = $routeParams.id;
+  var measurement_id = $routeParams.id;
 
-  // $scope.eventData = {};
-  $scope.measData = {};
-  // $scope.alerts = [];
-  $scope.timeTypes = [
-        {type:'Seconds'},
-        {type:'Minutes'},
-        {type:'Hours'},
-        {type:'Days'}
-  ];
-
-  /*$scope.toggleEdit = function() {
-    $scope.btnEdit = $scope.btnEdit === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
-    $scope.addEdit = $scope.addEdit === true ? false: true;
-    $scope.alert = false;
-  };
-
-  $scope.addAlert = function(msg, type) {
-    $scope.alerts.push({type: type, msg: msg});
-  };
-  $scope.closeAlert = function(index) {
-    $scope.alerts.splice(index, 1);
-  };*/
+  // $scope.measurementData = {};
 
   Measurement.getMeasurements(function(measurements) {
     $scope.measurements = measurements;
   });
-
   Service.getServices(function(services) {
     $scope.services = services;
   });
-
-  if (meas_id) {
+  Node.getNodes(function(nodes) {
+    $scope.nodes = nodes;
+  });
+  if (measurement_id) {
     Measurement.getMeasurement(function(measurement) {
       $scope.measurement = measurement;
+    });
+    Metadata.getMetadatas(function(metadatas) {
+      $scope.metadatas = metadatas;
+      var measurementMetadata = [];
+
+      for(var i = 0; i < $scope.metadatas.length; i++) {
+        if ($scope.metadatas[i].parameters.measurement.href.split("/")[4] === measurement_id) {
+          measurementMetadata.push($scope.metadatas[i]);
+        }
+      }
+      $scope.measurementMetadata = measurementMetadata;
     });
   }
 
   $scope.getMeasurementService = function(href) {
     var service_id = href.split('/')[4];
 
-    for(var i = 0; $scope.services.length; i++) {
+    for(var i = 0; i < $scope.services.length; i++) {
       if ($scope.services[i].id == service_id) {
         return $scope.services[i].name;
       }
     }
   };
 
-  /*$scope.viewData = function(event) {
-    if (event.$invalid) {
-      // If form is invalid, return and let AngularJS show validation errors.
-      $scope.addAlert('Invalid form, cannot be submitted', 'danger');
-      $scope.alert = true;
-      return;
-    } else {
-      // copy data submitted by form
-      $scope.eventData = angular.copy(event);
+  $scope.getMeasurementNode = function(href) {
+    var node_id = href.split('/')[4];
 
-      var event_type = $scope.eventData.type[0];
-
-      //lookup metadata
-      //find data id in metadata
-      //get data with id and event type
-      //$location.path('/data/' + id);
-
-      // Tell user form has been sent
-      $scope.addAlert($scope.eventData.type[0], 'info');
-      $scope.alert = true;
+    for(var i = 0; i < $scope.nodes.length; i++) {
+      if ($scope.nodes[i].id == node_id) {
+        return $scope.nodes[i].name;
+      }
     }
-  };*/
-
-  /*$scope.measUnchanged = function(measurement) {
-    return angular.equals(measurement, $scope.measData);
-  };*/
+  };
 
   $scope.measOFF = function() {
     if ($scope.measurement.configuration.status === 'ON') {
@@ -99,15 +73,15 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
       return;
     } else {
       // copy data submitted by form
-      $scope.measData = angular.copy(measurement);
+      $scope.measurementData = angular.copy(measurement);
 
-      $scope.measData["status"] = "ON";
+      $scope.measurementData["status"] = "ON";
 
       $http({
         method: 'PUT',
-        url: '/api/measurements/' + $scope.measData.id,
-        data: $scope.measData,
-        headers: {'Content-type': 'application/perfsonar+json', 'Content-Length': $scope.measData.length}
+        url: '/api/measurements/' + $scope.measurementData.id,
+        data: $scope.measurementData,
+        headers: {'Content-type': 'application/perfsonar+json', 'Content-Length': $scope.measurementData.length}
       }).
       success(function(data, status, headers, config) {
         $scope.addAlert(data, 'success');
@@ -137,15 +111,15 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
       return;
     } else {
       // copy data submitted by form
-      $scope.measData = angular.copy(measurement);
+      $scope.measurementData = angular.copy(measurement);
 
-      $scope.measData["status"] = "OFF";
+      $scope.measurementData["status"] = "OFF";
 
       $http({
         method: 'DELETE',
-        url: '/api/measurements/' + $scope.measData.id,
-        data: $scope.measData,
-        headers: {'Content-type': 'application/perfsonar+json', 'Content-Length': $scope.measData.length}
+        url: '/api/measurements/' + $scope.measurementData.id,
+        data: $scope.measurementData,
+        headers: {'Content-type': 'application/perfsonar+json', 'Content-Length': $scope.measurementData.length}
       }).
       success(function(data, status, headers, config) {
         $scope.addAlert(data, 'success');
@@ -166,8 +140,11 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
     }
   };*/
 
-  $scope.showDetails = function(id) {
-    $location.path('/measurements/' + id);
+  $scope.showDetails = function(measurement_id) {
+    $location.path('/measurements/' + measurement_id);
+  };
+  $scope.showMetadataData = function(metadata_id) {
+    $location.path('/metadata/' + metadata_id);
   };
 
 });
