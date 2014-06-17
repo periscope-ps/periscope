@@ -10,15 +10,15 @@
     </colgroup>
     <tr>
       <th>Event Type</th>
-      <th>Details</th>
+      <th>Measurement Data</th>
       <th>Measurement</th>
       <th>Node</th>
       <th>Timestamp</th>
     </tr>
     <tr ng-repeat="metadata in metadatas | unique:'id' | orderBy:'-ts'">
       <td>{{ metadata.eventType }}</td>
-      <td><button ng-click="showDetails(metadata.id)" class="btn btn-info">Details</button></td>
-      <td><a href="/measurements/{{getMetadataMeasurementID(metadata.subject.href)}}">{{ getMetadataMeasurement(metadata.parameters.measurement.href) }}</a></td>
+      <td><button ng-click="showMetadataData(metadata.id)" class="btn btn-info">View Data</button></td>
+      <td><a href="/measurements/{{getMetadataMeasurementID(metadata.parameters.measurement.href)}}">{{ getMetadataMeasurement(metadata.parameters.measurement.href) }}</a></td>
       <td>{{ getMetadataNode(metadata.subject.href) }}</td>
       <td>{{ metadata.ts / 1000 | date:'yyyy-MM-d (EEE) @ h:m:s a Z'}}</td>
     </tr>

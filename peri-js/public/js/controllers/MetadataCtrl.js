@@ -21,6 +21,9 @@ angular.module('MetadataCtrl', []).controller('MetadataController', function($sc
     Metadata.getMetadata(function(metadata) {
       $scope.metadata = metadata;
     });
+    Metadata.getMetadataData(function(metadataData) {
+      $scope.metadataData = metadataData;
+    });
   }
 
   $scope.getMetadataMeasurement = function(href) {
@@ -45,7 +48,7 @@ angular.module('MetadataCtrl', []).controller('MetadataController', function($sc
     }
   };
 
-  $scope.showDetails = function(id) {
-    $location.path('/metadata/' + id);
+  $scope.showMetadataData = function(metadata_id) {
+    $location.path('/metadata/' + metadata_id);
   };
 });
