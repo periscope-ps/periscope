@@ -21,10 +21,10 @@ var fs = require('fs')
 
 // development
 var production = false;
-// var unis_host = 'dev.incntre.iu.edu';
-var unis_host = 'localhost';
-var unis_port = '8888';
-// var unis_port = '9001';
+var unis_host = 'dev.incntre.iu.edu';
+var unis_port = '9001';
+// var unis_host = 'localhost';
+// var unis_port = '8888';
 
 var slice_info = [];
 var filePath = '/usr/local/etc/node.info';
@@ -113,7 +113,7 @@ module.exports = function(app) {
     routes.push('http://' + hostname + pathname + '/services');
     routes.push('http://' + hostname + pathname + '/measurements');
     routes.push('http://' + hostname + pathname + '/metadata');
-    routes.push('http://' + hostname + pathname + '/data');
+    // routes.push('http://' + hostname + pathname + '/data');
     // routes.push('http://' + hostname + pathname + '/helm');
     // routes.push('http://' + hostname + pathname + '/help');
 

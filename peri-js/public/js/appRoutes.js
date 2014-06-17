@@ -35,6 +35,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
       templateUrl: 'views/measurement.html',
       controller: 'MeasurementController'
     }).
+    when('/metadata/', {
+      templateUrl: 'views/metadata.html',
+      controller: 'MetadataController'
+    }).
     when('/help', {
       templateUrl: 'views/help.html',
       controller: 'HelpController'

@@ -8,9 +8,9 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
 
   var meas_id = $routeParams.id;
 
-  $scope.eventData = {};
+  // $scope.eventData = {};
   $scope.measData = {};
-  $scope.alerts = [];
+  // $scope.alerts = [];
   $scope.timeTypes = [
         {type:'Seconds'},
         {type:'Minutes'},
@@ -18,7 +18,7 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
         {type:'Days'}
   ];
 
-  $scope.toggleEdit = function() {
+  /*$scope.toggleEdit = function() {
     $scope.btnEdit = $scope.btnEdit === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
     $scope.addEdit = $scope.addEdit === true ? false: true;
     $scope.alert = false;
@@ -29,7 +29,7 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
   };
   $scope.closeAlert = function(index) {
     $scope.alerts.splice(index, 1);
-  };
+  };*/
 
   Measurement.getMeasurements(function(measurements) {
     $scope.measurements = measurements;
@@ -56,7 +56,7 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
     }
   };
 
-  $scope.viewData = function(event) {
+  /*$scope.viewData = function(event) {
     if (event.$invalid) {
       // If form is invalid, return and let AngularJS show validation errors.
       $scope.addAlert('Invalid form, cannot be submitted', 'danger');
@@ -77,7 +77,7 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
       $scope.addAlert($scope.eventData.type[0], 'info');
       $scope.alert = true;
     }
-  };
+  };*/
 
   /*$scope.measUnchanged = function(measDetails) {
     return angular.equals(measDetails, $scope.measData);
@@ -91,7 +91,7 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
     }
   };
 
-  $scope.measPUT = function(measDetails) {
+  /*$scope.measPUT = function(measDetails) {
 
     if (measDetails.$invalid) {
       // If form is invalid, return and let AngularJS show validation errors.
@@ -127,9 +127,9 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
         $scope.alert = true;
       });
     }
-  };
+  };*/
 
-  $scope.measDELETE = function(measDetails) {
+  /*$scope.measDELETE = function(measDetails) {
 
     if (measDetails.$invalid) {
       // If form is invalid, return and let AngularJS show validation errors.
@@ -165,7 +165,7 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
         $scope.alert = true;
       });
     }
-  };
+  };*/
 
   $scope.showDetails = function(id) {
     $location.path('/measurements/' + id);
