@@ -41,8 +41,7 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
 
   if (meas_id) {
     Measurement.getMeasurement(function(measurement) {
-      $scope.measDetails = measurement;
-      $scope.measEventTypes = measurement.eventTypes;
+      $scope.measurement = measurement;
     });
   }
 
@@ -79,28 +78,28 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
     }
   };*/
 
-  /*$scope.measUnchanged = function(measDetails) {
-    return angular.equals(measDetails, $scope.measData);
+  /*$scope.measUnchanged = function(measurement) {
+    return angular.equals(measurement, $scope.measData);
   };*/
 
   $scope.measOFF = function() {
-    if ($scope.measDetails.configuration.status === 'ON') {
+    if ($scope.measurement.configuration.status === 'ON') {
       return false;
     } else {
       return true;
     }
   };
 
-  /*$scope.measPUT = function(measDetails) {
+  /*$scope.measPUT = function(measurement) {
 
-    if (measDetails.$invalid) {
+    if (measurement.$invalid) {
       // If form is invalid, return and let AngularJS show validation errors.
       $scope.addAlert('Invalid form, cannot be submitted', 'danger');
       $scope.alert = true;
       return;
     } else {
       // copy data submitted by form
-      $scope.measData = angular.copy(measDetails);
+      $scope.measData = angular.copy(measurement);
 
       $scope.measData["status"] = "ON";
 
@@ -129,16 +128,16 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
     }
   };*/
 
-  /*$scope.measDELETE = function(measDetails) {
+  /*$scope.measDELETE = function(measurement) {
 
-    if (measDetails.$invalid) {
+    if (measurement.$invalid) {
       // If form is invalid, return and let AngularJS show validation errors.
       $scope.addAlert('Invalid form, cannot be submitted', 'danger');
       $scope.alert = true;
       return;
     } else {
       // copy data submitted by form
-      $scope.measData = angular.copy(measDetails);
+      $scope.measData = angular.copy(measurement);
 
       $scope.measData["status"] = "OFF";
 

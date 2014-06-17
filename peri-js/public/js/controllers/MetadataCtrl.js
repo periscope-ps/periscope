@@ -4,7 +4,9 @@
  * MetadataCtrl.js
  */
 
-angular.module('MetadataCtrl', []).controller('MetadataController', function($scope, Metadata, Measurement, Node) {
+angular.module('MetadataCtrl', []).controller('MetadataController', function($scope, $routeParams, $location, Metadata, Measurement, Node) {
+
+  var metadata_id = $routeParams.id;
 
   Metadata.getMetadatas(function(metadatas) {
     $scope.metadatas = metadatas;
@@ -15,6 +17,11 @@ angular.module('MetadataCtrl', []).controller('MetadataController', function($sc
   Node.getNodes(function(nodes) {
     $scope.nodes = nodes;
   });
+  if (metadata_id) {
+    Metadata.getMetadata(function(metadata) {
+      $scope.metadata = metadata;
+    });
+  }
 
   $scope.getMetadataMeasurement = function(href) {
     var measurement_id = href.split('/')[4];
@@ -36,5 +43,9 @@ angular.module('MetadataCtrl', []).controller('MetadataController', function($sc
         return $scope.nodes[i].name;
       }
     }
+  };
+
+  $scope.showDetails = function(id) {
+    $location.path('/metadata/' + id);
   };
 });
