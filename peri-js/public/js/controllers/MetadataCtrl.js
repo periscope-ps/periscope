@@ -23,6 +23,17 @@ angular.module('MetadataCtrl', []).controller('MetadataController', function($sc
     });
     Metadata.getMetadataData(function(metadataData) {
       $scope.metadataData = metadataData;
+
+      var arrayData = [];
+      angular.forEach($scope.metadataData, function(key, value) {
+        arrayData.push([key.ts, key.value]);
+      });
+
+      $scope.graphData = [
+      {
+        "key": "Data Point",
+        "values": arrayData
+      }];
     });
   }
 
