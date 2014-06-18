@@ -105,6 +105,9 @@ function tick() {
 
 // update graph (called when needed)
 function restart() {
+  console.log("nodes: " + nodes);
+  console.log("links: " + links);
+
   // path (link) group
   path = path.data(links);
 
@@ -124,6 +127,7 @@ function restart() {
 
       // select link
       mousedown_link = d;
+      console.log("mousedown_link: " + mousedown_link);
       if(mousedown_link === selected_link) selected_link = null;
       else selected_link = mousedown_link;
       selected_node = null;
@@ -197,6 +201,8 @@ function restart() {
       // NB: links are strictly source < target; arrows separately specified by booleans
       var source, target, direction;
       if(mousedown_node.id < mouseup_node.id) {
+        // console.log("mousedown_node.id: " + mousedown_node.id);
+        // console.log("mouseup_node.id: " + mouseup_node.id);
         source = mousedown_node;
         target = mouseup_node;
         direction = 'right';
