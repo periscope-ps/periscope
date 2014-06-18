@@ -224,14 +224,16 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
 
         // lookup service running on given node
         var nodeService = $scope.getNodeService($scope.helmFullData.nodes.split(" ")[1]);
-
+        alert("tesing");
         var helm_measurement = {
           $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
           service: nodeService,
           ts: Math.round(new Date().getTime() * 1000),
           participants: [
-            {from: "NYC", to: "LA"},
-            {from: "LA", to: "NYC"}
+            {from: "http://dev.incntre.iu.edu:8888/services/53a0f217e779897d03000007", to: "http://dev.incntre.iu.edu:8888/services/53a0f21fe779897d0300000b"},
+            {from: "http://dev.incntre.iu.edu:8888/services/53a0f21fe779897d0300000b", to: "http://dev.incntre.iu.edu:8888/services/53a0f217e779897d03000007"},
+            {from: "http://dev.incntre.iu.edu:8888/services/53a0f211e779897d03000003", to: "http://dev.incntre.iu.edu:8888/services/53a0f21fe779897d0300000b"},
+            {from: "http://dev.incntre.iu.edu:8888/services/53a0f21fe779897d0300000b", to: "http://dev.incntre.iu.edu:8888/services/53a0f211e779897d03000003"}
           ],
           properties: {
             geni: {
