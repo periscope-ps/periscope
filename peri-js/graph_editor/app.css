@@ -56,7 +56,7 @@ text.id {
 }
 
 /* custom styles */
-#node{
+#graphSelect{
   outline:black dotted thick;
   height: 400px;
   width: 400px;

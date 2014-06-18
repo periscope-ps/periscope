@@ -3,7 +3,7 @@ var width  = 400,
     height = 400,
     colors = d3.scale.category10();
 
-var svg = d3.select('#node')
+var svg = d3.select('#graphSelect')
   .append('svg')
   .attr('width', width)
   .attr('height', height);
