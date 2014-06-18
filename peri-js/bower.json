@@ -10,6 +10,9 @@
     "angular-mocks": "1.2.16",
     "angular-bootstrap": "0.11.0",
     "angular-animate": "1.2.16",
-    "angular-ui-utils": "~0.1.1"
+    "angular-ui-utils": "~0.1.1",
+    "d3": "~3.4.8",
+    "nvd3": "~1.1.15-beta",
+    "angularjs-nvd3-directives": "~0.0.7"
   }
 }
