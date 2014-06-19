@@ -9,11 +9,11 @@ angular.module('NodeService', []).service('Node', function($http) {
   this.getNodes = function(nodes) {
     $http.get('/api/nodes')
       .success(function(data) {
-        console.log('Request: ' + data);
+        console.log('Node Request: ' + data);
         nodes(data);
       })
       .error(function(data) {
-        console.log('Error: ' + data);
+        console.log('Node Error: ' + data);
       });
   };
 
