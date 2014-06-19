@@ -94,11 +94,6 @@ circle.node {
   cursor: pointer;
 }
 
-/*circle.node.reflexive {
-  stroke: #000 !important;
-  stroke-width: 2.5px;
-}*/
-
 text {
   font: 12px sans-serif;
   pointer-events: none;
@@ -121,17 +116,16 @@ text.id {
  is attached to the element once the enter animation event is triggered
 */
 .mainview-animation.ng-enter {
-  -webkit-transition: .3s linear all; /* Safari/Chrome */
-  -moz-transition: .3s linear all; /* Firefox */
-  -o-transition: .3s linear all; /* Opera */
-  transition: .3s linear all; /* IE10+ and Future Browsers */
+  -webkit-transition: .3s linear all;
+  -moz-transition: .3s linear all;
+  -o-transition: .3s linear all;
+  transition: .3s linear all;
 }
 
 /**
  * Pre animation -> enter
  */
 .mainview-animation.ng-enter {
-  /* The animation preparation code */
   opacity: 0;
 }
 
@@ -139,6 +133,5 @@ text.id {
  * Post animation -> enter
  */
 .mainview-animation.ng-enter.ng-enter-active {
-  /* The animation code itself */
   opacity: 1;
 }
