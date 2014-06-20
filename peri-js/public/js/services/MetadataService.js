@@ -29,11 +29,7 @@ angular.module('MetadataService', []).service('Metadata', function($http, $route
   };
 
   this.getMetadataData = function(metadataData) {
-    // for tesing
-    var data_id = '539cc241377f972d2e1aa4fb';
-    // var data_id = $routeParams.id;
-
-    $http.get('/api/data/' + data_id)
+    $http.get('/api/data/' + $routeParams.id)
       .success(function(data) {
         console.log('Request: ' + data);
         metadataData(data);
