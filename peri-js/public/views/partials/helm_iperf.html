@@ -13,6 +13,14 @@
     </div>
   </div>
 
+  <div class="form-group row" ng-class="{ 'has-error' : helmIperfForm.pNT.$invalid && !helmIperfForm.pNT.$pristine }">
+    <label for="perfNT" class="col-md-2 control-label">Number of Tests</label>
+    <div class="col-md-5">
+      <input ng-model="helmIperf.num_tests" name="pNT" type="text" class="form-control" id="perfNT" placeholder="Integer Value" required>
+      <p ng-show="helmIperfForm.pNT.$invalid && !helmIperfForm.pNT.$pristine" class="help-block">Please enter a value for time</p>
+    </div>
+  </div>
+
   <div class="form-group row" ng-class="{ 'has-error' : helmIperfForm.pTBT.$invalid && !helmIperfForm.pTBT.$pristine }">
     <label for="perfTBT" class="col-md-2 control-label">Time Between Tests</label>
     <div class="col-md-5">
@@ -47,24 +55,9 @@
   </div>
 
   <div class="form-group row">
-    <label for="iperfAutotuning" class="col-md-2 control-label">Use Autotuning</label>
-    <div class="col-md-10">
-      <input type="checkbox" id="iperfAutotuning" value="iperfAutotuningOption">
-    </div>
-  </div>
-
-  <div class="form-group row" ng-class="{ 'has-error' : helmIperfForm.pTH.$invalid && !helmIperfForm.pTH.$pristine }">
-    <label for="perfTH" class="col-md-2 control-label">Target Host</label>
-    <div class="col-md-10">
-      <input ng-model="helmIperf.th" name="pTH" type="text" class="form-control" id="perfTH" placeholder="Target Host" required>
-      <p ng-show="helmIperfForm.pTH.$invalid && !helmIperfForm.pTH.$pristine" class="help-block">Please enter a target host</p>
-    </div>
-  </div>
-
-  <div class="form-group row">
     <div class="col-md-offset-2 col-md-10">
       <button ng-click="helmSubmit(helmIperf)" ng-disabled="helmIperfForm.$invalid || helmIperfUnchanged(helmIperf)" class="btn btn-primary">Submit Throughput Test</button>
-      <button ng-click="helmIperfReset()" class="btn btn-danger pull-right">Restore Defaults</button>
+      <button ng-click="helmReset()" class="btn btn-danger pull-right">Restore Defaults</button>
     </div>
   </div>
 
