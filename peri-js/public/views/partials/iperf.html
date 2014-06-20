@@ -9,7 +9,7 @@
 
 <form name="perfForm" novalidate>
 
-<div class="form-group row" ng-class="{ 'has-error' : perfForm.pFrom.$invalid && !perfForm.pFrom.$pristine }">
+  <div class="form-group row" ng-class="{ 'has-error' : perfForm.pFrom.$invalid && !perfForm.pFrom.$pristine }">
     <label for="perfFrom" class="col-md-2 control-label">Source</label>
     <div class="col-md-10">
       <select ng-model="perf.from" name="pFrom" id="perfFrom" class="form-control" required>
@@ -26,6 +26,14 @@
         <p ng-show="perfForm.pDesc.$invalid && !perfForm.pDesc.$pristine" class="help-block">Please describe test</p>
         <p ng-show="perfForm.pDesc.$error.minlength" class="help-block">Description must be at least 3 characters</p>
         <p ng-show="perfForm.pDesc.$error.maxlength" class="help-block">Description cannot exceed 30 characters</p>
+    </div>
+  </div>
+
+  <div class="form-group row" ng-class="{ 'has-error' : perfForm.pNT.$invalid && !perfForm.pNT.$pristine }">
+    <label for="perfNT" class="col-md-2 control-label">Number of Tests</label>
+    <div class="col-md-10">
+      <input ng-model="perf.num_tests" name="pNT" type="text" class="form-control" id="perfNT" placeholder="Integer Value" required>
+      <p ng-show="perfForm.pNT.$invalid && !perfForm.pNT.$pristine" class="help-block">Please enter a value for time</p>
     </div>
   </div>
 
@@ -62,12 +70,12 @@
     </div>
   </div>
 
-  <div class="form-group row">
-    <label for="iperfAutotuning" class="col-md-2 control-label">Use Autotuning</label>
-    <div class="col-md-10">
-      <input type="checkbox" id="iperfAutotuning" value="iperfAutotuningOption">
-    </div>
-  </div>
+  <!-- <div class="form-group row"> -->
+    <!-- <label for="iperfAutotuning" class="col-md-2 control-label">Use Autotuning</label> -->
+    <!-- <div class="col-md-10"> -->
+      <!-- <input type="checkbox" id="iperfAutotuning" value="iperfAutotuningOption"> -->
+    <!-- </div> -->
+  <!-- </div> -->
 
   <div class="form-group row" ng-class="{ 'has-error' : perfForm.pTH.$invalid && !perfForm.pTH.$pristine }">
     <label for="perfTH" class="col-md-2 control-label">Target Host</label>

@@ -29,6 +29,14 @@
     </div>
   </div>
 
+  <div class="form-group row" ng-class="{ 'has-error' : pingForm.pNT.$invalid && !pingForm.pNT.$pristine }">
+    <label for="pingNT" class="col-md-2 control-label">Number of Tests</label>
+    <div class="col-md-10">
+      <input ng-model="ping.num_tests" name="pNT" type="text" class="form-control" id="pingNT" placeholder="Integer Value" required>
+      <p ng-show="pingForm.pNT.$invalid && !pingForm.pNT.$pristine" class="help-block">Please enter a value for time</p>
+    </div>
+  </div>
+
   <div class="form-group row" ng-class="{ 'has-error' : pingForm.pTBT.$invalid && !pingForm.pTBT.$pristine }">
     <label for="pingTBT" class="col-md-2 control-label">Time Between Tests</label>
     <div class="col-md-5">

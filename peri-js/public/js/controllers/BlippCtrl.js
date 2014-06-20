@@ -79,6 +79,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     $scope.addPing = $scope.addPing === true ? false: true;
 
     // default form values
+    $scope.ping = angular.copy({});
+    $scope.ping.num_tests = 1;
     $scope.ping.tbtValue = 5;
     $scope.ping.tbtType = $scope.timeTypes[1];
     $scope.ping.packetsSent = 1;
@@ -118,6 +120,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
     // default form values
     $scope.perf = angular.copy({});
+    $scope.perf.num_tests = 1;
     $scope.perf.tbtValue = 4;
     $scope.perf.tbtType = $scope.timeTypes[2];
     $scope.perf.td = 20;
@@ -137,6 +140,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
     // default form values
     $scope.netlog = angular.copy({});
+    $scope.netlog.num_tests = 1;
     $scope.netlog.tbrValue = 5;
     $scope.netlog.tbrType = $scope.timeTypes[0];
     $scope.netlog.reportMS = 10;
@@ -151,6 +155,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
     // clear client side form and reset defaults
     $scope.ping = angular.copy({});
+    $scope.ping.num_tests = 1;
     $scope.ping.tbtValue = 5;
     $scope.ping.tbtType = $scope.timeTypes[1];
     $scope.ping.packetsSent = 1;
@@ -181,6 +186,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
     // clear client side form and reset defaults
     $scope.perf = angular.copy({});
+    $scope.perf.num_tests = 1;
     $scope.perf.tbtValue = 4;
     $scope.perf.tbtType = $scope.timeTypes[2];
     $scope.perf.td = 20;
@@ -195,6 +201,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
     // clear client side form and reset defaults
     $scope.netlog = angular.copy({});
+    $scope.netlog.num_tests = 1;
     $scope.netlog.tbrValue = 5;
     $scope.netlog.tbrType = $scope.timeTypes[0];
     $scope.netlog.reportMS = 10;
@@ -232,6 +239,17 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       // copy data submitted by form
       $scope.pingData = angular.copy(ping);
 
+      var every;
+      if($scope.pingData.tbtType.type === 'Days') {
+        every = $scope.pingData.tbtValue * 86400;
+      } else if($scope.pingData.tbtType.type === 'Hours') {
+        every = $scope.pingData.tbtValue * 3600;
+      } else if($scope.pingData.tbtType.type === 'Minutes') {
+        every = $scope.pingData.tbtValue * 60;
+      } else {
+        every = $scope.pingData.tbtValue;
+      }
+
       // build ping command from user options
       var ping_command = "ping -c 1 -s " + $scope.pingData.packetSize + " -i " + $scope.pingData.tbp + " " + $scope.pingData.to.split(" ")[0];
 
@@ -263,7 +281,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
           packet_count: 1,
           command: ping_command,
           schedule_params: {
-            every: $scope.pingData.tbtValue
+            every: every,
+            num_tests: $scope.pingData.num_tests
           },
           collection_size: 100000,
           ms_url: $scope.geniSlice.ms_url,
@@ -387,6 +406,17 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       // copy data submitted by form
       $scope.perfData = angular.copy(perf);
 
+      var every;
+      if($scope.perfData.tbtType.type === 'Days') {
+        every = $scope.perfData.tbtValue * 86400;
+      } else if($scope.perfData.tbtType.type === 'Hours') {
+        every = $scope.perfData.tbtValue * 3600;
+      } else if($scope.perfData.tbtType.type === 'Minutes') {
+        every = $scope.perfData.tbtValue * 60;
+      } else {
+        every = $scope.perfData.tbtValue;
+      }
+
       // build ping command from user options
       if ($scope.perfData.proto.type == 'udp') {
         var perf_command = "iperf -u -c " + $scope.perfData.th + " -t 20 -y C ";
@@ -417,7 +447,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
           probe_module: "cmd_line_probe",
           test_duration: $scope.perfData.td,
           schedule_params: {
-            every: $scope.perfData.tbtValue
+            every: every,
+            num_tests: $scope.perfData.num_tests
           },
           tool: "iperf",
           reporting_params: 1,
@@ -473,6 +504,17 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       // copy data submitted by form
       $scope.netlogData = angular.copy(netlog);
 
+      var every;
+      if($scope.netlogData.tbrType.type === 'Days') {
+        every = $scope.netlogData.tbrValue * 86400;
+      } else if($scope.netlogData.tbrType.type === 'Hours') {
+        every = $scope.netlogData.tbrValue * 3600;
+      } else if($scope.netlogData.tbrType.type === 'Minutes') {
+        every = $scope.netlogData.tbrValue * 60;
+      } else {
+        every = $scope.netlogData.tbrValue;
+      }
+
       // lookup service running on given node
       var nodeService = $scope.getNodeService($scope.netlogData.from.split(" ")[1]);
 
@@ -491,7 +533,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
           reporting_params: $scope.netlogData.reportMS,
           name: $scope.netlogData.desc,
           schedule_params: {
-            every: $scope.netlogData.tbrValue
+            every: every,
+            num_tests: $scope.netlogData.num_tests
           },
           collection_schedule: "builtins.simple",
           ms_url: $scope.geniSlice.ms_url,
