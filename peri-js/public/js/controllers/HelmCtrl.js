@@ -187,10 +187,10 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
             window_size: 0,
             protocol: $scope.helmIperfData.proto.type,
             probe_module: "cmd_line_probe",
-            test_duration: $scope.helmIperfData.td,
+            test_duration: parseInt($scope.helmIperfData.td),
             schedule_params: {
               every: every,
-              num_tests: $scope.helmIperfData.num_tests
+              num_tests: parseInt($scope.helmIperfData.num_tests)
             },
             tool: "iperf",
             reporting_params: 1,
@@ -259,16 +259,16 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
           configuration: {
             status: "ON",
             regex: "ttl=(?P<ttl>\d+).*time=(?P<rtt>\d+\.\d+|\d+)",
-            reporting_params: $scope.helmPingData.reportMS,
+            reporting_params: parseInt($scope.helmPingData.reportMS),
             probe_module: "cmd_line_probe",
-            packet_interval: $scope.helmPingData.pTBP,
+            packet_interval: parseInt($scope.helmPingData.pTBP),
             collection_schedule: "builtins.simple",
-            packet_size: $scope.helmPingData.packetSize,
+            packet_size: parseInt($scope.helmPingData.packetSize),
             packet_count: 1,
             command: ping_command,
             schedule_params: {
               every: every,
-              num_tests: $scope.helmIperfData.num_tests
+              num_tests: parseInt($scope.helmIperfData.num_tests)
             },
             collection_size: 100000,
             ms_url: $scope.geniSlice.ms_url,

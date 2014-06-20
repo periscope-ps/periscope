@@ -273,16 +273,16 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         configuration: {
           status: "ON",
           regex: "ttl=(?P<ttl>\d+).*time=(?P<rtt>\d+\.\d+|\d+)",
-          reporting_params: $scope.pingData.reportMS,
+          reporting_params: parseInt($scope.pingData.reportMS),
           probe_module: "cmd_line_probe",
-          packet_interval: $scope.pingData.pTBP,
+          packet_interval: parseInt($scope.pingData.pTBP),
           collection_schedule: "builtins.simple",
-          packet_size: $scope.pingData.packetSize,
+          packet_size: parseInt($scope.pingData.packetSize),
           packet_count: 1,
           command: ping_command,
           schedule_params: {
             every: every,
-            num_tests: $scope.pingData.num_tests
+            num_tests: parseInt($scope.pingData.num_tests)
           },
           collection_size: 100000,
           ms_url: $scope.geniSlice.ms_url,
@@ -445,10 +445,10 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
           window_size: 0,
           protocol: $scope.perfData.proto.type,
           probe_module: "cmd_line_probe",
-          test_duration: $scope.perfData.td,
+          test_duration: parseInt($scope.perfData.td),
           schedule_params: {
             every: every,
-            num_tests: $scope.perfData.num_tests
+            num_tests: parseInt($scope.perfData.num_tests)
           },
           tool: "iperf",
           reporting_params: 1,
@@ -530,11 +530,11 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         eventTypes: [ ],
         configuration: {
           status: "ON",
-          reporting_params: $scope.netlogData.reportMS,
+          reporting_params: parseInt($scope.netlogData.reportMS),
           name: $scope.netlogData.desc,
           schedule_params: {
             every: every,
-            num_tests: $scope.netlogData.num_tests
+            num_tests: parseInt($scope.netlogData.num_tests)
           },
           collection_schedule: "builtins.simple",
           ms_url: $scope.geniSlice.ms_url,
