@@ -949,7 +949,7 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        path: '/metadata?properties.geni.slice_uuid=' + slice_uuid,
+        path: '/metadata?parameters.geni.slice_uuid=' + slice_uuid,
         // path: '/metadata',
         method: 'GET',
         headers: {
@@ -1025,7 +1025,7 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        path: '/metadata/' + metadata_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        path: '/metadata/' + metadata_id + '?parameters.geni.slice_uuid=' + slice_uuid,
         // path: '/metadata/' + metadata_id,
         method: 'GET',
         headers: {
@@ -1098,8 +1098,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        path: '/data?properties.geni.slice_uuid=' + slice_uuid,
-        // path: '/data',
+        // path: '/data?properties.geni.slice_uuid=' + slice_uuid,
+        path: '/data',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1174,8 +1174,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        path: '/data/' + data_id + '?properties.geni.slice_uuid=' + slice_uuid,
-        // path: '/data/' + data_id,
+        // path: '/data/' + data_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        path: '/data/' + data_id,
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
