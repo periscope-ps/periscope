@@ -52,7 +52,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
   // find the service running on a node
   $scope.getNodeService = function(node_ref) {
-    for(var i = 0; $scope.services.length; i++) {
+    for(var i = 0; i < $scope.services.length; i++) {
       if ($scope.services[i].runningOn.href == node_ref) {
         return $scope.services[i].selfRef;
       }

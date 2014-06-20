@@ -40,7 +40,7 @@ angular.module('MetadataCtrl', []).controller('MetadataController', function($sc
   $scope.getMetadataMeasurement = function(href) {
     var measurement_id = href.split('/')[4];
 
-    for(var i = 0; $scope.measurements.length; i++) {
+    for(var i = 0; i < $scope.measurements.length; i++) {
       if ($scope.measurements[i].id == measurement_id) {
         return $scope.measurements[i].configuration.name;
       }
@@ -52,7 +52,7 @@ angular.module('MetadataCtrl', []).controller('MetadataController', function($sc
   $scope.getMetadataNode = function(href) {
     var node_id = href.split('/')[4];
 
-    for(var i = 0; $scope.nodes.length; i++) {
+    for(var i = 0; i < $scope.nodes.length; i++) {
       if ($scope.nodes[i].id == node_id) {
         return $scope.nodes[i].name;
       }

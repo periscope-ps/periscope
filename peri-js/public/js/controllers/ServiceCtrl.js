@@ -17,12 +17,10 @@ angular.module('ServiceCtrl', []).controller('ServiceController', function($scop
   $scope.getServiceNode = function(href) {
     var node_id = href.split('/')[4];
 
-    for(var i = 0; $scope.nodes.length; i++) {
+    for(var i = 0; i < $scope.nodes.length; i++) {
       if ($scope.nodes[i].id == node_id) {
-        return $scope.nodes[i].name;
+          return $scope.nodes[i].name;
       }
     }
   };
-
-
 });
