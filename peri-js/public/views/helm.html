@@ -1,9 +1,25 @@
 <h2 class="lead text-center">Schedule HELM Test</h2>
 
+<directed-graph nodes="graphNodes" links="graphLinks"></directed-graph>
+
+<p class="lead">Graph Nodes</p>
+<p ng-repeat="node in graphNodes">{{node}}</p>
+
+<p class="lead">Graph Links</p>
+{{graphLinks}}
+
+<hr />
+
 <div class="form-group">
-  <button ng-click="toggleFull()" ng-class="btnFull" class="btn btn-default">Full Mesh Test</button>
-  <button ng-click="togglePartial()" ng-class="btnPartial" class="btn btn-default">Partial Mesh Test</button>
+  <button ng-click="toggleIperf()" ng-class="btnIperf" class="btn btn-default">Throughput Test</button>
+  <button ng-click="togglePing()" ng-class="btnPing" class="btn btn-default">Ping Test</button>
 </div>
 
-<div ng-show="addFull" ng-include src="'views/partials/helm_full.html'"></div>
-<div ng-show="addPartial" ng-include src="'views/partials/helm_partial.html'"></div>
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+  <b>{{alert.msg}}</b>
+  <br />
+  <a ng-href="/measurements">View measurements here</a>
+</alert>
+
+<div ng-show="addPing" ng-include src="'views/partials/helm_ping.html'"></div>
+<div ng-show="addIperf" ng-include src="'views/partials/helm_iperf.html'"></div>

@@ -105,10 +105,11 @@ text.id {
 }
 
 #graphSelect{
-  outline:black dotted thick;
+  /*outline:black dotted thick;*/
   height: 400px;
-  width: 400px;
-  margin: 50px;
+  width: 600px;
+  /*margin: 50px;*/
+  margin:0 auto;
 }
 
 /*
