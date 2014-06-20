@@ -13,26 +13,26 @@ var fs = require('fs')
   , url = require('url');
 
 // production
-// var production = true;
-// var unis_host = 'unis.incntre.iu.edu';
-// var unis_port = '8443';
-// var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
-// var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
+var production = true;
+var unis_host = 'unis.incntre.iu.edu';
+var unis_port = '8443';
+var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
+var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
 
 // development
-var production = false;
-var unis_host = 'dev.incntre.iu.edu';
+// var production = false;
+// var unis_host = 'dev.incntre.iu.edu';
 // var unis_port = '9001';
 // var unis_host = 'localhost';
-var unis_port = '8888';
+// var unis_port = '8888';
 
 var slice_info = [];
 var filePath = '/usr/local/etc/node.info';
 var slice_uuid = '';
 var os_name = '';
 var distro = '';
-var ms_host = 'dev.incntre.iu.edu';
-var ms_port = '8888';
+var ms_host;
+var ms_port;
 
 module.exports = function(app) {
 
@@ -80,9 +80,9 @@ module.exports = function(app) {
 
         if(split[0] === 'ms_instance') {
           ms_url = split[1];
-          // ms_port = ms_url.split(":")[2];
+          ms_port = ms_url.split(":")[2];
           console.log("ms_port: " + ms_port);
-          // ms_host = ms_url.split("//")[1].split(":")[0];
+          ms_host = ms_url.split("//")[1].split(":")[0];
           console.log("ms_host: " + ms_host);
         }
 
@@ -117,8 +117,6 @@ module.exports = function(app) {
     routes.push('http://' + hostname + pathname + '/links');
     routes.push('http://' + hostname + pathname + '/ports');
     routes.push('http://' + hostname + pathname + '/domains');
-    // routes.push('http://' + hostname + pathname + '/helm');
-    // routes.push('http://' + hostname + pathname + '/help');
 
     res.json(routes);
   });
@@ -951,8 +949,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/metadata?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/metadata',
+        path: '/metadata?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/metadata',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1027,8 +1025,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/metadata/' + metadata_id + '?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/metadata/' + metadata_id,
+        path: '/metadata/' + metadata_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/metadata/' + metadata_id,
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1100,8 +1098,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/data?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/data',
+        path: '/data?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/data',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1176,8 +1174,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/data/' + data_id + '?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/data/' + data_id,
+        path: '/data/' + data_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/data/' + data_id,
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1249,8 +1247,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/links?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/links',
+        path: '/links?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/links',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1325,8 +1323,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/links/' + link_id + '?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/links/' + link_id,
+        path: '/links/' + link_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/links/' + link_id,
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1398,8 +1396,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/ports?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/ports',
+        path: '/ports?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/ports',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1474,8 +1472,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/ports/' + port_id + '?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/ports/' + port_id,
+        path: '/ports/' + port_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/ports/' + port_id,
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1547,8 +1545,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/domains?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/domains',
+        path: '/domains?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/domains',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1623,8 +1621,8 @@ module.exports = function(app) {
         cert: fs.readFileSync(unis_cert),
         requestCert: true,
         rejectUnauthorized: false,
-        // path: '/domains/' + domain_id + '?properties.geni.slice_uuid=' + slice_uuid,
-        path: '/domains/' + domain_id,
+        path: '/domains/' + domain_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/domains/' + domain_id,
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1679,99 +1677,6 @@ module.exports = function(app) {
       });
     }
   });
-
-  /*app.get('/api/helm', function(req, res) {
-
-    // HTTP Options
-    var options = {
-        hostname: 'localhost',
-        port: 8888,
-        path: '/measurements',
-        method: 'GET',
-        headers: {
-            'content-type': 'application/json',
-            'connection': 'keep-alive'
-        }
-    };
-
-    // GET JSON and Render to our API
-    http.get(options, function(http_res) {
-      var data = '';
-
-      http_res.on('data', function (chunk) {
-        data += chunk;
-      });
-
-      http_res.on('end',function() {
-        var obj = JSON.parse(data);
-        console.log( obj );
-        res.json( obj );
-      });
-
-    });
-
-    // Manually invoke helm approach
-    var filePath = '/Users/MarksMacMachine/research/UNISrt/samples/HELM/helm.conf';
-
-    fs.readFile(filePath, {encoding: 'utf-8'}, function(err, data) {
-      if (err) {
-        console.log(err);
-        res.send(err);
-      } else {
-        var conf = JSON.parse(data);
-        console.log(conf);
-        res.json(conf);
-      }
-    });
-  });
-
-  /*app.post('/api/helm', function(req, res) {
-    // store result
-    // var post_data = JSON.stringify(req.body);
-
-    // Manually invoke helm approach
-    var filePath = '/Users/MarksMacMachine/research/UNISrt/samples/HELM/helm.conf';
-
-    console.log("post length: " + post_data.length);
-    console.log("post data: " + post_data);
-
-    fs.writeFile(filePath, post_data, function(err) {
-      if(err) {
-        console.log(err);
-      } else {
-        console.log("The file was saved!");
-        var exec = require('child_process').exec;
-        var child;
-
-        child = exec('python /Users/MarksMacMachine/research/UNISrt/samples/HELM/helm.py',
-          function (error, stdout, stderr) {
-            console.log('stdout: ' + stdout);
-            console.log('stderr: ' + stderr);
-            if (error !== null) {
-              console.log('exec error: ' + error);
-            }
-        });
-      }
-    });
-  });*/
-
-  /*app.get('/api/help', function(req, res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
-
-    var helpMe = [];
-
-    helpMe.push('http://www.google.com');
-
-    // render as json
-    res.json(helpMe);
-
-    // catch request error and render error page
-    req.on('error', function(e) {
-      console.log('problem with request: ' + e.message);
-    });
-  });*/
 
   app.get('*', function(req, res) {
     res.sendfile('./public/index.html');
