@@ -18,12 +18,12 @@ angular.module('MetadataCtrl', []).controller('MetadataController', function($sc
     $scope.nodes = nodes;
   });
   if (metadata_id) {
-    Metadata.getMetadata(function(metadata) {
-      $scope.metadata = metadata;
-      $scope.eventType = metadata.eventType;
-    });
     Metadata.getMetadataData(function(metadataData) {
       $scope.metadataData = metadataData;
+
+      Metadata.getMetadata(function(metadata) {
+        $scope.eventType = metadata.eventType;
+      });
 
       var arrayData = [];
       angular.forEach($scope.metadataData, function(key, value) {
