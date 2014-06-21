@@ -20,6 +20,7 @@ angular.module('MetadataCtrl', []).controller('MetadataController', function($sc
   if (metadata_id) {
     Metadata.getMetadata(function(metadata) {
       $scope.metadata = metadata;
+      $scope.eventType = metadata.eventType;
     });
     Metadata.getMetadataData(function(metadataData) {
       $scope.metadataData = metadataData;
