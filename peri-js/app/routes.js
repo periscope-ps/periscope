@@ -22,7 +22,6 @@ var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
 // development
 // var production = false;
 // var unis_host = 'dev.incntre.iu.edu';
-// var unis_port = '9001';
 // var unis_host = 'localhost';
 // var unis_port = '8888';
 
@@ -44,7 +43,6 @@ module.exports = function(app) {
   child1 = exec('uname -s',
     function (error, stdout, stderr) {
       os_name = stdout;
-      console.log('os_name: ' + os_name);
       if (error !== null) {
         console.log('exec error: ' + error);
       }
@@ -53,7 +51,6 @@ module.exports = function(app) {
   child2 = exec('head -1 /etc/issue',
     function (error, stdout, stderr) {
       distro = stdout;
-      console.log('distro: ' + distro);
       if (error !== null) {
         console.log('exec error: ' + error);
       }
@@ -61,7 +58,7 @@ module.exports = function(app) {
 
   fs.readFile(filePath, {encoding: 'utf-8'}, function(err, data) {
     if (err) {
-      console.log(err);
+      console.log('file read error: ' + err);
     } else {
       var fileData = data.toString().split('\n');
       var split, project, slice, gn, exAddy, ms_url, unis;
@@ -100,9 +97,9 @@ module.exports = function(app) {
   });
 
   app.get('/api', function(req, res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     var routes = [];
     var hostname = req.headers.host;
@@ -122,18 +119,18 @@ module.exports = function(app) {
   });
 
   app.get('/api/slice', function(req, res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     console.log(slice_info);
     res.json(slice_info);
   });
 
   app.get('/api/nodes', function(req, res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
       console.log('running in production');
@@ -214,9 +211,9 @@ module.exports = function(app) {
 
   app.get('/api/nodes/:id', function(req, res) {
     console.log("node id: " + req.params.id);
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     var node_id = req.params.id;
 
@@ -289,9 +286,9 @@ module.exports = function(app) {
   });
 
   app.get('/api/services', function(req, res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
       console.log('running in production');
@@ -372,9 +369,9 @@ module.exports = function(app) {
 
   app.get('/api/services/:id', function(req, res) {
     console.log("service id: " + req.params.id);
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     var service_id = req.params.id;
 
@@ -447,9 +444,9 @@ module.exports = function(app) {
   });
 
   app.get('/api/measurements', function(req, res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
       console.log('running in production');
@@ -521,9 +518,9 @@ module.exports = function(app) {
 
   app.get('/api/measurements/:id', function(req, res) {
     console.log("measurement id: " + req.params.id);
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     var measurement_id = req.params.id;
 
@@ -934,9 +931,9 @@ module.exports = function(app) {
   });
 
   app.get('/api/metadata', function(req, res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
       console.log('running in production');
@@ -1008,9 +1005,9 @@ module.exports = function(app) {
 
   app.get('/api/metadata/:id', function(req, res) {
     console.log("data id: " + req.params.id);
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     var metadata_id = req.params.id;
 
@@ -1083,9 +1080,9 @@ module.exports = function(app) {
   });
 
   app.get('/api/data', function(req, res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
       console.log('running in production');
@@ -1157,9 +1154,9 @@ module.exports = function(app) {
 
   app.get('/api/data/:id', function(req, res) {
     console.log("data id: " + req.params.id);
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     var data_id = req.params.id;
 
@@ -1232,9 +1229,9 @@ module.exports = function(app) {
   });
 
   app.get('/api/links', function(req, res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
       console.log('running in production');
@@ -1306,9 +1303,9 @@ module.exports = function(app) {
 
   app.get('/api/links/:id', function(req, res) {
     console.log("data id: " + req.params.id);
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     var link_id = req.params.id;
 
@@ -1381,9 +1378,9 @@ module.exports = function(app) {
   });
 
   app.get('/api/ports', function(req, res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
       console.log('running in production');
@@ -1455,9 +1452,9 @@ module.exports = function(app) {
 
   app.get('/api/ports/:id', function(req, res) {
     console.log("data id: " + req.params.id);
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     var port_id = req.params.id;
 
@@ -1530,9 +1527,9 @@ module.exports = function(app) {
   });
 
   app.get('/api/domains', function(req, res) {
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
       console.log('running in production');
@@ -1604,9 +1601,9 @@ module.exports = function(app) {
 
   app.get('/api/domains/:id', function(req, res) {
     console.log("data id: " + req.params.id);
-    console.log('STATUS: ' + res.statusCode);
-    console.log('HEADERS: ' + JSON.stringify(res.headers));
-    console.log('BODY: ' + JSON.stringify(res.body));
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
 
     var domain_id = req.params.id;
 

@@ -7,6 +7,7 @@
   "private": false,
   "scripts": {
     "start": "nodemon server.js",
+    "prod": "forever start server.js",
     "test": "karma start test/karma.conf.js"
   },
   "engines": {
@@ -14,11 +15,12 @@
     "npm": "1.4.6"
   },
   "dependencies": {
-    "express": "3.5.1",
     "bower": "1.3.3",
-    "nodemon": "1.1.1",
+    "express": "3.5.1",
+    "forever": "^0.11.1",
+    "karma": "0.12.16",
     "mongoose": "3.8.x",
-    "karma": "0.12.16"
+    "nodemon": "1.1.1"
   },
   "repository": {
     "type": "git",
