@@ -13,25 +13,25 @@ var fs = require('fs')
   , url = require('url');
 
 // production
-var production = true;
-var unis_host = 'unis.incntre.iu.edu';
-var unis_port = '8443';
-var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
-var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
+// var production = true;
+// var unis_host = 'unis.incntre.iu.edu';
+// var unis_port = '8443';
+// var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
+// var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
 
 // development
-// var production = false;
-// var unis_host = 'dev.incntre.iu.edu';
+var production = false;
+var unis_host = 'dev.incntre.iu.edu';
 // var unis_host = 'localhost';
-// var unis_port = '8888';
+var unis_port = '8888';
 
 var slice_info = [];
 var filePath = '/usr/local/etc/node.info';
 var slice_uuid = '';
 var os_name = '';
 var distro = '';
-var ms_host;
-var ms_port;
+var ms_host = 'dev.incntre.iu.edu';
+var ms_port = '8888';
 
 module.exports = function(app) {
 
@@ -77,9 +77,9 @@ module.exports = function(app) {
 
         if(split[0] === 'ms_instance') {
           ms_url = split[1];
-          ms_port = ms_url.split(":")[2];
+          // ms_port = ms_url.split(":")[2];
           console.log("ms_port: " + ms_port);
-          ms_host = ms_url.split("//")[1].split(":")[0];
+          // ms_host = ms_url.split("//")[1].split(":")[0];
           console.log("ms_host: " + ms_host);
         }
 

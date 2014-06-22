@@ -4,7 +4,7 @@
  * BlippCtrl.js
  */
 
-angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http, Node, Slice, Service) {
+angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http, Node, Slice, Service, Port) {
 
   // scope variables
   $scope.pingData = {};
@@ -40,6 +40,9 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
   Service.getServices(function(services) {
     $scope.services = services;
   });
+  Port.getPorts(function(ports) {
+    $scope.ports = ports;
+  });
 
   // global node shouldn't be selectable
   $scope.filterNodes = function(node) {
@@ -55,6 +58,24 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     for(var i = 0; i < $scope.services.length; i++) {
       if ($scope.services[i].runningOn.href == node_ref) {
         return $scope.services[i].selfRef;
+      }
+    }
+  };
+
+  // find the port for a node
+  $scope.getNodePort = function(node_ref) {
+    for(var i = 0; i < $scope.nodes.length; i++) {
+      if ($scope.nodes[i].selfRef === node_ref) {
+        return $scope.nodes[i].ports[0].href.replace(/%3A/g, ':');
+      }
+    }
+  };
+
+  // find the port ip
+  $scope.getPortIP = function(port_ref) {
+    for(var i = 0; i < $scope.ports.length; i++) {
+      if ($scope.ports[i].selfRef === port_ref) {
+        return $scope.ports[i].properties.geni.ip.address;
       }
     }
   };
@@ -239,6 +260,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       // copy data submitted by form
       $scope.pingData = angular.copy(ping);
 
+      // create proper interval for every based on user input
       var every;
       if($scope.pingData.tbtType.type === 'Days') {
         every = $scope.pingData.tbtValue * 86400;
@@ -250,11 +272,15 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         every = $scope.pingData.tbtValue;
       }
 
-      // build ping command from user options
-      var ping_command = "ping -c 1 -s " + $scope.pingData.packetSize + " -i " + $scope.pingData.tbp + " " + $scope.pingData.to.split(" ")[0];
-
       // lookup service running on given node
       var nodeService = $scope.getNodeService($scope.pingData.from.split(" ")[1]);
+
+      // lookup port running on given node
+      var nodePort = $scope.getNodePort($scope.pingData.to.split(" ")[1]);
+      var portIP = $scope.getPortIP(nodePort);
+
+      // build ping command from user options
+      var ping_command = "ping -c 1 -s " + $scope.pingData.packetSize + " -i " + $scope.pingData.tbp + " " + portIP;
 
       // build ping measurement to submit
       var ping_measurement = {
@@ -291,7 +317,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
             ttl: "ps:tools:blipp:linux:net:ping:ttl"
           },
           collection_ttl: 1500000,
-          address: $scope.pingData.to.split(" ")[0],
+          address: portIP,
           name: $scope.pingData.desc
         },
         type: "ping"
@@ -406,6 +432,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       // copy data submitted by form
       $scope.perfData = angular.copy(perf);
 
+      // create proper interval for every based on user input
       var every;
       if($scope.perfData.tbtType.type === 'Days') {
         every = $scope.perfData.tbtValue * 86400;
@@ -417,16 +444,21 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         every = $scope.perfData.tbtValue;
       }
 
+      // lookup port running on given node
+      var nodePort = $scope.getNodePort($scope.perfData.to.split(" ")[1]);
+      var portIP = $scope.getPortIP(nodePort);
+
       // build ping command from user options
       if ($scope.perfData.proto.type == 'udp') {
-        var perf_command = "iperf -u -c " + $scope.perfData.th + " -t 20 -y C ";
+        var perf_command = "iperf -u -c " + portIP + " -t 20 -y C ";
       } else {
-        var perf_command = "iperf -c " + $scope.perfData.th + " -t 20 -y C ";
+        var perf_command = "iperf -c " + portIP + " -t 20 -y C ";
       }
 
       // lookup service running on given node
-      var nodeService = $scope.getNodeService($scope.perfData.from.split(" ")[1]);
+      var nodeService = $scope.getNodeService($scope.perfData.to.split(" ")[1]);
 
+      // build perf measurement to submit
       var perf_measurement = {
         $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
         service: nodeService,
@@ -504,6 +536,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       // copy data submitted by form
       $scope.netlogData = angular.copy(netlog);
 
+      // create proper interval for every based on user input
       var every;
       if($scope.netlogData.tbrType.type === 'Days') {
         every = $scope.netlogData.tbrValue * 86400;
@@ -518,6 +551,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       // lookup service running on given node
       var nodeService = $scope.getNodeService($scope.netlogData.from.split(" ")[1]);
 
+      // build netlogger measurement to submit
       var netlog_measurement = {
         $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
         service: nodeService,
