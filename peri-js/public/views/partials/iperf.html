@@ -77,11 +77,21 @@
     <!-- </div> -->
   <!-- </div> -->
 
-  <div class="form-group row" ng-class="{ 'has-error' : perfForm.pTH.$invalid && !perfForm.pTH.$pristine }">
-    <label for="perfTH" class="col-md-2 control-label">Target Host</label>
+  <!-- <div class="form-group row" ng-class="{ 'has-error' : perfForm.pTH.$invalid && !perfForm.pTH.$pristine }"> -->
+    <!-- <label for="perfTH" class="col-md-2 control-label">Target Host</label> -->
+    <!-- <div class="col-md-10"> -->
+      <!-- <input ng-model="perf.th" name="pTH" type="text" class="form-control" id="perfTH" placeholder="Target Host" required> -->
+      <!-- <p ng-show="perfForm.pTH.$invalid && !perfForm.pTH.$pristine" class="help-block">Please enter a target host</p> -->
+    <!-- </div> -->
+  <!-- </div> -->
+
+  <div class="form-group row" ng-class="{ 'has-error' : perfForm.pTo.$invalid && !perfForm.pTo.$pristine }">
+    <label for="perfTo" class="col-md-2 control-label">Destination</label>
     <div class="col-md-10">
-      <input ng-model="perf.th" name="pTH" type="text" class="form-control" id="perfTH" placeholder="Target Host" required>
-      <p ng-show="perfForm.pTH.$invalid && !perfForm.pTH.$pristine" class="help-block">Please enter a target host</p>
+      <select ng-model="perf.to" name="pTo" id="perfTo" class="form-control" required>
+        <option ng-repeat="node in nodes  | unique:'id'">{{ node.name }} {{ node.selfRef }}</option>
+      </select>
+      <p ng-show="perfForm.pTo.$invalid && !perfForm.pTo.$pristine" class="help-block">Please select a destination</p>
     </div>
   </div>
 
