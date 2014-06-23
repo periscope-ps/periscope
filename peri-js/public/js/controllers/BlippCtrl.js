@@ -298,10 +298,10 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         ],
         configuration: {
           status: "ON",
-          regex: "ttl=(?P<ttl>\d+).*time=(?P<rtt>\d+\.\d+|\d+)",
+          regex: "ttl=(?P<ttl>\\d+).*time=(?P<rtt>\\d+\\.\\d+|\\d+)",
           reporting_params: parseInt($scope.pingData.reportMS),
           probe_module: "cmd_line_probe",
-          packet_interval: parseInt($scope.pingData.pTBP),
+          packet_interval: parseInt($scope.pingData.tbp),
           collection_schedule: "builtins.simple",
           packet_size: parseInt($scope.pingData.packetSize),
           packet_count: 1,
@@ -473,7 +473,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         ],
         configuration: {
           status: "ON",
-          regex: ",(?P<bandwidth>\d+)$",
+          regex: ",(?P<bandwidth>\\d+)$",
           window_size: 0,
           protocol: $scope.perfData.proto.type,
           probe_module: "cmd_line_probe",

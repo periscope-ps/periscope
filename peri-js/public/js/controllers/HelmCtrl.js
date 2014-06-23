@@ -183,7 +183,7 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
           ],
           configuration: {
             status: "ON",
-            regex: ",(?P<bandwidth>\d+)$",
+            regex: ",(?P<bandwidth>\\d+)$",
             window_size: 0,
             protocol: $scope.helmIperfData.proto.type,
             probe_module: "cmd_line_probe",
@@ -258,10 +258,10 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
           ],
           configuration: {
             status: "ON",
-            regex: "ttl=(?P<ttl>\d+).*time=(?P<rtt>\d+\.\d+|\d+)",
+            regex: "ttl=(?P<ttl>\\d+).*time=(?P<rtt>\\d+\\.\\d+|\\d+)",
             reporting_params: parseInt($scope.helmPingData.reportMS),
             probe_module: "cmd_line_probe",
-            packet_interval: parseInt($scope.helmPingData.pTBP),
+            packet_interval: parseInt($scope.helmPingData.tbp),
             collection_schedule: "builtins.simple",
             packet_size: parseInt($scope.helmPingData.packetSize),
             packet_count: 1,
