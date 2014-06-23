@@ -19,7 +19,7 @@
       <td>{{ measurement.configuration.name }}</td>
       <td>
         <button ng-show="measurement.configuration.status === 'ON'" class="btn btn-success disabled">ON</button>
-        <button ng-show='measurement.configuration.status === undefined' class="btn btn-danger disabled">OFF</button>
+        <button ng-show="measurement.configuration.status === undefined || measurement.configuration.status === 'OFF'" class="btn btn-danger disabled">OFF</button>
       </td>
       <td><button ng-click="showDetails(measurement.id)" class="btn btn-info">Details</button></td>
       <td>{{ getMeasurementService(measurement.service) }}</td>

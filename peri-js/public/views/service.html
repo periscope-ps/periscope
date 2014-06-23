@@ -15,7 +15,7 @@
       <th>Type</th>
       <th>Timestamp</th>
     </tr>
-    <tr ng-repeat="service in services | filter: { name: '!ms_dev'} | unique:'id' | orderBy:'-ts'">
+    <tr ng-repeat="service in services | filter: { type: '!ps:tools:ms'} | unique:'id' | orderBy:'-ts'">
       <td>{{ service.name }}</td>
       <td><button type="button" class="btn btn-info disabled"> {{ service.status }}</button></td>
       <td>{{ getServiceNode(service.runningOn.href) }}</td>
