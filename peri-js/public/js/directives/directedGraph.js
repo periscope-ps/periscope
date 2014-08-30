@@ -286,11 +286,41 @@ angular.module('directedGraphModule', []).directive('directedGraph', function(No
           // clear mouse event vars
           resetMouseVars();
         }
+        
+     // only respond once per keydown
+        var lastKeyDown = -1;
+
+        function keydown() {
+          d3.event.preventDefault();
+
+          if(lastKeyDown !== -1) return;
+          lastKeyDown = d3.event.keyCode;
+
+          if(!selected_node && !selected_link) return;
+          switch(d3.event.keyCode) {
+            case 8: // backspace
+            case 46: // delete
+              if(selected_link) {
+                links.splice(links.indexOf(selected_link), 1);
+              }
+              selected_link = null;
+              selected_node = null;
+              restart();
+              break;
+          }
+        }
+
+        function keyup() {
+          lastKeyDown = -1;
+        }
 
         // app starts here
         svg.on('mousedown', mousedown)
           .on('mousemove', mousemove)
           .on('mouseup', mouseup);
+        d3.select(window)
+        .on('keydown', keydown)
+        .on('keyup', keyup);
         restart();
       });
     }
