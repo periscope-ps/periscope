@@ -88,9 +88,9 @@ angular.module('directedGraphModule', []).directive('directedGraph', function(No
           mouseup_node = null;
           mousedown_link = null;
 
-          for(var i = 0; i < links.length; i++) {
-            scope.g_links[i] = [links[i].source.id, links[i].target.id];
-          }
+          scope.g_links = links.map(function(x){
+        	  return [x.source.id,x.target.id];
+          });
         }
 
         // update force layout (called automatically each iteration)
@@ -118,7 +118,6 @@ angular.module('directedGraphModule', []).directive('directedGraph', function(No
 
         // update graph (called when needed)
         function restart() {
-
           // path (link) group
           path = path.data(links);
 
@@ -289,7 +288,6 @@ angular.module('directedGraphModule', []).directive('directedGraph', function(No
         
      // only respond once per keydown
         var lastKeyDown = -1;
-
         function keydown() {
           d3.event.preventDefault();
 
@@ -305,6 +303,7 @@ angular.module('directedGraphModule', []).directive('directedGraph', function(No
               }
               selected_link = null;
               selected_node = null;
+              resetMouseVars();
               restart();
               break;
           }
