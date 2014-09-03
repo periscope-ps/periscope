@@ -35,7 +35,7 @@ var ms_port = '8888';
 
 module.exports = function(app) {
 
-  console.log("Connecting to: " + unis_host + "@" + unis_port);
+  console.log("UNIS Instance: " + unis_host + "@" + unis_port);
 
   var exec = require('child_process').exec;
   var child1, child2;
@@ -78,9 +78,9 @@ module.exports = function(app) {
         if(split[0] === 'ms_instance') {
           ms_url = split[1];
           // ms_port = ms_url.split(":")[2];
-          console.log("ms_port: " + ms_port);
+          console.log("Measurement Store Port: " + ms_port);
           // ms_host = ms_url.split("//")[1].split(":")[0];
-          console.log("ms_host: " + ms_host);
+          console.log("Measurement Store Host: " + ms_host);
         }
 
         if (split[0] === 'node_id') {
@@ -92,7 +92,7 @@ module.exports = function(app) {
           slice_uuid = split[1];
       }
       slice_info.push({'external_address': exAddy, 'gn_address': gn, 'unis_instance': unis, 'ms_url': ms_url, 'project': project[1], 'slice': slice[0], 'slice_uuid': slice_uuid, 'os_name': os_name, 'distro': distro});
-      console.log(slice_info);
+      // console.log(slice_info);
     }
   });
 
@@ -160,7 +160,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -189,7 +189,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -245,7 +245,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -274,7 +274,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -318,7 +318,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -347,7 +347,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -403,7 +403,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -432,7 +432,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -476,7 +476,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -505,7 +505,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -552,7 +552,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -581,7 +581,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -634,7 +634,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log("return obj: " + JSON.stringify(obj));
+          // console.log("return obj: " + JSON.stringify(obj));
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -679,7 +679,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log("return obj: " + JSON.stringify(obj));
+          // console.log("return obj: " + JSON.stringify(obj));
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -748,7 +748,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log("return obj: " + JSON.stringify(obj));
+          // console.log("return obj: " + JSON.stringify(obj));
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -795,7 +795,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log("return obj: " + JSON.stringify(obj));
+          // console.log("return obj: " + JSON.stringify(obj));
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -864,7 +864,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log("return obj: " + JSON.stringify(obj));
+          // console.log("return obj: " + JSON.stringify(obj));
           res.send( 200 );
         });
         http_res.on('error',function() {
@@ -910,7 +910,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log("return obj: " + JSON.stringify(obj));
+          // console.log("return obj: " + JSON.stringify(obj));
           res.send( 200 );
         });
         http_res.on('error',function() {
@@ -963,7 +963,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -992,7 +992,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1039,7 +1039,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1068,7 +1068,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1112,7 +1112,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1141,7 +1141,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1188,7 +1188,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1217,7 +1217,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1261,7 +1261,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1290,7 +1290,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1337,7 +1337,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1366,7 +1366,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1410,7 +1410,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1439,7 +1439,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1486,7 +1486,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1515,7 +1515,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1559,7 +1559,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1588,7 +1588,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1635,7 +1635,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1664,7 +1664,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {

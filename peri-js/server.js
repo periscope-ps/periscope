@@ -3,28 +3,31 @@
  * server.js
  */
 
-/* Include Modules */
+// include modules
 var express = require('express')
-  , http = require('http');
+  , http = require('http')
+  , socketio = require('socket.io');
   // , mongoose = require('mongoose')
   // , database = require('./app/config/db');
 
-/* Create App */
-var app = express();
+// create app, server, sockets
+var app = module.exports = express();
+var server = http.createServer(app);
+var io = socketio.listen(server);
 
-/* Database Connection */
+// database connection
 // var db = mongoose.connection;
 
-/* Check db connection */
+// check db connection
 // db.on('error', console.error);
 // db.once('open', function() {
   // console.log('Connected to ' + database.url)
 // });
 
-/* Connect to db */
+// connect to db
 // mongoose.connect(database.url);
 
-/* App Configuration */
+// app configuration
 app.configure(function() {
   app.set('port', process.env.PORT || 42424);
   app.use(express.static(__dirname + '/public'));
@@ -35,18 +38,21 @@ app.configure(function() {
   app.use(express.methodOverride());
 });
 
-/* development only */
-if ('development' == app.get('env')) {
+// configure enviroments
+app.configure('development', function(){
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+app.configure('production', function(){
   app.use(express.errorHandler());
-}
-
-/* All Server Routes */
-require('./app/routes')(app);
-
-/* Create HTTP Server and Listen on a Port */
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Node server lending an ear on port ' + app.get('port'));
 });
 
-/* Expose app */
-exports = module.exports = app;
+// restful api routes
+require('./app/routes')(app);
+
+// create http server and listen on a port */
+server.listen(app.get('port'), function(){
+  console.log('HTTP server on port ' + app.get('port') + ' - running as ' + app.settings.env);
+});
+
+// setup socket.io communication
+io.sockets.on('connection', require('./app/sockets'));
