@@ -51,8 +51,8 @@ require('./app/routes')(app);
 
 // create http server and listen on a port */
 server.listen(app.get('port'), function(){
-  console.log('Node server lending an ear on port ' + app.get('port') + ' as ' + app.settings.env);
+  console.log('HTTP server on port ' + app.get('port') + ' - running as ' + app.settings.env);
 });
 
 // setup socket.io communication
-io.sockets.on('connection', require('./app/socket'));
+io.sockets.on('connection', require('./app/sockets'));
