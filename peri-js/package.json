@@ -4,7 +4,7 @@
   "description": "front end application for periscope",
   "author": "Mark Keele <mkeele@indiana.edu>",
   "main": "server.js",
-  "private": false,
+  "private": true,
   "scripts": {
     "start": "nodemon server.js",
     "prod": "forever start server.js",
@@ -20,7 +20,8 @@
     "forever": "^0.11.1",
     "karma": "0.12.16",
     "mongoose": "3.8.x",
-    "nodemon": "1.1.1"
+    "nodemon": "1.1.1",
+    "socket.io": "^1.0.6"
   },
   "repository": {
     "type": "git",
