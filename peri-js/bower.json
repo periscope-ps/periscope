@@ -13,6 +13,7 @@
     "angular-ui-utils": "~0.1.1",
     "d3": "~3.4.8",
     "nvd3": "~1.1.15-beta",
-    "angularjs-nvd3-directives": "~0.0.7"
+    "angularjs-nvd3-directives": "~0.0.7",
+    "d3-tip": "~0.6.4"
   }
 }
