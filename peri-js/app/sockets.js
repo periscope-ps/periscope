@@ -10,6 +10,8 @@ var WebSocket = require('ws');
 // export function for listening to the socket
 module.exports = function (client_socket) {
 
+  var unis_sub = 'ws://localhost:8888/subscribe/'
+
   // establish client socket
   console.log('Client connected');
 
@@ -19,7 +21,7 @@ module.exports = function (client_socket) {
 
   client_socket.on('node_request', function(data) {
     // Create socket to listen for updates on nodes
-    var nodeSocket = new WebSocket('ws://localhost:8888/subscribe/node');
+    var nodeSocket = new WebSocket(unis_sub + 'node');
 
     nodeSocket.on('open', function(event) {
       console.log('UNIS: Node socket opened');
@@ -37,7 +39,7 @@ module.exports = function (client_socket) {
 
   client_socket.on('service_request', function(data) {
     // Create socket to listen for updates on services
-    var serviceSocket = new WebSocket('ws://localhost:8888/subscribe/service');
+    var serviceSocket = new WebSocket(unis_sub + 'service');
 
     serviceSocket.on('open', function(event) {
       console.log('UNIS: Service socket opened');
@@ -55,7 +57,7 @@ module.exports = function (client_socket) {
 
   client_socket.on('measurement_request', function(data) {
     // Create socket to listen for updates on measurements
-    var measurementSocket = new WebSocket('ws://localhost:8888/subscribe/measurement');
+    var measurementSocket = new WebSocket(unis_sub + 'measurement');
 
     measurementSocket.on('open', function(event) {
       console.log('UNIS: Measurement socket opened');
@@ -68,6 +70,168 @@ module.exports = function (client_socket) {
 
     measurementSocket.on('close', function(event) {
       console.log('UNIS: Measurement socket closed');
+    });
+  });
+
+  client_socket.on('metadata_request', function(data) {
+    // Create socket to listen for updates on metadata
+    var metadataSocket = new WebSocket(unis_sub + 'metadata');
+
+    metadataSocket.on('open', function(event) {
+      console.log('UNIS: Metadata socket opened');
+    });
+
+    metadataSocket.on('message', function(data) {
+      console.log('UNIS: metadata_data: ' + data);
+      client_socket.emit('metadata_data', data);
+    });
+
+    metadataSocket.on('close', function(event) {
+      console.log('UNIS: Metadata socket closed');
+    });
+  });
+
+  client_socket.on('data_request', function(data) {
+    // Create socket to listen for updates on data
+    var dataSocket = new WebSocket(unis_sub + 'data');
+
+    dataSocket.on('open', function(event) {
+      console.log('UNIS: Data socket opened');
+    });
+
+    dataSocket.on('message', function(data) {
+      console.log('UNIS: data_data: ' + data);
+      client_socket.emit('data_data', data);
+    });
+
+    dataSocket.on('close', function(event) {
+      console.log('UNIS: Data socket closed');
+    });
+  });
+
+  client_socket.on('port_request', function(data) {
+    // Create socket to listen for updates on port
+    var portSocket = new WebSocket(unis_sub + 'port');
+
+    portSocket.on('open', function(event) {
+      console.log('UNIS: Port socket opened');
+    });
+
+    portSocket.on('message', function(data) {
+      console.log('UNIS: port_data: ' + data);
+      client_socket.emit('port_data', data);
+    });
+
+    portSocket.on('close', function(event) {
+      console.log('UNIS: Port socket closed');
+    });
+  });
+
+  client_socket.on('link_request', function(data) {
+    // Create socket to listen for updates on link
+    var linkSocket = new WebSocket(unis_sub + 'link');
+
+    linkSocket.on('open', function(event) {
+      console.log('UNIS: Link socket opened');
+    });
+
+    linkSocket.on('message', function(data) {
+      console.log('UNIS: link_data: ' + data);
+      client_socket.emit('link_data', data);
+    });
+
+    linkSocket.on('close', function(event) {
+      console.log('UNIS: Link socket closed');
+    });
+  });
+
+  client_socket.on('path_request', function(data) {
+    // Create socket to listen for updates on path
+    var pathSocket = new WebSocket(unis_sub + 'path');
+
+    pathSocket.on('open', function(event) {
+      console.log('UNIS: Path socket opened');
+    });
+
+    pathSocket.on('message', function(data) {
+      console.log('UNIS: path_data: ' + data);
+      client_socket.emit('path_data', data);
+    });
+
+    pathSocket.on('close', function(event) {
+      console.log('UNIS: Path socket closed');
+    });
+  });
+
+  client_socket.on('network_request', function(data) {
+    // Create socket to listen for updates on network
+    var networkSocket = new WebSocket(unis_sub + 'network');
+
+    networkSocket.on('open', function(event) {
+      console.log('UNIS: Network socket opened');
+    });
+
+    networkSocket.on('message', function(data) {
+      console.log('UNIS: network_data: ' + data);
+      client_socket.emit('network_data', data);
+    });
+
+    networkSocket.on('close', function(event) {
+      console.log('UNIS: Network socket closed');
+    });
+  });
+
+  client_socket.on('domain_request', function(data) {
+    // Create socket to listen for updates on domain
+    var domainSocket = new WebSocket(unis_sub + 'domain');
+
+    domainSocket.on('open', function(event) {
+      console.log('UNIS: Domain socket opened');
+    });
+
+    domainSocket.on('message', function(data) {
+      console.log('UNIS: domain_data: ' + data);
+      client_socket.emit('domain_data', data);
+    });
+
+    domainSocket.on('close', function(event) {
+      console.log('UNIS: Domain socket closed');
+    });
+  });
+
+  client_socket.on('topology_request', function(data) {
+    // Create socket to listen for updates on topology
+    var topologySocket = new WebSocket(unis_sub + 'topology');
+
+    topologySocket.on('open', function(event) {
+      console.log('UNIS: Topology socket opened');
+    });
+
+    topologySocket.on('message', function(data) {
+      console.log('UNIS: topology_data: ' + data);
+      client_socket.emit('topology_data', data);
+    });
+
+    topologySocket.on('close', function(event) {
+      console.log('UNIS: Topology socket closed');
+    });
+  });
+
+  client_socket.on('event_request', function(data) {
+    // Create socket to listen for updates on event
+    var eventSocket = new WebSocket(unis_sub + 'event');
+
+    eventSocket.on('open', function(event) {
+      console.log('UNIS: Event socket opened');
+    });
+
+    eventSocket.on('message', function(data) {
+      console.log('UNIS: event_data: ' + data);
+      client_socket.emit('event_data', data);
+    });
+
+    eventSocket.on('close', function(event) {
+      console.log('UNIS: Event socket closed');
     });
   });
 };
