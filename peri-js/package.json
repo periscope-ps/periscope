@@ -21,7 +21,9 @@
     "karma": "0.12.16",
     "mongoose": "3.8.x",
     "nodemon": "1.1.1",
-    "socket.io": "^1.0.6"
+    "socket.io": "^1.0.6",
+    "socket.io-client": "^1.1.0",
+    "ws": "^0.4.32"
   },
   "repository": {
     "type": "git",
