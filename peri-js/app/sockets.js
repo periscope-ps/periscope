@@ -1,46 +1,36 @@
 /*
- * Client & UNIS Socket API
+ * Client & UNIS Sockets
  * app/
  * sockets.js
  */
 
+// modules
+var WebSocket = require('ws');
+
 // export function for listening to the socket
 module.exports = function (client_socket) {
 
-  var socket_server = require('socket.io');
-
   // establish client socket
-  console.log('client connected');
-
-  // client/server socket hello world
-  client_socket.on('cs_emit', function(data) {
-    console.log('client says, ' + data);
-  });
-
-  client_socket.emit('ss_emit', 'hello angular');
+  console.log('Client connected');
 
   client_socket.on('disconnect', function() {
-    console.log('client disconnected');
+    console.log('Client disconnected');
   });
-
 
   // Create socket to listen for updates on nodes
-  // todo: handle no socket to connection to case
-  /*var nodes_socket = new socket_server('ws://localhost:8888/subscribe/node');
+  var nodeSocket = new WebSocket('ws://localhost:8888/subscribe/node');
 
-  nodes_socket.on('connection', function(event) {
-    console.log('Connected to nodes socket');
+  nodeSocket.on('open', function(event) {
+    console.log('UNIS: Node socket opened');
   });
 
-  nodes_socket.on('message', function(data) {
-    console.log(data);
-
-    // data from our socket will be broadcast to the client
-    client_socket.broadcast.emit('node_data', data);
+  nodeSocket.on('message', function(data) {
+    console.log('UNIS: node_data: ' + data);
+    client_socket.emit('node_data', data);
   });
 
-  nodes_socket.on('disconnect', function(event) {
-    console.log('Disconnected from nodes socket');
-  });*/
+  nodeSocket.on('close', function(event) {
+    console.log('UNIS: Node socket closed');
+  });
 
 };

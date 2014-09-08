@@ -6,18 +6,15 @@
 
 angular.module('NodeCtrl', []).controller('NodeController', function($scope, Node, Socket) {
 
+  // GET request for initial set of data
   Node.getNodes(function(nodes) {
     $scope.nodes = nodes;
   });
 
-  Socket.emit('cs_emit', 'hello node');
-
-  Socket.on('ss_emit', function (data) {
-    $scope.hello_socket = data;
+  // New nodes will enter scope through socket
+  Socket.on('node_data', function (data) {
+    var obj = JSON.parse(data);
+    $scope.nodes.push(obj);
   });
-
-  /*Socket.on('node_data', function (data) {
-    $scope.node_data = data;
-  });*/
 
 });
