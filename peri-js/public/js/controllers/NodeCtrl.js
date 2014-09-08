@@ -11,7 +11,10 @@ angular.module('NodeCtrl', []).controller('NodeController', function($scope, Nod
     $scope.nodes = nodes;
   });
 
-  // New nodes will enter scope through socket
+  // request a socket connection
+  Socket.emit('node_request', {});
+
+  // New data will enter scope through socket
   Socket.on('node_data', function (data) {
     var obj = JSON.parse(data);
     $scope.nodes.push(obj);

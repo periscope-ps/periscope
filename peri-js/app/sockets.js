@@ -17,20 +17,39 @@ module.exports = function (client_socket) {
     console.log('Client disconnected');
   });
 
-  // Create socket to listen for updates on nodes
-  var nodeSocket = new WebSocket('ws://localhost:8888/subscribe/node');
+  client_socket.on('node_request', function(data) {
+    // Create socket to listen for updates on nodes
+    var nodeSocket = new WebSocket('ws://localhost:8888/subscribe/node');
 
-  nodeSocket.on('open', function(event) {
-    console.log('UNIS: Node socket opened');
+    nodeSocket.on('open', function(event) {
+      console.log('UNIS: Node socket opened');
+    });
+
+    nodeSocket.on('message', function(data) {
+      console.log('UNIS: node_data: ' + data);
+      client_socket.emit('node_data', data);
+    });
+
+    nodeSocket.on('close', function(event) {
+      console.log('UNIS: Node socket closed');
+    });
   });
 
-  nodeSocket.on('message', function(data) {
-    console.log('UNIS: node_data: ' + data);
-    client_socket.emit('node_data', data);
-  });
+  client_socket.on('service_request', function(data) {
+    // Create socket to listen for updates on nodes
+    var serviceSocket = new WebSocket('ws://localhost:8888/subscribe/service');
 
-  nodeSocket.on('close', function(event) {
-    console.log('UNIS: Node socket closed');
-  });
+    serviceSocket.on('open', function(event) {
+      console.log('UNIS: Service socket opened');
+    });
 
+    serviceSocket.on('message', function(data) {
+      console.log('UNIS: service_data: ' + data);
+      client_socket.emit('service_data', data);
+    });
+
+    serviceSocket.on('close', function(event) {
+      console.log('UNIS: Service socket closed');
+    });
+  });
 };

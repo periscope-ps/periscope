@@ -4,7 +4,7 @@
  * ServiceCtrl.js
  */
 
-angular.module('ServiceCtrl', []).controller('ServiceController', function($scope, Service, Node) {
+angular.module('ServiceCtrl', []).controller('ServiceController', function($scope, Service, Node, Socket) {
 
   Service.getServices(function(services) {
     $scope.services = services;
@@ -23,4 +23,13 @@ angular.module('ServiceCtrl', []).controller('ServiceController', function($scop
       }
     }
   };
+
+  // request a socket connection
+  Socket.emit('service_request', {});
+
+  // New data will enter scope through socket
+  Socket.on('service_data', function (data) {
+    var obj = JSON.parse(data);
+    $scope.services.push(obj);
+  });
 });
