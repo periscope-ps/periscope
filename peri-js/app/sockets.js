@@ -36,7 +36,7 @@ module.exports = function (client_socket) {
   });
 
   client_socket.on('service_request', function(data) {
-    // Create socket to listen for updates on nodes
+    // Create socket to listen for updates on services
     var serviceSocket = new WebSocket('ws://localhost:8888/subscribe/service');
 
     serviceSocket.on('open', function(event) {
@@ -50,6 +50,24 @@ module.exports = function (client_socket) {
 
     serviceSocket.on('close', function(event) {
       console.log('UNIS: Service socket closed');
+    });
+  });
+
+  client_socket.on('measurement_request', function(data) {
+    // Create socket to listen for updates on measurements
+    var measurementSocket = new WebSocket('ws://localhost:8888/subscribe/measurement');
+
+    measurementSocket.on('open', function(event) {
+      console.log('UNIS: Measurement socket opened');
+    });
+
+    measurementSocket.on('message', function(data) {
+      console.log('UNIS: measurement_data: ' + data);
+      client_socket.emit('measurement_data', data);
+    });
+
+    measurementSocket.on('close', function(event) {
+      console.log('UNIS: Measurement socket closed');
     });
   });
 };

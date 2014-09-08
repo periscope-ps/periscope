@@ -4,11 +4,9 @@
  * MeasurementCtrl.js
  */
 
-angular.module('MeasurementCtrl', []).controller('MeasurementController', function($scope, $routeParams, $location, Measurement, Metadata, Service, Node) {
+angular.module('MeasurementCtrl', []).controller('MeasurementController', function($scope, $routeParams, $location, Measurement, Metadata, Service, Node, Socket) {
 
   var measurement_id = $routeParams.id;
-
-  // $scope.measurementData = {};
 
   Measurement.getMeasurements(function(measurements) {
     $scope.measurements = measurements;
@@ -63,6 +61,15 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
       return true;
     }
   };
+
+  // request a socket connection
+  Socket.emit('measurement_request', {});
+
+  // New data will enter scope through socket
+  Socket.on('measurement_data', function (data) {
+    var obj = JSON.parse(data);
+    $scope.measurements.push(obj);
+  });
 
   /*$scope.measPUT = function(measurement) {
 
