@@ -255,7 +255,7 @@
 			link: function (scpe, element, attrs) {
 				scope = scpe ;
 				Node.getNodes(function(http_nodes) {
-					console.log("http nodes: " + http_nodes);
+					console.log("http nodes: " , http_nodes);
 					nodes = [], links = [];
 					// set up SVG for D3
 					width  = 600,

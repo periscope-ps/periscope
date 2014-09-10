@@ -9,11 +9,11 @@ angular.module('ServiceService', []).service('Service', function($http) {
   this.getServices = function(services) {
     $http.get('/api/services')
       .success(function(data) {
-        console.log('Service Request: ' + data);
+        console.log('Service Request: ' , data);
         services(data);
       })
       .error(function(data) {
-        console.log('Service Error: ' + data);
+        console.log('Service Error: ' ,  data);
       });
   };
 
