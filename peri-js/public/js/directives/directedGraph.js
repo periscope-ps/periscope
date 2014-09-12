@@ -254,22 +254,32 @@
 			},
 			link: function (scpe, element, attrs) {
 				scope = scpe ;
+				
+				nodes = [], links = [];
+				// set up SVG for D3
+				width  = 600,
+				height = 400,
+				colors = d3.scale.category10();
+				
+				svg = d3.select('#graphSelect')
+				.append('svg')
+				.attr('width', width)
+				.attr('height', height);
+				var i = 0;
+				var flag = true ;
 				Node.getNodes(function(http_nodes) {
+					if(!flag)
+						return;
+					flag = false ;
 					console.log("http nodes: " , http_nodes);
-					nodes = [], links = [];
-					// set up SVG for D3
-					width  = 600,
-					height = 400,
-					colors = d3.scale.category10();
 					
-					svg = d3.select('#graphSelect')
-					.append('svg')
-					.attr('width', width)
-					.attr('height', height);
-					
-					for(var i = 0; i < http_nodes.length; i++) {
+					// Reuse this function
+					svg = d3.select('#graphSelect svg');
+					var ndes = [];
+					for(var j = 0; j < http_nodes.length; j++ , i++) {
+						ndes[j] = {id: i, reflexive: false};
 						nodes[i] = {id: i, reflexive: false};
-						scope.g_nodes[i] = [i, http_nodes[i].name, http_nodes[i].id];
+						scope.g_nodes[i] = [i, http_nodes[j].name, http_nodes[j].id];						
 					}
 					
 					// init D3 force layout

@@ -5,13 +5,17 @@
  */
 
 angular.module('NodeService', []).service('Node', function($http , Socket) {
+  Socket.emit("node_request",{});
   this.getNodes = function(nodes) {
-	Socket.emit("node_request",{blah : 213123123});
-	Socket.on('node_data',function(data){
-		console.log('received data');
-		 var obj = JSON.parse(data);
-		 console.log('Node Request: ' , data);		
-		 nodes(obj);
-	});    
+	 $http.get('/api/nodes').success(function(data) {
+    	console.log('Node Request: ' , data);
+    	nodes(data);
+	  	Socket.on('node_data',function(data){
+	  		console.log('Node Request: ' , data);		
+	  		nodes(data);
+	  	});
+    }).error(function(data) {
+      console.log('Node Error: ' + data);
+    });
   };
 });

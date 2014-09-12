@@ -24,7 +24,7 @@ angular.module('SocketService', []).service('Socket', function($rootScope) {
           callback.apply(socket, args);
         }
       });
-    })
+    });
   };
 
 });
