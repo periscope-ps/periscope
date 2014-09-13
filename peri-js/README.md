@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-### node.js (v0.10.28)
+### node.js (v0.10.30)
 
 #### OSX
 
@@ -42,11 +42,11 @@ else
 
 `$ cd /usr/src`
 
-`$ sudo wget http://nodejs.org/dist/v0.10.28/node-v0.10.28.tar.gz`
+`$ sudo wget http://nodejs.org/dist/v0.10.30/node-v0.10.30.tar.gz`
 
-`$ sudo tar -xvzf node-v0.10.28.tar.gz`
+`$ sudo tar -xvzf node-v0.10.30.tar.gz`
 
-`$ cd node-v0.10.28`
+`$ cd node-v0.10.30`
 
 `$ sudo ./configure`
 
@@ -60,7 +60,13 @@ else
 
 `$ npm -v`
 
-## Install Libs
+## Clone Repository
+
+`$ git clone https://github.com/periscope-ps/periscope.git`
+
+`$ cd periscope/peri-js/`
+
+## Install Project Libs
 
 `$ npm install`
 
@@ -70,7 +76,7 @@ else
 
 ## Start App
 
-`$ npm start`
+`$ sudo npm start`
 
 ## App Routes
 
