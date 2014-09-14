@@ -92,21 +92,40 @@ module.exports = function (client_socket) {
   });
 
   client_socket.on('data_request', function(data) {
-    // Create socket to listen for updates on data
-    var dataSocket = new WebSocket(unis_sub + 'data');
+    // console.log(data.id);
+    if (data.id) {
+      // Create socket to listen for updates on data
+      var dataSocket = new WebSocket(unis_sub + 'data/' + data.id);
 
-    dataSocket.on('open', function(event) {
-      console.log('UNIS: Data socket opened');
-    });
+      dataSocket.on('open', function(event) {
+        console.log('UNIS: Data ID socket opened');
+      });
 
-    dataSocket.on('message', function(data) {
-      console.log('UNIS: data_data: ' + data);
-      client_socket.emit('data_data', data);
-    });
+      dataSocket.on('message', function(data) {
+        console.log('UNIS: data_data: ' + data);
+        client_socket.emit('data_data', data);
+      });
 
-    dataSocket.on('close', function(event) {
-      console.log('UNIS: Data socket closed');
-    });
+      dataSocket.on('close', function(event) {
+        console.log('UNIS: Data ID socket closed');
+      });
+    } else {
+      // Create socket to listen for updates on data
+      var dataSocket = new WebSocket(unis_sub + 'data');
+
+      dataSocket.on('open', function(event) {
+        console.log('UNIS: Data socket opened');
+      });
+
+      dataSocket.on('message', function(data) {
+        console.log('UNIS: data_data: ' + data);
+        client_socket.emit('data_data', data);
+      });
+
+      dataSocket.on('close', function(event) {
+        console.log('UNIS: Data socket closed');
+      });
+    }
   });
 
   client_socket.on('port_request', function(data) {
