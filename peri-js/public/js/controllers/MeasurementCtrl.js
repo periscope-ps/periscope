@@ -4,19 +4,35 @@
  * MeasurementCtrl.js
  */
 
-angular.module('MeasurementCtrl', []).controller('MeasurementController', function($scope, $routeParams, $location, Measurement, Metadata, Service, Node, Socket) {
+angular.module('MeasurementCtrl', []).controller('MeasurementController', function($scope, $routeParams, $location, Measurement, Metadata, Service, Node) {
 
   var measurement_id = $routeParams.id;
 
   Measurement.getMeasurements(function(measurements) {
-    $scope.measurements = measurements;
+    $scope.measurements = $scope.measurements || [];
+
+    if (typeof measurements =='string')
+      measurements = JSON.parse(measurements);
+
+    $scope.measurements = $scope.measurements.concat(measurements);
   });
   Service.getServices(function(services) {
-    $scope.services = services;
+    $scope.services = $scope.services || [];
+
+    if (typeof services =='string')
+      services = JSON.parse(services);
+
+    $scope.services = $scope.services.concat(services);
   });
   Node.getNodes(function(nodes) {
-    $scope.nodes = nodes;
+    $scope.nodes = $scope.nodes || [];
+
+    if (typeof nodes =='string')
+      nodes = JSON.parse(nodes);
+
+    $scope.nodes = $scope.nodes.concat(nodes);
   });
+
   if (measurement_id) {
     Measurement.getMeasurement(function(measurement) {
       $scope.measurement = measurement;
@@ -61,15 +77,6 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
       return true;
     }
   };
-
-  // request a socket connection
-  Socket.emit('measurement_request', {});
-
-  // New data will enter scope through socket
-  Socket.on('measurement_data', function (data) {
-    var obj = JSON.parse(data);
-    $scope.measurements.push(obj);
-  });
 
   /*$scope.measPUT = function(measurement) {
 

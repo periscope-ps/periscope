@@ -4,17 +4,21 @@
  * MeasurementService.js
  */
 
-angular.module('MeasurementService', []).service('Measurement', function($http, $routeParams) {
+angular.module('MeasurementService', []).service('Measurement', function($http, $routeParams, Socket) {
+  Socket.emit("measurement_request",{});
 
   this.getMeasurements = function(measurements) {
-    $http.get('/api/measurements/')
-      .success(function(data) {
-        console.log('Measurement Request: ' + data);
+    $http.get('/api/measurements/').success(function(data) {
+      console.log('Measurement Request: ' + data);
+      measurements(data);
+
+      Socket.on('measurement_data',function(data){
+        console.log('Measurement Service Request: ' , data);
         measurements(data);
-      })
-      .error(function(data) {
-        console.log('Measurement Error: ' + data);
       });
+    }).error(function(data) {
+      console.log('Measurement Error: ' + data);
+    });
   };
 
   this.getMeasurement = function(measurement) {
@@ -27,5 +31,4 @@ angular.module('MeasurementService', []).service('Measurement', function($http, 
         console.log('Measurement Error: ' + data);
       });
   };
-
 });

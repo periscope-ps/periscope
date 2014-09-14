@@ -4,10 +4,18 @@
  * ServiceCtrl.js
  */
 
-angular.module('ServiceCtrl', []).controller('ServiceController', function($scope, Service, Node, Socket) {
+angular.module('ServiceCtrl', []).controller('ServiceController', function($scope, Service, Node) {
 
+  // GET request for initial set of data
+  // Request a socket connection
+  // New data will enter scope through socket
   Service.getServices(function(services) {
-    $scope.services = services;
+    $scope.services = $scope.services || [];
+
+    if (typeof services =='string')
+      services = JSON.parse(services);
+
+    $scope.services = $scope.services.concat(services);
   });
 
   Node.getNodes(function(nodes) {
@@ -23,13 +31,4 @@ angular.module('ServiceCtrl', []).controller('ServiceController', function($scop
       }
     }
   };
-
-  // request a socket connection
-  Socket.emit('service_request', {});
-
-  // New data will enter scope through socket
-  Socket.on('service_data', function (data) {
-    var obj = JSON.parse(data);
-    $scope.services.push(obj);
-  });
 });

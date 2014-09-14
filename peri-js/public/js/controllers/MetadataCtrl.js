@@ -9,17 +9,38 @@ angular.module('MetadataCtrl', []).controller('MetadataController', function($sc
   var metadata_id = $routeParams.id;
 
   Metadata.getMetadatas(function(metadatas) {
-    $scope.metadatas = metadatas;
+    $scope.metadatas = $scope.metadatas || [];
+
+    if (typeof metadatas =='string')
+      metadatas = JSON.parse(metadatas);
+
+    $scope.metadatas = $scope.metadatas.concat(metadatas);
   });
   Measurement.getMeasurements(function(measurements) {
-    $scope.measurements = measurements;
+    $scope.measurements = $scope.measurements || [];
+
+    if (typeof measurements =='string')
+      measurements = JSON.parse(measurements);
+
+    $scope.measurements = $scope.measurements.concat(measurements);
   });
   Node.getNodes(function(nodes) {
-    $scope.nodes = nodes;
+    $scope.nodes = $scope.nodes || [];
+
+    if (typeof nodes =='string')
+      nodes = JSON.parse(nodes);
+
+    $scope.nodes = $scope.nodes.concat(nodes);
   });
+
   if (metadata_id) {
     Metadata.getMetadataData(function(metadataData) {
-      $scope.metadataData = metadataData;
+      $scope.metadataData = $scope.metadataData || [];
+
+      if (typeof metadataData =='string')
+        metadataData = JSON.parse(metadataData);
+
+      $scope.metadataData = $scope.metadataData.concat(metadataData);
 
       Metadata.getMetadata(function(metadata) {
         $scope.eventType = metadata.eventType;
