@@ -44,15 +44,13 @@
 		
 		// update existing links
 		path.classed('selected', function(d) { return d === selected_link; })
-		.style('marker-start', function(d) { return d.left ? 'url(#start-arrow)' : ''; })
-		.style('marker-end', function(d) { return d.right ? 'url(#end-arrow)' : ''; });
+		.style('marker-end', function(d) { return 'url('+curUrl+'#end-arrow)'; });
 		
 		// add new links
 		path.enter().append('svg:path')
 		.attr('class', 'link')
 		.classed('selected', function(d) { return d === selected_link; })
-		.style('marker-start', function(d) { return d.left ? 'url(#start-arrow)' : ''; })
-		.style('marker-end', function(d) { return d.right ? 'url(#end-arrow)' : ''; })
+		.style('marker-end', function(d) { return 'url('+curUrl+'#end-arrow)'; })
 		.on('mousedown', function(d) {
 			if(d3.event.ctrlKey) return;
 			
@@ -235,7 +233,7 @@
 	
 	// vars required 
 	
-	var nodes = [], links = []  , width , height , force,drag_line,scope;
+	var nodes = [], links = []  , width , height , force,drag_line,scope,curUrl;
 	var path;
 	var selected_node = null,
 	selected_link = null,
@@ -243,7 +241,7 @@
 	mousedown_node = null,
 	mouseup_node = null;
 
-	angular.module('directedGraphModule', []).directive('directedGraph', function(Node) {
+	angular.module('directedGraphModule', []).directive('directedGraph', function(Node,$location) {
 		return {
 			restrict: 'E',
 			replace: true,
@@ -260,7 +258,7 @@
 				width  = 600,
 				height = 400,
 				colors = d3.scale.category10();
-				
+				curUrl = $location.$$url;
 				svg = d3.select('#graphSelect')
 				.append('svg')
 				.attr('width', width)
