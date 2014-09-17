@@ -62,7 +62,6 @@
 			selected_node = null;
 			restart();
 		});
-		
 		// remove old links
 		path.exit().remove();
 		
@@ -153,6 +152,8 @@
 			selected_link = link;
 			selected_node = null;
 			restart();
+		}).on('blur',function(){
+			selected_node = null ;
 		});
 		
 		// show node IDs
@@ -206,13 +207,13 @@
 	}
 	// only respond once per keydown
 	var lastKeyDown = -1;
-	function keydown() {
-		d3.event.preventDefault();
+	function keydown() {			
+		if(!selected_node && !selected_link) return;
 		
+		d3.event.preventDefault();		
 		if(lastKeyDown !== -1) return;
 		lastKeyDown = d3.event.keyCode;
 		
-		if(!selected_node && !selected_link) return;
 		switch(d3.event.keyCode) {
 		case 8: // backspace
 		case 46: // delete
@@ -228,7 +229,7 @@
 	}
 	
 	function keyup() {
-		lastKeyDown = -1;
+		lastKeyDown = -1;		
 	}
 	
 	// vars required 
@@ -239,8 +240,8 @@
 	selected_link = null,
 	mousedown_link = null,
 	mousedown_node = null,
-	mouseup_node = null;
-
+	mouseup_node = null , oldSelected_node , oldSelected_link;
+	
 	angular.module('directedGraphModule', []).directive('directedGraph', function(Node,$location) {
 		return {
 			restrict: 'E',
@@ -251,8 +252,21 @@
 				g_links: '=links'
 			},
 			link: function (scpe, element, attrs) {
-				scope = scpe ;
 				
+				d3.select('#graphSelect').on('mouseout' , function(){ 				
+					oldSelected_node = selected_node;
+					oldSelected_link = selected_link;
+					selected_node = null,
+					selected_link = null;
+				}).on('mouseover',function(){
+					if(oldSelected_node)
+						selected_node = oldSelected_node;
+					if(oldSelected_link)
+						selected_link = oldSelected_link;
+					oldSelected_link = oldSelected_node = null;
+				});
+				
+				scope = scpe ;
 				nodes = [], links = [];
 				// set up SVG for D3
 				width  = 600,
