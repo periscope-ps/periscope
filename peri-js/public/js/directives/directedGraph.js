@@ -36,7 +36,52 @@
 			return 'translate(' + d.x + ',' + d.y + ')';
 		});
 	}
-	
+	var linkContextMenuHandler = {
+			showContextMenu : false , 
+			menuVisible : false , 
+			show : function(id){
+				// Populate the custom menu
+				id = 0;
+				scope.ports = (scope.g_nodes[id].ports || []).map(function(x){
+					return x.href;
+				});
+				
+			    d3.select('#my_custom_menu')
+			      .style('position', 'absolute')
+			      .style('left', d3.event.x + "px")
+			      .style('top', d3.event.y  + "px")
+			      .style('display', 'block');		    
+			    d3.select("#my_custom_menu .rMenu").style('display','block');			    
+			    linkContextMenuHandler.showContextMenu = true , 
+			    linkContextMenuHandler.menuVisible = true;			    
+			    setTimeout(function(){
+			    	linkContextMenuHandler.showContextMenu = false ;
+			    },1);
+			},
+			hide : function(){
+				d3.select("#my_custom_menu .rMenu").style('display','none');
+				linkContextMenuHandler.menuVisible = false ;
+			},
+			initEvents:function(){
+				// Handler for the context menu only
+				d3.select('body').on('mousedown',function(){
+					if(!linkContextMenuHandler.showContextMenu && linkContextMenuHandler.menuVisible){
+						linkContextMenuHandler.hide();	
+					}
+				}).on('keyup',function(){
+					if(linkContextMenuHandler.menuVisible){
+						var ev = d3.event.keyCode;
+						switch(ev){
+							// Escape
+							case 27 : linkContextMenuHandler.hide();
+							default : console.log(ev);
+						}
+					}
+				});
+			}
+	};
+	linkContextMenuHandler.initEvents();
+
 	// update graph (called when needed)
 	function restart() {
 		// path (link) group
@@ -51,9 +96,20 @@
 		.attr('class', 'link')
 		.classed('selected', function(d) { return d === selected_link; })
 		.style('marker-end', function(d) { return 'url('+curUrl+'#end-arrow)'; })
+		.on("contextmenu", function(data, index) {
+			linkContextMenuHandler.show();
+			d3.event.preventDefault();
+		})
+		.on("dblclick", function(data, index) {
+			linkContextMenuHandler.show();
+			d3.event.preventDefault();
+		})
 		.on('mousedown', function(d) {
 			if(d3.event.ctrlKey) return;
-			
+			if(d3.event.which == 3){
+				d3.event.preventDefault();
+				return;
+			}
 			// select link
 			mousedown_link = d;
 			console.log("mousedown_link: " + mousedown_link);
@@ -62,6 +118,7 @@
 			selected_node = null;
 			restart();
 		});
+		
 		// remove old links
 		path.exit().remove();
 		
@@ -249,7 +306,8 @@
 			template: '<div id="graphSelect"></div>',
 			scope: { // attributes bound to the scope of the directive
 				g_nodes: '=nodes',
-				g_links: '=links'
+				g_links: '=links',
+				ports : '=ports'
 			},
 			link: function (scpe, element, attrs) {
 				
@@ -291,7 +349,8 @@
 					for(var j = 0; j < http_nodes.length; j++ , i++) {
 						ndes[j] = {id: i, reflexive: false};
 						nodes[i] = {id: i, reflexive: false};
-						scope.g_nodes[i] = [i, http_nodes[j].name, http_nodes[j].id];						
+						scope.g_nodes[i] = [i, http_nodes[j].name, http_nodes[j].id];
+						scope.g_nodes[i].ports = http_nodes[j].ports ;
 					}
 					
 					// init D3 force layout
@@ -352,7 +411,13 @@
 					restart();
 					
 					// Add tooltips 
-					var tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return scope.g_nodes[d.id].slice(1).join("<br/>"); });;
+					var tip = d3.tip().attr('class', 'd3-tip').html(function(d) {
+						var i = scope.g_nodes[d.id];
+						var portText = (i.ports || []).map(function(x,i){
+							return "Port "+ i+ " " + x.href; 
+						}).join("<br>");
+						return i.slice(1).join("<br/>") + "<br/>" + portText; 
+					});;
 					svg.call(tip);
 					svg.selectAll('circle.node')					  					
 					  .on('mouseover', tip.show)

@@ -9,6 +9,7 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
   // scope for d3 graph data
   $scope.graphNodes = [];
   $scope.graphLinks = [];
+  $scope.ports = [1,2,3];
 
   // scope variables
   $scope.helmIperfData = {};
