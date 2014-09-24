@@ -6,11 +6,127 @@
 
 angular.module('BlippCtrl', []).controller('BlippController', function($scope, $http, Node, Slice, Service, Port) {
 
+  $scope.userSchema = "";
+  $scope.schema = {};
+
+  /*$scope.userSchema = {
+    "$schema": "http://json-schema.org/draft-03/hyper-schema#",
+    "id": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+    "description": "A measurement object",
+    "name": "Measurement",
+    "type": "object",
+    "extends": {
+      "$ref": "http://unis.incntre.iu.edu/schema/20140214/networkresource#"
+    },
+    "properties": {
+      "service": {
+        "type": "string",
+        "format": "uri",
+        "description": "Service which will be taking this measurement"
+      },
+      "configuration": {
+        "type": "object",
+        "properties": {
+          "$schema": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "additionalProperties": true
+      },
+      "scheduled_times": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "end": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "required": ["start", "end"]
+        }
+      },
+      "eventTypes": {
+        "description": "A list of eventTypes which this measurement produces",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "resources": {
+        "description": "A list of resources that this measurement uses or affects",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "description": "Hyperlink reference to the resource",
+              "format": "uri",
+              "type": "string"
+            },
+            "usage": {
+              "type": "object",
+              "description": "A resource has different ways it can be used, this tells in what ways this measurement uses this resource",
+              "additionalProperties": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              }
+            }
+          },
+          "required": ["ref"]
+        }
+      }
+    },
+    "required": [
+      "service",
+      "configuration",
+      "eventTypes"
+    ],
+    "additionalProperties": true
+  };*/
+
+  $scope.userSchemaSubmit = function(userSchema) {
+    // userSchema = userSchema.replace(/[$_a-zA-Z]+:(?!\/)/g, '"pants":');
+    var schema = angular.copy(userSchema);
+    $scope.schema = angular.fromJson(schema);
+
+    $scope.form = [
+      "service",
+      "configuration",
+      "scheduled_times",
+      {
+        "key": "eventTypes",
+        "type": "array"
+      },
+      {
+        "key": "resources",
+        "items": [
+          "resources[].ref",
+          "resources[].usage.additionalProperties"
+        ]
+      },
+      {
+        "type": "submit",
+        "style": "btn-primary",
+        "title": "Submit Custom Probe"
+      }
+    ];
+
+    $scope.model = {};
+  };
+
   // scope variables
   $scope.pingData = {};
   $scope.owpData = {};
   $scope.perfData = {};
   $scope.netlogData = {};
+  $scope.userSchemaData = {};
   $scope.alerts = [];
   $scope.timeTypes = [
     {type:'Seconds'},
@@ -27,8 +143,10 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
   ];
 
   // load default form
-  $scope.btnIperf = $scope.btnIperf === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
-  $scope.addIperf = $scope.addIperf === true ? false: true;
+  // $scope.btnIperf = $scope.btnIperf === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
+  // $scope.addIperf = $scope.addIperf === true ? false: true;
+  $scope.btnCustomProbe = $scope.btnCustomProbe === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
+  $scope.addCustomProbe = $scope.addCustomProbe === true ? false: true;
 
   // load dependent data
   Node.getNodes(function(nodes) {
@@ -96,6 +214,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     $scope.btnIperf = "btn btn-default";
     $scope.addNetlogger = false;
     $scope.btnNetlogger = "btn btn-default";
+    $scope.addCustomProbe = false;
+    $scope.btnCustomProbe = "btn btn-default";
     $scope.btnPing = $scope.btnPing === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
     $scope.addPing = $scope.addPing === true ? false: true;
 
@@ -117,6 +237,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     $scope.btnIperf = "btn btn-default";
     $scope.addNetlogger = false;
     $scope.btnNetlogger = "btn btn-default";
+    $scope.addCustomProbe = false;
+    $scope.btnCustomProbe = "btn btn-default";
     $scope.btnOWPing = $scope.btnOWPing === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
     $scope.addOWPing = $scope.addOWPing === true ? false: true;
 
@@ -136,6 +258,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     $scope.btnOWPing = "btn btn-default";
     $scope.addNetlogger = false;
     $scope.btnNetlogger = "btn btn-default";
+    $scope.addCustomProbe = false;
+    $scope.btnCustomProbe = "btn btn-default";
     $scope.btnIperf = $scope.btnIperf === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
     $scope.addIperf = $scope.addIperf === true ? false: true;
 
@@ -156,6 +280,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     $scope.btnOWPing = "btn btn-default";
     $scope.addIperf = false;
     $scope.btnIperf = "btn btn-default";
+    $scope.addCustomProbe = false;
+    $scope.btnCustomProbe = "btn btn-default";
     $scope.btnNetlogger = $scope.btnNetlogger === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
     $scope.addNetlogger = $scope.addNetlogger === true ? false: true;
 
@@ -165,6 +291,22 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     $scope.netlog.tbrValue = 5;
     $scope.netlog.tbrType = $scope.timeTypes[0];
     $scope.netlog.reportMS = 10;
+    $scope.alert = false;
+  };
+  $scope.toggleCustomProbe = function() {
+    $scope.addPing = false;
+    $scope.btnPing = "btn btn-default";
+    $scope.addOWPing = false;
+    $scope.btnOWPing = "btn btn-default";
+    $scope.addIperf = false;
+    $scope.btnIperf = "btn btn-default";
+    $scope.addNetlogger = false;
+    $scope.btnNetlogger = "btn btn-default";
+    $scope.btnCustomProbe = $scope.btnCustomProbe === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
+    $scope.addCustomProbe = $scope.addCustomProbe === true ? false: true;
+
+    // default form values
+    $scope.user_schema = angular.copy({});
     $scope.alert = false;
   };
 
@@ -228,6 +370,15 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     $scope.netlog.reportMS = 10;
     $scope.closeAlert(0);
   };
+  $scope.userSchemaReset = function() {
+    // clear client and server side form
+    // $scope.pingData = {};
+    // $scope.ping = angular.copy($scope.pingData);
+
+    // clear client side form and reset defaults
+    $scope.user_schema = angular.copy({});
+    $scope.closeAlert(0);
+  };
   // compare form data with in memory data
   $scope.pingReset();
   $scope.pingUnchanged = function(ping) {
@@ -244,6 +395,10 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
   $scope.netlogReset();
   $scope.netlogUnchanged = function(netlog) {
     return angular.equals(netlog, $scope.netlogData);
+  };
+  // $scope.userSchemaReset();
+  $scope.userSchemaUnchanged = function(user_schema) {
+    return angular.equals(user_schema, $scope.userSchemaData);
   };
 
   $scope.pingSubmit = function(ping) {
@@ -601,5 +756,5 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         $scope.alert = true;
       });
     }
-  }; // end submissions
+  };
 }); // end controller
