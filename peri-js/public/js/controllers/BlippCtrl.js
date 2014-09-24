@@ -107,8 +107,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
       {
         "key": "resources",
         "items": [
-          "resources[].ref",
-          "resources[].usage.additionalProperties"
+          "resources[].ref"
+          // "resources[].usage.additionalProperties"
         ]
       },
       {
@@ -119,6 +119,73 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     ];
 
     $scope.model = {};
+
+    $scope.schemaSubmit = function() {
+
+      if ($scope.model == null) {
+        // If form is invalid, return and let AngularJS show validation errors.
+        $scope.addAlert('Invalid form, cannot be submitted', 'danger');
+        $scope.alert = true;
+        return;
+      } else {
+        // Tell user form has been sent
+        // $scope.addAlert('Data sent to UNIS. Please wait for confirmation.', 'info');
+        // $scope.alert = true;
+
+        // lookup service running on given node
+        // var nodeService = $scope.getNodeService($scope.netlogData.from.split(" ")[1]);
+
+        // build schema measurement to submit
+        var schema_measurement = {
+          $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+          // service: nodeService,
+          ts: Math.round(new Date().getTime() * 1000),
+          properties: {
+            geni: {
+              slice_uuid: $scope.geniSlice.slice_uuid
+            }
+          },
+          eventTypes: $scope.model.eventTypes,
+          configuration: {
+            status: "ON",
+            name: $scope.model.service,
+            ref: $scope.model.resources[0].ref,
+            command: $scope.model.configuration.$schema,
+            schedule_params: {
+              start: $scope.model.scheduled_times[0].start,
+              end: $scope.model.scheduled_times[0].end
+            },
+            collection_schedule: "builtins.simple",
+            ms_url: $scope.geniSlice.ms_url,
+            probe_module: "custom_probe"
+          },
+          type: "custom_probe"
+        };
+
+        $http({
+          method: 'POST',
+          url: '/api/measurements',
+          data: schema_measurement,
+          headers: {'Content-type': 'application/perfsonar+json'}
+        }).
+        success(function(data, status, headers, config) {
+          // $scope.addAlert(data, 'success');
+          // $scope.addAlert(status, 'success');
+          // $scope.addAlert(headers, 'success');
+          // $scope.addAlert(config, 'success');
+          $scope.addAlert('BLiPP Test: ' + data.configuration.name + ' submitted to UNIS', 'success');
+          $scope.alert = true;
+        }).
+        error(function(data, status, headers, config) {
+          // $scope.addAlert(data, 'danger');
+          // $scope.addAlert(status, 'danger');
+          // $scope.addAlert(headers, 'danger');
+          // $scope.addAlert(config, 'danger');
+          $scope.addAlert('Status: ' + status.toString() + ', ' + 'Error: ' + data.error.message, 'danger');
+          $scope.alert = true;
+        });
+      }
+    }
   };
 
   // scope variables
