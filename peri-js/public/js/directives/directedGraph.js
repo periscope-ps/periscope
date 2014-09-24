@@ -38,14 +38,15 @@
 	}
 	var linkContextMenuHandler = {
 			showContextMenu : false , 
-			menuVisible : false , 
+			menuVisible : false , 			
 			show : function(id){
-				// Populate the custom menu
-				id = 0;
-				scope.ports = (scope.g_nodes[id].ports || []).map(function(x){
-					return x.href;
+				// Populate the custom menu				
+				scope.$apply(function(){
+					scope.ports = (scope.g_nodes[id].ports || []).map(function(x){
+						return x.href;
+					});
+					scope.ports.selectedPortSourceId = id ;
 				});
-				
 			    d3.select('#my_custom_menu')
 			      .style('position', 'absolute')
 			      .style('left', d3.event.x + "px")
@@ -62,6 +63,7 @@
 				d3.select("#my_custom_menu .rMenu").style('display','none');
 				linkContextMenuHandler.menuVisible = false ;
 			},
+			
 			initEvents:function(){
 				// Handler for the context menu only
 				d3.select('body').on('mousedown',function(){
@@ -77,7 +79,7 @@
 							default : console.log(ev);
 						}
 					}
-				});
+				});				
 			}
 	};
 	linkContextMenuHandler.initEvents();
@@ -97,11 +99,11 @@
 		.classed('selected', function(d) { return d === selected_link; })
 		.style('marker-end', function(d) { return 'url('+curUrl+'#end-arrow)'; })
 		.on("contextmenu", function(data, index) {
-			linkContextMenuHandler.show();
+			linkContextMenuHandler.show(data.source.id);
 			d3.event.preventDefault();
 		})
 		.on("dblclick", function(data, index) {
-			linkContextMenuHandler.show();
+			linkContextMenuHandler.show(data.source.id);
 			d3.event.preventDefault();
 		})
 		.on('mousedown', function(d) {
@@ -309,8 +311,7 @@
 				g_links: '=links',
 				ports : '=ports'
 			},
-			link: function (scpe, element, attrs) {
-				
+			link: function (scpe, element, attrs) {			
 				d3.select('#graphSelect').on('mouseout' , function(){ 				
 					oldSelected_node = selected_node;
 					oldSelected_link = selected_link;
@@ -322,8 +323,7 @@
 					if(oldSelected_link)
 						selected_link = oldSelected_link;
 					oldSelected_link = oldSelected_node = null;
-				});
-				
+				});				
 				scope = scpe ;
 				nodes = [], links = [];
 				// set up SVG for D3
@@ -351,7 +351,7 @@
 						nodes[i] = {id: i, reflexive: false};
 						scope.g_nodes[i] = [i, http_nodes[j].name, http_nodes[j].id];
 						scope.g_nodes[i].ports = http_nodes[j].ports ;
-					}
+					}							
 					
 					// init D3 force layout
 					force = d3.layout.force()

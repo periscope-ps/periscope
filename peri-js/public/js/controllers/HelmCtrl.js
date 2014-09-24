@@ -9,8 +9,8 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
   // scope for d3 graph data
   $scope.graphNodes = [];
   $scope.graphLinks = [];
-  $scope.ports = [1,2,3];
-
+  $scope.ports = [];
+  $scope.selectedPortSourceId = "";
   // scope variables
   $scope.helmIperfData = {};
   $scope.helmPingData = {};
@@ -28,7 +28,12 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
     {type:'tcp'},
     {type:'udp'}
   ];
-
+  
+  $scope.selectPort = function(){	  
+	  var port = this.port ;
+	  var id = this.ports.selectedPortSourceId;
+	  console.log("Port : ",port , " Id : ",id);
+   };	
   Slice.getSlice(function(sliceInfo) {
     $scope.geniSlice = sliceInfo[0];
   });
