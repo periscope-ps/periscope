@@ -97,7 +97,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     $scope.schema = angular.fromJson(schema);
 
     $scope.form = [
-      "service",
+      // "service",
       "configuration",
       "scheduled_times",
       {
@@ -133,12 +133,26 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         // $scope.alert = true;
 
         // lookup service running on given node
-        // var nodeService = $scope.getNodeService($scope.netlogData.from.split(" ")[1]);
+        var nodeService = $scope.getNodeService($scope.model.from.split(" ")[1]);
+
+        // create proper interval for every based on user input
+        var every;
+        if($scope.model.tbtType.type === 'Days') {
+          every = $scope.model.tbtValue * 86400;
+        } else if($scope.model.tbtType.type === 'Hours') {
+          every = $scope.model.tbtValue * 3600;
+        } else if($scope.model.tbtType.type === 'Minutes') {
+          every = $scope.model.tbtValue * 60;
+        } else {
+          every = $scope.model.tbtValue;
+        }
 
         // build schema measurement to submit
         var schema_measurement = {
           $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-          // service: nodeService,
+          name: "Measurement",
+          description: $scope.model.desc,
+          service: nodeService,
           ts: Math.round(new Date().getTime() * 1000),
           properties: {
             geni: {
@@ -148,16 +162,21 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
           eventTypes: $scope.model.eventTypes,
           configuration: {
             status: "ON",
-            name: $scope.model.service,
             ref: $scope.model.resources[0].ref,
             command: $scope.model.configuration.$schema,
+            // regex: "ttl=(?P<ttl>\\d+).*time=(?P<rtt>\\d+\\.\\d+|\\d+)",
+            // reporting_params: parseInt($scope.pingData.reportMS),
+            probe_module: "cmd_line_probe",
+            collection_schedule: "builtins.simple",
             schedule_params: {
+              every: every,
+              num_tests: parseInt($scope.model.num_tests),
               start: $scope.model.scheduled_times[0].start,
               end: $scope.model.scheduled_times[0].end
             },
-            collection_schedule: "builtins.simple",
+            collection_size: 100000,
             ms_url: $scope.geniSlice.ms_url,
-            probe_module: "custom_probe"
+            collection_ttl: 1500000,
           },
           type: "custom_probe"
         };
@@ -240,9 +259,14 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
   // find the service running on a node
   $scope.getNodeService = function(node_ref) {
+    alert("start");
     for(var i = 0; i < $scope.services.length; i++) {
       if ($scope.services[i].runningOn.href == node_ref) {
+        alert("if");
         return $scope.services[i].selfRef;
+      } else {
+        alert("else");
+        return node_ref;
       }
     }
   };

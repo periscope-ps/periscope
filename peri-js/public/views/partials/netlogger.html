@@ -10,7 +10,7 @@
 <form name="netlogForm" novalidate>
 
   <div class="form-group row" ng-class="{ 'has-error' : netlogForm.nFrom.$invalid && !netlogForm.nFrom.$pristine }">
-    <label for="netlogFrom" class="col-md-2 control-label">Select Node</label>
+    <label for="netlogFrom" class="col-md-2 control-label">Source</label>
     <div class="col-md-10">
       <select ng-model="netlog.from" name="nFrom" id="netlogFrom" class="form-control" required>
         <option ng-repeat="node in nodes | unique:'id'">{{ node.name }} {{ node.selfRef }}</option>

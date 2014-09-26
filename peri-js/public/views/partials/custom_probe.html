@@ -28,4 +28,43 @@
 <hr />
 
 <!-- <pre>Form Schema {{schema}}</pre> -->
+<div class="form-group row" ng-class="{ 'has-error' : pingForm.pFrom.$invalid && !pingForm.pFrom.$pristine }">
+  <label for="pingFrom" class="col-md-2 control-label">Source</label>
+  <div class="col-md-10">
+    <select ng-model="model.source" name="pFrom" id="pingFrom" class="form-control" required>
+      <option ng-repeat="node in nodes | unique:'id'">{{ node.name }} {{ node.selfRef }}</option>
+    </select>
+    <p ng-show="pingForm.pFrom.$invalid && !pingForm.pFrom.$pristine" class="help-block">Please select a node</p>
+  </div>
+</div>
+
+<div class="form-group row" ng-class="{ 'has-error' : pingForm.pDesc.$invalid && !pingForm.pDesc.$pristine }">
+  <label for="pingDescription" class="col-md-2 control-label">Description</label>
+  <div class="col-md-10">
+      <input ng-model="model.desc" name="pDesc" type="text" class="form-control" id="pingDescription" placeholder="Describe test here..." ng-minlength="3" ng-maxlength="30" required>
+      <p ng-show="pingForm.pDesc.$invalid && !pingForm.pDesc.$pristine" class="help-block">Please describe test</p>
+      <p ng-show="pingForm.pDesc.$error.minlength" class="help-block">Description must be at least 3 characters</p>
+      <p ng-show="pingForm.pDesc.$error.maxlength" class="help-block">Description cannot exceed 30 characters</p>
+  </div>
+</div>
+
+<div class="form-group row" ng-class="{ 'has-error' : pingForm.pNT.$invalid && !pingForm.pNT.$pristine }">
+  <label for="pingNT" class="col-md-2 control-label">Number of Tests</label>
+  <div class="col-md-10">
+    <input ng-model="model.num_tests" name="pNT" type="text" class="form-control" id="pingNT" placeholder="Integer Value" required>
+    <p ng-show="pingForm.pNT.$invalid && !pingForm.pNT.$pristine" class="help-block">Please enter a value for time</p>
+  </div>
+</div>
+
+<div class="form-group row" ng-class="{ 'has-error' : pingForm.pTBT.$invalid && !pingForm.pTBT.$pristine }">
+  <label for="pingTBT" class="col-md-2 control-label">Time Between Tests</label>
+  <div class="col-md-5">
+    <input ng-model="model.tbtValue" name="pTBT" type="text" class="form-control" id="pingTBT" placeholder="Integer Value" required>
+    <p ng-show="pingForm.pTBT.$invalid && !pingForm.pTBT.$pristine" class="help-block">Please enter a value for time</p>
+  </div>
+  <div class="col-md-5">
+    <select ng-model="model.tbtType" ng-options="timeType.type for timeType in timeTypes" class="form-control" required></select>
+  </div>
+</div>
+
 <form sf-schema="schema" sf-form="form" sf-model="model" ng-submit="schemaSubmit()"></form>
