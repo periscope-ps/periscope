@@ -3,15 +3,19 @@
  * public/js/
  * directives.js
  */
-(function(){
+(function(){	
 	function resetMouseVars() {
 		mousedown_node = null;
 		mouseup_node = null;
 		mousedown_link = null;
-		
-		scope.g_links = links.map(function(x){
-			return [x.source.id,x.target.id];
-		});
+		scope.$apply(function(){
+			scope.g_links = links.map(function(x){
+				var node = [x.source.id,x.target.id];
+				node.ports = x.ports;
+				console.log(node.ports);
+				return node ;
+			});
+		})
 	}
 	
 	// update force layout (called automatically each iteration)
@@ -82,6 +86,7 @@
 				});				
 			}
 	};
+	
 	linkContextMenuHandler.initEvents();
 
 	// update graph (called when needed)
@@ -194,7 +199,8 @@
 				target = mouseup_node;
 				console.log("< source: " + source.id);
 				console.log("< target: " + target.id);
-				link = {source: source, target: target};
+				link = {source: source, target: target};				
+				link.ports = scope.g_nodes[source.id].ports ;
 				links.push(link);
 			} else {
 				console.log("> mousedown_node.id: " + mousedown_node.id);
@@ -204,9 +210,9 @@
 				console.log("> source: " + source.id);
 				console.log("> target: " + target.id);
 				link = {source: source, target: target};
+				link.ports = scope.g_nodes[source.id].ports ;
 				links.push(link);
 			}
-			
 			// select new link
 			selected_link = link;
 			selected_node = null;
@@ -301,7 +307,7 @@
 	mousedown_node = null,
 	mouseup_node = null , oldSelected_node , oldSelected_link;
 	
-	angular.module('directedGraphModule', []).directive('directedGraph', function(Node,$location) {
+	angular.module('directedGraphModule', []).directive('directedGraph', function(Node,$location,Port) {
 		return {
 			restrict: 'E',
 			replace: true,
@@ -350,8 +356,29 @@
 						ndes[j] = {id: i, reflexive: false};
 						nodes[i] = {id: i, reflexive: false};
 						scope.g_nodes[i] = [i, http_nodes[j].name, http_nodes[j].id];
+						
 						scope.g_nodes[i].ports = http_nodes[j].ports ;
-					}							
+					}	
+					
+					Port.getPorts(function(data){
+						// Use this data to populate ports
+						var map = {};
+						for (var i = 0 ; i < data.length ; i++){
+							var it = data[i];
+							var parts = it.selfRef.split("/");
+							map[unescape(parts[parts.length-1])] = it ;
+						}
+						map[""]= {a:1};
+						// Loop through gnodes and assign port info
+						for (i=0 ;i < scope.g_nodes.length; i++){
+							var it = scope.g_nodes[i];
+							var arr = (it.ports || []);
+							for (var j = 0 ; j < arr.length ; j++){
+								var parts  = ((arr[j] || {}).href || "").split("/");
+								arr[j].portInfo = map[unescape(parts[parts.length-1])]; 
+							};									
+						}
+					});
 					
 					// init D3 force layout
 					force = d3.layout.force()
@@ -414,7 +441,16 @@
 					var tip = d3.tip().attr('class', 'd3-tip').html(function(d) {
 						var i = scope.g_nodes[d.id];
 						var portText = (i.ports || []).map(function(x,i){
-							return "Port "+ i+ " " + x.href; 
+							
+							if(x.portInfo){
+								var ip = (x.portInfo.address || {}).address;
+								var ipStr = "";
+								if(ip)
+									ipStr = " - " + ip;
+								return "Port "+ i+ " " + x.portInfo.name + ipStr;
+							}
+							else 
+								return "Port "+ i+ " " + x.href;
 						}).join("<br>");
 						return i.slice(1).join("<br/>") + "<br/>" + portText; 
 					});;

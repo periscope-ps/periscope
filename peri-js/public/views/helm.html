@@ -1,6 +1,21 @@
 <h2 class="lead text-center">Schedule HELM Test</h2>
-
-<directed-graph ports='ports' nodes="graphNodes" links="graphLinks"></directed-graph>
+<div>
+	<div class='allLinks col-md-4'>
+ 		<div ng-repeat="Links in graphLinks">Start : {{Links[0]}} , End : {{ Links[1] }} , Port :
+	 		<div class="btn-group">
+			  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			    {{Links.ports[0].portInfo.name}} - {{Links.ports[0].portInfo.address.address}} <span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu" role="menu">
+			    <li ng-repeat='port in Links.ports'><a href="#">{{port.portInfo.name}} - {{port.portInfo.address.address}}</a></li>
+			  </ul>
+			</div>
+ 		 </div>
+	</div>
+	<div class='col-md-8'>
+		<directed-graph ports='ports' nodes="graphNodes" links="graphLinks"></directed-graph>
+	</div>
+</div>
 
 <p class="lead">Graph Nodes</p>
 <p ng-repeat="node in graphNodes">{{node}}</p>

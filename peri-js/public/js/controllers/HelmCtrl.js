@@ -10,6 +10,7 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
   $scope.graphNodes = [];
   $scope.graphLinks = [];
   $scope.ports = [];
+  $scope.selectedPortMap = {};
   $scope.selectedPortSourceId = "";
   // scope variables
   $scope.helmIperfData = {};
@@ -32,7 +33,7 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
   $scope.selectPort = function(){	  
 	  var port = this.port ;
 	  var id = this.ports.selectedPortSourceId;
-	  console.log("Port : ",port , " Id : ",id);
+	  this.selectedPortMap[id] = port ;	  
    };	
   Slice.getSlice(function(sliceInfo) {
     $scope.geniSlice = sliceInfo[0];
@@ -122,7 +123,30 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
   $scope.helmIperfUnchanged = function(helmIperf) {
     return angular.equals(helmIperf, $scope.helmIperfData);
   };
+  
+  // find the port for a node
+  $scope.getNodePort = function(node_ref,portNum) {
+	portNum = portNum || 0;
+    for(var i = 0; i < $scope.nodes.length; i++) {    	
+      if ($scope.nodes[i].selfRef === node_ref) {
+    	  if(!$scope.nodes[i].ports[portNum])
+    		  // Atleast one port should be present or it is bad data
+    		  // Redirect to 0 if incorrect port number given
+    		  portNum = 0 ;
+    	  
+    	  return $scope.nodes[i].ports[portNum].href.replace(/%3A/g, ':');
+      }
+    }
+  };
 
+  // find the port ip
+  $scope.getPortIP = function(port_ref) {
+    for(var i = 0; i < $scope.ports.length; i++) {
+      if ($scope.ports[i].selfRef === port_ref) {
+        return $scope.ports[i].properties.geni.ip.address;
+      }
+    }
+  };
   $scope.helmSubmit = function(helmForm) {
     if (helmForm.$invalid) {
       // If form is invalid, return and let AngularJS show validation errors.
@@ -148,12 +172,14 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
         } else {
           every = $scope.helmIperfData.tbtValue;
         }
-
+        
+        var nodePort = $scope.getNodePort($scope.perfData.to.split(" ")[1]);
+        var portIP = $scope.getPortIP(nodePort);        
         // build ping command from user options
         if ($scope.helmIperfData.proto.type == 'udp') {
-          var perf_command = "iperf -u -c " + " -t " + $scope.helmIperfData.td +  " -y C ";
+          var perf_command = "iperf -u -c " + portIP +" -t " + $scope.helmIperfData.td +  " -y C ";
         } else {
-          var perf_command = "iperf -c " + " -t " + $scope.helmIperfData.td +  " -y C ";
+          var perf_command = "iperf -c " + portIP + " -t " + $scope.helmIperfData.td +  " -y C ";
         }
 
         var from_node, to_node, from_service, to_service, pair;
@@ -227,8 +253,11 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
           every = $scope.helmPingData.tbtValue;
         }
 
+        // lookup port running on given node
+        var nodePort = $scope.getNodePort($scope.pingData.to.split(" ")[1]);
+        var portIP = $scope.getPortIP(nodePort);
         // build ping command from user options
-        var ping_command = "ping -c 1 -s " + $scope.helmPingData.packetSize + " -i " + $scope.helmPingData.tbp;
+        var ping_command = "ping -c 1 -s " + $scope.helmPingData.packetSize + " -i " + $scope.helmPingData.tbp + " "+portIP;
 
         var from_node, to_node, from_service, to_service, pair;
         var participantLinks = [];
