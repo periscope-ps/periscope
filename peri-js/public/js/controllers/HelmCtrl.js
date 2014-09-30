@@ -206,8 +206,7 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
           }
           var port ;
           try{
-        	  // TODO select the port based on input 
-        	  port = $scope.selectedPortMap[from_node+'#'+to_node].href;
+        	  port = $scope.selectedPortMap[pair[0]+'#'+pair[1]].href;
           }catch(e){}
           participantLinks.push({from: from_service, to: to_service , port : port});
         }
@@ -287,9 +286,9 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
           }          
           var port ;
           try{
-        	  // TODO select the port based on input 
-        	  port = $scope.selectedPortMap[from_node+'#'+to_node].href;
+        	  port = $scope.selectedPortMap[pair[0]+'#'+pair[1]].href;
           }catch(e){}
+          
           participantLinks.push({from: from_service, to: to_service , port : port });
         }
 
