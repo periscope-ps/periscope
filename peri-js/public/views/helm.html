@@ -1,6 +1,7 @@
 <h2 class="lead text-center">Schedule HELM Test</h2>
 <div>
 	<div class='allLinks col-md-4'>
+		<p class="lead">Graph Links</p>
  		<div ng-repeat="Links in graphLinks">Start : {{Links[0]}} , End : {{ Links[1] }} , Port :
 	 		<div class="btn-group">
 			  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -19,10 +20,6 @@
 
 <p class="lead">Graph Nodes</p>
 <p ng-repeat="node in graphNodes">{{node}}</p>
- <p ng-repeat="port in ports"><a href="#">Port {{port}} </a></p>      
-<p class="lead">Graph Links</p>
-{{graphLinks}}
-
 <hr />
 
 <div class="form-group">

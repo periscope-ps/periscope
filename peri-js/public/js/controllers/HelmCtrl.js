@@ -173,13 +173,13 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
           every = $scope.helmIperfData.tbtValue;
         }
         
-        var nodePort = $scope.getNodePort($scope.perfData.to.split(" ")[1]);
-        var portIP = $scope.getPortIP(nodePort);        
+        //var nodePort = $scope.getNodePort($scope.helmIperfData.to.split(" ")[1]);
+        //var portIP = $scope.getPortIP(nodePort);       
         // build ping command from user options
         if ($scope.helmIperfData.proto.type == 'udp') {
-          var perf_command = "iperf -u -c " + portIP +" -t " + $scope.helmIperfData.td +  " -y C ";
+          var perf_command = "iperf -u -c " +" -t " + $scope.helmIperfData.td +  " -y C ";
         } else {
-          var perf_command = "iperf -c " + portIP + " -t " + $scope.helmIperfData.td +  " -y C ";
+          var perf_command = "iperf -c "+ " -t " + $scope.helmIperfData.td +  " -y C ";
         }
 
         var from_node, to_node, from_service, to_service, pair;
@@ -198,7 +198,12 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
               to_service = $scope.services[j].selfRef;
             }
           }
-          participantLinks.push({from: from_service, to: to_service});
+          var port ;
+          try{
+        	  // TODO select the port based on input 
+        	  port = from_node.ports[0].href ;
+          }catch(e){}
+          participantLinks.push({from: from_service, to: to_service , port : port});
         }
 
         var helm_measurement = {
@@ -254,10 +259,10 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
         }
 
         // lookup port running on given node
-        var nodePort = $scope.getNodePort($scope.pingData.to.split(" ")[1]);
-        var portIP = $scope.getPortIP(nodePort);
+        //var nodePort = $scope.getNodePort($scope.pingData.to.split(" ")[1]);
+        //var portIP = $scope.getPortIP(nodePort);
         // build ping command from user options
-        var ping_command = "ping -c 1 -s " + $scope.helmPingData.packetSize + " -i " + $scope.helmPingData.tbp + " "+portIP;
+        var ping_command = "ping -c 1 -s " + $scope.helmPingData.packetSize + " -i " + $scope.helmPingData.tbp ;
 
         var from_node, to_node, from_service, to_service, pair;
         var participantLinks = [];
@@ -266,7 +271,6 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
           pair = $scope.graphLinks[i];
           from_node = $scope.graphNodes[pair[0]][2];
           to_node = $scope.graphNodes[pair[1]][2];
-
           for(var j = 0; j < $scope.services.length; j++) {
             if($scope.services[j].runningOn.href.split('/')[4] === from_node) {
               from_service = $scope.services[j].selfRef;
@@ -274,8 +278,13 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
             if($scope.services[j].runningOn.href.split("/")[4] === to_node) {
               to_service = $scope.services[j].selfRef;
             }
-          }
-          participantLinks.push({from: from_service, to: to_service});
+          }          
+          var port ;
+          try{
+        	  // TODO select the port based on input 
+        	  port = from_node.ports[0].href ;
+          }catch(e){}
+          participantLinks.push({from: from_service, to: to_service , port : port });
         }
 
         // build ping measurement to submit
