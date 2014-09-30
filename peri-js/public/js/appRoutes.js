@@ -27,6 +27,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
       templateUrl: 'views/helm.html',
       controller: 'HelmController'
     }).
+    when('/eodn', {
+        templateUrl: 'views/eodn.html',
+        controller: 'EodnController'
+    }).
     when('/measurements', {
       templateUrl: 'views/measurements.html',
       controller: 'MeasurementController'
