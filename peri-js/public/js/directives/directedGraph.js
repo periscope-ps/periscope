@@ -12,8 +12,9 @@
 			scope.g_links = links.map(function(x){
 				var node = [x.source.id,x.target.id];
 				node.ports = x.ports;
-				console.log(node.ports);
-				return node ;
+				// Select first one by default				
+				scope.selectedPortMap[x.source.id+'#'+x.target.id] = ( x.ports || [])[0];
+				return node ;			
 			});
 		})
 	}
@@ -315,7 +316,8 @@
 			scope: { // attributes bound to the scope of the directive
 				g_nodes: '=nodes',
 				g_links: '=links',
-				ports : '=ports'
+				ports : '=ports',
+				selectedPortMap : '=selectedportmap'				
 			},
 			link: function (scpe, element, attrs) {			
 				d3.select('#graphSelect').on('mouseout' , function(){ 				

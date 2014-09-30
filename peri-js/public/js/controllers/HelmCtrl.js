@@ -30,10 +30,16 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
     {type:'udp'}
   ];
   
-  $scope.selectPort = function(){	  
+  $scope.selectPortD = function(st,end,e){	  
+	  var port = this.port ;
+	  this.Links.selectedPort = this.$index;
+	  this.selectedPortMap[st+"#"+end] = port ;
+  };	
+  $scope.selectPort = function(st,end){	  
 	  var port = this.port ;
 	  var id = this.ports.selectedPortSourceId;
-	  this.selectedPortMap[id] = port ;	  
+	  //this.graphLinks.selectedPort = 3;
+	  this.selectedPortMap[id] = port ;
    };	
   Slice.getSlice(function(sliceInfo) {
     $scope.geniSlice = sliceInfo[0];
@@ -201,7 +207,7 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
           var port ;
           try{
         	  // TODO select the port based on input 
-        	  port = from_node.ports[0].href ;
+        	  port = $scope.selectedPortMap[from_node+'#'+to_node].href;
           }catch(e){}
           participantLinks.push({from: from_service, to: to_service , port : port});
         }
@@ -282,7 +288,7 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
           var port ;
           try{
         	  // TODO select the port based on input 
-        	  port = from_node.ports[0].href ;
+        	  port = $scope.selectedPortMap[from_node+'#'+to_node].href;
           }catch(e){}
           participantLinks.push({from: from_service, to: to_service , port : port });
         }
