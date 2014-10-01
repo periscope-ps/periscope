@@ -23,16 +23,16 @@ var fs = require('fs')
 var production = false;
 var unis_host = 'dev.incntre.iu.edu';
 // var unis_host = 'localhost';
-// var unis_port = '8888';
+var unis_port = '8888';
 
 var slice_info = [];
 var filePath = '/usr/local/etc/node.info';
 var slice_uuid = '';
 var os_name = '';
 var distro = '';
-var ms_host = 'dev.incntre.iu.edu';
+// var ms_host = 'dev.incntre.iu.edu';
 // var ms_host = 'localhost';
-var ms_port = '8888';
+// var ms_port = '8888';
 
 module.exports = function(app) {
 
@@ -78,9 +78,9 @@ module.exports = function(app) {
 
         if(split[0] === 'ms_instance') {
           ms_url = split[1];
-          // ms_port = ms_url.split(":")[2];
+          ms_port = ms_url.split(":")[2];
           console.log("Measurement Store Port: " + ms_port);
-          // ms_host = ms_url.split("//")[1].split(":")[0];
+          ms_host = ms_url.split("//")[1].split(":")[0];
           console.log("Measurement Store Host: " + ms_host);
         }
 
@@ -1084,7 +1084,7 @@ module.exports = function(app) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
-
+    production = true;
     if (production) {
       console.log('running in production');
 
@@ -1158,7 +1158,7 @@ module.exports = function(app) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
-
+    production = true;
     var data_id = req.params.id;
 
     if (production) {

@@ -1,6 +1,4 @@
 public/libs
 node_modules/
-node.info
-*.pem
 /.settings
 .DS_Store

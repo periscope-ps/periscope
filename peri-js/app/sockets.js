@@ -10,7 +10,7 @@ var WebSocket = require('ws');
 // export function for listening to the socket
 module.exports = function (client_socket) {
 
-  var unis_sub = 'ws://localhost:8888/subscribe/'
+  var unis_sub = 'ws://dev.incntre.iu.edu:8888/subscribe/'
 
   // establish client socket
   console.log('Client connected');
