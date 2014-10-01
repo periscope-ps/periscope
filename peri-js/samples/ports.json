@@ -4,7 +4,7 @@
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
     "capacity": -42,
     "name": "eth999",
-    "selfRef": "https://dev.incntre.iu.edu:8888/ports/542c36bf377f97513b6cd51a",
+    "selfRef": "http://dev.incntre.iu.edu:8888/ports/542c36bf377f97513b6cd51a",
     "urn": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM-0:port=eth999",
     "ts": 1412183743214613,
     "properties": {
@@ -30,7 +30,7 @@
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
     "capacity": -42,
     "name": "gre0",
-    "selfRef": "https://dev.incntre.iu.edu:8888/ports/542c36be377f97513b6cd515",
+    "selfRef": "http://dev.incntre.iu.edu:8888/ports/542c36be377f97513b6cd515",
     "urn": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM-0:port=gre0",
     "ts": 1412183742438634,
     "properties": {
@@ -52,7 +52,7 @@
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
     "capacity": -42,
     "name": "lo",
-    "selfRef": "https://dev.incntre.iu.edu:8888/ports/542c36bd377f97513b6cd512",
+    "selfRef": "http://dev.incntre.iu.edu:8888/ports/542c36bd377f97513b6cd512",
     "urn": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM-0:port=lo",
     "ts": 1412183741825839,
     "properties": {
@@ -78,7 +78,7 @@
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
     "capacity": -42,
     "name": "eth999",
-    "selfRef": "https://dev.incntre.iu.edu:8888/ports/542c36af377f97513b6cd501",
+    "selfRef": "http://dev.incntre.iu.edu:8888/ports/542c36af377f97513b6cd501",
     "urn": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM:port=eth999",
     "ts": 1412183727322889,
     "properties": {
@@ -104,7 +104,7 @@
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
     "capacity": -42,
     "name": "gre0",
-    "selfRef": "https://dev.incntre.iu.edu:8888/ports/542c36ae377f97513b6cd4fe",
+    "selfRef": "http://dev.incntre.iu.edu:8888/ports/542c36ae377f97513b6cd4fe",
     "urn": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM:port=gre0",
     "ts": 1412183726760457,
     "properties": {
@@ -126,7 +126,7 @@
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
     "capacity": -42,
     "name": "lo",
-    "selfRef": "https://dev.incntre.iu.edu:8888/ports/542c36ae377f97513b6cd4fb",
+    "selfRef": "http://dev.incntre.iu.edu:8888/ports/542c36ae377f97513b6cd4fb",
     "urn": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM:port=lo",
     "ts": 1412183726153572,
     "properties": {
@@ -151,7 +151,7 @@
   {
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
     "name": "GN0:if1",
-    "selfRef": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_GN0:if1",
+    "selfRef": "http://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_GN0:if1",
     "urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4+interface+GN0:if1",
     "ts": 1412183594350881,
     "relations": {
@@ -185,7 +185,7 @@
   {
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
     "name": "GN0:if0",
-    "selfRef": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_GN0:if0",
+    "selfRef": "http://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_GN0:if0",
     "urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4+interface+GN0:if0",
     "ts": 1412183594350606,
     "relations": {
@@ -219,7 +219,7 @@
   {
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
     "name": "VM-0:if0",
-    "selfRef": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_VM-0:if0",
+    "selfRef": "http://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_VM-0:if0",
     "urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4+interface+VM-0:if0",
     "ts": 1412183594350332,
     "relations": {
@@ -253,7 +253,7 @@
   {
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
     "name": "VM:if0",
-    "selfRef": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_VM:if0",
+    "selfRef": "http://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_VM:if0",
     "urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4+interface+VM:if0",
     "ts": 1412183594350056,
     "relations": {

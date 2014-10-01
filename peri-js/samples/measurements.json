@@ -2,8 +2,8 @@
 [
   {
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-    "selfRef": "https://dev.incntre.iu.edu:8888/measurements/542c36bc377f97513b6cd50f",
-    "service": "https://dev.incntre.iu.edu:8888/services/542c3677377f97513b6cd4f1",
+    "selfRef": "http://dev.incntre.iu.edu:8888/measurements/542c36bc377f97513b6cd50f",
+    "service": "http://dev.incntre.iu.edu:8888/services/542c3677377f97513b6cd4f1",
     "ts": 1412183740833043,
     "properties": {
       "geni": {
@@ -33,7 +33,7 @@
       "kwargs": {
         "proc_dir": "/proc"
       },
-      "ms_url": "https://pcvm2-28.genirack.nyu.edu:8888",
+      "ms_url": "http://pcvm2-28.genirack.nyu.edu:8888",
       "schedule_params": {
         "every": 2
       },
@@ -43,8 +43,8 @@
   },
   {
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-    "selfRef": "https://dev.incntre.iu.edu:8888/measurements/542c36bc377f97513b6cd50d",
-    "service": "https://dev.incntre.iu.edu:8888/services/542c3677377f97513b6cd4f1",
+    "selfRef": "http://dev.incntre.iu.edu:8888/measurements/542c36bc377f97513b6cd50d",
+    "service": "http://dev.incntre.iu.edu:8888/services/542c3677377f97513b6cd4f1",
     "ts": 1412183740614043,
     "properties": {
       "geni": {
@@ -71,9 +71,9 @@
       "collection_schedule": "builtins.simple",
       "collection_size": 100000,
       "kwargs": {
-        "unis_url": "https://dev.incntre.iu.edu:8888"
+        "unis_url": "http://dev.incntre.iu.edu:8888"
       },
-      "ms_url": "https://pcvm2-28.genirack.nyu.edu:8888",
+      "ms_url": "http://pcvm2-28.genirack.nyu.edu:8888",
       "schedule_params": {
         "every": 2
       },
@@ -83,8 +83,8 @@
   },
   {
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-    "selfRef": "https://dev.incntre.iu.edu:8888/measurements/542c36bc377f97513b6cd50b",
-    "service": "https://dev.incntre.iu.edu:8888/services/542c3677377f97513b6cd4f1",
+    "selfRef": "http://dev.incntre.iu.edu:8888/measurements/542c36bc377f97513b6cd50b",
+    "service": "http://dev.incntre.iu.edu:8888/services/542c3677377f97513b6cd4f1",
     "ts": 1412183740399141,
     "properties": {
       "geni": {
@@ -105,7 +105,7 @@
       "collection_schedule": "builtins.simple",
       "collection_size": 100000,
       "kwargs": {},
-      "ms_url": "https://pcvm2-28.genirack.nyu.edu:8888",
+      "ms_url": "http://pcvm2-28.genirack.nyu.edu:8888",
       "schedule_params": {
         "every": 2
       },
@@ -115,8 +115,8 @@
   },
   {
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-    "selfRef": "https://dev.incntre.iu.edu:8888/measurements/542c36ac377f97513b6cd4f8",
-    "service": "https://dev.incntre.iu.edu:8888/services/542c3676377f97513b6cd4ef",
+    "selfRef": "http://dev.incntre.iu.edu:8888/measurements/542c36ac377f97513b6cd4f8",
+    "service": "http://dev.incntre.iu.edu:8888/services/542c3676377f97513b6cd4ef",
     "ts": 1412183724188683,
     "properties": {
       "geni": {
@@ -146,7 +146,7 @@
       "kwargs": {
         "proc_dir": "/proc"
       },
-      "ms_url": "https://pcvm2-28.genirack.nyu.edu:8888",
+      "ms_url": "http://pcvm2-28.genirack.nyu.edu:8888",
       "schedule_params": {
         "every": 2
       },
@@ -156,8 +156,8 @@
   },
   {
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-    "selfRef": "https://dev.incntre.iu.edu:8888/measurements/542c36ab377f97513b6cd4f6",
-    "service": "https://dev.incntre.iu.edu:8888/services/542c3676377f97513b6cd4ef",
+    "selfRef": "http://dev.incntre.iu.edu:8888/measurements/542c36ab377f97513b6cd4f6",
+    "service": "http://dev.incntre.iu.edu:8888/services/542c3676377f97513b6cd4ef",
     "ts": 1412183723963351,
     "properties": {
       "geni": {
@@ -184,9 +184,9 @@
       "collection_schedule": "builtins.simple",
       "collection_size": 100000,
       "kwargs": {
-        "unis_url": "https://dev.incntre.iu.edu:8888"
+        "unis_url": "http://dev.incntre.iu.edu:8888"
       },
-      "ms_url": "https://pcvm2-28.genirack.nyu.edu:8888",
+      "ms_url": "http://pcvm2-28.genirack.nyu.edu:8888",
       "schedule_params": {
         "every": 2
       },
@@ -196,8 +196,8 @@
   },
   {
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-    "selfRef": "https://dev.incntre.iu.edu:8888/measurements/542c36ab377f97513b6cd4f4",
-    "service": "https://dev.incntre.iu.edu:8888/services/542c3676377f97513b6cd4ef",
+    "selfRef": "http://dev.incntre.iu.edu:8888/measurements/542c36ab377f97513b6cd4f4",
+    "service": "http://dev.incntre.iu.edu:8888/services/542c3676377f97513b6cd4ef",
     "ts": 1412183723656938,
     "properties": {
       "geni": {
@@ -218,7 +218,7 @@
       "collection_schedule": "builtins.simple",
       "collection_size": 100000,
       "kwargs": {},
-      "ms_url": "https://pcvm2-28.genirack.nyu.edu:8888",
+      "ms_url": "http://pcvm2-28.genirack.nyu.edu:8888",
       "schedule_params": {
         "every": 2
       },

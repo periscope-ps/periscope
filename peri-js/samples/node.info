@@ -1,0 +1,17 @@
+external_address=gn0.pubsub4.ch-geni-net.genirack.nyu.edu
+gn_address=pcvm2-28.genirack.nyu.edu
+ls_instance=https://unis.incntre.iu.edu:8012/perfSONAR_PS/services/unis
+unis_instance=https://unis.incntre.iu.edu:8012/perfSONAR_PS/services/unis
+ms_instance=https://pcvm2-28.genirack.nyu.edu:8888
+node_id=urn:ogf:network:domain=ch.geni.net+netlogistics+slice+pubsub4:node=gn0
+auth_uuid=6f671c7f-f6d3-4596-a068-d13749bc0c96
+unis_id=
+root_hints_url=http://unis.incntre.iu.edu/gls.lamp.hints
+root_hints_file=gls.lamp.hints
+
+default_scheme=https
+ssl_server_cert_file=/usr/local/etc/protogeni/ssl/lampcert.pem
+ssl_server_key_file=/usr/local/etc/protogeni/ssl/lampcert.pem
+ssl_ca_file=/usr/local/etc/protogeni/ssl/genica.bundle
+ssl_crls_file=/usr/local/etc/protogeni/ssl/genicrl.bundle
+ssl_valid_peers_file=/usr/local/etc/protogeni/ssl/valid_peers

@@ -4,15 +4,15 @@
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/domain#",
     "links": [
       {
-        "href": "https://dev.incntre.iu.edu:8888/links/genirack.nyu.edu_slice_pubsub4_link_lan0",
+        "href": "http://dev.incntre.iu.edu:8888/links/genirack.nyu.edu_slice_pubsub4_link_lan0",
         "rel": "full"
       },
       {
-        "href": "https://dev.incntre.iu.edu:8888/links/genirack.nyu.edu_slice_pubsub4_link_lan1",
+        "href": "http://dev.incntre.iu.edu:8888/links/genirack.nyu.edu_slice_pubsub4_link_lan1",
         "rel": "full"
       }
     ],
-    "selfRef": "https://dev.incntre.iu.edu:8888/domains/genirack.nyu.edu_slice_pubsub4",
+    "selfRef": "http://dev.incntre.iu.edu:8888/domains/genirack.nyu.edu_slice_pubsub4",
     "urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4",
     "ts": 1412183594350923,
     "properties": {
@@ -27,34 +27,34 @@
     },
     "nodes": [
       {
-        "href": "https://dev.incntre.iu.edu:8888/nodes/VM.pubsub4.ch-geni-net.genirack.nyu.edu",
+        "href": "http://dev.incntre.iu.edu:8888/nodes/VM.pubsub4.ch-geni-net.genirack.nyu.edu",
         "rel": "full"
       },
       {
-        "href": "https://dev.incntre.iu.edu:8888/nodes/VM-0.pubsub4.ch-geni-net.genirack.nyu.edu",
+        "href": "http://dev.incntre.iu.edu:8888/nodes/VM-0.pubsub4.ch-geni-net.genirack.nyu.edu",
         "rel": "full"
       },
       {
-        "href": "https://dev.incntre.iu.edu:8888/nodes/GN0.pubsub4.ch-geni-net.genirack.nyu.edu",
+        "href": "http://dev.incntre.iu.edu:8888/nodes/GN0.pubsub4.ch-geni-net.genirack.nyu.edu",
         "rel": "full"
       }
     ],
     "id": "genirack.nyu.edu_slice_pubsub4",
     "ports": [
       {
-        "href": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_VM%3Aif0",
+        "href": "http://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_VM%3Aif0",
         "rel": "full"
       },
       {
-        "href": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_VM-0%3Aif0",
+        "href": "http://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_VM-0%3Aif0",
         "rel": "full"
       },
       {
-        "href": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_GN0%3Aif0",
+        "href": "http://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_GN0%3Aif0",
         "rel": "full"
       },
       {
-        "href": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_GN0%3Aif1",
+        "href": "http://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_GN0%3Aif1",
         "rel": "full"
       }
     ]

@@ -2,10 +2,10 @@
 [
   {
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/metadata#",
-    "selfRef": "https://dev.incntre.iu.edu:8888/metadata/542c36cb377f97513b6cd567",
+    "selfRef": "http://dev.incntre.iu.edu:8888/metadata/542c36cb377f97513b6cd567",
     "parameters": {
       "measurement": {
-        "href": "https://dev.incntre.iu.edu:8888/measurements/542c36bc377f97513b6cd50f",
+        "href": "http://dev.incntre.iu.edu:8888/measurements/542c36bc377f97513b6cd50f",
         "rel": "full"
       },
       "datumSchema": "http://unis.incntre.iu.edu/schema/20140214/datum#",
@@ -17,16 +17,16 @@
     "ts": 1412183755895573,
     "id": "542c36cb377f97513b6cd567",
     "subject": {
-      "href": "https://dev.incntre.iu.edu:8888/nodes/VM-0.pubsub4.ch-geni-net.genirack.nyu.edu",
+      "href": "http://dev.incntre.iu.edu:8888/nodes/VM-0.pubsub4.ch-geni-net.genirack.nyu.edu",
       "rel": "full"
     }
   },
   {
     "$schema": "http://unis.incntre.iu.edu/schema/20140214/metadata#",
-    "selfRef": "https://dev.incntre.iu.edu:8888/metadata/542c36b8377f97513b6cd508",
+    "selfRef": "http://dev.incntre.iu.edu:8888/metadata/542c36b8377f97513b6cd508",
     "parameters": {
       "measurement": {
-        "href": "https://dev.incntre.iu.edu:8888/measurements/542c36ac377f97513b6cd4f8",
+        "href": "http://dev.incntre.iu.edu:8888/measurements/542c36ac377f97513b6cd4f8",
         "rel": "full"
       },
       "datumSchema": "http://unis.incntre.iu.edu/schema/20140214/datum#",
@@ -38,7 +38,7 @@
     "ts": 1412183736619385,
     "id": "542c36b8377f97513b6cd508",
     "subject": {
-      "href": "https://dev.incntre.iu.edu:8888/nodes/VM.pubsub4.ch-geni-net.genirack.nyu.edu",
+      "href": "http://dev.incntre.iu.edu:8888/nodes/VM.pubsub4.ch-geni-net.genirack.nyu.edu",
       "rel": "full"
     }
   }
