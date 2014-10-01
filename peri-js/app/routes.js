@@ -16,8 +16,8 @@ var fs = require('fs')
 // var production = true;
 // var unis_host = 'unis.incntre.iu.edu';
 // var unis_port = '8443';
-// var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
-// var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
+var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
+var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
 
 // development
 var production = false;
