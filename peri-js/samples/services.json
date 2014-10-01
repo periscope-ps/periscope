@@ -1,0 +1,120 @@
+
+[
+  {
+    "status": "ON",
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/service#",
+    "serviceType": "ps:tools:blipp",
+    "description": "BLiPP Service",
+    "selfRef": "https://dev.incntre.iu.edu:8888/services/542c3677377f97513b6cd4f1",
+    "ttl": 100000,
+    "ts": 1412183741038432,
+    "properties": {
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      },
+      "summary": {
+        "metadata": []
+      },
+      "configurations": {
+        "ssl_key": "/usr/local/etc/certs/mp_key.pem",
+        "ssl_cert": "/usr/local/etc/certs/mp_cert.pem",
+        "unis_poll_interval": 30,
+        "ssl_cafile": "",
+        "probe_defaults": {
+          "reporting_params": 8,
+          "schedule_params": {
+            "every": 2
+          },
+          "collection_schedule": "builtins.simple",
+          "collection_size": 100000,
+          "ms_url": "https://pcvm2-28.genirack.nyu.edu:8888",
+          "collection_ttl": 1500000
+        },
+        "use_ssl": true,
+        "unis_url": "https://dev.incntre.iu.edu:8888"
+      }
+    },
+    "location": {
+      "institution": "GEMINI"
+    },
+    "runningOn": {
+      "href": "https://dev.incntre.iu.edu:8888/nodes/VM-0.pubsub4.ch-geni-net.genirack.nyu.edu",
+      "rel": "full"
+    },
+    "id": "542c3677377f97513b6cd4f1",
+    "name": "blipp"
+  },
+  {
+    "status": "ON",
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/service#",
+    "serviceType": "ps:tools:blipp",
+    "description": "BLiPP Service",
+    "selfRef": "https://dev.incntre.iu.edu:8888/services/542c3676377f97513b6cd4ef",
+    "ttl": 100000,
+    "ts": 1412183724367355,
+    "properties": {
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      },
+      "summary": {
+        "metadata": []
+      },
+      "configurations": {
+        "ssl_key": "/usr/local/etc/certs/mp_key.pem",
+        "ssl_cert": "/usr/local/etc/certs/mp_cert.pem",
+        "unis_poll_interval": 30,
+        "ssl_cafile": "",
+        "probe_defaults": {
+          "reporting_params": 8,
+          "schedule_params": {
+            "every": 2
+          },
+          "collection_schedule": "builtins.simple",
+          "collection_size": 100000,
+          "ms_url": "https://pcvm2-28.genirack.nyu.edu:8888",
+          "collection_ttl": 1500000
+        },
+        "use_ssl": true,
+        "unis_url": "https://dev.incntre.iu.edu:8888"
+      }
+    },
+    "location": {
+      "institution": "GEMINI"
+    },
+    "runningOn": {
+      "href": "https://dev.incntre.iu.edu:8888/nodes/VM.pubsub4.ch-geni-net.genirack.nyu.edu",
+      "rel": "full"
+    },
+    "id": "542c3676377f97513b6cd4ef",
+    "name": "blipp"
+  },
+  {
+    "status": "ON",
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/service#",
+    "serviceType": "ps:tools:ms",
+    "name": "ms_GN0.pubsub4.ch-geni-net.genirack.nyu.edu",
+    "selfRef": "https://dev.incntre.iu.edu:8888/services/ms_GN0.pubsub4.ch-geni-net.genirack.nyu.edu",
+    "accessPoint": "https://pcvm2-28.genirack.nyu.edu:8888/",
+    "runningOn": {
+      "href": "https://dev.incntre.iu.edu:8888/nodes/GN0.pubsub4.ch-geni-net.genirack.nyu.edu",
+      "rel": "full"
+    },
+    "ts": 1412183773841459,
+    "id": "ms_GN0.pubsub4.ch-geni-net.genirack.nyu.edu",
+    "ttl": 600,
+    "properties": {
+      "summary": {
+        "metadata": []
+      },
+      "configurations": {
+        "default_collection_size": 10000,
+        "max_collection_size": 20000
+      },
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      }
+    }
+  }
+]
+
+

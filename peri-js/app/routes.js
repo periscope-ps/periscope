@@ -23,7 +23,7 @@ var fs = require('fs')
 var production = false;
 var unis_host = 'dev.incntre.iu.edu';
 // var unis_host = 'localhost';
-var unis_port = '8888';
+// var unis_port = '8888';
 
 var slice_info = [];
 var filePath = '/usr/local/etc/node.info';
@@ -31,6 +31,7 @@ var slice_uuid = '';
 var os_name = '';
 var distro = '';
 var ms_host = 'dev.incntre.iu.edu';
+// var ms_host = 'localhost';
 var ms_port = '8888';
 
 module.exports = function(app) {

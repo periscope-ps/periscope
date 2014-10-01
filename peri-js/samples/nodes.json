@@ -1,0 +1,163 @@
+
+[
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/node#",
+    "name": "VM-0",
+    "selfRef": "https://dev.incntre.iu.edu:8888/nodes/VM-0.pubsub4.ch-geni-net.genirack.nyu.edu",
+    "urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4+node+VM-0",
+    "ts": 1412183743634939,
+    "relations": {
+      "over": [
+        {
+          "href": "urn:publicid:IDN+genirack.nyu.edu+node+pc2",
+          "rel": "full"
+        }
+      ]
+    },
+    "id": "VM-0.pubsub4.ch-geni-net.genirack.nyu.edu",
+    "properties": {
+      "geni": {
+        "exclusive": false,
+        "component_id": "urn:publicid:IDN+genirack.nyu.edu+node+pc2",
+        "slice_urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4",
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96",
+        "sliver_id": "urn:publicid:IDN+genirack.nyu.edu+sliver+9407",
+        "hosts": [
+          {
+            "hostname": "VM-0.pubsub4.ch-geni-net.genirack.nyu.edu"
+          }
+        ],
+        "client_id": "VM-0",
+        "sliver_type": {
+          "disk_images": [
+            {}
+          ],
+          "name": "emulab-openvz"
+        },
+        "component_manager_id": "urn:publicid:IDN+genirack.nyu.edu+authority+cm"
+      }
+    },
+    "ports": [
+      {
+        "href": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_VM-0%3Aif0",
+        "rel": "full"
+      },
+      {
+        "href": "https://dev.incntre.iu.edu:8888/ports/542c36bd377f97513b6cd512",
+        "rel": "full"
+      },
+      {
+        "href": "https://dev.incntre.iu.edu:8888/ports/542c36be377f97513b6cd515",
+        "rel": "full"
+      },
+      {
+        "href": "https://dev.incntre.iu.edu:8888/ports/542c36bf377f97513b6cd51a",
+        "rel": "full"
+      }
+    ]
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/node#",
+    "name": "VM",
+    "selfRef": "https://dev.incntre.iu.edu:8888/nodes/VM.pubsub4.ch-geni-net.genirack.nyu.edu",
+    "urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4+node+VM",
+    "ts": 1412183727745184,
+    "relations": {
+      "over": [
+        {
+          "href": "urn:publicid:IDN+genirack.nyu.edu+node+pc2",
+          "rel": "full"
+        }
+      ]
+    },
+    "id": "VM.pubsub4.ch-geni-net.genirack.nyu.edu",
+    "properties": {
+      "geni": {
+        "exclusive": false,
+        "component_id": "urn:publicid:IDN+genirack.nyu.edu+node+pc2",
+        "slice_urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4",
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96",
+        "sliver_id": "urn:publicid:IDN+genirack.nyu.edu+sliver+9406",
+        "hosts": [
+          {
+            "hostname": "VM.pubsub4.ch-geni-net.genirack.nyu.edu"
+          }
+        ],
+        "client_id": "VM",
+        "sliver_type": {
+          "disk_images": [
+            {}
+          ],
+          "name": "emulab-openvz"
+        },
+        "component_manager_id": "urn:publicid:IDN+genirack.nyu.edu+authority+cm"
+      }
+    },
+    "ports": [
+      {
+        "href": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_VM%3Aif0",
+        "rel": "full"
+      },
+      {
+        "href": "https://dev.incntre.iu.edu:8888/ports/542c36ae377f97513b6cd4fb",
+        "rel": "full"
+      },
+      {
+        "href": "https://dev.incntre.iu.edu:8888/ports/542c36ae377f97513b6cd4fe",
+        "rel": "full"
+      },
+      {
+        "href": "https://dev.incntre.iu.edu:8888/ports/542c36af377f97513b6cd501",
+        "rel": "full"
+      }
+    ]
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/node#",
+    "name": "GN0",
+    "selfRef": "https://dev.incntre.iu.edu:8888/nodes/GN0.pubsub4.ch-geni-net.genirack.nyu.edu",
+    "urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4+node+GN0",
+    "ts": 1412183594349757,
+    "relations": {
+      "over": [
+        {
+          "href": "urn:publicid:IDN+genirack.nyu.edu+node+pc2",
+          "rel": "full"
+        }
+      ]
+    },
+    "id": "GN0.pubsub4.ch-geni-net.genirack.nyu.edu",
+    "properties": {
+      "geni": {
+        "exclusive": false,
+        "component_id": "urn:publicid:IDN+genirack.nyu.edu+node+pc2",
+        "slice_urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4",
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96",
+        "sliver_id": "urn:publicid:IDN+genirack.nyu.edu+sliver+9405",
+        "hosts": [
+          {
+            "hostname": "GN0.pubsub4.ch-geni-net.genirack.nyu.edu"
+          }
+        ],
+        "client_id": "GN0",
+        "sliver_type": {
+          "disk_images": [
+            {}
+          ],
+          "name": "emulab-openvz"
+        },
+        "component_manager_id": "urn:publicid:IDN+genirack.nyu.edu+authority+cm"
+      }
+    },
+    "ports": [
+      {
+        "href": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_GN0%3Aif0",
+        "rel": "full"
+      },
+      {
+        "href": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_GN0%3Aif1",
+        "rel": "full"
+      }
+    ]
+  }
+]

@@ -1,0 +1,229 @@
+
+[
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+    "selfRef": "https://dev.incntre.iu.edu:8888/measurements/542c36bc377f97513b6cd50f",
+    "service": "https://dev.incntre.iu.edu:8888/services/542c3677377f97513b6cd4f1",
+    "ts": 1412183740833043,
+    "properties": {
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      }
+    },
+    "eventTypes": [
+      "ps:tools:blipp:linux:cpu:utilization:iowait",
+      "ps:tools:blipp:linux:cpu:utilization:hwirq",
+      "ps:tools:blipp:linux:cpu:load:fivemin",
+      "ps:tools:blipp:linux:cpu:utilization:user",
+      "ps:tools:blipp:linux:cpu:utilization:swirq",
+      "ps:tools:blipp:linux:cpu:utilization:guest",
+      "ps:tools:blipp:linux:cpu:utilization:system",
+      "ps:tools:blipp:linux:cpu:utilization:idle",
+      "ps:tools:blipp:linux:cpu:load:fifteenmin",
+      "ps:tools:blipp:linux:cpu:utilization:steal",
+      "ps:tools:blipp:linux:cpu:load:onemin",
+      "ps:tools:blipp:linux:cpu:utilization:nice"
+    ],
+    "configuration": {
+      "collection_ttl": 1500000,
+      "reporting_params": 8,
+      "name": "cpu",
+      "collection_schedule": "builtins.simple",
+      "collection_size": 100000,
+      "kwargs": {
+        "proc_dir": "/proc"
+      },
+      "ms_url": "https://pcvm2-28.genirack.nyu.edu:8888",
+      "schedule_params": {
+        "every": 2
+      },
+      "probe_module": "cpu"
+    },
+    "id": "542c36bc377f97513b6cd50f"
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+    "selfRef": "https://dev.incntre.iu.edu:8888/measurements/542c36bc377f97513b6cd50d",
+    "service": "https://dev.incntre.iu.edu:8888/services/542c3677377f97513b6cd4f1",
+    "ts": 1412183740614043,
+    "properties": {
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      }
+    },
+    "eventTypes": [
+      "ps:tools:blipp:linux:network:ip:utilization:packets:out",
+      "ps:tools:blipp:linux:network:utilization:bytes:out",
+      "ps:tools:blipp:linux:network:tcp:utilization:segments:in",
+      "ps:tools:blipp:linux:network:udp:utilization:datagrams:out",
+      "ps:tools:blipp:linux:network:ip:utilization:errors",
+      "ps:tools:blipp:linux:network:udp:utilization:datagrams:in",
+      "ps:tools:blipp:linux:network:tcp:utilization:segments:out",
+      "ps:tools:blipp:linux:network:utilization:bytes:in",
+      "ps:tools:blipp:linux:network:tcp:utilization:retrans",
+      "ps:tools:blipp:linux:network:ip:utilization:drops",
+      "ps:tools:blipp:linux:network:ip:utilization:packets:in"
+    ],
+    "configuration": {
+      "collection_ttl": 1500000,
+      "reporting_params": 8,
+      "name": "net",
+      "collection_schedule": "builtins.simple",
+      "collection_size": 100000,
+      "kwargs": {
+        "unis_url": "https://dev.incntre.iu.edu:8888"
+      },
+      "ms_url": "https://pcvm2-28.genirack.nyu.edu:8888",
+      "schedule_params": {
+        "every": 2
+      },
+      "probe_module": "net"
+    },
+    "id": "542c36bc377f97513b6cd50d"
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+    "selfRef": "https://dev.incntre.iu.edu:8888/measurements/542c36bc377f97513b6cd50b",
+    "service": "https://dev.incntre.iu.edu:8888/services/542c3677377f97513b6cd4f1",
+    "ts": 1412183740399141,
+    "properties": {
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      }
+    },
+    "eventTypes": [
+      "ps:tools:blipp:linux:memory:utilization:buffer",
+      "ps:tools:blipp:linux:memory:utilization:cache",
+      "ps:tools:blipp:linux:memory:utilization:used",
+      "ps:tools:blipp:linux:memory:utilization:free",
+      "ps:tools:blipp:linux:memory:utilization:kernel"
+    ],
+    "configuration": {
+      "collection_ttl": 1500000,
+      "reporting_params": 8,
+      "name": "mem",
+      "collection_schedule": "builtins.simple",
+      "collection_size": 100000,
+      "kwargs": {},
+      "ms_url": "https://pcvm2-28.genirack.nyu.edu:8888",
+      "schedule_params": {
+        "every": 2
+      },
+      "probe_module": "mem"
+    },
+    "id": "542c36bc377f97513b6cd50b"
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+    "selfRef": "https://dev.incntre.iu.edu:8888/measurements/542c36ac377f97513b6cd4f8",
+    "service": "https://dev.incntre.iu.edu:8888/services/542c3676377f97513b6cd4ef",
+    "ts": 1412183724188683,
+    "properties": {
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      }
+    },
+    "eventTypes": [
+      "ps:tools:blipp:linux:cpu:utilization:iowait",
+      "ps:tools:blipp:linux:cpu:utilization:hwirq",
+      "ps:tools:blipp:linux:cpu:load:fivemin",
+      "ps:tools:blipp:linux:cpu:utilization:user",
+      "ps:tools:blipp:linux:cpu:utilization:swirq",
+      "ps:tools:blipp:linux:cpu:utilization:guest",
+      "ps:tools:blipp:linux:cpu:utilization:system",
+      "ps:tools:blipp:linux:cpu:utilization:idle",
+      "ps:tools:blipp:linux:cpu:load:fifteenmin",
+      "ps:tools:blipp:linux:cpu:utilization:steal",
+      "ps:tools:blipp:linux:cpu:load:onemin",
+      "ps:tools:blipp:linux:cpu:utilization:nice"
+    ],
+    "configuration": {
+      "collection_ttl": 1500000,
+      "reporting_params": 8,
+      "name": "cpu",
+      "collection_schedule": "builtins.simple",
+      "collection_size": 100000,
+      "kwargs": {
+        "proc_dir": "/proc"
+      },
+      "ms_url": "https://pcvm2-28.genirack.nyu.edu:8888",
+      "schedule_params": {
+        "every": 2
+      },
+      "probe_module": "cpu"
+    },
+    "id": "542c36ac377f97513b6cd4f8"
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+    "selfRef": "https://dev.incntre.iu.edu:8888/measurements/542c36ab377f97513b6cd4f6",
+    "service": "https://dev.incntre.iu.edu:8888/services/542c3676377f97513b6cd4ef",
+    "ts": 1412183723963351,
+    "properties": {
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      }
+    },
+    "eventTypes": [
+      "ps:tools:blipp:linux:network:ip:utilization:packets:out",
+      "ps:tools:blipp:linux:network:utilization:bytes:out",
+      "ps:tools:blipp:linux:network:tcp:utilization:segments:in",
+      "ps:tools:blipp:linux:network:udp:utilization:datagrams:out",
+      "ps:tools:blipp:linux:network:ip:utilization:errors",
+      "ps:tools:blipp:linux:network:udp:utilization:datagrams:in",
+      "ps:tools:blipp:linux:network:tcp:utilization:segments:out",
+      "ps:tools:blipp:linux:network:utilization:bytes:in",
+      "ps:tools:blipp:linux:network:tcp:utilization:retrans",
+      "ps:tools:blipp:linux:network:ip:utilization:drops",
+      "ps:tools:blipp:linux:network:ip:utilization:packets:in"
+    ],
+    "configuration": {
+      "collection_ttl": 1500000,
+      "reporting_params": 8,
+      "name": "net",
+      "collection_schedule": "builtins.simple",
+      "collection_size": 100000,
+      "kwargs": {
+        "unis_url": "https://dev.incntre.iu.edu:8888"
+      },
+      "ms_url": "https://pcvm2-28.genirack.nyu.edu:8888",
+      "schedule_params": {
+        "every": 2
+      },
+      "probe_module": "net"
+    },
+    "id": "542c36ab377f97513b6cd4f6"
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+    "selfRef": "https://dev.incntre.iu.edu:8888/measurements/542c36ab377f97513b6cd4f4",
+    "service": "https://dev.incntre.iu.edu:8888/services/542c3676377f97513b6cd4ef",
+    "ts": 1412183723656938,
+    "properties": {
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      }
+    },
+    "eventTypes": [
+      "ps:tools:blipp:linux:memory:utilization:buffer",
+      "ps:tools:blipp:linux:memory:utilization:cache",
+      "ps:tools:blipp:linux:memory:utilization:used",
+      "ps:tools:blipp:linux:memory:utilization:free",
+      "ps:tools:blipp:linux:memory:utilization:kernel"
+    ],
+    "configuration": {
+      "collection_ttl": 1500000,
+      "reporting_params": 8,
+      "name": "mem",
+      "collection_schedule": "builtins.simple",
+      "collection_size": 100000,
+      "kwargs": {},
+      "ms_url": "https://pcvm2-28.genirack.nyu.edu:8888",
+      "schedule_params": {
+        "every": 2
+      },
+      "probe_module": "mem"
+    },
+    "id": "542c36ab377f97513b6cd4f4"
+  }
+]

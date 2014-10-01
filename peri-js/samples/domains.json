@@ -1,0 +1,62 @@
+
+[
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/domain#",
+    "links": [
+      {
+        "href": "https://dev.incntre.iu.edu:8888/links/genirack.nyu.edu_slice_pubsub4_link_lan0",
+        "rel": "full"
+      },
+      {
+        "href": "https://dev.incntre.iu.edu:8888/links/genirack.nyu.edu_slice_pubsub4_link_lan1",
+        "rel": "full"
+      }
+    ],
+    "selfRef": "https://dev.incntre.iu.edu:8888/domains/genirack.nyu.edu_slice_pubsub4",
+    "urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4",
+    "ts": 1412183594350923,
+    "properties": {
+      "geni": {
+        "slice_urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4",
+        "expires": "2014-10-08T16:37:39Z",
+        "generated_by": "Flack",
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96",
+        "generated": "2014-10-01T17:01:11Z",
+        "type": "manifest"
+      }
+    },
+    "nodes": [
+      {
+        "href": "https://dev.incntre.iu.edu:8888/nodes/VM.pubsub4.ch-geni-net.genirack.nyu.edu",
+        "rel": "full"
+      },
+      {
+        "href": "https://dev.incntre.iu.edu:8888/nodes/VM-0.pubsub4.ch-geni-net.genirack.nyu.edu",
+        "rel": "full"
+      },
+      {
+        "href": "https://dev.incntre.iu.edu:8888/nodes/GN0.pubsub4.ch-geni-net.genirack.nyu.edu",
+        "rel": "full"
+      }
+    ],
+    "id": "genirack.nyu.edu_slice_pubsub4",
+    "ports": [
+      {
+        "href": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_VM%3Aif0",
+        "rel": "full"
+      },
+      {
+        "href": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_VM-0%3Aif0",
+        "rel": "full"
+      },
+      {
+        "href": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_GN0%3Aif0",
+        "rel": "full"
+      },
+      {
+        "href": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_GN0%3Aif1",
+        "rel": "full"
+      }
+    ]
+  }
+]

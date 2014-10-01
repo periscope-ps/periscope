@@ -1,0 +1,287 @@
+
+[
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
+    "capacity": -42,
+    "name": "eth999",
+    "selfRef": "https://dev.incntre.iu.edu:8888/ports/542c36bf377f97513b6cd51a",
+    "urn": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM-0:port=eth999",
+    "ts": 1412183743214613,
+    "properties": {
+      "mac": {
+        "type": "mac",
+        "address": "02:93:62:88:8e:1c"
+      },
+      "ipv4": {
+        "type": "ipv4",
+        "address": "172.17.2.30"
+      },
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      }
+    },
+    "location": {
+      "institution": "GEMINI"
+    },
+    "nodeRef": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM-0",
+    "id": "542c36bf377f97513b6cd51a"
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
+    "capacity": -42,
+    "name": "gre0",
+    "selfRef": "https://dev.incntre.iu.edu:8888/ports/542c36be377f97513b6cd515",
+    "urn": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM-0:port=gre0",
+    "ts": 1412183742438634,
+    "properties": {
+      "mac": {
+        "type": "mac",
+        "address": "00:00:00:00"
+      },
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      }
+    },
+    "location": {
+      "institution": "GEMINI"
+    },
+    "nodeRef": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM-0",
+    "id": "542c36be377f97513b6cd515"
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
+    "capacity": -42,
+    "name": "lo",
+    "selfRef": "https://dev.incntre.iu.edu:8888/ports/542c36bd377f97513b6cd512",
+    "urn": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM-0:port=lo",
+    "ts": 1412183741825839,
+    "properties": {
+      "mac": {
+        "type": "mac",
+        "address": "00:00:00:00:00:00"
+      },
+      "ipv4": {
+        "type": "ipv4",
+        "address": "127.0.0.1"
+      },
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      }
+    },
+    "location": {
+      "institution": "GEMINI"
+    },
+    "nodeRef": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM-0",
+    "id": "542c36bd377f97513b6cd512"
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
+    "capacity": -42,
+    "name": "eth999",
+    "selfRef": "https://dev.incntre.iu.edu:8888/ports/542c36af377f97513b6cd501",
+    "urn": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM:port=eth999",
+    "ts": 1412183727322889,
+    "properties": {
+      "mac": {
+        "type": "mac",
+        "address": "02:40:6d:4d:7f:a8"
+      },
+      "ipv4": {
+        "type": "ipv4",
+        "address": "172.17.2.29"
+      },
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      }
+    },
+    "location": {
+      "institution": "GEMINI"
+    },
+    "nodeRef": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM",
+    "id": "542c36af377f97513b6cd501"
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
+    "capacity": -42,
+    "name": "gre0",
+    "selfRef": "https://dev.incntre.iu.edu:8888/ports/542c36ae377f97513b6cd4fe",
+    "urn": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM:port=gre0",
+    "ts": 1412183726760457,
+    "properties": {
+      "mac": {
+        "type": "mac",
+        "address": "00:00:00:00"
+      },
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      }
+    },
+    "location": {
+      "institution": "GEMINI"
+    },
+    "nodeRef": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM",
+    "id": "542c36ae377f97513b6cd4fe"
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
+    "capacity": -42,
+    "name": "lo",
+    "selfRef": "https://dev.incntre.iu.edu:8888/ports/542c36ae377f97513b6cd4fb",
+    "urn": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM:port=lo",
+    "ts": 1412183726153572,
+    "properties": {
+      "mac": {
+        "type": "mac",
+        "address": "00:00:00:00:00:00"
+      },
+      "ipv4": {
+        "type": "ipv4",
+        "address": "127.0.0.1"
+      },
+      "geni": {
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96"
+      }
+    },
+    "location": {
+      "institution": "GEMINI"
+    },
+    "nodeRef": "urn:ogf:network:domain=pubsub4.ch-geni-net.genirack.nyu.edu:node=VM",
+    "id": "542c36ae377f97513b6cd4fb"
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
+    "name": "GN0:if1",
+    "selfRef": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_GN0:if1",
+    "urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4+interface+GN0:if1",
+    "ts": 1412183594350881,
+    "relations": {
+      "over": [
+        {
+          "href": "urn:publicid:IDN+genirack.nyu.edu+interface+pc2:lo0",
+          "rel": "full"
+        }
+      ]
+    },
+    "properties": {
+      "geni": {
+        "component_id": "urn:publicid:IDN+genirack.nyu.edu+interface+pc2:lo0",
+        "ip": {
+          "type": "ipv4",
+          "address": "10.10.2.1"
+        },
+        "slice_urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4",
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96",
+        "sliver_id": "urn:publicid:IDN+genirack.nyu.edu+sliver+9413",
+        "client_id": "GN0:if1",
+        "mac_address": "02728d288109"
+      }
+    },
+    "address": {
+      "type": "ipv4",
+      "address": "10.10.2.1"
+    },
+    "id": "genirack.nyu.edu_slice_pubsub4_interface_GN0:if1"
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
+    "name": "GN0:if0",
+    "selfRef": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_GN0:if0",
+    "urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4+interface+GN0:if0",
+    "ts": 1412183594350606,
+    "relations": {
+      "over": [
+        {
+          "href": "urn:publicid:IDN+genirack.nyu.edu+interface+pc2:lo0",
+          "rel": "full"
+        }
+      ]
+    },
+    "properties": {
+      "geni": {
+        "component_id": "urn:publicid:IDN+genirack.nyu.edu+interface+pc2:lo0",
+        "ip": {
+          "type": "ipv4",
+          "address": "10.10.1.2"
+        },
+        "slice_urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4",
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96",
+        "sliver_id": "urn:publicid:IDN+genirack.nyu.edu+sliver+9411",
+        "client_id": "GN0:if0",
+        "mac_address": "02c1456dde02"
+      }
+    },
+    "address": {
+      "type": "ipv4",
+      "address": "10.10.1.2"
+    },
+    "id": "genirack.nyu.edu_slice_pubsub4_interface_GN0:if0"
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
+    "name": "VM-0:if0",
+    "selfRef": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_VM-0:if0",
+    "urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4+interface+VM-0:if0",
+    "ts": 1412183594350332,
+    "relations": {
+      "over": [
+        {
+          "href": "urn:publicid:IDN+genirack.nyu.edu+interface+pc2:lo0",
+          "rel": "full"
+        }
+      ]
+    },
+    "properties": {
+      "geni": {
+        "component_id": "urn:publicid:IDN+genirack.nyu.edu+interface+pc2:lo0",
+        "ip": {
+          "type": "ipv4",
+          "address": "10.10.2.2"
+        },
+        "slice_urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4",
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96",
+        "sliver_id": "urn:publicid:IDN+genirack.nyu.edu+sliver+9414",
+        "client_id": "VM-0:if0",
+        "mac_address": "022900b24a9a"
+      }
+    },
+    "address": {
+      "type": "ipv4",
+      "address": "10.10.2.2"
+    },
+    "id": "genirack.nyu.edu_slice_pubsub4_interface_VM-0:if0"
+  },
+  {
+    "$schema": "http://unis.incntre.iu.edu/schema/20140214/port#",
+    "name": "VM:if0",
+    "selfRef": "https://dev.incntre.iu.edu:8888/ports/genirack.nyu.edu_slice_pubsub4_interface_VM:if0",
+    "urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4+interface+VM:if0",
+    "ts": 1412183594350056,
+    "relations": {
+      "over": [
+        {
+          "href": "urn:publicid:IDN+genirack.nyu.edu+interface+pc2:lo0",
+          "rel": "full"
+        }
+      ]
+    },
+    "properties": {
+      "geni": {
+        "component_id": "urn:publicid:IDN+genirack.nyu.edu+interface+pc2:lo0",
+        "ip": {
+          "type": "ipv4",
+          "address": "10.10.1.1"
+        },
+        "slice_urn": "urn:publicid:IDN+genirack.nyu.edu+slice+pubsub4",
+        "slice_uuid": "6f671c7f-f6d3-4596-a068-d13749bc0c96",
+        "sliver_id": "urn:publicid:IDN+genirack.nyu.edu+sliver+9410",
+        "client_id": "VM:if0",
+        "mac_address": "0232ab934658"
+      }
+    },
+    "address": {
+      "type": "ipv4",
+      "address": "10.10.1.1"
+    },
+    "id": "genirack.nyu.edu_slice_pubsub4_interface_VM:if0"
+  }
+]
