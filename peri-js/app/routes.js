@@ -174,7 +174,7 @@ module.exports = function(app) {
       var http_get_options = {
         hostname: unis_host,
         port: unis_port,
-        path: '/nodes',
+        path: '/nodes?id=GN0.pubsub4.ch-geni-net.genirack.nyu.edu,VM.pubsub4.ch-geni-net.genirack.nyu.edu,VM-0.pubsub4.ch-geni-net.genirack.nyu.edu',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -332,7 +332,7 @@ module.exports = function(app) {
       var http_get_options = {
         hostname: unis_host,
         port: unis_port,
-        path: '/services',
+        path: '/services?id=ms_GN0.pubsub4.ch-geni-net.genirack.nyu.edu,542cc94de7798903f4000112,542cca24e7798903f4000173'
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1005,7 +1005,7 @@ module.exports = function(app) {
   });
 
   app.get('/api/metadata/:id', function(req, res) {
-    console.log("data id: " + req.params.id);
+    console.log("metadata id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -1084,7 +1084,7 @@ module.exports = function(app) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
-    production = true;
+
     if (production) {
       console.log('running in production');
 
@@ -1158,10 +1158,10 @@ module.exports = function(app) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
-    production = true;
+
     var data_id = req.params.id;
 
-    if (production) {
+    if (true) {
       console.log('running in production');
 
       // HTTPS Options
@@ -1303,7 +1303,7 @@ module.exports = function(app) {
   });
 
   app.get('/api/links/:id', function(req, res) {
-    console.log("data id: " + req.params.id);
+    console.log("link id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -1452,7 +1452,7 @@ module.exports = function(app) {
   });
 
   app.get('/api/ports/:id', function(req, res) {
-    console.log("data id: " + req.params.id);
+    console.log("port id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -1601,7 +1601,7 @@ module.exports = function(app) {
   });
 
   app.get('/api/domains/:id', function(req, res) {
-    console.log("data id: " + req.params.id);
+    console.log("domain id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
