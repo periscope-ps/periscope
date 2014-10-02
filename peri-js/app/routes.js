@@ -332,7 +332,7 @@ module.exports = function(app) {
       var http_get_options = {
         hostname: unis_host,
         port: unis_port,
-        path: '/services?id=ms_GN0.pubsub4.ch-geni-net.genirack.nyu.edu,542cc94de7798903f4000112,542cca24e7798903f4000173'
+        path: '/services?id=ms_GN0.pubsub4.ch-geni-net.genirack.nyu.edu,542cc94de7798903f4000112,542cca24e7798903f4000173',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
