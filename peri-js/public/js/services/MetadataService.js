@@ -8,7 +8,7 @@ angular.module('MetadataService', []).service('Metadata', function($http, $route
   Socket.emit("metadata_request",{});
 
   this.getMetadatas = function(metadata) {
-    $http.get('/api/metadata').success(function(data) {
+    $http.get('/unis/metadata').success(function(data) {
       console.log('Metadata Request: ' + data);
       metadata(data);
 
@@ -22,7 +22,7 @@ angular.module('MetadataService', []).service('Metadata', function($http, $route
   };
 
   this.getMetadata = function(metadata) {
-    $http.get('/api/metadata/' + $routeParams.id)
+    $http.get('/unis/metadata/' + $routeParams.id)
       .success(function(data) {
         console.log('Metadata Request: ' + data);
         metadata(data);
@@ -37,7 +37,7 @@ angular.module('MetadataService', []).service('Metadata', function($http, $route
 
     Socket.emit('data_request',{'id': data_id});
 
-    $http.get('/api/data/' + data_id).success(function(data) {
+    $http.get('/unis/data/' + data_id).success(function(data) {
       console.log('Data Request: ' + data);
       metadataData(data);
 

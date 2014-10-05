@@ -7,7 +7,7 @@
 angular.module('HelpService', []).service('Help', function($http) {
 
   this.getHelp = function(helpMe) {
-    $http.get('/api/help')
+    $http.get('/unis/help')
       .success(function(data) {
         console.log('Help Request: ' + data);
         helpMe(data);
