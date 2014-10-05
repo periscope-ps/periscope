@@ -12,27 +12,33 @@ var fs = require('fs')
   , https = require('https')
   , url = require('url');
 
-// production
+// UNIS production config
 // var production = true;
 // var unis_host = 'unis.incntre.iu.edu';
 // var unis_port = '8443';
 var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
 var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
 
-// development
+// UNIS development config
 var production = false;
 var unis_host = 'dev.incntre.iu.edu';
 // var unis_host = 'localhost';
 var unis_port = '8888';
+var idms_host = 'monitor.incntre.iu.edu'
+var idms_port = '9000';
+
+// Measurement Store config
+var ms_host = 'dev.incntre.iu.edu';
+// var ms_host = 'localhost';
+var ms_port = '8888';
+var idms_ms_host = 'monitor.incntre.iu.edu';
+var idms_ms_port = '9001';
 
 var slice_info = [];
 var filePath = '/usr/local/etc/node.info';
 var slice_uuid = '';
 var os_name = '';
 var distro = '';
-// var ms_host = 'dev.incntre.iu.edu';
-// var ms_host = 'localhost';
-// var ms_port = '8888';
 
 module.exports = function(app) {
 
@@ -78,9 +84,9 @@ module.exports = function(app) {
 
         if(split[0] === 'ms_instance') {
           ms_url = split[1];
-          ms_port = ms_url.split(":")[2];
+          // ms_port = ms_url.split(":")[2];
           console.log("Measurement Store Port: " + ms_port);
-          ms_host = ms_url.split("//")[1].split(":")[0];
+          // ms_host = ms_url.split("//")[1].split(":")[0];
           console.log("Measurement Store Host: " + ms_host);
         }
 
@@ -97,7 +103,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api', function(req, res) {
+  app.get('/unis', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -115,11 +121,31 @@ module.exports = function(app) {
     routes.push('http://' + hostname + pathname + '/links');
     routes.push('http://' + hostname + pathname + '/ports');
     routes.push('http://' + hostname + pathname + '/domains');
+    routes.push('http://' + hostname + '/idms');
 
     res.json(routes);
   });
 
-  app.get('/api/slice', function(req, res) {
+  app.get('/idms', function(req, res) {
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
+
+    var routes = [];
+    var hostname = req.headers.host;
+    var pathname = url.parse(req.url).pathname;
+
+    routes.push('http://' + hostname + pathname + '/nodes');
+    routes.push('http://' + hostname + pathname + '/services');
+    routes.push('http://' + hostname + pathname + '/measurements');
+    routes.push('http://' + hostname + pathname + '/metadata');
+    routes.push('http://' + hostname + pathname + '/data');
+    routes.push('http://' + hostname + '/unis');
+
+    res.json(routes);
+  });
+
+  app.get('/unis/slice', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -128,7 +154,7 @@ module.exports = function(app) {
     res.json(slice_info);
   });
 
-  app.get('/api/nodes', function(req, res) {
+  app.get('/unis/nodes', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -210,7 +236,7 @@ module.exports = function(app) {
     });*/
   });
 
-  app.get('/api/nodes/:id', function(req, res) {
+  app.get('/unis/nodes/:id', function(req, res) {
     console.log("node id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -286,7 +312,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api/services', function(req, res) {
+  app.get('/unis/services', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -368,7 +394,7 @@ module.exports = function(app) {
     });*/
   });
 
-  app.get('/api/services/:id', function(req, res) {
+  app.get('/unis/services/:id', function(req, res) {
     console.log("service id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -444,7 +470,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api/measurements', function(req, res) {
+  app.get('/unis/measurements', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -517,7 +543,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api/measurements/:id', function(req, res) {
+  app.get('/unis/measurements/:id', function(req, res) {
     console.log("measurement id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -593,7 +619,7 @@ module.exports = function(app) {
     }
   });
 
-  app.post('/api/measurements', function(req, res) {
+  app.post('/unis/measurements', function(req, res) {
     console.log('STATUS: ' + res.statusCode);
     console.log("post length: " + req.body.length);
     console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -702,7 +728,7 @@ module.exports = function(app) {
     }
   });
 
-  app.put('/api/measurements/:id', function(req, res) {
+  app.put('/unis/measurements/:id', function(req, res) {
     console.log("measurement id: " + req.params.id);
     console.log("put length: " + req.body.length);
     console.log('STATUS: ' + res.statusCode);
@@ -818,7 +844,7 @@ module.exports = function(app) {
     }
   });
 
-  app.delete('/api/measurements/:id', function(req, res) {
+  app.delete('/unis/measurements/:id', function(req, res) {
     console.log("measurement id: " + req.params.id);
     console.log("delete length: " + req.body.length);
     console.log('STATUS: ' + res.statusCode);
@@ -931,7 +957,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api/metadata', function(req, res) {
+  app.get('/unis/metadata', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -1004,7 +1030,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api/metadata/:id', function(req, res) {
+  app.get('/unis/metadata/:id', function(req, res) {
     console.log("metadata id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -1080,7 +1106,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api/data', function(req, res) {
+  app.get('/unis/data', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -1142,7 +1168,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          // console.log( obj );
+          console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1153,7 +1179,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api/data/:id', function(req, res) {
+  app.get('/unis/data/:id', function(req, res) {
     console.log("data id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -1229,7 +1255,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api/links', function(req, res) {
+  app.get('/unis/links', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -1302,7 +1328,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api/links/:id', function(req, res) {
+  app.get('/unis/links/:id', function(req, res) {
     console.log("link id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -1378,7 +1404,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api/ports', function(req, res) {
+  app.get('/unis/ports', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -1451,7 +1477,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api/ports/:id', function(req, res) {
+  app.get('/unis/ports/:id', function(req, res) {
     console.log("port id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -1527,7 +1553,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api/domains', function(req, res) {
+  app.get('/unis/domains', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -1600,7 +1626,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/api/domains/:id', function(req, res) {
+  app.get('/unis/domains/:id', function(req, res) {
     console.log("domain id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -1657,6 +1683,760 @@ module.exports = function(app) {
         }
       };
       /* GET JSON and Render to our API */
+      http.get(http_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    }
+  });
+
+  app.get('/idms/nodes', function(req, res) {
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
+
+    if (production) {
+      console.log('running in production');
+
+      /* HTTPS Options */
+      var https_get_options = {
+        hostname: idms_host,
+        port: idms_port,
+        key: fs.readFileSync(unis_key),
+        cert: fs.readFileSync(unis_cert),
+        requestCert: true,
+        rejectUnauthorized: false,
+        path: '/nodes?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/nodes',
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      /* GET JSON and Render to our API */
+      https.get(https_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    } else {
+      /* HTTP Options */
+      var http_get_options = {
+        hostname: idms_host,
+        port: idms_port,
+        path: '/nodes',
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      /* GET JSON and Render to our API */
+      http.get(http_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    }
+  });
+
+  app.get('/idms/nodes/:id', function(req, res) {
+    console.log("node id: " + req.params.id);
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
+
+    var node_id = req.params.id;
+
+    if (production) {
+      console.log('running in production');
+
+      /* HTTPS Options */
+      var https_get_options = {
+        hostname: idms_host,
+        port: idms_port,
+        key: fs.readFileSync(unis_key),
+        cert: fs.readFileSync(unis_cert),
+        requestCert: true,
+        rejectUnauthorized: false,
+        path: '/nodes/' + node_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/nodes/' + node_id,
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      /* GET JSON and Render to our API */
+      https.get(https_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    } else {
+      /* HTTP Options */
+      var http_get_options = {
+        hostname: idms_host,
+        port: idms_port,
+        path: '/nodes/' + node_id,
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      /* GET JSON and Render to our API */
+      http.get(http_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    }
+  });
+
+  app.get('/idms/services', function(req, res) {
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
+
+    if (production) {
+      console.log('running in production');
+
+      /* HTTPS Options */
+      var https_get_options = {
+        hostname: idms_host,
+        port: idms_port,
+        key: fs.readFileSync(unis_key),
+        cert: fs.readFileSync(unis_cert),
+        requestCert: true,
+        rejectUnauthorized: false,
+        path: '/services?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/services',
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      /* GET JSON and Render to our API */
+      https.get(https_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    } else {
+      /* HTTP Options */
+      var http_get_options = {
+        hostname: idms_host,
+        port: idms_port,
+        path: '/services',
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      /* GET JSON and Render to our API */
+      http.get(http_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    }
+    /* Access Model Created from Mongo */
+    /*Service.find(function(err, services) {
+
+      if (err)
+        res.send(err);
+
+      console.log(services);
+      res.json(services);
+    });*/
+  });
+
+  app.get('/idms/services/:id', function(req, res) {
+    console.log("service id: " + req.params.id);
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
+
+    var service_id = req.params.id;
+
+    if (production) {
+      console.log('running in production');
+
+      /* HTTPS Options */
+      var https_get_options = {
+        hostname: idms_host,
+        port: idms_port,
+        key: fs.readFileSync(unis_key),
+        cert: fs.readFileSync(unis_cert),
+        requestCert: true,
+        rejectUnauthorized: false,
+        path: '/services/' + service_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/services/' + service_id,
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      /* GET JSON and Render to our API */
+      https.get(https_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    } else {
+      /* HTTP Options */
+      var http_get_options = {
+          hostname: idms_host,
+          port: idms_port,
+          path: '/services/' + service_id,
+          method: 'GET',
+          headers: {
+              'Content-type': 'application/perfsonar+json',
+              'connection': 'keep-alive'
+          }
+      };
+      /* GET JSON and Render to our API */
+      http.get(http_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    }
+  });
+
+  app.get('/idms/measurements', function(req, res) {
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
+
+    if (production) {
+      console.log('running in production');
+
+      /* HTTPS Options */
+      var https_get_options = {
+        hostname: idms_host,
+        port: idms_port,
+        key: fs.readFileSync(unis_key),
+        cert: fs.readFileSync(unis_cert),
+        requestCert: true,
+        rejectUnauthorized: false,
+        path: '/measurements?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/measurements',
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      /* GET JSON and Render to our API */
+      https.get(https_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    } else {
+      /* HTTP Options */
+      var http_get_options = {
+          hostname: idms_host,
+          port: idms_port,
+          path: '/measurements',
+          method: 'GET',
+          headers: {
+              'Content-type': 'application/perfsonar+json',
+              'connection': 'keep-alive'
+          }
+      };
+      /* GET JSON and Render to our API */
+      http.get(http_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    }
+  });
+
+  app.get('/idms/measurements/:id', function(req, res) {
+    console.log("measurement id: " + req.params.id);
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
+
+    var measurement_id = req.params.id;
+
+    if (production) {
+      console.log('running in production');
+
+      /* HTTPS Options */
+      var https_get_options = {
+        hostname: idms_host,
+        port: idms_port,
+        key: fs.readFileSync(unis_key),
+        cert: fs.readFileSync(unis_cert),
+        requestCert: true,
+        rejectUnauthorized: false,
+        path: '/measurements/' + measurement_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        // path: '/measurements/' + measurement_id,
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      /* GET JSON and Render to our API */
+      https.get(https_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    } else {
+      /* HTTP Options */
+      var http_get_options = {
+        hostname: idms_host,
+        port: idms_port,
+        path: '/measurements/' + measurement_id,
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      /* GET JSON and Render to our API */
+      http.get(http_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    }
+  });
+
+  app.get('/idms/metadata', function(req, res) {
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
+
+    if (production) {
+      console.log('running in production');
+
+      /* HTTPS Options */
+      var https_get_options = {
+        hostname: idms_host,
+        port: idms_port,
+        key: fs.readFileSync(unis_key),
+        cert: fs.readFileSync(unis_cert),
+        requestCert: true,
+        rejectUnauthorized: false,
+        path: '/metadata?parameters.geni.slice_uuid=' + slice_uuid,
+        // path: '/metadata',
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      /* GET JSON and Render to our API */
+      https.get(https_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    } else {
+      /* HTTP Options */
+      var http_get_options = {
+          hostname: idms_host,
+          port: idms_port,
+          path: '/metadata',
+          method: 'GET',
+          headers: {
+              'Content-type': 'application/perfsonar+json',
+              'connection': 'keep-alive'
+          }
+      };
+      /* GET JSON and Render to our API */
+      http.get(http_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    }
+  });
+
+  app.get('/idms/metadata/:id', function(req, res) {
+    console.log("metadata id: " + req.params.id);
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
+
+    var metadata_id = req.params.id;
+
+    if (production) {
+      console.log('running in production');
+
+      /* HTTPS Options */
+      var https_get_options = {
+        hostname: idms_host,
+        port: idms_port,
+        key: fs.readFileSync(unis_key),
+        cert: fs.readFileSync(unis_cert),
+        requestCert: true,
+        rejectUnauthorized: false,
+        path: '/metadata/' + metadata_id + '?parameters.geni.slice_uuid=' + slice_uuid,
+        // path: '/metadata/' + metadata_id,
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      /* GET JSON and Render to our API */
+      https.get(https_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    } else {
+      /* HTTP Options */
+      var http_get_options = {
+        hostname: idms_host,
+        port: idms_port,
+        path: '/metadata/' + metadata_id,
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      /* GET JSON and Render to our API */
+      http.get(http_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    }
+  });
+
+  app.get('/idms/data', function(req, res) {
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
+
+    if (production) {
+      console.log('running in production');
+
+      // HTTPS Options
+      var https_get_options = {
+        hostname: idms_ms_host,
+        port: idms_ms_port,
+        key: fs.readFileSync(unis_key),
+        cert: fs.readFileSync(unis_cert),
+        requestCert: true,
+        rejectUnauthorized: false,
+        // path: '/data?properties.geni.slice_uuid=' + slice_uuid,
+        path: '/data',
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      // GET JSON and Render to our API
+      https.get(https_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    } else {
+      // HTTP Options
+      var http_get_options = {
+          hostname: idms_ms_host,
+          port: idms_ms_port,
+          path: '/data',
+          method: 'GET',
+          headers: {
+              'Content-type': 'application/perfsonar+json',
+              'connection': 'keep-alive'
+          }
+      };
+      // GET JSON and Render to our API
+      http.get(http_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    }
+  });
+
+  app.get('/idms/data/:id', function(req, res) {
+    console.log("data id: " + req.params.id);
+    // console.log('STATUS: ' + res.statusCode);
+    // console.log('HEADERS: ' + JSON.stringify(res.headers));
+    // console.log('BODY: ' + JSON.stringify(res.body));
+
+    var data_id = req.params.id;
+
+    if (production) {
+      console.log('running in production');
+
+      // HTTPS Options
+      var https_get_options = {
+        hostname: idms_ms_host,
+        port: idms_ms_port,
+        key: fs.readFileSync(unis_key),
+        cert: fs.readFileSync(unis_cert),
+        requestCert: true,
+        rejectUnauthorized: false,
+        // path: '/data/' + data_id + '?properties.geni.slice_uuid=' + slice_uuid,
+        path: '/data/' + data_id,
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      // GET JSON and Render to our API
+      https.get(https_get_options, function(http_res) {
+        var data = '';
+
+        http_res.on('data', function (chunk) {
+          data += chunk;
+        });
+        http_res.on('end',function() {
+          var obj = JSON.parse(data);
+          // console.log( obj );
+          res.json( obj );
+        });
+        http_res.on('error',function() {
+          console.log('problem with request: ' + e.message);
+          res.send( 404 );
+        });
+      });
+    } else {
+      // HTTP Options
+      var http_get_options = {
+        hostname: idms_ms_host,
+        port: idms_ms_port,
+        path: '/data/' + data_id,
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/perfsonar+json',
+            'connection': 'keep-alive'
+        }
+      };
+      // GET JSON and Render to our API
       http.get(http_get_options, function(http_res) {
         var data = '';
 
