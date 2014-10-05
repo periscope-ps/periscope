@@ -121,12 +121,12 @@ module.exports = function(app) {
     routes.push('http://' + hostname + pathname + '/links');
     routes.push('http://' + hostname + pathname + '/ports');
     routes.push('http://' + hostname + pathname + '/domains');
-    routes.push('http://' + hostname + '/idms');
+    routes.push('http://' + hostname + '/unis/idms');
 
     res.json(routes);
   });
 
-  app.get('/idms', function(req, res) {
+  app.get('/unis/idms', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -1702,7 +1702,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/idms/nodes', function(req, res) {
+  app.get('/unis/idms/nodes', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -1775,7 +1775,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/idms/nodes/:id', function(req, res) {
+  app.get('/unis/idms/nodes/:id', function(req, res) {
     console.log("node id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -1851,7 +1851,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/idms/services', function(req, res) {
+  app.get('/unis/idms/services', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -1933,7 +1933,7 @@ module.exports = function(app) {
     });*/
   });
 
-  app.get('/idms/services/:id', function(req, res) {
+  app.get('/unis/idms/services/:id', function(req, res) {
     console.log("service id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -2009,7 +2009,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/idms/measurements', function(req, res) {
+  app.get('/unis/idms/measurements', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -2082,7 +2082,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/idms/measurements/:id', function(req, res) {
+  app.get('/unis/idms/measurements/:id', function(req, res) {
     console.log("measurement id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -2158,7 +2158,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/idms/metadata', function(req, res) {
+  app.get('/unis/idms/metadata', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -2231,7 +2231,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/idms/metadata/:id', function(req, res) {
+  app.get('/unis/idms/metadata/:id', function(req, res) {
     console.log("metadata id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -2307,7 +2307,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/idms/data', function(req, res) {
+  app.get('/unis/idms/data', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
@@ -2380,7 +2380,7 @@ module.exports = function(app) {
     }
   });
 
-  app.get('/idms/data/:id', function(req, res) {
+  app.get('/unis/idms/data/:id', function(req, res) {
     console.log("data id: " + req.params.id);
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
