@@ -47,6 +47,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
       templateUrl: 'views/idms.html',
       controller: 'IdmsController'
     }).
+    when('/idms/:id', {
+      templateUrl: 'views/idms_data.html',
+      controller: 'IdmsController'
+    }).
     when('/help', {
       templateUrl: 'views/help.html',
       controller: 'HelpController'

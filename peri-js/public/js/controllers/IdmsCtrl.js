@@ -6,6 +6,8 @@
 
 angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $routeParams, $location, Idms) {
 
+  var metadata_id = $routeParams.id;
+
   Idms.getNodes(function(nodes) {
     $scope.nodes = $scope.nodes || [];
 
@@ -41,6 +43,32 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
 
     $scope.metadata = $scope.metadata.concat(metadata);
   });
+
+  if (metadata_id) {
+    Idms.getMetadataData(function(metadataData) {
+      $scope.metadataData = $scope.metadataData || [];
+
+      if (typeof metadataData =='string')
+        metadataData = JSON.parse(metadataData);
+
+      $scope.metadataData = $scope.metadataData.concat(metadataData);
+
+      Idms.getMetadata(function(metadata) {
+        $scope.eventType = metadata.eventType;
+      });
+
+      var arrayData = [];
+      angular.forEach($scope.metadataData, function(key, value) {
+        arrayData.push([key.ts, key.value]);
+      });
+
+      $scope.graphData = [
+      {
+        "key": "Data Point",
+        "values": arrayData
+      }];
+    });
+  }
 
   $scope.getServiceNode = function(accessPoint) {
     var ip = accessPoint.split(':')[1].replace('//', '');
@@ -80,4 +108,7 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
     return metadatas;
   };
 
+  $scope.showData = function(metadata_id) {
+    $location.path('/idms/' + metadata_id);
+  };
 });

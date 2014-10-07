@@ -1,4 +1,4 @@
-<h2 class="lead text-center">IDMS</h2>
+<h2 class="lead text-center">IDMS Services</h2>
 
 <div class="table-responsive">
   <table class="table table-hover table-condensed">
@@ -9,26 +9,24 @@
       <col span="1" style="width: 25%;">
     </colgroup>
     <tr>
-      <th>Access Point</th>
       <th>Status</th>
+      <th>Access Point</th>
       <th>Running On Node</th>
       <th>Timestamp</th>
     </tr>
     <tbody ng-repeat="service in services | unique:'id' | orderBy:'-ts'">
-      <td>{{ service.accessPoint }}</td>
       <td>
         <button ng-show="service.status === 'ON'" class="btn btn-success disabled">ON</button>
         <button ng-show="service.status === undefined || service.status === 'OFF'" class="btn btn-danger disabled">OFF</button>
       </td>
+      <td>{{ service.accessPoint }}</td>
       <td>{{ getServiceNode(service.accessPoint) }}</td>
       <td>{{ service.ts}}</td>
-      <!-- <td>{{ service.ts * 1000 | date:'yyyy-MM-d (EEE) @ h:m:s.sss a Z'}}</td> -->
-      <!-- <td>{{ getServiceMeasurement(service.accessPoint) }}</td> -->
       <tr>
         <td colspan="2" ng-repeat="eventType in getServiceMeasurement(service.accessPoint)">{{eventType}}</td>
       </tr>
       <tr>
-        <td colspan="2" ng-repeat="metadata in getServiceMetadata(service.accessPoint)">{{metadata}}</td>
+        <td colspan="2" ng-repeat="metadata in getServiceMetadata(service.accessPoint)"><button ng-click="showData(metadata)" class="btn btn-info">Show Graph</button></td>
       </tr>
     </tbody>
   </table>
