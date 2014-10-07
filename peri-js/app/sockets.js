@@ -5,12 +5,12 @@
  */
 
 // modules
-var WebSocket = require('ws');
+var WebSocket = require('ws')  , freegeoip = require('node-freegeoip');
 
 // export function for listening to the socket
 module.exports = function (client_socket) {
 
-  var unis_sub = 'ws://localhost:8888/subscribe/'
+  var unis_sub = 'ws://dev.incntre.iu.edu:8888/subscribe/'
 
   // establish client socket
   console.log('Client connected');
@@ -253,4 +253,52 @@ module.exports = function (client_socket) {
       console.log('UNIS: Event socket closed');
     });
   });
+  
+  
+  //Can later create this array with 
+  var nodeIpArray = ["24.1.111.131" , // bloomington
+                     "173.194.123.46", // google
+                     "128.83.40.146" , // UT austin
+                     "128.2.42.52" , // CMU 
+                     "130.207.244.165" // GA Tech
+                     ];
+  
+  client_socket.on('eodnDownload_request', function(data) {		  		  		  
+	  getAllIpLocations(nodeIpArray,function(data){
+		  var nodeLocations = data;
+		  client_socket.emit('eodnDownload_Nodes', {data : nodeLocations});	    
+	  });
+  });
+  setInterval(function(){
+	  client_socket.emit('eodnDownload_Progress', {data : { ip : "24.1.111.131" , progress : 5}});
+  },2000)
 };
+
+
+var _nodeLocations;
+function getAllIpLocations(array , cb){
+	if(_nodeLocations){
+		cb(_nodeLocations);
+	}	
+	var locArr = [] , i =0;
+	function done(){
+		i++;
+		if(i >= array.length - 1){
+			_nodeLocations = locArr ;
+			cb(locArr);
+			// Kil it
+			i = -111111;
+		}
+	}
+	array.forEach(function(val) {
+		freegeoip.getLocation(val, function(err, obj) {
+			if(err){
+				done();
+				return ;
+			}			
+			locArr.push({ip : val , loc : [ obj.longitude , obj.latitude]}); 
+			done();
+		});
+	});
+	 
+}
