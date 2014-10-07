@@ -11,6 +11,7 @@ var WebSocket = require('ws');
 module.exports = function (client_socket) {
 
   var unis_sub = 'ws://dev.incntre.iu.edu:8888/subscribe/'
+  // var idms_sub = 'ws://monitor.incntre.iu.edu:9001/subscribe/'
 
   // establish client socket
   console.log('Client connected');
@@ -252,5 +253,42 @@ module.exports = function (client_socket) {
     eventSocket.on('close', function(event) {
       console.log('UNIS: Event socket closed');
     });
+  });
+
+  client_socket.on('idms_request', function(data) {
+    // console.log(data.id);
+    if (data.id) {
+      // Create socket to listen for updates on data
+      var dataSocket = new WebSocket(idms_sub + 'data/' + data.id);
+
+      dataSocket.on('open', function(event) {
+        console.log('IDMS: Data ID socket opened');
+      });
+
+      dataSocket.on('message', function(data) {
+        console.log('UNIS: idms_data: ' + data);
+        client_socket.emit('idms_data', data);
+      });
+
+      dataSocket.on('close', function(event) {
+        console.log('IDMS: Data ID socket closed');
+      });
+    } else {
+      // Create socket to listen for updates on data
+      var dataSocket = new WebSocket(idms_sub + 'data');
+
+      dataSocket.on('open', function(event) {
+        console.log('UNIS: Data socket opened');
+      });
+
+      dataSocket.on('message', function(data) {
+        console.log('UNIS: data_data: ' + data);
+        client_socket.emit('data_data', data);
+      });
+
+      dataSocket.on('close', function(event) {
+        console.log('UNIS: Data socket closed');
+      });
+    }
   });
 };

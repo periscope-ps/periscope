@@ -4,7 +4,8 @@
  * IdmsService.js
  */
 
-angular.module('IdmsService', []).service('Idms', function($http, $routeParams) {
+angular.module('IdmsService', []).service('Idms', function($http, $routeParams, Socket) {
+  Socket.emit("idms_request",{});
 
   this.getNodes = function(nodes) {
     $http.get('/unis/idms/nodes').success(function(data) {
@@ -70,6 +71,11 @@ angular.module('IdmsService', []).service('Idms', function($http, $routeParams) 
     $http.get('/unis/idms/data/' + data_id).success(function(data) {
       console.log('Data Request: ' + data);
       metadataData(data);
+
+      Socket.on('idms_data',function(data){
+        console.log('IDMS Data Request: ' , data);
+        metadataData(data);
+      });
     }).error(function(data) {
       console.log('Data Error: ' + data);
     });
