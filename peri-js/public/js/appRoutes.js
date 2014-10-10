@@ -19,14 +19,14 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
       templateUrl: 'views/service.html',
       controller: 'ServiceController'
     }).
-    when('/blipp', {
+    /*when('/blipp', {
       templateUrl: 'views/blipp.html',
       controller: 'BlippController'
     }).
     when('/helm', {
       templateUrl: 'views/helm.html',
       controller: 'HelmController'
-    }).
+    }).*/
     when('/eodn', {
         templateUrl: 'views/eodn.html',
         controller: 'EodnController'
@@ -47,10 +47,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
       templateUrl: 'views/metadata.html',
       controller: 'MetadataController'
     }).
-    when('/help', {
+    /*when('/help', {
       templateUrl: 'views/help.html',
       controller: 'HelpController'
-    }).
+    }).*/
     otherwise({redirectTo: '/'});
 
   $locationProvider.html5Mode(true);

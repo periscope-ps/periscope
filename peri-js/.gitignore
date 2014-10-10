@@ -1,3 +1,4 @@
+.DS_Store
 public/libs
 node_modules/
 node.info

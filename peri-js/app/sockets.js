@@ -10,7 +10,8 @@ var WebSocket = require('ws')  , freegeoip = require('node-freegeoip');
 // export function for listening to the socket
 module.exports = function (client_socket) {
 
-  var unis_sub = 'ws://dev.incntre.iu.edu:8888/subscribe/'
+  // var unis_sub = 'ws://dlt.incntre.iu.edu:9000/subscribe/'
+  var unis_sub = 'ws://monitor.incntre.iu.edu:9000/subscribe/'
 
   // establish client socket
   console.log('Client connected');
@@ -92,7 +93,12 @@ module.exports = function (client_socket) {
   });
 
   client_socket.on('data_request', function(data) {
-    // console.log(data.id);
+    console.log(data.id);
+
+    // connect to measurement store
+    // var unis_sub = 'ws://dlt.incntre.iu.edu:9001/subscribe/'
+    var unis_sub = 'ws://monitor.incntre.iu.edu:9001/subscribe/'
+
     if (data.id) {
       // Create socket to listen for updates on data
       var dataSocket = new WebSocket(unis_sub + 'data/' + data.id);
@@ -253,20 +259,20 @@ module.exports = function (client_socket) {
       console.log('UNIS: Event socket closed');
     });
   });
-  
-  
-  //Can later create this array with 
+
+
+  //Can later create this array with
   var nodeIpArray = ["24.1.111.131" , // bloomington
                      "173.194.123.46", // google
                      "128.83.40.146" , // UT austin
-                     "128.2.42.52" , // CMU 
+                     "128.2.42.52" , // CMU
                      "130.207.244.165" // GA Tech
                      ];
-  
-  client_socket.on('eodnDownload_request', function(data) {		  		  		  
+
+  client_socket.on('eodnDownload_request', function(data) {
 	  getAllIpLocations(nodeIpArray,function(data){
 		  var nodeLocations = data;
-		  client_socket.emit('eodnDownload_Nodes', {data : nodeLocations});	    
+		  client_socket.emit('eodnDownload_Nodes', {data : nodeLocations});
 	  });
   });
   setInterval(function(){
@@ -279,7 +285,7 @@ var _nodeLocations;
 function getAllIpLocations(array , cb){
 	if(_nodeLocations){
 		cb(_nodeLocations);
-	}	
+	}
 	var locArr = [] , i =0;
 	function done(){
 		i++;
@@ -295,10 +301,10 @@ function getAllIpLocations(array , cb){
 			if(err){
 				done();
 				return ;
-			}			
-			locArr.push({ip : val , loc : [ obj.longitude , obj.latitude]}); 
+			}
+			locArr.push({ip : val , loc : [ obj.longitude , obj.latitude]});
 			done();
 		});
 	});
-	 
+
 }

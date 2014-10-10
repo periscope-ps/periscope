@@ -14,30 +14,34 @@ var fs = require('fs')
 
 // production
 // var production = true;
-// var unis_host = 'unis.incntre.iu.edu';
-// var unis_port = '8443';
-// var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
-// var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
+// var unis_host = 'dlt.incntre.iu.edu';
+// var unis_port = '9000';
+var unis_cert = '/home/kissel/ssl/dlt-client.pem';
+var unis_key = '/home/kissel/ssl/dlt-client.pem';
 
-// development
 var production = false;
-var unis_host = 'dev.incntre.iu.edu';
-// var unis_host = 'localhost';
-var unis_port = '8888';
+var unis_host = 'monitor.incntre.iu.edu';
+var unis_port = '9000';
 
-var slice_info = [];
-var filePath = '/usr/local/etc/node.info';
-var slice_uuid = '';
-var os_name = '';
-var distro = '';
-var ms_host = 'dev.incntre.iu.edu';
-var ms_port = '8888';
+// var slice_info = [];
+// var filePath = '/usr/local/etc/node.info';
+// var slice_uuid = '';
+// var os_name = '';
+// var distro = '';
+
+// var ms_host = 'dlt.incntre.iu.edu';
+// var ms_port = '9001';
+
+var ms_host = 'monitor.incntre.iu.edu';
+var ms_port = '9001';
 
 module.exports = function(app) {
 
   console.log("UNIS Instance: " + unis_host + "@" + unis_port);
+  console.log("Measurement Store Host: " + ms_host);
+  console.log("Measurement Store Port: " + ms_port);
 
-  var exec = require('child_process').exec;
+  /*var exec = require('child_process').exec;
   var child1, child2;
 
   child1 = exec('uname -s',
@@ -94,7 +98,7 @@ module.exports = function(app) {
       slice_info.push({'external_address': exAddy, 'gn_address': gn, 'unis_instance': unis, 'ms_url': ms_url, 'project': project[1], 'slice': slice[0], 'slice_uuid': slice_uuid, 'os_name': os_name, 'distro': distro});
       // console.log(slice_info);
     }
-  });
+  });*/
 
   app.get('/api', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
@@ -105,7 +109,7 @@ module.exports = function(app) {
     var hostname = req.headers.host;
     var pathname = url.parse(req.url).pathname;
 
-    routes.push('http://' + hostname + pathname + '/slice');
+    // routes.push('http://' + hostname + pathname + '/slice');
     routes.push('http://' + hostname + pathname + '/nodes');
     routes.push('http://' + hostname + pathname + '/services');
     routes.push('http://' + hostname + pathname + '/measurements');
@@ -118,14 +122,14 @@ module.exports = function(app) {
     res.json(routes);
   });
 
-  app.get('/api/slice', function(req, res) {
+  /*app.get('/api/slice', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
 
     console.log(slice_info);
     res.json(slice_info);
-  });
+  });*/
 
   app.get('/api/nodes', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
