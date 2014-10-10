@@ -10,8 +10,11 @@ var WebSocket = require('ws')  , freegeoip = require('node-freegeoip');
 // export function for listening to the socket
 module.exports = function (client_socket) {
 
-  // var unis_sub = 'ws://dlt.incntre.iu.edu:9000/subscribe/'
-  var unis_sub = 'ws://monitor.incntre.iu.edu:9000/subscribe/'
+  var unis_sub = 'ws://dlt.incntre.iu.edu:9000/subscribe/'
+  // var unis_sub = 'ws://monitor.incntre.iu.edu:9000/subscribe/'
+
+  var ms_sub = 'ws://dlt.incntre.iu.edu:9001/subscribe/'
+  // var ms_sub = 'ws://monitor.incntre.iu.edu:9001/subscribe/'
 
   // establish client socket
   console.log('Client connected');
@@ -95,13 +98,9 @@ module.exports = function (client_socket) {
   client_socket.on('data_request', function(data) {
     console.log(data.id);
 
-    // connect to measurement store
-    // var unis_sub = 'ws://dlt.incntre.iu.edu:9001/subscribe/'
-    var unis_sub = 'ws://monitor.incntre.iu.edu:9001/subscribe/'
-
     if (data.id) {
       // Create socket to listen for updates on data
-      var dataSocket = new WebSocket(unis_sub + 'data/' + data.id);
+      var dataSocket = new WebSocket(ms_sub + 'data/' + data.id);
 
       dataSocket.on('open', function(event) {
         console.log('UNIS: Data ID socket opened');
@@ -117,7 +116,7 @@ module.exports = function (client_socket) {
       });
     } else {
       // Create socket to listen for updates on data
-      var dataSocket = new WebSocket(unis_sub + 'data');
+      var dataSocket = new WebSocket(ms_sub + 'data');
 
       dataSocket.on('open', function(event) {
         console.log('UNIS: Data socket opened');

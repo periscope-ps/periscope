@@ -13,15 +13,15 @@ var fs = require('fs')
   , url = require('url');
 
 // production
-// var production = true;
-// var unis_host = 'dlt.incntre.iu.edu';
-// var unis_port = '9000';
+var production = true;
+var unis_host = 'dlt.incntre.iu.edu';
+var unis_port = '9000';
 var unis_cert = '/home/kissel/ssl/dlt-client.pem';
 var unis_key = '/home/kissel/ssl/dlt-client.pem';
 
-var production = false;
-var unis_host = 'monitor.incntre.iu.edu';
-var unis_port = '9000';
+// var production = false;
+// var unis_host = 'monitor.incntre.iu.edu';
+// var unis_port = '9000';
 
 // var slice_info = [];
 // var filePath = '/usr/local/etc/node.info';
@@ -29,11 +29,11 @@ var unis_port = '9000';
 // var os_name = '';
 // var distro = '';
 
-// var ms_host = 'dlt.incntre.iu.edu';
-// var ms_port = '9001';
-
-var ms_host = 'monitor.incntre.iu.edu';
+var ms_host = 'dlt.incntre.iu.edu';
 var ms_port = '9001';
+
+// var ms_host = 'monitor.incntre.iu.edu';
+// var ms_port = '9001';
 
 module.exports = function(app) {
 
