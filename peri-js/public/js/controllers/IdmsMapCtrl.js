@@ -87,7 +87,7 @@ var DownloadMap = (function(){
 					      .attr("d", path);
 					  //d.initProgessBox();
 					  //d._doProgress(loc,5);
-					});					
+					});
 				}, 
 				initNodes : function(arr){
 					var color ;
@@ -99,12 +99,14 @@ var DownloadMap = (function(){
 							case 'OFF' :color = 'rgb(255,0,0)';
 							break;
 							// Grey
-							default : color = 'yellow';							
+							default : color = 'yellow' , arr[i].status = 'Unknown';							
 							}
 							
-							d._addLocation(''+arr[i].ip, arr[i].loc , color );
+							d._addLocation(''+arr[i].ip, arr[i].loc , color)
+							 .attr('status',arr[i].status);
 						}
 					}
+					d.initTip();
 				},
 				initProgessBox : function(){
 					svg.append("rect")
@@ -130,19 +132,47 @@ var DownloadMap = (function(){
 					else 
 						throw "NoSuchLocation";
 				},
+				initTip : function(){
+					// Add tooltips 
+					var tip = d3.tip().attr('class', 'd3-tip').html(function() {
+						var x = d3.select(this);
+						return x.attr('name') + (x.attr('status')?"<br>Status : " + x.attr('status') : "");						
+					});
+					svg.call(tip);					
+					svg.selectAll('circle.idmsNode')					  					
+					  .on('mouseover', tip.show)
+					  .on('mouseout', tip.hide);
+				},
 				_addLocation : function(name, latLongPair,color) {		
 					var color = color || d.getRandomColor();					
 					var node = svg.append("circle")
 						.attr("r",5)
 						.attr('fill',color)
 						.attr('color',color)
-						.attr('class',name)
+						.attr('class',name+" idmsNode")
 						.attr('name',name)
-						.attr('location',latLongPair)
+						.attr('location',latLongPair)						
 						.attr("transform", function() {return "translate(" + projection(latLongPair) + ")";});
 					nodeLocationMap[name] = node ;
 					return  node ;
-				},				
+				},			
+				setNodeColor: function(name , color){
+					nodeLocationMap[name].attr('fill',color);
+				},
+				/**
+				 * 0 for 'on' , 1 for 'off' and '2 and greater' for 'don't know'
+				 */
+				setStatus : function(name , sCode) {
+					var color , status ;
+					switch(scode){
+					case 0 : status = 'ON' ; color = 'green'; 
+					break;
+					case 1 : status = 'OFF' ; color = 'red';
+					break;
+					default : status = 'Unknown' ; color = 'yellow';
+					}
+					nodeLocationMap[name].attr('fill',color).attr('status',status);
+				},
 				removeLocation : function(name){
 					svg.select('circle'+'#'+name).remove();
 				},
@@ -185,6 +215,7 @@ var DownloadMap = (function(){
 						;					
 				}
 	};
+	d.nodeLocationMap = nodeLocationMap;
 	return d;
 })();
 angular.module('IdmsMapCtrl', []).controller('IdmsMapController', function($scope,Socket,Idms) {
@@ -195,6 +226,7 @@ angular.module('IdmsMapCtrl', []).controller('IdmsMapController', function($scop
 		// Use this data to create nodes 
 		DownloadMap.initNodes(data.data);		
 	});
+	
 	Socket.on("idms_statusChange",function(data){
 		console.log("Node Status changed ");
 	});
