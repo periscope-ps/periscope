@@ -5,13 +5,12 @@
  */
 
 // modules
-var WebSocket = require('ws');
+var WebSocket = require('ws') , freegeoip = require('node-freegeoip');
 
 // export function for listening to the socket
-module.exports = function (client_socket) {
-
+module.exports = function (client_socket,routeMethods) {	
   var unis_sub = 'ws://dev.incntre.iu.edu:8888/subscribe/'
-  // var idms_sub = 'ws://monitor.incntre.iu.edu:9001/subscribe/'
+  var idms_sub = 'ws://monitor.incntre.iu.edu:9001/subscribe/'
 
   // establish client socket
   console.log('Client connected');
@@ -291,4 +290,65 @@ module.exports = function (client_socket) {
       });
     }
   });
+  client_socket.on('idms_map', function() {
+	  // Constantly sends out any change in status 
+	  var getAccessIp = function(x){
+		  return ((x.accessPoint || "").split("://")[1] || "").split(":")[0] || ""; 
+	  };
+	  routeMethods.getIdmsServices(function(j){
+		 var data = j.data , type = j.type ;
+		 console.log('data ',data.length);
+		 switch(type) {
+			 case 'json': {
+				 // Take the services and get location 
+				 var ipLs = data.map(function(x){
+					 return getAccessIp(x); 
+				 });
+				 getAllIpLocationMap(ipLs , function(map){					 
+					for(var i=0 ; i < data.length ; i++){
+						var val = data[i];
+						val.ip = getAccessIp(val);
+						val.loc = map[val.ip];
+					}
+					client_socket.emit('idms_mapData', {data: data , error : false});
+				 });
+			 }
+			 break;
+			 case '404' :
+				client_socket.emit('idms_mapData', {error :'true'});
+			 break;
+		 };		 
+	  });
+  });
 };
+
+
+var _nodeLocationMap = {};
+function getAllIpLocationMap(array , cb){
+	var locMap = {};
+	var i =0;
+	function done(){
+		i++;
+		if(i >= array.length - 1){			
+			cb(locMap);
+			// Kil it
+			i = -111111;
+		}
+	}
+	array.forEach(function(val) {
+		if(_nodeLocationMap[val]){
+			locMap[val] = _nodeLocationMap[val];
+			done();
+		} else 
+		freegeoip.getLocation(val, function(err, obj) {
+			if(err){
+				done();
+				return ;
+			}
+			locMap[val] = _nodeLocationMap[val] = [obj.longitude , obj.latitude];			
+			done();
+		});
+	});
+
+}
+

@@ -85,19 +85,25 @@ var DownloadMap = (function(){
 					      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
 					      .attr("id", "state-borders")
 					      .attr("d", path);
-					  var loc = d.addKnownLocation('bloomington');					  					  
-					  d.initProgessBox();
-					  d._doProgress(loc,5);
-					  setTimeout(function(){
-						  d._doProgress(loc,15);						  
-					  },5000);
-					});
-					
+					  //d.initProgessBox();
+					  //d._doProgress(loc,5);
+					});					
 				}, 
-				initNodes : function(arr){					
+				initNodes : function(arr){
+					var color ;
 					for(var i=0 ; i < arr.length ; i++ ){
-						if(arr[i])
-							d._addLocation(''+arr[i].ip, arr[i].loc);
+						if(arr[i]){
+							switch(arr[i].status){
+							case 'ON' :color = 'rgb(0,255,0)';
+							break;
+							case 'OFF' :color = 'rgb(255,0,0)';
+							break;
+							// Grey
+							default : color = 'yellow';							
+							}
+							
+							d._addLocation(''+arr[i].ip, arr[i].loc , color );
+						}
 					}
 				},
 				initProgessBox : function(){
@@ -124,8 +130,8 @@ var DownloadMap = (function(){
 					else 
 						throw "NoSuchLocation";
 				},
-				_addLocation : function(name, latLongPair) {		
-					var color = d.getRandomColor();					
+				_addLocation : function(name, latLongPair,color) {		
+					var color = color || d.getRandomColor();					
 					var node = svg.append("circle")
 						.attr("r",5)
 						.attr('fill',color)
@@ -181,18 +187,16 @@ var DownloadMap = (function(){
 	};
 	return d;
 })();
-angular.module('IdmsMapCtrl', []).controller('IdmsMapController', function($scope) {
+angular.module('IdmsMapCtrl', []).controller('IdmsMapController', function($scope,Socket,Idms) {
 	DownloadMap.init();
-	/*Socket.emit("eodnDownload_request",{});
-	Socket.on("eodnDownload_Nodes",function(data){
+	Socket.emit("idms_map",{});
+	Socket.on("idms_mapData",function(data){
 		console.log("Socket data ",data.data);
 		// Use this data to create nodes 
 		DownloadMap.initNodes(data.data);		
 	});
-	Socket.on("eodnDownload_Progress",function(data){
-		var ip = data.data.ip;
-		var pr = data.data.progress;
-		DownloadMap.doProgress(ip,pr);
-	});*/
+	Socket.on("idms_statusChange",function(data){
+		console.log("Node Status changed ");
+	});
 }); // end controller
 

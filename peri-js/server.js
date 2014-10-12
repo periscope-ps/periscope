@@ -46,8 +46,9 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
-// restful api routes
-require('./app/routes')(app);
+// restful api routes and methods that can be used directly will be returned as object
+var routeMethods = require('./app/routes')(app);
+
 
 // create http server and listen on a port */
 server.listen(app.get('port'), function(){
@@ -55,4 +56,8 @@ server.listen(app.get('port'), function(){
 });
 
 // setup socket.io communication
-io.sockets.on('connection', require('./app/sockets'));
+io.sockets.on('connection', function(client_socket){
+	var sock = require('./app/sockets');	
+	sock(client_socket,routeMethods);
+});
+	
