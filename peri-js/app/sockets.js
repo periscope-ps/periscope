@@ -11,7 +11,7 @@ var WebSocket = require('ws');
 module.exports = function (client_socket) {
 
   var unis_sub = 'ws://dev.incntre.iu.edu:8888/subscribe/'
-  // var idms_sub = 'ws://monitor.incntre.iu.edu:9001/subscribe/'
+  var idms_sub = 'ws://monitor.incntre.iu.edu:9001/subscribe/'
 
   // establish client socket
   console.log('Client connected');

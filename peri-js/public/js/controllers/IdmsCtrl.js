@@ -4,7 +4,7 @@
  * IdmsCtrl.js
  */
 
-angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $routeParams, $location, Idms) {
+angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $routeParams, $location, $timeout, Idms) {
 
   var metadata_id = $routeParams.id;
 
@@ -24,6 +24,21 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
       services = JSON.parse(services);
 
     $scope.services = $scope.services.concat(services);
+
+    // set timer value
+    $scope.onTimeout = function(){
+      for(var i = 0; i < $scope.services.length; i++) {
+        if($scope.services[i].ttl <= 0) {
+          $scope.services[i].status = 'Unknown';
+        } else {
+          $scope.services[i].ttl--;
+        }
+      }
+      //continue timer
+      timeout = $timeout($scope.onTimeout,1000);
+    }
+    // start timer
+    var timeout = $timeout($scope.onTimeout,1000);
   });
 
   Idms.getMeasurements(function(measurements) {
@@ -76,6 +91,8 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
     for(var i = 0; i < $scope.nodes.length; i++) {
       if ($scope.nodes[i].properties.geni.logins[0].hostname == ip) {
           return $scope.nodes[i].id;
+      } else {
+        return 'Node Unknown';
       }
     }
   };
