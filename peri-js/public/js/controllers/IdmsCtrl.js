@@ -4,9 +4,10 @@
  * IdmsCtrl.js
  */
 
-angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $routeParams, $location, $timeout, Idms) {
+angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $routeParams, $location, $timeout, $window, Idms) {
 
-  var metadata_id = $routeParams.id;
+  // var metadata_id = $routeParams.id;
+  $scope.addGraph = false;
 
   Idms.getNodes(function(nodes) {
     $scope.nodes = $scope.nodes || [];
@@ -59,8 +60,11 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
     $scope.metadata = $scope.metadata.concat(metadata);
   });
 
-  if (metadata_id) {
-    Idms.getMetadataData(function(metadataData) {
+  /*if (metadata_id) {
+    var arrayData = [];
+    $scope.addGraph = false;
+
+    Idms.getMetadataData(metadata_id, function(metadataData) {
       $scope.metadataData = $scope.metadataData || [];
 
       if (typeof metadataData =='string')
@@ -68,11 +72,10 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
 
       $scope.metadataData = $scope.metadataData.concat(metadataData);
 
-      Idms.getMetadata(function(metadata) {
+      Idms.getMetadata(metadata_id, function(metadata) {
         $scope.eventType = metadata.eventType;
       });
 
-      var arrayData = [];
       angular.forEach($scope.metadataData, function(key, value) {
         arrayData.push([key.ts, key.value]);
       });
@@ -82,8 +85,9 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
         "key": "Data Point",
         "values": arrayData
       }];
+      $scope.addGraph = true;
     });
-  }
+  }*/
 
   $scope.getServiceNode = function(accessPoint) {
     var ip = accessPoint.split(':')[1].replace('//', '');
@@ -126,6 +130,38 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
   };
 
   $scope.showData = function(metadata_id) {
-    $location.path('/idms/' + metadata_id);
+    // $location.path('/idms/' + metadata_id);
+
+     if (metadata_id) {
+      var arrayData = [];
+      $scope.addGraph = false;
+      $scope.metadataData = [];
+      $scope.graphMetadata = [];
+
+      Idms.getMetadataData(metadata_id, function(metadataData) {
+        $scope.metadataData = $scope.metadataData || [];
+
+        if (typeof metadataData =='string')
+          metadataData = JSON.parse(metadataData);
+
+        $scope.metadataData = $scope.metadataData.concat(metadataData);
+
+        Idms.getMetadata(metadata_id, function(metadata) {
+          $scope.graphMetadata = metadata;
+        });
+
+        angular.forEach($scope.metadataData, function(key, value) {
+          arrayData.push([key.ts, key.value]);
+        });
+
+        $scope.graphData = [
+        {
+          "key": "Data Point",
+          "values": arrayData
+        }];
+        $scope.addGraph = true;
+        $window.scrollTo(0,0);
+      });
+    }
   };
 });

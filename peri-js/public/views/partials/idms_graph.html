@@ -1,0 +1,14 @@
+<h2 class="lead text-center">{{ graphMetadata.eventType }}</h2>
+<p class="lead text-center">{{ graphMetadata.id }}</p>
+
+<nvd3-line-chart
+  data="graphData"
+  width="1500"
+  height="500"
+  margin="{left:100,top:100,bottom:0,right:0}"
+  showXAxis="true"
+  showYAxis="true"
+  tooltips="true"
+  noData="No Data for this Event Type"
+  interactive="true">
+</nvd3-line-chart>

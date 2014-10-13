@@ -5,7 +5,6 @@
  */
 
 angular.module('IdmsService', []).service('Idms', function($http, $routeParams, Socket) {
-  Socket.emit("idms_request",{});
 
   this.getNodes = function(nodes) {
     $http.get('/unis/idms/nodes').success(function(data) {
@@ -54,8 +53,8 @@ angular.module('IdmsService', []).service('Idms', function($http, $routeParams, 
     });
   };
 
-  this.getMetadata = function(metadata) {
-    $http.get('/unis/idms/metadata/' + $routeParams.id)
+  this.getMetadata = function(id, metadata) {
+    $http.get('/unis/idms/metadata/' + id)
       .success(function(data) {
         console.log('Metadata Request: ' + data);
         metadata(data);
@@ -65,15 +64,15 @@ angular.module('IdmsService', []).service('Idms', function($http, $routeParams, 
       });
   };
 
-  this.getMetadataData = function(metadataData) {
-    var data_id = $routeParams.id;
+  this.getMetadataData = function(id, metadataData) {
+    Socket.emit('idms_request',{id: id});
 
-    $http.get('/unis/idms/data/' + data_id).success(function(data) {
+    $http.get('/unis/idms/data/' + id).success(function(data) {
       console.log('Data Request: ' + data);
       metadataData(data);
 
-      Socket.on('idms_data',function(data){
-        console.log('IDMS Data Request: ' , data);
+      Socket.on('idms_data', function(data){
+        console.log('Incoming IDMS Data: ' , data);
         metadataData(data);
       });
     }).error(function(data) {

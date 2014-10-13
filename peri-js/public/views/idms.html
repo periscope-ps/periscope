@@ -1,5 +1,7 @@
 <h2 class="lead text-center">IDMS Services</h2>
 
+<div ng-show="addGraph" ng-include src="'views/partials/idms_graph.html'"></div>
+
 <div class="table-responsive">
   <table class="table table-hover table-condensed">
     <colgroup>
@@ -17,15 +19,17 @@
       <th>Last Seen</th>
     </tr>
     <tbody ng-repeat="service in services | unique:'id' | orderBy:'-ts'">
-      <td>
-        <button ng-show="service.status === 'ON'" class="btn btn-success disabled">ON</button>
-        <button ng-show="service.status === 'Unknown'" class="btn btn-warning disabled">Unknown</button>
-        <button ng-show="service.status === undefined || service.status === 'OFF'" class="btn btn-danger disabled">OFF</button>
-      </td>
-      <td>{{ service.accessPoint }}</td>
-      <td>{{ getServiceNode(service.accessPoint) }}</td>
-      <td>{{ service.ttl }}</td>
-      <td>{{ service.ts }}</td>
+      <tr>
+        <td>
+          <button ng-show="service.status === 'ON'" class="btn btn-success disabled">ON</button>
+          <button ng-show="service.status === 'Unknown'" class="btn btn-warning disabled">Unknown</button>
+          <button ng-show="service.status === undefined || service.status === 'OFF'" class="btn btn-danger disabled">OFF</button>
+        </td>
+        <td>{{ service.accessPoint }}</td>
+        <td>{{ getServiceNode(service.accessPoint) }}</td>
+        <td>{{ service.ttl }}</td>
+        <td>{{ service.ts }}</td>
+      </tr>
       <tr>
         <td colspan="2" ng-repeat="eventType in getServiceMeasurement(service.accessPoint)">{{eventType}}</td>
       </tr>

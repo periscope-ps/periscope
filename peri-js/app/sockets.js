@@ -262,11 +262,11 @@ module.exports = function (client_socket) {
       var dataSocket = new WebSocket(idms_sub + 'data/' + data.id);
 
       dataSocket.on('open', function(event) {
-        console.log('IDMS: Data ID socket opened');
+        console.log('IDMS: Data socket opened for ' + data.id);
       });
 
       dataSocket.on('message', function(data) {
-        console.log('UNIS: idms_data: ' + data);
+        console.log('Sending IDMS Data: ' + data);
         client_socket.emit('idms_data', data);
       });
 
