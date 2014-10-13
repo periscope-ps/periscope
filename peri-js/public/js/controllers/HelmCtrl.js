@@ -210,7 +210,6 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
           }catch(e){}
           participantLinks.push({from: from_service, to: to_service , port : port});
         }
-        alert("hi");
 
         var helm_measurement = {
           $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
@@ -249,7 +248,6 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
           },
           type: "iperf"
         };
-        alert(JSON.stringify(helm_measurement));
       } else if ($scope.addPing === true) {
         // copy data submitted by form
         $scope.helmPingData = angular.copy(helmForm);
@@ -335,7 +333,6 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
       } else {
         return;
       }
-      alert(JSON.stringify(helm_measurement));
 
       $http({
         method: 'POST',

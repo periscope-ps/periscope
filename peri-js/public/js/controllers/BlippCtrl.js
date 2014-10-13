@@ -9,95 +9,11 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
   $scope.userSchema = "";
   $scope.schema = {};
 
-  /*$scope.userSchema = {
-    "$schema": "http://json-schema.org/draft-03/hyper-schema#",
-    "id": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-    "description": "A measurement object",
-    "name": "Measurement",
-    "type": "object",
-    "extends": {
-      "$ref": "http://unis.incntre.iu.edu/schema/20140214/networkresource#"
-    },
-    "properties": {
-      "service": {
-        "type": "string",
-        "format": "uri",
-        "description": "Service which will be taking this measurement"
-      },
-      "configuration": {
-        "type": "object",
-        "properties": {
-          "$schema": {
-            "type": "string",
-            "format": "uri"
-          }
-        },
-        "additionalProperties": true
-      },
-      "scheduled_times": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "start": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "end": {
-              "type": "string",
-              "format": "date-time"
-            }
-          },
-          "required": ["start", "end"]
-        }
-      },
-      "eventTypes": {
-        "description": "A list of eventTypes which this measurement produces",
-        "type": "array",
-        "items": {
-          "type": "string"
-        }
-      },
-      "resources": {
-        "description": "A list of resources that this measurement uses or affects",
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "ref": {
-              "description": "Hyperlink reference to the resource",
-              "format": "uri",
-              "type": "string"
-            },
-            "usage": {
-              "type": "object",
-              "description": "A resource has different ways it can be used, this tells in what ways this measurement uses this resource",
-              "additionalProperties": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 100
-              }
-            }
-          },
-          "required": ["ref"]
-        }
-      }
-    },
-    "required": [
-      "service",
-      "configuration",
-      "eventTypes"
-    ],
-    "additionalProperties": true
-  };*/
-
   $scope.userSchemaSubmit = function(userSchema) {
-    // userSchema = userSchema.replace(/[$_a-zA-Z]+:(?!\/)/g, '"pants":');
     var schema = angular.copy(userSchema);
     $scope.schema = angular.fromJson(schema);
 
     $scope.form = [
-      // "service",
       "configuration",
       "scheduled_times",
       {
@@ -108,7 +24,6 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         "key": "resources",
         "items": [
           "resources[].ref"
-          // "resources[].usage.additionalProperties"
         ]
       },
       {
@@ -133,7 +48,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         // $scope.alert = true;
 
         // lookup service running on given node
-        var nodeService = $scope.getNodeService($scope.model.from.split(" ")[1]);
+        var nodeService = $scope.getNodeService($scope.model.source.split(" ")[1]);
 
         // create proper interval for every based on user input
         var every;
@@ -150,7 +65,6 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
         // build schema measurement to submit
         var schema_measurement = {
           $schema: "http://unis.incntre.iu.edu/schema/20140214/measurement#",
-          name: "Measurement",
           description: $scope.model.desc,
           service: nodeService,
           ts: Math.round(new Date().getTime() * 1000),
@@ -162,10 +76,11 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
           eventTypes: $scope.model.eventTypes,
           configuration: {
             status: "ON",
+            name: "Custom Measurement",
             ref: $scope.model.resources[0].ref,
             command: $scope.model.configuration.$schema,
-            // regex: "ttl=(?P<ttl>\\d+).*time=(?P<rtt>\\d+\\.\\d+|\\d+)",
-            // reporting_params: parseInt($scope.pingData.reportMS),
+            regex: "*",
+            reporting_params: parseInt($scope.model.reportMS),
             probe_module: "cmd_line_probe",
             collection_schedule: "builtins.simple",
             schedule_params: {
@@ -229,10 +144,8 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
   ];
 
   // load default form
-  // $scope.btnIperf = $scope.btnIperf === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
-  // $scope.addIperf = $scope.addIperf === true ? false: true;
-  $scope.btnCustomProbe = $scope.btnCustomProbe === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
-  $scope.addCustomProbe = $scope.addCustomProbe === true ? false: true;
+  $scope.btnIperf = $scope.btnIperf === "btn btn-primary active" ? "btn btn-default": "btn btn-primary active";
+  $scope.addIperf = $scope.addIperf === true ? false: true;
 
   // load dependent data
   Node.getNodes(function(nodes) {
@@ -259,13 +172,11 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
   // find the service running on a node
   $scope.getNodeService = function(node_ref) {
-    alert("start");
+
     for(var i = 0; i < $scope.services.length; i++) {
       if ($scope.services[i].runningOn.href == node_ref) {
-        alert("if");
         return $scope.services[i].selfRef;
       } else {
-        alert("else");
         return node_ref;
       }
     }
@@ -283,7 +194,7 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
   // find the port ip
   $scope.getPortIP = function(port_ref) {
     for(var i = 0; i < $scope.ports.length; i++) {
-      if ($scope.ports[i].selfRef === port_ref) {
+      if ($scope.ports[i].selfRef == port_ref) {
         return $scope.ports[i].properties.geni.ip.address;
       }
     }
@@ -461,15 +372,15 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     $scope.netlog.reportMS = 10;
     $scope.closeAlert(0);
   };
-  $scope.userSchemaReset = function() {
+  /*$scope.userSchemaReset = function() {
     // clear client and server side form
-    // $scope.pingData = {};
-    // $scope.ping = angular.copy($scope.pingData);
+    $scope.pingData = {};
+    $scope.ping = angular.copy($scope.pingData);
 
     // clear client side form and reset defaults
     $scope.user_schema = angular.copy({});
     $scope.closeAlert(0);
-  };
+  };*/
   // compare form data with in memory data
   $scope.pingReset();
   $scope.pingUnchanged = function(ping) {
@@ -487,10 +398,10 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
   $scope.netlogUnchanged = function(netlog) {
     return angular.equals(netlog, $scope.netlogData);
   };
-  // $scope.userSchemaReset();
+  /*$scope.userSchemaReset();
   $scope.userSchemaUnchanged = function(user_schema) {
     return angular.equals(user_schema, $scope.userSchemaData);
-  };
+  };*/
 
   $scope.pingSubmit = function(ping) {
     if (ping.$invalid) {
