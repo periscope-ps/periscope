@@ -4,6 +4,93 @@
   <a ng-href="/measurements">View measurements here</a>
 </alert>
 
+<p>A custom probe is a user specified measurement designed to be run by BLiPP. This probe will need to conform to our measurement schema so that the measurement can be recognized and run by BLiPP. The schema must also be able to validate against the JSON v4 specifications. We recommend modifying our schema to fit your experiment. A few default elements are required for measurement scheduling.
+</p>
+<p>For example, copy the measurement schema, paste into the textarea and click generate form, fill in the form values to your specification, and then submit the measurement.
+</p>
+<pre>
+{
+  "$schema": "http://json-schema.org/draft-03/hyper-schema#",
+  "id": "http://unis.incntre.iu.edu/schema/20140214/measurement#",
+  "description": "A measurement object",
+  "name": "Measurement",
+  "type": "object",
+  "extends": {
+    "$ref": "http://unis.incntre.iu.edu/schema/20140214/networkresource#"
+  },
+  "properties": {
+    "service": {
+      "type": "string",
+      "format": "uri",
+      "description": "Service which will be taking this measurement"
+    },
+    "configuration": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": true
+    },
+    "scheduled_times": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["start", "end"]
+      }
+    },
+    "eventTypes": {
+      "description": "A list of eventTypes which this measurement produces",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "resources": {
+      "description": "A list of resources that this measurement uses or affects",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "description": "Hyperlink reference to the resource",
+            "format": "uri",
+            "type": "string"
+          },
+          "usage": {
+            "type": "object",
+            "description": "A resource has different ways it can be used, this tells in what ways this measurement uses this resource",
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        },
+        "required": ["ref"]
+      }
+    }
+  },
+  "required": [
+    "service",
+    "configuration",
+    "eventTypes"
+  ],
+  "additionalProperties": true
+}
+</pre>
 
 <form name="userSchemaForm" novalidate>
 
@@ -33,6 +120,7 @@
   <div class="col-md-10">
     <select ng-model="model.source" name="pFrom" id="pingFrom" class="form-control" required>
       <option ng-repeat="node in nodes | unique:'id'">{{ node.name }} {{ node.selfRef }}</option>
+      <!-- <option ng-repeat="node in nodes | unique:'id' | filterNodes(node)">{{ node.name }} {{ node.selfRef }}</option> -->
     </select>
     <p ng-show="pingForm.pFrom.$invalid && !pingForm.pFrom.$pristine" class="help-block">Please select a node</p>
   </div>
@@ -66,5 +154,13 @@
     <select ng-model="model.tbtType" ng-options="timeType.type for timeType in timeTypes" class="form-control" required></select>
   </div>
 </div>
+
+<!-- <div class="form-group row" ng-class="{ 'has-error' : pingForm.pReportMS.$invalid && !pingForm.pReportMS.$pristine }"> -->
+  <!-- <label for="pingReportMS" class="col-md-2 control-label">Report to MS Every</label> -->
+  <!-- <div class="col-md-10"> -->
+    <!-- <input ng-model="ping.reportMS" name="pReportMS" type="text" class="form-control" id="pingReportMS" placeholder="Report to MS Every (collections)" required> -->
+    <!-- <p ng-show="pingForm.pReportMS.$invalid && !pingForm.pReportMS.$pristine" class="help-block">Please enter a report value</p> -->
+  <!-- </div> -->
+<!-- </div> -->
 
 <form sf-schema="schema" sf-form="form" sf-model="model" ng-submit="schemaSubmit()"></form>
