@@ -18,12 +18,13 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
   });
 
   Idms.getServices(function(services) {
-    $scope.services = $scope.services || [];
+	// Need this services for the map as well -- Yes i am pollution the global scope , will find a better way later 
+    $rootScope.idmsServices = $scope.services = $scope.services || $rootScope.idmsServices || [];
 
     if (typeof services =='string')
       services = JSON.parse(services);
 
-    $scope.services = $scope.services.concat(services);
+    $rootScope.idmsServices = $scope.services = $scope.services.concat(services);
   });
 
   Idms.getMeasurements(function(measurements) {

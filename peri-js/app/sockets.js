@@ -290,35 +290,12 @@ module.exports = function (client_socket,routeMethods) {
       });
     }
   });
-  client_socket.on('idms_map', function() {
-	  // Constantly sends out any change in status 
-	  var getAccessIp = function(x){
-		  return ((x.accessPoint || "").split("://")[1] || "").split(":")[0] || ""; 
-	  };
-	  routeMethods.getIdmsServices(function(j){
-		 var data = j.data , type = j.type ;
-		 console.log('data ',data.length);
-		 switch(type) {
-			 case 'json': {
-				 // Take the services and get location 
-				 var ipLs = data.map(function(x){
-					 return getAccessIp(x); 
-				 });
-				 getAllIpLocationMap(ipLs , function(map){					 
-					for(var i=0 ; i < data.length ; i++){
-						var val = data[i];
-						val.ip = getAccessIp(val);
-						val.loc = map[val.ip];
-					}
-					client_socket.emit('idms_mapData', {data: data , error : false});
-				 });
-			 }
-			 break;
-			 case '404' :
-				client_socket.emit('idms_mapData', {error :'true'});
-			 break;
-		 };		 
-	  });
+  client_socket.on('idms_map', function(data) {
+	  console.log(data);
+	  var ipLs = data.ipArr || [];
+	 getAllIpLocationMap(ipLs , function(map){					 		
+		client_socket.emit('idms_mapData', {data: map , error : false});		
+	 }); 
   });
 };
 
