@@ -41,7 +41,7 @@ var os_name = '';
 var distro = '';
 
 module.exports = function(app) {
-
+   var self = this ;  
   console.log("UNIS Instance: " + unis_host + "@" + unis_port);
 
   var exec = require('child_process').exec;
@@ -1851,83 +1851,95 @@ module.exports = function(app) {
     }
   });
 
+  self.getIdmsServices = (function(cb){
+	  
+	  if (production) {
+		  console.log('running in production');
+		  
+		  /* HTTPS Options */
+		  var https_get_options = {
+				  hostname: idms_host,
+				  port: idms_port,
+				  key: fs.readFileSync(unis_key),
+				  cert: fs.readFileSync(unis_cert),
+				  requestCert: true,
+				  rejectUnauthorized: false,
+				  path: '/services?properties.geni.slice_uuid=' + slice_uuid,
+				  // path: '/services',
+				  method: 'GET',
+				  headers: {
+					  'Content-type': 'application/perfsonar+json',
+					  'connection': 'keep-alive'
+				  }
+		  };
+		  /* GET JSON and Render to our API */
+		  https.get(https_get_options, function(http_res) {
+			  var data = '';
+			  
+			  http_res.on('data', function (chunk) {
+				  data += chunk;
+			  });
+			  http_res.on('end',function() {
+				  var obj = JSON.parse(data);
+				  // console.log( obj );
+				  cb({data:obj , type : 'json'});
+			  });
+			  http_res.on('error',function() {
+				  console.log('problem with request: ' + e.message);
+				  cb({data: {} , type : '404'});				  
+			  });
+		  });
+	  } else {
+		  /* HTTP Options */
+		  var http_get_options = {
+				  hostname: idms_host,
+				  port: idms_port,
+				  path: '/services',
+				  method: 'GET',
+				  headers: {
+					  'Content-type': 'application/perfsonar+json',
+					  'connection': 'keep-alive'
+				  }
+		  };
+		  /* GET JSON and Render to our API */
+		  http.get(http_get_options, function(http_res) {
+			  var data = '';
+			  
+			  http_res.on('data', function (chunk) {
+				  data += chunk;
+			  });
+			  http_res.on('end',function() {
+				  var obj = JSON.parse(data);
+				  // console.log( obj );
+				  cb({data:obj , type : 'json'});
+			  });
+			  http_res.on('error',function() {
+				  console.log('problem with request: ' + e.message);
+				  cb({data: {} , type : '404'});		
+			  });
+		  });
+	  }
+  });
   app.get('/unis/idms/services', function(req, res) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
-
-    if (production) {
-      console.log('running in production');
-
-      /* HTTPS Options */
-      var https_get_options = {
-        hostname: idms_host,
-        port: idms_port,
-        key: fs.readFileSync(unis_key),
-        cert: fs.readFileSync(unis_cert),
-        requestCert: true,
-        rejectUnauthorized: false,
-        path: '/services?properties.geni.slice_uuid=' + slice_uuid,
-        // path: '/services',
-        method: 'GET',
-        headers: {
-            'Content-type': 'application/perfsonar+json',
-            'connection': 'keep-alive'
-        }
-      };
-      /* GET JSON and Render to our API */
-      https.get(https_get_options, function(http_res) {
-        var data = '';
-
-        http_res.on('data', function (chunk) {
-          data += chunk;
-        });
-        http_res.on('end',function() {
-          var obj = JSON.parse(data);
-          // console.log( obj );
-          res.json( obj );
-        });
-        http_res.on('error',function() {
-          console.log('problem with request: ' + e.message);
-          res.send( 404 );
-        });
-      });
-    } else {
-      /* HTTP Options */
-      var http_get_options = {
-        hostname: idms_host,
-        port: idms_port,
-        path: '/services',
-        method: 'GET',
-        headers: {
-            'Content-type': 'application/perfsonar+json',
-            'connection': 'keep-alive'
-        }
-      };
-      /* GET JSON and Render to our API */
-      http.get(http_get_options, function(http_res) {
-        var data = '';
-
-        http_res.on('data', function (chunk) {
-          data += chunk;
-        });
-        http_res.on('end',function() {
-          var obj = JSON.parse(data);
-          // console.log( obj );
-          res.json( obj );
-        });
-        http_res.on('error',function() {
-          console.log('problem with request: ' + e.message);
-          res.send( 404 );
-        });
-      });
-    }
     /* Access Model Created from Mongo */
+	  var services = self.getIdmsServices(function(j){
+		  var data = j.data , type = j.type ;
+		  switch(type){
+			  case 'json' : res.json(data);
+			  break
+			  case '404' : res.send(404);
+			  break;
+			  default :   res.send(404);
+		  }
+	  });
     /*Service.find(function(err, services) {
-
+	
       if (err)
         res.send(err);
-
+	
       console.log(services);
       res.json(services);
     });*/
@@ -2459,5 +2471,5 @@ module.exports = function(app) {
   app.get('*', function(req, res) {
     res.sendfile('./public/index.html');
   });
-
+ return self ;
 };

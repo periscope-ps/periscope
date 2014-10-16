@@ -19,27 +19,13 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
   });
 
   Idms.getServices(function(services) {
-    $scope.services = $scope.services || [];
+	// Need this services for the map as well -- Yes i am pollution the global scope , will find a better way later 
+    $rootScope.idmsServices = $scope.services = $scope.services || $rootScope.idmsServices || [];
 
     if (typeof services =='string')
       services = JSON.parse(services);
 
-    $scope.services = $scope.services.concat(services);
-
-    // set timer value
-    $scope.onTimeout = function(){
-      for(var i = 0; i < $scope.services.length; i++) {
-        if($scope.services[i].ttl <= 0) {
-          $scope.services[i].status = 'Unknown';
-        } else {
-          $scope.services[i].ttl--;
-        }
-      }
-      //continue timer
-      timeout = $timeout($scope.onTimeout,1000);
-    }
-    // start timer
-    var timeout = $timeout($scope.onTimeout,1000);
+    $rootScope.idmsServices = $scope.services = $scope.services.concat(services);
   });
 
   Idms.getMeasurements(function(measurements) {
@@ -60,11 +46,8 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
     $scope.metadata = $scope.metadata.concat(metadata);
   });
 
-  /*if (metadata_id) {
-    var arrayData = [];
-    $scope.addGraph = false;
-
-    Idms.getMetadataData(metadata_id, function(metadataData) {
+  if (metadata_id) {
+    Idms.getMetadataData(function(metadataData) {
       $scope.metadataData = $scope.metadataData || [];
 
       if (typeof metadataData =='string')
@@ -72,10 +55,11 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
 
       $scope.metadataData = $scope.metadataData.concat(metadataData);
 
-      Idms.getMetadata(metadata_id, function(metadata) {
+      Idms.getMetadata(function(metadata) {
         $scope.eventType = metadata.eventType;
       });
 
+      var arrayData = [];
       angular.forEach($scope.metadataData, function(key, value) {
         arrayData.push([key.ts, key.value]);
       });
@@ -85,9 +69,8 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
         "key": "Data Point",
         "values": arrayData
       }];
-      $scope.addGraph = true;
     });
-  }*/
+  }
 
   $scope.getServiceNode = function(accessPoint) {
     var ip = accessPoint.split(':')[1].replace('//', '');
@@ -130,38 +113,6 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
   };
 
   $scope.showData = function(metadata_id) {
-    // $location.path('/idms/' + metadata_id);
-
-     if (metadata_id) {
-      var arrayData = [];
-      $scope.addGraph = false;
-      $scope.metadataData = [];
-      $scope.graphMetadata = [];
-
-      Idms.getMetadataData(metadata_id, function(metadataData) {
-        $scope.metadataData = $scope.metadataData || [];
-
-        if (typeof metadataData =='string')
-          metadataData = JSON.parse(metadataData);
-
-        $scope.metadataData = $scope.metadataData.concat(metadataData);
-
-        Idms.getMetadata(metadata_id, function(metadata) {
-          $scope.graphMetadata = metadata;
-        });
-
-        angular.forEach($scope.metadataData, function(key, value) {
-          arrayData.push([key.ts, key.value]);
-        });
-
-        $scope.graphData = [
-        {
-          "key": "Data Point",
-          "values": arrayData
-        }];
-        $scope.addGraph = true;
-        $window.scrollTo(0,0);
-      });
-    }
+    $location.path('/idms/' + metadata_id);
   };
 });

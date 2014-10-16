@@ -5,11 +5,10 @@
  */
 
 // modules
-var WebSocket = require('ws');
+var WebSocket = require('ws') , freegeoip = require('node-freegeoip');
 
 // export function for listening to the socket
-module.exports = function (client_socket) {
-
+module.exports = function (client_socket,routeMethods) {	
   var unis_sub = 'ws://dev.incntre.iu.edu:8888/subscribe/'
   var idms_sub = 'ws://monitor.incntre.iu.edu:9001/subscribe/'
 
@@ -291,4 +290,42 @@ module.exports = function (client_socket) {
       });
     }
   });
+  client_socket.on('idms_map', function(data) {
+	  console.log(data);
+	  var ipLs = data.ipArr || [];
+	 getAllIpLocationMap(ipLs , function(map){					 		
+		client_socket.emit('idms_mapData', {data: map , error : false});		
+	 }); 
+  });
 };
+
+
+var _nodeLocationMap = {};
+function getAllIpLocationMap(array , cb){
+	var locMap = {};
+	var i =0;
+	function done(){
+		i++;
+		if(i >= array.length - 1){			
+			cb(locMap);
+			// Kil it
+			i = -111111;
+		}
+	}
+	array.forEach(function(val) {
+		if(_nodeLocationMap[val]){
+			locMap[val] = _nodeLocationMap[val];
+			done();
+		} else 
+		freegeoip.getLocation(val, function(err, obj) {
+			if(err){
+				done();
+				return ;
+			}
+			locMap[val] = _nodeLocationMap[val] = [obj.longitude , obj.latitude];			
+			done();
+		});
+	});
+
+}
+
