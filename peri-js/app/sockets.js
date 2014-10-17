@@ -31,6 +31,7 @@ module.exports = function (client_socket) {
           ms_host = ms_url.split("//")[1].split(":")[0];
       }
     }
+   }
   });
 
   var ms_sub = 'ws://' + ms_host + ':' + ms_port + '/subscribe/';
