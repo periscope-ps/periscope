@@ -4,8 +4,6 @@
  * routes.js
  */
 
-// var Node = require('./models/node')
-// , Service = require('./models/service');
 var fs = require('fs')
   , path = require('path')
   , http = require('http')
@@ -13,26 +11,23 @@ var fs = require('fs')
   , url = require('url');
 
 // production
-// var production = true;
-// var unis_host = 'unis.incntre.iu.edu';
-// var unis_port = '8443';
+var production = true;
+var unis_host = 'unis.incntre.iu.edu';
+var unis_port = '8443';
 var unis_cert = '/usr/local/etc/certs/unis-proxy.pem';
 var unis_key = '/usr/local/etc/certs/unis-proxy.pem';
 
 // development
-var production = false;
-var unis_host = 'dev.incntre.iu.edu';
+// var production = false;
+// var unis_host = 'dev.incntre.iu.edu';
 // var unis_host = 'localhost';
-var unis_port = '8888';
+// var unis_port = '8888';
 
 var slice_info = [];
 var filePath = '/usr/local/etc/node.info';
 var slice_uuid = '';
 var os_name = '';
 var distro = '';
-// var ms_host = 'dev.incntre.iu.edu';
-// var ms_host = 'localhost';
-// var ms_port = '8888';
 
 module.exports = function(app) {
 
@@ -93,7 +88,6 @@ module.exports = function(app) {
           slice_uuid = split[1];
       }
       slice_info.push({'external_address': exAddy, 'gn_address': gn, 'unis_instance': unis, 'ms_url': ms_url, 'project': project[1], 'slice': slice[0], 'slice_uuid': slice_uuid, 'os_name': os_name, 'distro': distro});
-      // console.log(slice_info);
     }
   });
 
@@ -174,7 +168,7 @@ module.exports = function(app) {
       var http_get_options = {
         hostname: unis_host,
         port: unis_port,
-        path: '/nodes?id=GN0.pubsub4.ch-geni-net.genirack.nyu.edu,VM.pubsub4.ch-geni-net.genirack.nyu.edu,VM-0.pubsub4.ch-geni-net.genirack.nyu.edu',
+        path: '/nodes',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -332,7 +326,7 @@ module.exports = function(app) {
       var http_get_options = {
         hostname: unis_host,
         port: unis_port,
-        path: '/services?id=ms_GN0.pubsub4.ch-geni-net.genirack.nyu.edu,542cc94de7798903f4000112,542cca24e7798903f4000173',
+        path: '/services',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
