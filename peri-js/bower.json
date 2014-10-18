@@ -15,7 +15,8 @@
     "nvd3": "~1.1.15-beta",
     "angularjs-nvd3-directives": "~0.0.7",
     "d3-tip": "~0.6.4",
-    "angular-schema-form": "~0.7.3"
+    "angular-schema-form": "~0.7.3",
+    "angular-loading-bar": "~0.6.0"
   },
   "resolutions": {
     "angular": "~1.2.6"
