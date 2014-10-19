@@ -13,7 +13,7 @@ angular.module('NodeService', []).service('Node', function($http , Socket) {
     	nodes(data);
 
 	  	Socket.on('node_data',function(data){
-	  		console.log('Socket Node Request: ' , data);
+	  		console.log('Incoming Socket Node Data: ' , data);
 	  		nodes(data);
 	  	});
     }).error(function(data) {

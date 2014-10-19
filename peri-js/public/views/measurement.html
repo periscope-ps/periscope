@@ -1,4 +1,4 @@
-<h2 class="lead text-center">{{measurement.configuration.name}}</h2>
+<h2 class="lead text-center">{{measurement[0].configuration.name}} metadata</h2>
 
 <div class="table-responsive">
   <table class="table table-hover table-condensed">
@@ -17,7 +17,7 @@
     <tr ng-repeat="metadata in measurementMetadata">
       <td>{{ metadata.eventType }}</td>
       <td><button ng-click="showMetadataData(metadata.id)" class="btn btn-info">View Data</button></td>
-      <td>{{ getMeasurementNode(metadata.subject.href) }}</td>
+      <td>{{ getMetadataNode(metadata.parameters.measurement.href) }}</td>
       <td>{{ metadata.ts / 1000 | date:'yyyy-MM-d (EEE) @ h:m:s.sss a Z'}}</td>
     </tr>
   </table>

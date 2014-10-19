@@ -20,15 +20,16 @@ angular.module('ServiceCtrl', []).controller('ServiceController', function($scop
 
   Node.getNodes(function(nodes) {
     $scope.nodes = nodes;
+
+    $scope.getServiceNode = function(href) {
+      var node_id = href.split('/')[4];
+
+      for(var i = 0; i < $scope.nodes.length; i++) {
+        if ($scope.nodes[i].id == node_id) {
+            return $scope.nodes[i].name;
+        }
+      }
+    };
   });
 
-  $scope.getServiceNode = function(href) {
-    var node_id = href.split('/')[4];
-
-    for(var i = 0; i < $scope.nodes.length; i++) {
-      if ($scope.nodes[i].id == node_id) {
-          return $scope.nodes[i].name;
-      }
-    }
-  };
 });
