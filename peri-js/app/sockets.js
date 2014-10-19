@@ -8,9 +8,9 @@
 var WebSocket = require('ws') , freegeoip = require('node-freegeoip');
 
 // export function for listening to the socket
-module.exports = function (client_socket,routeMethods) {	
-  var unis_sub = 'ws://dev.incntre.iu.edu:8888/subscribe/'
-  var idms_sub = 'ws://monitor.incntre.iu.edu:9001/subscribe/'
+module.exports = function (client_socket,routeMethods) {
+  var unis_sub = 'ws://monitor.incntre.iu.edu:9000/subscribe/';
+  var ms_sub = 'ws://monitor.incntre.iu.edu:9001/subscribe/';
 
   // establish client socket
   console.log('Client connected');
@@ -91,43 +91,6 @@ module.exports = function (client_socket,routeMethods) {
     });
   });
 
-  client_socket.on('data_request', function(data) {
-    // console.log(data.id);
-    if (data.id) {
-      // Create socket to listen for updates on data
-      var dataSocket = new WebSocket(unis_sub + 'data/' + data.id);
-
-      dataSocket.on('open', function(event) {
-        console.log('UNIS: Data ID socket opened');
-      });
-
-      dataSocket.on('message', function(data) {
-        console.log('UNIS: data_data: ' + data);
-        client_socket.emit('data_data', data);
-      });
-
-      dataSocket.on('close', function(event) {
-        console.log('UNIS: Data ID socket closed');
-      });
-    } else {
-      // Create socket to listen for updates on data
-      var dataSocket = new WebSocket(unis_sub + 'data');
-
-      dataSocket.on('open', function(event) {
-        console.log('UNIS: Data socket opened');
-      });
-
-      dataSocket.on('message', function(data) {
-        console.log('UNIS: data_data: ' + data);
-        client_socket.emit('data_data', data);
-      });
-
-      dataSocket.on('close', function(event) {
-        console.log('UNIS: Data socket closed');
-      });
-    }
-  });
-
   client_socket.on('port_request', function(data) {
     // Create socket to listen for updates on port
     var portSocket = new WebSocket(unis_sub + 'port');
@@ -146,156 +109,52 @@ module.exports = function (client_socket,routeMethods) {
     });
   });
 
-  client_socket.on('link_request', function(data) {
-    // Create socket to listen for updates on link
-    var linkSocket = new WebSocket(unis_sub + 'link');
+  client_socket.on('data_id_request', function(data) {
+    console.log('UNIS: Data ID requested: ' + data.id);
 
-    linkSocket.on('open', function(event) {
-      console.log('UNIS: Link socket opened');
+    // Create socket to listen for updates on data
+    var dataSocket = new WebSocket(ms_sub + 'data/' + data.id);
+
+    dataSocket.on('open', function(event) {
+      console.log('UNIS: Data ID socket opened');
     });
 
-    linkSocket.on('message', function(data) {
-      console.log('UNIS: link_data: ' + data);
-      client_socket.emit('link_data', data);
+    dataSocket.on('message', function(data) {
+      console.log('UNIS: data_data: ' + data);
+      client_socket.emit('data_id_data', data);
     });
 
-    linkSocket.on('close', function(event) {
-      console.log('UNIS: Link socket closed');
-    });
-  });
-
-  client_socket.on('path_request', function(data) {
-    // Create socket to listen for updates on path
-    var pathSocket = new WebSocket(unis_sub + 'path');
-
-    pathSocket.on('open', function(event) {
-      console.log('UNIS: Path socket opened');
-    });
-
-    pathSocket.on('message', function(data) {
-      console.log('UNIS: path_data: ' + data);
-      client_socket.emit('path_data', data);
-    });
-
-    pathSocket.on('close', function(event) {
-      console.log('UNIS: Path socket closed');
+    dataSocket.on('close', function(event) {
+      console.log('UNIS: Data ID socket closed');
     });
   });
 
-  client_socket.on('network_request', function(data) {
-    // Create socket to listen for updates on network
-    var networkSocket = new WebSocket(unis_sub + 'network');
+  client_socket.on('data_request', function(data) {
+    console.log('UNIS: Data requested: ' + data);
 
-    networkSocket.on('open', function(event) {
-      console.log('UNIS: Network socket opened');
+    // Create socket to listen for updates on data
+    var dataSocket = new WebSocket(ms_sub + 'data');
+
+    dataSocket.on('open', function(event) {
+      console.log('UNIS: Data socket opened');
     });
 
-    networkSocket.on('message', function(data) {
-      console.log('UNIS: network_data: ' + data);
-      client_socket.emit('network_data', data);
+    dataSocket.on('message', function(data) {
+      console.log('UNIS: data_data: ' + data);
+      client_socket.emit('data_data', data);
     });
 
-    networkSocket.on('close', function(event) {
-      console.log('UNIS: Network socket closed');
-    });
-  });
-
-  client_socket.on('domain_request', function(data) {
-    // Create socket to listen for updates on domain
-    var domainSocket = new WebSocket(unis_sub + 'domain');
-
-    domainSocket.on('open', function(event) {
-      console.log('UNIS: Domain socket opened');
-    });
-
-    domainSocket.on('message', function(data) {
-      console.log('UNIS: domain_data: ' + data);
-      client_socket.emit('domain_data', data);
-    });
-
-    domainSocket.on('close', function(event) {
-      console.log('UNIS: Domain socket closed');
+    dataSocket.on('close', function(event) {
+      console.log('UNIS: Data socket closed');
     });
   });
 
-  client_socket.on('topology_request', function(data) {
-    // Create socket to listen for updates on topology
-    var topologySocket = new WebSocket(unis_sub + 'topology');
-
-    topologySocket.on('open', function(event) {
-      console.log('UNIS: Topology socket opened');
-    });
-
-    topologySocket.on('message', function(data) {
-      console.log('UNIS: topology_data: ' + data);
-      client_socket.emit('topology_data', data);
-    });
-
-    topologySocket.on('close', function(event) {
-      console.log('UNIS: Topology socket closed');
-    });
-  });
-
-  client_socket.on('event_request', function(data) {
-    // Create socket to listen for updates on event
-    var eventSocket = new WebSocket(unis_sub + 'event');
-
-    eventSocket.on('open', function(event) {
-      console.log('UNIS: Event socket opened');
-    });
-
-    eventSocket.on('message', function(data) {
-      console.log('UNIS: event_data: ' + data);
-      client_socket.emit('event_data', data);
-    });
-
-    eventSocket.on('close', function(event) {
-      console.log('UNIS: Event socket closed');
-    });
-  });
-
-  client_socket.on('idms_request', function(data) {
-    // console.log(data.id);
-    if (data.id) {
-      // Create socket to listen for updates on data
-      var dataSocket = new WebSocket(idms_sub + 'data/' + data.id);
-
-      dataSocket.on('open', function(event) {
-        console.log('IDMS: Data socket opened for ' + data.id);
-      });
-
-      dataSocket.on('message', function(data) {
-        console.log('Sending IDMS Data: ' + data);
-        client_socket.emit('idms_data', data);
-      });
-
-      dataSocket.on('close', function(event) {
-        console.log('IDMS: Data ID socket closed');
-      });
-    } else {
-      // Create socket to listen for updates on data
-      var dataSocket = new WebSocket(idms_sub + 'data');
-
-      dataSocket.on('open', function(event) {
-        console.log('UNIS: Data socket opened');
-      });
-
-      dataSocket.on('message', function(data) {
-        console.log('UNIS: data_data: ' + data);
-        client_socket.emit('data_data', data);
-      });
-
-      dataSocket.on('close', function(event) {
-        console.log('UNIS: Data socket closed');
-      });
-    }
-  });
   client_socket.on('idms_map', function(data) {
 	  console.log(data);
 	  var ipLs = data.ipArr || [];
-	 getAllIpLocationMap(ipLs , function(map){					 		
-		client_socket.emit('idms_mapData', {data: map , error : false});		
-	 }); 
+	 getAllIpLocationMap(ipLs , function(map){
+		client_socket.emit('idms_mapData', {data: map , error : false});
+	 });
   });
 };
 
@@ -306,7 +165,7 @@ function getAllIpLocationMap(array , cb){
 	var i =0;
 	function done(){
 		i++;
-		if(i >= array.length - 1){			
+		if(i >= array.length - 1){
 			cb(locMap);
 			// Kil it
 			i = -111111;
@@ -316,13 +175,13 @@ function getAllIpLocationMap(array , cb){
 		if(_nodeLocationMap[val]){
 			locMap[val] = _nodeLocationMap[val];
 			done();
-		} else 
+		} else
 		freegeoip.getLocation(val, function(err, obj) {
 			if(err){
 				done();
 				return ;
 			}
-			locMap[val] = _nodeLocationMap[val] = [obj.longitude , obj.latitude];			
+			locMap[val] = _nodeLocationMap[val] = [obj.longitude , obj.latitude];
 			done();
 		});
 	});
