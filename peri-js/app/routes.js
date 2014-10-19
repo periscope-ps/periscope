@@ -200,7 +200,7 @@ module.exports = function(app) {
       var http_get_options = {
         hostname: unis_host,
         port: unis_port,
-        path: '/nodes?id=GN0.pubsub4.ch-geni-net.genirack.nyu.edu,VM.pubsub4.ch-geni-net.genirack.nyu.edu,VM-0.pubsub4.ch-geni-net.genirack.nyu.edu',
+        path: '/nodes?limit=10',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -358,7 +358,7 @@ module.exports = function(app) {
       var http_get_options = {
         hostname: unis_host,
         port: unis_port,
-        path: '/services?id=ms_GN0.pubsub4.ch-geni-net.genirack.nyu.edu,542cc94de7798903f4000112,542cca24e7798903f4000173',
+        path: '/services',
         method: 'GET',
         headers: {
             'Content-type': 'application/perfsonar+json',
@@ -1168,7 +1168,7 @@ module.exports = function(app) {
         });
         http_res.on('end',function() {
           var obj = JSON.parse(data);
-          console.log( obj );
+          // console.log( obj );
           res.json( obj );
         });
         http_res.on('error',function() {
@@ -1187,7 +1187,7 @@ module.exports = function(app) {
 
     var data_id = req.params.id;
 
-    if (true) {
+    if (production) {
       console.log('running in production');
 
       // HTTPS Options
