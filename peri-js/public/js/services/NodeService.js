@@ -8,7 +8,7 @@ angular.module('NodeService', []).service('Node', function($http , Socket) {
   Socket.emit("node_request",{});
 
   this.getNodes = function(nodes) {
-	  $http.get('/unis/nodes').success(function(data) {
+	  $http.get('/api/nodes').success(function(data) {
     	console.log('HTTP Node Request: ' , data);
     	nodes(data);
 

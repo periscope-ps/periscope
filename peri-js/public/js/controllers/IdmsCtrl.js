@@ -4,9 +4,9 @@
  * IdmsCtrl.js
  */
 
-angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $routeParams, $location, $timeout, $window, Idms) {
+angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $routeParams, $location, $timeout, $window, $rootscope, Idms) {
 
-  // var metadata_id = $routeParams.id;
+  var metadata_id = $routeParams.id;
   $scope.addGraph = false;
 
   Idms.getNodes(function(nodes) {
@@ -19,7 +19,7 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
   });
 
   Idms.getServices(function(services) {
-	// Need this services for the map as well -- Yes i am pollution the global scope , will find a better way later 
+	// Need this services for the map as well -- Yes i am pollution the global scope , will find a better way later
     $rootScope.idmsServices = $scope.services = $scope.services || $rootScope.idmsServices || [];
 
     if (typeof services =='string')

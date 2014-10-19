@@ -120,7 +120,7 @@ module.exports = function (client_socket,routeMethods) {
     });
 
     dataSocket.on('message', function(data) {
-      console.log('UNIS: data_data: ' + data);
+      console.log('UNIS: data_id_data: ' + data);
       client_socket.emit('data_id_data', data);
     });
 

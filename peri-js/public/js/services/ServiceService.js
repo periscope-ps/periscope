@@ -8,7 +8,7 @@ angular.module('ServiceService', []).service('Service', function($http, Socket) 
   Socket.emit("service_request",{});
 
   this.getServices = function(services) {
-    $http.get('/unis/services').success(function(data) {
+    $http.get('/api/services').success(function(data) {
       console.log('Service Request: ' , data);
       services(data);
 

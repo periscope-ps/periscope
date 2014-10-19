@@ -19,14 +19,6 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
       templateUrl: 'views/service.html',
       controller: 'ServiceController'
     }).
-    when('/blipp', {
-      templateUrl: 'views/blipp.html',
-      controller: 'BlippController'
-    }).
-    when('/helm', {
-      templateUrl: 'views/helm.html',
-      controller: 'HelmController'
-    }).
     when('/measurements', {
       templateUrl: 'views/measurements.html',
       controller: 'MeasurementController'
@@ -58,10 +50,6 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
     when('/idmsMap/:id', {
         templateUrl: 'views/idmsMap.html',
         controller: 'IdmsMapController'
-    }).
-    when('/help', {
-      templateUrl: 'views/help.html',
-      controller: 'HelpController'
     }).
     otherwise({redirectTo: '/'});
 

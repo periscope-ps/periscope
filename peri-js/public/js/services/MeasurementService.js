@@ -8,7 +8,7 @@ angular.module('MeasurementService', []).service('Measurement', function($http, 
   Socket.emit("measurement_request",{});
 
   this.getMeasurements = function(measurements) {
-    $http.get('/unis/measurements/').success(function(data) {
+    $http.get('/api/measurements/').success(function(data) {
       console.log('Measurement Request: ' + data);
       measurements(data);
 
@@ -21,8 +21,8 @@ angular.module('MeasurementService', []).service('Measurement', function($http, 
     });
   };
 
-  this.getMeasurement = function(measurement) {
-    $http.get('/unis/measurements/' + $routeParams.id)
+  this.getMeasurement = function(id, measurement) {
+    $http.get('/api/measurements/' + id)
       .success(function(data) {
         console.log('Measurement Request: ' + data);
         measurement(data);

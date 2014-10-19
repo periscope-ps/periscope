@@ -7,7 +7,7 @@
 angular.module('IdmsService', []).service('Idms', function($http, $routeParams, Socket) {
 
   this.getNodes = function(nodes) {
-    $http.get('/unis/idms/nodes').success(function(data) {
+    $http.get('/api/nodes').success(function(data) {
       console.log('HTTP Node Request: ' , data);
       nodes(data);
     }).error(function(data) {
@@ -16,7 +16,7 @@ angular.module('IdmsService', []).service('Idms', function($http, $routeParams, 
   };
 
   this.getServices = function(services) {
-    $http.get('/unis/idms/services').success(function(data) {
+    $http.get('/api/services').success(function(data) {
       console.log('Service Request: ' , data);
       services(data);
     }).error(function(data) {
@@ -25,7 +25,7 @@ angular.module('IdmsService', []).service('Idms', function($http, $routeParams, 
   };
 
   this.getMeasurements = function(measurements) {
-    $http.get('/unis/idms/measurements/').success(function(data) {
+    $http.get('/api/measurements/').success(function(data) {
       console.log('Measurement Request: ' + data);
       measurements(data);
     }).error(function(data) {
@@ -33,8 +33,8 @@ angular.module('IdmsService', []).service('Idms', function($http, $routeParams, 
     });
   };
 
-  this.getMeasurement = function(measurement) {
-    $http.get('/unis/idms/measurements/' + $routeParams.id)
+  this.getMeasurement = function(id, measurement) {
+    $http.get('/api/measurements/' + id)
       .success(function(data) {
         console.log('Measurement Request: ' + data);
         measurement(data);
@@ -45,7 +45,7 @@ angular.module('IdmsService', []).service('Idms', function($http, $routeParams, 
   };
 
   this.getMetadatas = function(metadata) {
-    $http.get('/unis/idms/metadata').success(function(data) {
+    $http.get('/api/metadata').success(function(data) {
       console.log('Metadata Request: ' + data);
       metadata(data);
     }).error(function(data) {
@@ -54,7 +54,7 @@ angular.module('IdmsService', []).service('Idms', function($http, $routeParams, 
   };
 
   this.getMetadata = function(id, metadata) {
-    $http.get('/unis/idms/metadata/' + id)
+    $http.get('/api/metadata/' + id)
       .success(function(data) {
         console.log('Metadata Request: ' + data);
         metadata(data);
@@ -65,13 +65,13 @@ angular.module('IdmsService', []).service('Idms', function($http, $routeParams, 
   };
 
   this.getMetadataData = function(id, metadataData) {
-    Socket.emit('idms_request',{id: id});
+    Socket.emit('data_id_request',{id: id});
 
-    $http.get('/unis/idms/data/' + id).success(function(data) {
+    $http.get('/api/data/' + id).success(function(data) {
       console.log('Data Request: ' + data);
       metadataData(data);
 
-      Socket.on('idms_data', function(data){
+      Socket.on('data_id_data', function(data){
         console.log('Incoming IDMS Data: ' , data);
         metadataData(data);
       });

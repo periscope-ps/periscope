@@ -34,7 +34,7 @@ angular.module('MetadataCtrl', []).controller('MetadataController', function($sc
   });
 
   if (metadata_id) {
-    Metadata.getMetadataData(function(metadataData) {
+    Metadata.getMetadataData(metadata_id, function(metadataData) {
       $scope.metadataData = $scope.metadataData || [];
 
       if (typeof metadataData =='string')
@@ -42,7 +42,7 @@ angular.module('MetadataCtrl', []).controller('MetadataController', function($sc
 
       $scope.metadataData = $scope.metadataData.concat(metadataData);
 
-      Metadata.getMetadata(function(metadata) {
+      Metadata.getMetadata(metadata_id, function(metadata) {
         $scope.eventType = metadata.eventType;
       });
 

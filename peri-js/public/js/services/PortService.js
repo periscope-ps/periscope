@@ -7,7 +7,7 @@
 angular.module('PortService', []).service('Port', function($http) {
 
   this.getPorts = function(ports) {
-    $http.get('/unis/ports')
+    $http.get('/api/ports')
       .success(function(data) {
         console.log('Port Request: ' + data);
         ports(data);

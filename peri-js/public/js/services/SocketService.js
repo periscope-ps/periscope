@@ -6,7 +6,7 @@
 
 angular.module('SocketService', []).service('Socket', function($rootScope) {
 
-  var socket = io.connect('http://localhost:42424');
+  var socket = io.connect(window.location.origin);
 
   this.on = function (eventName, callback) {
     socket.on(eventName, function () {

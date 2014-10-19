@@ -34,7 +34,7 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
   });
 
   if (measurement_id) {
-    Measurement.getMeasurement(function(measurement) {
+    Measurement.getMeasurement(measurement_id, function(measurement) {
       $scope.measurement = measurement;
     });
     Metadata.getMetadatas(function(metadatas) {
