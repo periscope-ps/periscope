@@ -172,6 +172,8 @@ var DownloadMap = (function(){
 						.attr("transform", function() {							
 							var loc = projection((latLongPair? latLongPair:[0,0]));
 							// Store the hashed location in the map so as to provide a random deviation if  locations overlap
+							if(!loc)
+								return;
 							var hash = Math.floor(loc[0] || 0)+":"+Math.floor(loc[1] || 0);
 							if(locationMap[hash]){
 								// Give a deviation

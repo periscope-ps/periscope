@@ -4,7 +4,7 @@
  * IdmsCtrl.js
  */
 
-angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $routeParams, $location, $timeout, $window, $rootscope, Idms) {
+angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $routeParams, $location, $timeout, $window, $rootScope, Idms) {
 
   var metadata_id = $routeParams.id;
   $scope.addGraph = false;
