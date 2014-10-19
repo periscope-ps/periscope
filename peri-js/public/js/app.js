@@ -7,10 +7,8 @@
 angular.module('measurementApp', [ 'ngRoute', 'ngAnimate', 'ui.utils',
 		'ui.bootstrap', 'nvd3ChartDirectives', 'directedGraphModule',
 		'appRoutes', 'SliceCtrl', 'SliceService', 'NodeCtrl', 'NodeService',
-		'ServiceCtrl', 'ServiceService',
-		'MeasurementCtrl', 'MeasurementService',
-		'HelpService', 'MetadataCtrl', 'MetadataService',
-		'IdmsMapCtrl', 'IdmsCtrl', 'IdmsService', 'PortService', 'SocketService',
-		'schemaForm' ]);
+		'ServiceCtrl', 'ServiceService', 'MeasurementCtrl', 'MeasurementService',
+		'MetadataCtrl', 'MetadataService', 'IdmsMapCtrl', 'IdmsCtrl', 'IdmsService',
+    'PortService', 'SocketService']);
 
 

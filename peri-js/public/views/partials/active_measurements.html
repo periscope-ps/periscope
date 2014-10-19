@@ -1,0 +1,12 @@
+<h2>Recent Measurements</h2>
+
+<div ng-controller="MeasurementController">
+  <div ng-repeat="measurement in measurements | orderBy:'-ts' | limitTo:3">
+    <dl class="lead">
+      <dd>{{ measurement.type }} | {{ measurement.configuration.name }}</dd>
+      <!-- <dd> <a ng-href="{{measurement.selfRef}}"> UNIS Instance </a> </dd> -->
+      <td><button ng-click="showDetails(measurement.id)" class="btn btn-info">Details</button></td>
+      <dd>{{ measurement.ts / 1000 | date:'yyyy-MM-d (EEE) @ h:m:s a Z'}}</dd>
+    </dl>
+  </div>
+</div>
