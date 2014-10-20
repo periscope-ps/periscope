@@ -115,4 +115,8 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
   $scope.showData = function(metadata_id) {
     $location.path('/idms/' + metadata_id);
   };
+
+  $scope.showMap = function(service_id) {
+    $location.path('/idmsMap/' + service_id);
+  };
 });

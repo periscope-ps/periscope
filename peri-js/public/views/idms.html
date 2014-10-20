@@ -1,17 +1,18 @@
 <h2 class="lead text-center">IDMS Services</h2>
 
-<!--ANgular takes stuff from comments as well... so full safety 
-<div ng-show="addGraph" ng-include 
+<!--ANgular takes stuff from comments as well... so full safety
+<div ng-show="addGraph" ng-include
 src=asdas oldSrc="'views/partials/idms_graph.html'"></div> -->
 
 
 <div class="table-responsive">
   <table class="table table-hover table-condensed">
     <colgroup>
+      <col span="1" style="width: 10%;">
       <col span="1" style="width: 20%;">
       <col span="1" style="width: 20%;">
       <col span="1" style="width: 20%;">
-      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 10%;">
       <col span="1" style="width: 20%;">
     </colgroup>
     <tr>
@@ -19,6 +20,7 @@ src=asdas oldSrc="'views/partials/idms_graph.html'"></div> -->
       <th>Access Point</th>
       <th>Running On Node</th>
       <th>Time to Live</th>
+      <th>Location</th>
       <th>Last Seen</th>
     </tr>
     <tbody ng-repeat="service in services | unique:'id' | orderBy:'-ts'">
@@ -31,6 +33,7 @@ src=asdas oldSrc="'views/partials/idms_graph.html'"></div> -->
         <td>{{ service.accessPoint }}</td>
         <td>{{ getServiceNode(service.accessPoint) }}</td>
         <td>{{ service.ttl }}</td>
+        <td><button ng-click="showMap(service.id)" class="btn btn-info">Show on Map</button></td>
         <td>{{ service.ts }}</td>
       </tr>
       <tr>
