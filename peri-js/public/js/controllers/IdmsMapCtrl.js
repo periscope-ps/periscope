@@ -16,7 +16,7 @@ function movingLineFromPointToPoint(st , end) {
 var DownloadMap = (function(){
 	// All config 
 	var width = 960,height = 500 , selector = '#downloadMap';
-	var progressStart = 0 , nodeLocationMap = {};
+	var progressStart = 0 , nodeLocationMap = {} , nodeLocationMapByName = {};
 	var knownLocations = {
 			'bloomington' : [-86.526386,39.165325] 
 	}
@@ -92,6 +92,7 @@ var DownloadMap = (function(){
 					});
 				}, 
 				initNodes : function(arr,id){
+					console.log("init NOdes ...... " , arr , id);
 					var color ;									
 					for(var i=0 ; i < arr.length ; i++ ){
 						if(arr[i]){
@@ -106,7 +107,7 @@ var DownloadMap = (function(){
 							default : color = 'yellow' , arr[i].status = 'Unknown';							
 							}
 							
-							d._addLocation(''+arr[i].ip, arr[i].loc , color)
+							d._addLocation(''+arr[i].ip, arr[i].loc , color , arr[i].id)
 							 .attr('status',arr[i].status);						
 						}
 					}
@@ -124,11 +125,12 @@ var DownloadMap = (function(){
 				    ;
 				},	
 				highlightNode : function(name){
-					var x = nodeLocationMap[name];
+					var x = nodeLocationMapByName[name];
 					console.log(name);
-					if(x){
+					if(name){
 						// Highlight it						
-						console.log(x);
+						svg.selectAll('circle').style('display','none');
+						x.style('display','block');
 					}
 				},
 				_doProgress : function(loc,progress){					
@@ -162,7 +164,7 @@ var DownloadMap = (function(){
 						 timer = setTimeout(tip.hide,2000);
 					  });
 				},
-				_addLocation : function(name, latLongPair,color) {		
+				_addLocation : function(name, latLongPair,color , othrName) {		
 					var color = color || d.getRandomColor();			
 					var node = svg.append("circle")
 						.attr("r",5)
@@ -190,6 +192,7 @@ var DownloadMap = (function(){
 							return "translate(" + loc + ")";
 						});
 					nodeLocationMap[name] = node ;
+					nodeLocationMapByName[othrName] = node ;
 					return  node ;
 				},		
 				changeStatus : function(changedMap){
@@ -275,10 +278,12 @@ angular.module('IdmsMapCtrl', []).controller('IdmsMapController', function($root
 		var immediateLoc = [];
 		var getLoc = [];
 		for (var i = 0 ; i < services.length ; i++){
-			var k = services[i];
+			var k = services[i];			
 			// TODO check if this location is the right field
-			if(k.location)
+			if(k.location && k.location.latitude && k.location.longitude){
+				k.loc = [k.location.longitude ,k.location.latitude];
 				immediateLoc.push(k);
+			}
 			else 
 				getLoc.push(k);
 		};
@@ -305,9 +310,8 @@ angular.module('IdmsMapCtrl', []).controller('IdmsMapController', function($root
 			DownloadMap.initNodes(data,id);
 		});
 	}
-	if($rootScope.idmsServices){
-		services = $rootScope.idmsServices;
-		initNodes(services);
+	if($scope.services){		
+		initNodes($scope.services);
 	} else {
 		Idms.getServices(function(services) {
 			
