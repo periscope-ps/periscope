@@ -4,79 +4,37 @@
  * IdmsService.js
  */
 
-angular.module('IdmsService', []).service('Idms', function($http, $routeParams, Socket) {
-
-  this.getNodes = function(nodes) {
-    $http.get('/api/nodes').success(function(data) {
-      console.log('HTTP Node Request: ' , data);
-      nodes(data);
-    }).error(function(data) {
-      console.log('HTTP Node Error: ' , data);
-    });
-  };
-
-  this.getServices = function(services) {
-    $http.get('/api/services').success(function(data) {
-      console.log('Service Request: ' , data);
-      services(data);
-    }).error(function(data) {
-      console.log('HTTP Service Error: ' ,  data);
-    });
-  };
-
-  this.getMeasurements = function(measurements) {
-    $http.get('/api/measurements/').success(function(data) {
-      console.log('Measurement Request: ' + data);
-      measurements(data);
-    }).error(function(data) {
-      console.log('Measurement Error: ' + data);
-    });
-  };
-
-  this.getMeasurement = function(id, measurement) {
-    $http.get('/api/measurements/' + id)
-      .success(function(data) {
-        console.log('Measurement Request: ' + data);
-        measurement(data);
-      })
-      .error(function(data) {
-        console.log('Measurement Error: ' + data);
-      });
-  };
-
-  this.getMetadatas = function(metadata) {
-    $http.get('/api/metadata').success(function(data) {
-      console.log('Metadata Request: ' + data);
-      metadata(data);
-    }).error(function(data) {
-      console.log('Metadata Error: ' + data);
-    });
-  };
+angular.module('IdmsService', []).service('Idms', function($http, Socket) {
 
   this.getMetadata = function(id, metadata) {
-    $http.get('/api/metadata/' + id)
-      .success(function(data) {
-        console.log('Metadata Request: ' + data);
-        metadata(data);
-      })
-      .error(function(data) {
-        console.log('Metadata Error: ' + data);
-      });
+    $http.get('/api/metadata/' + id).success(function(data) {
+      console.log('HTTP Metadata Request: ' + data);
+      metadata(data);
+    }).error(function(data) {
+      console.log('HTTP Metadata Error: ' + data);
+    });
   };
 
-  this.getMetadataData = function(id, metadataData) {
-    Socket.emit('data_id_request',{id: id});
+  this.getData = function(data) {
+    Socket.on('data_data',function(data_request) {
+      console.log('Incoming Service Depot Data: ' , data_request);
+      data(data_request);
+    });
+  };
+
+  this.getDataId = function(id, metadataData) {
+    Socket.emit('data_id_request',{'id': id});
 
     $http.get('/api/data/' + id).success(function(data) {
-      console.log('Data Request: ' + data);
+      console.log('HTTP Data Request: ' + data);
       metadataData(data);
 
       Socket.on('data_id_data', function(data){
-        console.log('Incoming IDMS Data: ' , data);
+        console.log('Incoming IDMS Data ID data: ' , data);
         metadataData(data);
       });
     }).error(function(data) {
-      console.log('Data Error: ' + data);
+      console.log('HTTP Data Error: ' + data);
     });
   };
 
