@@ -127,7 +127,7 @@ var DownloadMap = (function(){
 				highlightNode : function(name){
 					var x = nodeLocationMapByName[name];
 					console.log(name);
-					if(name){
+					if(x){
 						// Highlight it						
 						svg.selectAll('circle').style('display','none');
 						x.style('display','block');
@@ -313,7 +313,7 @@ angular.module('IdmsMapCtrl', []).controller('IdmsMapController', function($root
 	if($scope.services){		
 		initNodes($scope.services);
 	} else {
-		Idms.getServices(function(services) {
+		$rootScope.getServices(function(services) {
 			
 			// Need this services for the map as well -- Yes i am pollution the global scope , will find a better way later 
 		    $rootScope.idmsServices = $scope.services = $scope.services || $rootScope.idmsServices || [];
