@@ -176,8 +176,6 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
     for(var i = 0; i < $scope.services.length; i++) {
       if ($scope.services[i].runningOn.href == node_ref) {
         return $scope.services[i].selfRef;
-      } else {
-        return node_ref;
       }
     }
   };
