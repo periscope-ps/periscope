@@ -5,7 +5,6 @@
  */
 
 angular.module('MetadataService', []).service('Metadata', function($http, $routeParams, Socket) {
-  Socket.emit("metadata_request",{});
 
   this.getMetadatas = function(metadata) {
     $http.get('/api/metadata').success(function(data) {

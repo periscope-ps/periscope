@@ -4,65 +4,95 @@
  * IdmsCtrl.js
  */
 
-angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $routeParams, $location, $timeout, $window, $rootScope, Idms) {
+angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $routeParams, $location, $rootScope, Idms, Socket) {
+
+  var SHOW_ETS = ['ps:tools:blipp:ibp_server:resource:usage:used',
+                  'ps:tools:blipp:ibp_server:resource:usage:free',
+                  'ps:tools:blipp:linux:cpu:utilization:user',
+                  'ps:tools:blipp:linux:cpu:utilization:system'];
 
   var metadata_id = $routeParams.id;
+
+  // place inital app data into scope for view
+  $scope.services = $rootScope.services;
+  $scope.measurements = $rootScope.measurements;
+  $scope.metadata = $rootScope.metadata;
+  $scope.nodes = $rootScope.nodes;
+  $scope.ports = $rootScope.ports;
+
   $scope.addGraph = false;
 
-  Idms.getNodes(function(nodes) {
-    $scope.nodes = $scope.nodes || [];
+  // continue to listen for new data
+  Socket.on('service_data', function(data) {
 
-    if (typeof nodes =='string')
-      nodes = JSON.parse(nodes);
+    if (typeof data =='string') {
+      data = JSON.parse(data);
+    }
 
-    $scope.nodes = $scope.nodes.concat(nodes);
-  });
+    // data.status = 'New';
+    console.log('Socket Service Request: ', data);
 
-  Idms.getServices(function(services) {
-	// Need this services for the map as well -- Yes i am pollution the global scope , will find a better way later
-    $rootScope.idmsServices = $scope.services = $scope.services || $rootScope.idmsServices || [];
+    var now = Math.round(new Date().getTime() / 1e3) //seconds
+    data.ttl = Math.round(((data.ttl + (data.ts / 1e6)) - now));
 
-    if (typeof services =='string')
-      services = JSON.parse(services);
+    function searchServices(addService) {
+      console.log("searchServices function");
 
-    $rootScope.idmsServices = $scope.services = $scope.services.concat(services);
-  });
+      // search for duplicate id's
+      for(var i = 0; $scope.services.length; i++) {
 
-  Idms.getMeasurements(function(measurements) {
-    $scope.measurements = $scope.measurements || [];
+        if($scope.services[i].accessPoint == data.accessPoint) {
+          // $scope.services[i].ttl = -1;
+          console.log("removing: " + $scope.services[i].accessPoint + " ts: " + $scope.services[i].ts);
+          $scope.services.splice(i, 1);
+          break;
+        }
+      }
 
-    if (typeof measurements =='string')
-      measurements = JSON.parse(measurements);
+      // Call the callback
+      addService();
+    }
 
-    $scope.measurements = $scope.measurements.concat(measurements);
-  });
+    function addService() {
+      console.log("addService callback");
 
-  Idms.getMetadatas(function(metadata) {
-    $scope.metadata = $scope.metadata || [];
+      // add new data to scope for view
+      $scope.services.push(data);
+    }
 
-    if (typeof metadata =='string')
-      metadata = JSON.parse(metadata);
-
-    $scope.metadata = $scope.metadata.concat(metadata);
+    searchServices(addService);
   });
 
   if (metadata_id) {
-    Idms.getMetadataData(function(metadataData) {
-      $scope.metadataData = $scope.metadataData || [];
+    Idms.getDataId(metadata_id, function(data) {
+      $scope.data = $scope.data || [];
 
-      if (typeof metadataData =='string')
-        metadataData = JSON.parse(metadataData);
+      if (typeof data =='string')
+        data = JSON.parse(data);
 
-      $scope.metadataData = $scope.metadataData.concat(metadataData);
+      $scope.data = $scope.data.concat(data);
 
-      Idms.getMetadata(function(metadata) {
+      Idms.getMetadata(metadata_id, function(metadata) {
         $scope.eventType = metadata.eventType;
       });
 
       var arrayData = [];
-      angular.forEach($scope.metadataData, function(key, value) {
-        arrayData.push([key.ts, key.value]);
+      angular.forEach($scope.data, function(key, value) {
+          arrayData.push([key.ts, key.value]);
       });
+
+      $scope.xAxisTickFormat_Date_Format = function(){
+        return function(d){
+          var ts = d/1e3;
+          return d3.time.format('%X')(new Date(ts));
+        }
+      };
+
+      $scope.yAxisFormatFunction = function(){
+        return function(d){
+          return (d/1e9).toFixed(2); // GB
+        }
+      };
 
       $scope.graphData = [
       {
@@ -83,27 +113,51 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
       }
     }
   };
-  $scope.getServiceMeasurement = function(accessPoint) {
-    var ip = accessPoint.split(':')[1].replace('//', '');
 
+  $scope.getMetadataShortET = function(md) {
+    var arr = md.eventType.split(':');
+    return arr.pop();
+  };
+
+  $scope.getServiceMeasurement = function(sref) {
     for(var i = 0; i < $scope.measurements.length; i++) {
-      if($scope.measurements[i].configuration.command) {
-        if($scope.measurements[i].configuration.command.split(" ")[1] == ip) {
-          return $scope.measurements[i].eventTypes;
-        }
+      if($scope.measurements[i].service == sref) {
+        return $scope.measurements[i].eventTypes;
       }
     }
   };
-  $scope.getServiceMetadata = function(accessPoint) {
-    var ip = accessPoint.split(':')[1].replace('//', '');
-    var metadatas = [];
 
-    for(var i = 0; i < $scope.measurements.length; i++) {
-      if($scope.measurements[i].configuration.command) {
-        if($scope.measurements[i].configuration.command.split(" ")[1] == ip) {
-          for(var j = 0; j < $scope.metadata.length; j++) {
-            if($scope.metadata[j].parameters.measurement.href.split('/')[4] == $scope.measurements[i].id) {
-              metadatas.push($scope.metadata[j].id);
+  $scope.getServiceMetadata = function(service) {
+    var metadatas = [];
+    var seen_ets = [];
+
+    // this case is brutal because our metadata is missing subject hrefs
+    // perhaps can fix in blipp for IDMS
+    if (service.serviceType == 'ibp_server') {
+      var ip = service.accessPoint.split(':')[1].replace('//', '');
+      for (var i = 0; i < $scope.measurements.length; i++) {
+        if ($scope.measurements[i].configuration.command) {
+          if ($scope.measurements[i].configuration.command.split(" ")[1] == ip) {
+            for (var j = 0; j < $scope.metadata.length; j++) {
+              if ((seen_ets.indexOf($scope.metadata[j].eventType) == -1) &&
+                  ($scope.metadata[j].parameters.measurement.href.split('/')[4] == $scope.measurements[i].id)) {
+                    metadatas.push($scope.metadata[j]);
+                    seen_ets.push($scope.metadata[j].eventType);
+              }
+            }
+          }
+        }
+      }
+    } else {
+      for (var i = 0; i < $scope.measurements.length; i++) {
+        if ($scope.measurements[i].service == service.selfRef) {
+          for (var j = 0; j < $scope.metadata.length; j++) {
+            if ($scope.metadata[j].parameters.measurement.href == $scope.measurements[i].selfRef) {
+              if ((seen_ets.indexOf($scope.metadata[j].eventType) == -1) &&
+                  (SHOW_ETS.indexOf($scope.metadata[j].eventType) >= 0)) {
+                    metadatas.push($scope.metadata[j]);
+                    seen_ets.push($scope.metadata[j].eventType);
+              }
             }
           }
         }

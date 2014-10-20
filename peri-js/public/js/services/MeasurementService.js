@@ -5,7 +5,6 @@
  */
 
 angular.module('MeasurementService', []).service('Measurement', function($http, $routeParams, Socket) {
-  Socket.emit("measurement_request",{});
 
   this.getMeasurements = function(measurements) {
     $http.get('/api/measurements/').success(function(data) {
