@@ -9,26 +9,26 @@ angular.module('MeasurementService', []).service('Measurement', function($http, 
 
   this.getMeasurements = function(measurements) {
     $http.get('/api/measurements/').success(function(data) {
-      console.log('Measurement Request: ' + data);
+      console.log('HTTP Measurement Request: ' + data);
       measurements(data);
 
       Socket.on('measurement_data',function(data){
-        console.log('Measurement Service Request: ' , data);
+        console.log('Incoming Socket Measurement Data: ' , data);
         measurements(data);
       });
     }).error(function(data) {
-      console.log('Measurement Error: ' + data);
+      console.log('HTTP Measurement Error: ' + data);
     });
   };
 
   this.getMeasurement = function(id, measurement) {
     $http.get('/api/measurements/' + id)
       .success(function(data) {
-        console.log('Measurement Request: ' + data);
+        console.log('HTTP Measurement Request: ' + data);
         measurement(data);
       })
       .error(function(data) {
-        console.log('Measurement Error: ' + data);
+        console.log('HTTP Measurement Error: ' + data);
       });
   };
 });
