@@ -5,7 +5,6 @@
  */
 
 angular.module('ServiceService', []).service('Service', function($http, Socket) {
-  Socket.emit("service_request",{});
 
   this.getServices = function(services) {
     $http.get('/api/services').success(function(data) {
