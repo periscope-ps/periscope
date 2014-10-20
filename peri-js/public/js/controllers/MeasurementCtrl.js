@@ -25,8 +25,18 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
 
     $scope.services = $scope.services.concat(services);
 
-    $scope.getMeasurementService = function(href) {
-      var service_id = href.split('/')[4];
+    $scope.getMeasurementService = function(measurement) {
+      var parts = [];
+
+      if(measurement.participants != null) {
+        for(var i = 0; i < measurement.participants.length; i++) {
+          parts.push({'to': measurement.participants[i].to});
+          parts.push({'from': measurement.participants[i].from});
+        }
+        return parts;
+      } else {
+        var service_id = measurement.service.split('/')[4];
+      }
 
       for(var i = 0; i < $scope.services.length; i++) {
         if ($scope.services[i].id == service_id) {
@@ -44,8 +54,14 @@ angular.module('MeasurementCtrl', []).controller('MeasurementController', functi
 
     $scope.nodes = $scope.nodes.concat(nodes);
 
-    $scope.getMeasurementNode = function(href) {
-      var service_id = href.split('/')[4];
+    $scope.getMeasurementNode = function(measurement) {
+      var parts =[];
+
+      if(measurement.participants != null) {
+        return 'Mult-Node';
+      } else {
+        var service_id = measurement.service.split('/')[4];
+      }
 
       for(var i = 0; i < $scope.services.length; i++) {
         if ($scope.services[i].id == service_id) {

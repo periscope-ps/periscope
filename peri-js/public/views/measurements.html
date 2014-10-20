@@ -23,8 +23,8 @@
         <button ng-show="measurement.configuration.status === undefined || measurement.configuration.status === 'OFF'" class="btn btn-danger disabled">OFF</button>
       </td>
       <td>{{ measurement.configuration.name }}</td>
-      <td>{{ getMeasurementService(measurement.service) }}</td>
-      <td>{{ getMeasurementNode(measurement.service) }}</td>
+      <td>{{ getMeasurementService(measurement) }}</td>
+      <td>{{ getMeasurementNode(measurement) }}</td>
       <td><button ng-click="showDetails(measurement.id)" class="btn btn-info">Details</button></td>
       <td>{{ measurement.ts / 1000 | date:'yyyy-MM-d (EEE) @ h:m:s.sss a Z'}}</td>
     </tr>

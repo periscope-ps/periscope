@@ -2,6 +2,14 @@ body {
   padding-top: 70px;
 }
 
+table{
+  table-layout: fixed;
+}
+
+td{
+  word-wrap:break-word;
+}
+
 .navbar {
   font-size: 14px;
   background: #990000;
