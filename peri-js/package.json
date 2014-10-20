@@ -1,6 +1,6 @@
 {
   "name": "peri-js",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "front end application for periscope",
   "author": "Mark Keele <mkeele@indiana.edu>",
   "main": "server.js",
