@@ -92,9 +92,11 @@ var DownloadMap = (function(){
 					});
 				}, 
 				initNodes : function(arr,id){
-					var color ;
+					var color ;									
 					for(var i=0 ; i < arr.length ; i++ ){
 						if(arr[i]){
+							if(id && id != arr[i].id)
+								continue;
 							switch(arr[i].status){
 							case 'ON' :color = 'rgb(0,255,0)';
 							break;
