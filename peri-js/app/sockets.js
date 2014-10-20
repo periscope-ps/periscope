@@ -11,12 +11,13 @@ var WebSocket = require('ws')
 // export function for listening to the socket
 module.exports = function (client_socket) {
 
-  var unis_sub = 'ws://unis.incntre.iu.edu:8443/subscribe/';
-  var ms_host = '';
-  var ms_port = '';
+  var unis_sub = 'wss://unis.incntre.iu.edu:8443/subscribe/';
   var filePath = '/usr/local/etc/node.info';
 
   fs.readFile(filePath, {encoding: 'utf-8'}, function(err, data) {
+    var ms_host = '';
+    var ms_port = '';
+
     if (err) {
       console.log('file read error: ' + err);
     } else {
@@ -34,11 +35,14 @@ module.exports = function (client_socket) {
    }
   });
 
-  var ms_sub = 'ws://' + ms_host + ':' + ms_port + '/subscribe/';
+  var ms_sub = 'wss://' + ms_host + ':' + ms_port + '/subscribe/';
 
   var ssl_opts = {'cert': fs.readFileSync('/usr/local/etc/certs/unis-proxy.pem'),
                   'key': fs.readFileSync('/usr/local/etc/certs/unis-proxy.pem'),
                   rejectUnauthorized: false};
+
+  console.log('UNIS subscribe: ' + unis_sub);
+  console.log('MS subscribe: ' + ms_sub);
 
   // establish client socket
   console.log('Client connected');
@@ -121,6 +125,7 @@ module.exports = function (client_socket) {
 
   client_socket.on('data_id_request', function(data) {
     console.log('UNIS: Data ID requested: ' + data.id);
+    console.log(ms_sub+'data/'+data.id);
 
     // Create socket to listen for updates on data
     var dataSocket = new WebSocket(ms_sub + 'data/' + data.id, ssl_opts);
@@ -130,7 +135,7 @@ module.exports = function (client_socket) {
     });
 
     dataSocket.on('message', function(data) {
-      console.log('UNIS: data_data: ' + data);
+      console.log('UNIS: data_id_data: ' + data);
       client_socket.emit('data_id_data', data);
     });
 
