@@ -16,7 +16,8 @@
     "angularjs-nvd3-directives": "~0.0.7",
     "d3-tip": "~0.6.4",
     "angular-schema-form": "~0.7.3",
-    "topojson": "~1.6.18"
+    "topojson": "~1.6.18",
+    "angular-loading-bar": "~0.6.0"
   },
   "resolutions": {
     "angular": "~1.2.6",

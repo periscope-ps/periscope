@@ -4,7 +4,9 @@
  * appRoutes.js
  */
 
-angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', 'cfpLoadingBarProvider', function($routeProvider, $locationProvider, cfpLoadingBarProvider) {
+
+  cfpLoadingBarProvider.includeSpinner = false;
 
   $routeProvider.
     when('/', {
