@@ -38,13 +38,13 @@ angular.module('MetadataService', []).service('Metadata', function($http, $route
     $http.get('/api/data/' + id).success(function(data) {
       console.log('HTTP Data ID Request: ' + data);
       metadataData(data);
-
-      Socket.on('data_id_data',function(data){
-        console.log('Incoming Socket Data ID Data: ' , data);
-        metadataData(data);
-      });
     }).error(function(data) {
       console.log('HTTP Data ID Error: ' + data);
+    });
+
+    Socket.on('data_id_data',function(data){
+      console.log('Incoming Socket Data ID Data: ' , data);
+      metadataData(data);
     });
   };
 

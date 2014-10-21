@@ -1155,7 +1155,7 @@ module.exports = function(app) {
 
     var data_id = req.params.id;
 
-    if (true) {
+    if (production) {
       console.log('running in production');
 
       // HTTPS Options

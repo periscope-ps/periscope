@@ -40,6 +40,7 @@ module.exports = function (client_socket) {
   var ssl_opts = {'cert': fs.readFileSync('/usr/local/etc/certs/unis-proxy.pem'),
                   'key': fs.readFileSync('/usr/local/etc/certs/unis-proxy.pem'),
                   rejectUnauthorized: false};
+  var socket_ids = [];
 
   console.log('UNIS subscribe: ' + unis_sub);
   console.log('MS subscribe: ' + ms_sub);
@@ -125,7 +126,13 @@ module.exports = function (client_socket) {
 
   client_socket.on('data_id_request', function(data) {
     console.log('UNIS: Data ID requested: ' + data.id);
-    console.log(ms_sub+'data/'+data.id);
+
+    if(socket_ids.indexOf(data.id) == -1) {
+      // Create socket to listen for updates on data
+      var dataSocket = new WebSocket(ms_sub + 'data/' + data.id, ssl_opts);
+
+      socket_ids.push(data.id);
+    }
 
     // Create socket to listen for updates on data
     var dataSocket = new WebSocket(ms_sub + 'data/' + data.id, ssl_opts);

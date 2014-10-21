@@ -44,18 +44,26 @@ angular.module('MetadataCtrl', []).controller('MetadataController', function($sc
     $scope.services = $scope.services.concat(services);
   });
 
-  if (metadata_id) {
+  if (metadata_id != null) {
+
+    $scope.eventType = [];
+
+    Metadata.getMetadata(metadata_id, function(metadata) {
+      $scope.eventType = metadata[0].eventType;
+    });
+
     Metadata.getDataId(metadata_id, function(data) {
+
+      $scope.data = [];
+      var arrayData = [];
+      $scope.graphData = [];
+
       $scope.data = $scope.data || [];
 
       if (typeof data =='string')
         data = JSON.parse(data);
 
       $scope.data = $scope.data.concat(data);
-
-      Metadata.getMetadata(metadata_id, function(metadata) {
-        $scope.eventType = metadata[0].eventType;
-      });
 
       var arrayData = [];
       angular.forEach($scope.data, function(key, value) {
