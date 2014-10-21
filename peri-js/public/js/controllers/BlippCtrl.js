@@ -605,9 +605,9 @@ angular.module('BlippCtrl', []).controller('BlippController', function($scope, $
 
       // build ping command from user options
       if ($scope.perfData.proto.type == 'udp') {
-        var perf_command = "iperf -u -c " + portIP + " -t 20 -y C ";
+        var perf_command = "iperf -u -c " + portIP + " -t 20 -y C -p 6002";
       } else {
-        var perf_command = "iperf -c " + portIP + " -t 20 -y C ";
+        var perf_command = "iperf -c " + portIP + " -t 20 -y C -p 6002";
       }
 
       // lookup service running on given node

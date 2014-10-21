@@ -183,9 +183,9 @@ angular.module('HelmCtrl', []).controller('HelmController', function($scope, $ht
         //var portIP = $scope.getPortIP(nodePort);
         // build ping command from user options
         if ($scope.helmIperfData.proto.type == 'udp') {
-          var perf_command = "iperf -u -c " +" -t " + $scope.helmIperfData.td +  " -y C ";
+          var perf_command = "iperf -u -c " +" -t " + $scope.helmIperfData.td +  " -y C -p 6002";
         } else {
-          var perf_command = "iperf -c "+ " -t " + $scope.helmIperfData.td +  " -y C ";
+          var perf_command = "iperf -c "+ " -t " + $scope.helmIperfData.td +  " -y C -p 6002";
         }
 
         var from_node, to_node, from_service, to_service, pair;
