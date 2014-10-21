@@ -40,7 +40,7 @@ module.exports = function (client_socket) {
   var ssl_opts = {'cert': fs.readFileSync('/usr/local/etc/certs/unis-proxy.pem'),
                   'key': fs.readFileSync('/usr/local/etc/certs/unis-proxy.pem'),
                   rejectUnauthorized: false};
-  var socket_ids = [];
+  var sockets = [];
 
   console.log('UNIS subscribe: ' + unis_sub);
   console.log('MS subscribe: ' + ms_sub);
@@ -127,18 +127,18 @@ module.exports = function (client_socket) {
   client_socket.on('data_id_request', function(data) {
     console.log('UNIS: Data ID requested: ' + data.id);
 
-    if(socket_ids.indexOf(data.id) == -1) {
-      // Create socket to listen for updates on data
-      var dataSocket = new WebSocket(ms_sub + 'data/' + data.id, ssl_opts);
-
-      socket_ids.push(data.id);
+    for(var i = 0; i < sockets.length; i++) {
+      dataSocket = sockets[i];
+      dataSocket.close();
     }
 
     // Create socket to listen for updates on data
     var dataSocket = new WebSocket(ms_sub + 'data/' + data.id, ssl_opts);
 
+    sockets.push(dataSocket);
+
     dataSocket.on('open', function(event) {
-      console.log('UNIS: Data ID socket opened');
+      console.log('UNIS: Data ID socket opened for: ' + data.id);
     });
 
     dataSocket.on('message', function(data) {
@@ -147,7 +147,7 @@ module.exports = function (client_socket) {
     });
 
     dataSocket.on('close', function(event) {
-      console.log('UNIS: Data ID socket closed');
+      console.log('UNIS: Data ID socket closed for: ' + data.id);
     });
   });
 

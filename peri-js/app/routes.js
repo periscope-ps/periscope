@@ -128,7 +128,6 @@ module.exports = function(app) {
     // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_get_options = {
@@ -213,7 +212,6 @@ module.exports = function(app) {
     var node_id = req.params.id;
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_get_options = {
@@ -286,7 +284,6 @@ module.exports = function(app) {
     // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_get_options = {
@@ -371,7 +368,6 @@ module.exports = function(app) {
     var service_id = req.params.id;
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_get_options = {
@@ -444,7 +440,6 @@ module.exports = function(app) {
     // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_get_options = {
@@ -520,7 +515,6 @@ module.exports = function(app) {
     var measurement_id = req.params.id;
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_get_options = {
@@ -597,7 +591,6 @@ module.exports = function(app) {
     var post_data = JSON.stringify(req.body);
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_post_options = {
@@ -709,7 +702,6 @@ module.exports = function(app) {
     console.log("put length: " + put_data.length);
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_put_options = {
@@ -824,7 +816,6 @@ module.exports = function(app) {
     var delete_data = JSON.stringify(req.body);
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_delete_options = {
@@ -931,7 +922,6 @@ module.exports = function(app) {
     // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_get_options = {
@@ -1007,7 +997,6 @@ module.exports = function(app) {
     var metadata_id = req.params.id;
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_get_options = {
@@ -1080,7 +1069,6 @@ module.exports = function(app) {
     // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
-      console.log('running in production');
 
       // HTTPS Options
       var https_get_options = {
@@ -1156,7 +1144,6 @@ module.exports = function(app) {
     var data_id = req.params.id;
 
     if (production) {
-      console.log('running in production');
 
       // HTTPS Options
       var https_get_options = {
@@ -1229,7 +1216,6 @@ module.exports = function(app) {
     // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_get_options = {
@@ -1305,7 +1291,6 @@ module.exports = function(app) {
     var link_id = req.params.id;
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_get_options = {
@@ -1378,7 +1363,6 @@ module.exports = function(app) {
     // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_get_options = {
@@ -1454,7 +1438,6 @@ module.exports = function(app) {
     var port_id = req.params.id;
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_get_options = {
@@ -1527,7 +1510,6 @@ module.exports = function(app) {
     // console.log('BODY: ' + JSON.stringify(res.body));
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_get_options = {
@@ -1603,7 +1585,6 @@ module.exports = function(app) {
     var domain_id = req.params.id;
 
     if (production) {
-      console.log('running in production');
 
       /* HTTPS Options */
       var https_get_options = {

@@ -54,10 +54,6 @@ angular.module('MetadataCtrl', []).controller('MetadataController', function($sc
 
     Metadata.getDataId(metadata_id, function(data) {
 
-      $scope.data = [];
-      var arrayData = [];
-      $scope.graphData = [];
-
       $scope.data = $scope.data || [];
 
       if (typeof data =='string')
