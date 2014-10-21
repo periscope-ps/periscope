@@ -2,12 +2,16 @@
 
 <nvd3-line-chart
   data="graphData"
-  width="1000"
-  height="500"
+  width="600"
+  height="400"
   margin="{left:100,top:50,bottom:0,right:0}"
   showXAxis="true"
   showYAxis="true"
   tooltips="true"
   noData="No Data for this Event Type"
+  xAxisTickFormat="xAxisTickFormat_Date_Format()"
+  yAxisTickFormat="yAxisFormatFunction()"
+  yAxisLabel="GigaBytes"
+  xAxisLabel="Time"
   interactive="true">
 </nvd3-line-chart>
