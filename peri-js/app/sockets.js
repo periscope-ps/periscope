@@ -11,6 +11,7 @@ var WebSocket = require('ws') , freegeoip = require('node-freegeoip');
 module.exports = function (client_socket,routeMethods) {
   var unis_sub = 'ws://monitor.incntre.iu.edu:9000/subscribe/';
   var ms_sub = 'ws://monitor.incntre.iu.edu:9001/subscribe/';
+  var sockets = [];
 
   // establish client socket
   console.log('Client connected');
@@ -112,11 +113,18 @@ module.exports = function (client_socket,routeMethods) {
   client_socket.on('data_id_request', function(data) {
     console.log('UNIS: Data ID requested: ' + data.id);
 
+    for(var i = 0; i < sockets.length; i++) {
+      dataSocket = sockets[i];
+      dataSocket.close();
+    }
+
     // Create socket to listen for updates on data
     var dataSocket = new WebSocket(ms_sub + 'data/' + data.id);
 
+    sockets.push(dataSocket);
+
     dataSocket.on('open', function(event) {
-      console.log('UNIS: Data ID socket opened');
+      console.log('UNIS: Data ID socket opened for: ' + data.id);
     });
 
     dataSocket.on('message', function(data) {
@@ -125,7 +133,7 @@ module.exports = function (client_socket,routeMethods) {
     });
 
     dataSocket.on('close', function(event) {
-      console.log('UNIS: Data ID socket closed');
+      console.log('UNIS: Data ID socket closed for: ' + data.id);
     });
   });
 

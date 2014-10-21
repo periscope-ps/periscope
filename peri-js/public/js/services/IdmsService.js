@@ -28,13 +28,13 @@ angular.module('IdmsService', []).service('Idms', function($http, Socket) {
     $http.get('/api/data/' + id).success(function(data) {
       console.log('HTTP Data Request: ' + data);
       metadataData(data);
-
-      Socket.on('data_id_data', function(data){
-        console.log('Incoming IDMS Data ID data: ' , data);
-        metadataData(data);
-      });
     }).error(function(data) {
       console.log('HTTP Data Error: ' + data);
+    });
+
+    Socket.on('data_id_data', function(data){
+      console.log('Incoming IDMS Data ID data: ' , data);
+      metadataData(data);
     });
   };
 

@@ -63,7 +63,14 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
     searchServices(addService);
   });
 
-  if (metadata_id) {
+  if (metadata_id != null) {
+
+    $scope.eventType = [];
+
+    Idms.getMetadata(metadata_id, function(metadata) {
+      $scope.eventType = metadata.eventType;
+    });
+
     Idms.getDataId(metadata_id, function(data) {
       $scope.data = $scope.data || [];
 
@@ -71,10 +78,6 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
         data = JSON.parse(data);
 
       $scope.data = $scope.data.concat(data);
-
-      Idms.getMetadata(metadata_id, function(metadata) {
-        $scope.eventType = metadata.eventType;
-      });
 
       var arrayData = [];
       angular.forEach($scope.data, function(key, value) {
@@ -102,7 +105,7 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
     });
   }
 
-  $scope.getServiceNode = function(accessPoint) {
+  /*$scope.getServiceNode = function(accessPoint) {
     var ip = accessPoint.split(':')[1].replace('//', '');
 
     for(var i = 0; i < $scope.nodes.length; i++) {
@@ -112,7 +115,7 @@ angular.module('IdmsCtrl', []).controller('IdmsController', function($scope, $ro
         return 'Node Unknown';
       }
     }
-  };
+  };*/
 
   $scope.getMetadataShortET = function(md) {
     var arr = md.eventType.split(':');
