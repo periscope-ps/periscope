@@ -2,6 +2,7 @@
   "name": "peri-js",
   "version": "0.0.1",
   "dependencies": {
+    "jquery" : "*",
     "bootstrap": "3.1.1",
     "font-awesome": "4.1.0",
     "animate.css": "3.1.1",
