@@ -1,6 +1,5 @@
 <h2 class="lead text-center">Configured Services in UNIS</h2>
-<div class="table-responsive" style="dispaly:block ; height : auto ; box-sizing : border-box" infinite-scroll='loadMore()'
-infinite-scroll-disabled='serviceBusy' infinite-scroll-distance='1'>
+<div class="table-responsive">
   <table class="table table-hover table-condensed">
     <colgroup>
       <col span="1" style="width: 10%;">
@@ -16,7 +15,7 @@ infinite-scroll-disabled='serviceBusy' infinite-scroll-distance='1'>
       <th>Type</th>
       <th>Timestamp</th>
     </tr>
-    <tr ng-repeat="service in services">      
+    <tr ng-repeat="service in services | filter: { type: '!ps:tools:ms'} | unique:'id' | orderBy:'-ts'">
       <td><button type="button" class="btn btn-info disabled"> {{ service.status }}</button></td>
       <td>{{ service.name }}</td>
       <td>{{ getServiceNode(service) }}</td>

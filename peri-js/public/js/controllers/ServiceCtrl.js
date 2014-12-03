@@ -5,19 +5,7 @@
  */
 
 angular.module('ServiceCtrl', []).controller('ServiceController', function($scope, Service, Node) {
-	var start = 0 , pagingSize = 10 ;
-	$scope.serviceBusy = false;
-	$scope.loadMore = function() {
-		$scope.serviceBusy = true;
-		Service.getServices(function(services , count ){
-			if (typeof services =='string')
-			      services = JSON.parse(services);
-			$scope.services = $scope.services.concat(services);
-			start += services.length ;
-			if(start < count && services.length != 0)
-				$scope.serviceBusy = false ;
-		},start, start + pagingSize);			
-	};	
+
   // GET request for initial set of data
   // Request a socket connection
   // New data will enter scope through socket
@@ -28,7 +16,6 @@ angular.module('ServiceCtrl', []).controller('ServiceController', function($scop
       services = JSON.parse(services);
 
     $scope.services = $scope.services.concat(services);
-    start += services.length ;
   });
 
   Node.getNodes(function(nodes) {
