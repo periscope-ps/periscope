@@ -8,8 +8,19 @@ var fs = require('fs')
   , path = require('path')
   , http = require('http')
   , https = require('https')
-  , url = require('url');
+  , url = require('url')
+  , querystring = require('querystring');
 
+// Really a fallback 
+if(!querystring){
+	querystring = querystring || {} ;
+	querystring.stringify = function(obj){
+		var ret = "";
+		for (i in obj){
+			ret += escape(i) + "=" + escape(obj[i]); 
+		}		
+	}
+}
 // UNIS development config
 var production = false;
 var unis_host = 'monitor.incntre.iu.edu';
@@ -102,7 +113,7 @@ module.exports = function(app) {
     routes.push('http://' + hostname + pathname + '/measurements');
     routes.push('http://' + hostname + pathname + '/metadata');
     routes.push('http://' + hostname + pathname + '/data');
-
+    
     res.json(routes);
   });
 
@@ -413,8 +424,8 @@ module.exports = function(app) {
     }
   });
 
-  self.getIdmsServices = (function(cb){
-
+  self.getIdmsServices = (function(params,cb){
+	  var paramsUrl = "?"+querystring.stringify(params);
 	  if (production) {
 		  console.log('running in production');
 
@@ -427,7 +438,7 @@ module.exports = function(app) {
 				  requestCert: true,
 				  rejectUnauthorized: false,
 				  // path: '/services?properties.geni.slice_uuid=' + slice_uuid,
-				  path: '/services',
+				  path: '/services' + paramsUrl ,
 				  method: 'GET',
 				  headers: {
 					  'Content-type': 'application/perfsonar+json',
@@ -437,18 +448,18 @@ module.exports = function(app) {
 		  /* GET JSON and Render to our API */
 		  https.get(https_get_options, function(http_res) {
 			  var data = '';
-
+			  var headers = http_res.headers ;
 			  http_res.on('data', function (chunk) {
 				  data += chunk;
 			  });
 			  http_res.on('end',function() {
 				  var obj = JSON.parse(data);
 				  // console.log( obj );
-				  cb({data:obj , type : 'json'});
+				  cb({data:obj , type : 'json' , headers : headers });
 			  });
 			  http_res.on('error',function() {
 				  console.log('problem with request: ' + e.message);
-				  cb({data: {} , type : '404'});
+				  cb({data: {} , type : '404', headers : headers });
 			  });
 		  });
 	  } else {
@@ -456,7 +467,7 @@ module.exports = function(app) {
 		  var http_get_options = {
 				  hostname: unis_host,
 				  port: unis_port,
-				  path: '/services',
+				  path: '/services' + paramsUrl ,
 				  method: 'GET',
 				  headers: {
 					  'Content-type': 'application/perfsonar+json',
@@ -465,6 +476,7 @@ module.exports = function(app) {
 		  };
 		  /* GET JSON and Render to our API */
 		  http.get(http_get_options, function(http_res) {
+			  var headers = http_res.headers ;			  
 			  var data = '';
 
 			  http_res.on('data', function (chunk) {
@@ -473,11 +485,11 @@ module.exports = function(app) {
 			  http_res.on('end',function() {
 				  var obj = JSON.parse(data);
 				  // console.log( obj );
-				  cb({data:obj , type : 'json'});
+				  cb({data:obj , type : 'json', headers : headers });
 			  });
 			  http_res.on('error',function() {
 				  console.log('problem with request: ' + e.message);
-				  cb({data: {} , type : '404'});
+				  cb({data: {} , type : '404', headers : headers });
 			  });
 		  });
 	  }
@@ -486,11 +498,20 @@ module.exports = function(app) {
     // console.log('STATUS: ' + res.statusCode);
     // console.log('HEADERS: ' + JSON.stringify(res.headers));
     // console.log('BODY: ' + JSON.stringify(res.body));
-    /* Access Model Created from Mongo */
-	  var services = self.getIdmsServices(function(j){
+    /* Access Model Created from Mongo */	  
+	  //console.log(req.query);
+	  var services = self.getIdmsServices(req.query , function(j){
 		  var data = j.data , type = j.type ;
+		  var headers = j.headers ;
+		  var tmpH = {};
+		  for (var i in headers){
+			  tmpH['unis_'+i] = headers[i];
+		  }
 		  switch(type){
-			  case 'json' : res.json(data);
+			  case 'json' :  {
+				  res.set(tmpH);
+				  res.json(data);
+			  }
 			  break
 			  case '404' : res.send(404);
 			  break;

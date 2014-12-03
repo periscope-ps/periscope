@@ -4,12 +4,13 @@
  * app.js
  */
 
+
 angular.module('measurementApp', [ 'ngRoute', 'ngAnimate', 'ui.utils', 'angular-loading-bar',
 		'ui.bootstrap', 'nvd3ChartDirectives', 'directedGraphModule',
 		'appRoutes', 'SliceCtrl', 'SliceService', 'NodeCtrl', 'NodeService',
 		'ServiceCtrl', 'ServiceService', 'MeasurementCtrl', 'MeasurementService',
 		'MetadataCtrl', 'MetadataService', 'IdmsMapCtrl', 'IdmsCtrl', 'IdmsService',
-    'PortService', 'SocketService']
+    'PortService', 'SocketService','infinite-scroll'] 
     ).run(function($rootScope, $http, $q, $timeout, $location, Socket,$route) {
     var smPromises = [] ;
 
