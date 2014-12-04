@@ -16,7 +16,13 @@ angular.module('ServiceCtrl', []).controller('ServiceController', function($scop
 			start += services.length ;
 			if(start < count && services.length != 0)
 				$scope.serviceBusy = false ;
-		},start, start + pagingSize);			
+		},start, start + pagingSize,{
+			  f : {
+				  serviceType : "not"+escape("=")+"ps:tools:ms"
+			  } , 
+			  sort : "ts:-1"
+		  });
+		
 	};	
   // GET request for initial set of data
   // Request a socket connection
@@ -29,8 +35,12 @@ angular.module('ServiceCtrl', []).controller('ServiceController', function($scop
 
     $scope.services = $scope.services.concat(services);
     start += services.length ;
+  },0,10,{
+	  f : {
+		  serviceType : "not"+escape("=")+"ps:tools:ms"		  
+	  }, 
+	  sort : "ts:-1"
   });
-
   Node.getNodes(function(nodes) {
     $scope.nodes = nodes;
 
