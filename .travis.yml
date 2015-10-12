@@ -1,0 +1,6 @@
+language: python
+python:
+ - "2.7"
+# command to install dependencies
+install: "python setup.py develop"
+script: periscope/test/runtests.py
